@@ -110,3 +110,58 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* ========================================================================== */
+/* Estilização Customizada para Carrossel Horizontal (Swiper)                 */
+/* ========================================================================== */
+
+/* Cor e estilo das setas de navegação */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: #40E0D0; /* Cor Turquesa */
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: rgba(17, 17, 17, 0.7);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(25, 25, 25, 0.9);
+}
+
+/* Esconder setas em telas muito pequenas */
+@media (max-width: 767px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+}
+
+
+/* Estilo da Paginação (bolinhas) */
+.swiper-pagination-bullet {
+  background-color: #666; /* Cor das bolinhas inativas */
+  width: 10px;
+  height: 10px;
+  opacity: 0.8;
+  transition: background-color 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #40E0D0; /* Cor Turquesa para a bolinha ativa */
+  transform: scale(1.2);
+}
+
+.swiper-pagination {
+  bottom: 0px !important; /* Posição da paginação */
+}
