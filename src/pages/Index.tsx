@@ -1,3 +1,4 @@
+import React from 'react'; // Importe o React se ainda não tiver
 import HeroSection from "@/components/HeroSection";
 import VideoSection from "@/components/VideoSection";
 import ForWhoSection from "@/components/ForWhoSection";
@@ -5,18 +6,27 @@ import TrainersSection from "@/components/TrainersSection";
 import LearningSection from "@/components/LearningSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FinalCtaSection from "@/components/FinalCtaSection";
+import PricingSection from "@/components/PricingSection";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <HeroSection />
-      <VideoSection />
-      <ForWhoSection />
-      <TrainersSection />
-      <LearningSection />
-      <TestimonialsSection />
-      <FinalCtaSection />
-    </div>
+    // Usamos um Fragment (<>...</>) para agrupar os dois elementos
+    <>
+      <div className="min-h-screen">
+        <HeroSection />
+        <VideoSection />
+        <ForWhoSection />
+        <TrainersSection />
+        <LearningSection />
+        <TestimonialsSection />
+        <PricingSection />
+        <FinalCtaSection />
+      </div>
+      
+      {/* O Botão agora está FORA da div principal */}
+      <WhatsAppButton />
+    </>
   );
 };
 

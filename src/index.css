@@ -165,3 +165,18 @@ All colors MUST be HSL.
 .swiper-pagination {
   bottom: 0px !important; /* Posição da paginação */
 }
+
+/* ========================================================================== */
+/* Correção de Visibilidade para o Botão Flutuante do WhatsApp                */
+/* ========================================================================== */
+
+/* Este seletor encontra especificamente o link do WhatsApp e força 
+  sua visibilidade, sobrescrevendo qualquer regra problemática 
+  dos arquivos base do Lovable.
+*/
+a[href*="wa.me"] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 9999 !important; /* Garante que ele fique na frente de tudo */
+}
