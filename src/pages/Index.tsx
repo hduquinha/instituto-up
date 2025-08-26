@@ -1,4 +1,4 @@
-import React from 'react'; // Importe o React se ainda não tiver
+import React from 'react';
 import HeroSection from "@/components/HeroSection";
 import VideoSection from "@/components/VideoSection";
 import ForWhoSection from "@/components/ForWhoSection";
