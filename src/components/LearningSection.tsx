@@ -1,52 +1,89 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 
-const LearningSection = () => {
-  const learningPoints = [
-    {
-      title: "Gestão das Emoções",
-      description: "Aprenda a reconhecer e gerenciar suas emoções de forma saudável."
-    },
-    {
-      title: "Comunicação Eficaz",
-      description: "Desenvolva habilidades de comunicação assertiva para melhorar seus relacionamentos."
-    },
-    {
-      title: "Redução da Ansiedade",
-      description: "Domine técnicas para se sentir mais calmo, confiante e produtivo."
-    }
-  ];
-
+const BenefitsSection = () => {
   return (
-    <section className="bg-dark-bg py-20 px-6">
-      <div className="container max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-text-light">
-          O Mapa da sua{" "}
-          <span className="text-turquoise">Transformação</span>
-        </h2>
+    // Fundo alterado para um tom de "quase preto" para diferenciação sutil
+    <section className="relative bg-gray-950 py-20 px-4 sm:px-6">
+      <div className="absolute inset-0 flex justify-center items-center opacity-50">
+        <div className="w-[1000px] h-[1000px] bg-turquoise/5 rounded-full blur-[175px]"></div>
+      </div>
+
+      <div className="relative z-10 container max-w-6xl mx-auto">
+        <div className="text-center mb-16" data-aos="fade-up">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
+            Sua <span className="text-turquoise">Decisão</span>, Seu <span className="text-turquoise">Futuro</span>
+          </h2>
+          <p className="max-w-2xl mx-auto mt-4 text-gray-400">
+            Existem dois caminhos à sua frente. Veja claramente o que você ganha ao agir e o que arrisca ao ficar parado.
+          </p>
+        </div>
         
-        <div className="space-y-8">
-          {learningPoints.map((point, index) => (
-            <div key={index} className="bg-dark-section rounded-lg p-8 flex items-start gap-6 hover:bg-opacity-80 transition-colors">
-              <div className="flex-shrink-0">
-                <div className="bg-turquoise text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
-                  {index + 1}
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-text-light">
-                  {point.title}
-                </h3>
-                <p className="text-text-muted leading-relaxed">
-                  {point.description}
-                </p>
-              </div>
-              <CheckCircle className="w-6 h-6 text-turquoise flex-shrink-0 mt-1" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          {/* Coluna dos Malefícios (O Caminho da Inércia) */}
+          <div 
+            className="bg-[#111] rounded-xl border border-gray-800 p-8 flex flex-col h-full"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <XCircle className="w-8 h-8 text-red-500 flex-shrink-0" />
+              <h3 className="text-2xl font-bold text-white">O Custo de Não Agir</h3>
             </div>
-          ))}
+            <ul className="space-y-4 text-gray-300">
+              <li className="flex items-start gap-3">
+                <span className="text-red-500 mt-1 font-bold">»</span>
+                <span>Continuar refém da ansiedade e do estresse que sabotam seu potencial.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-500 mt-1 font-bold">»</span>
+                <span>Deixar que reações emocionais automáticas ditem suas decisões importantes.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-500 mt-1 font-bold">»</span>
+                <span>Permanecer no ciclo da procrastinação, adiando os resultados que você tanto deseja.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-500 mt-1 font-bold">»</span>
+                <span>Ver seus relacionamentos se desgastarem por falhas na comunicação.</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Coluna dos Benefícios (O Caminho da Transformação) */}
+          <div 
+            className="bg-dark-section rounded-xl border border-turquoise/50 p-8 flex flex-col h-full shadow-2xl shadow-turquoise/10"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <CheckCircle className="w-8 h-8 text-turquoise flex-shrink-0" />
+              <h3 className="text-2xl font-bold text-white">O Poder da Ação</h3>
+            </div>
+            <ul className="space-y-4 text-gray-300">
+              <li className="flex items-start gap-3">
+                <span className="text-turquoise mt-1 font-bold">✓</span>
+                <span><strong className="text-white">Assumir o controle das suas emoções</strong>, transformando-as em sua maior força.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-turquoise mt-1 font-bold">✓</span>
+                <span><strong className="text-white">Comunicar-se com clareza e assertividade</strong>, construindo relações mais fortes.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-turquoise mt-1 font-bold">✓</span>
+                <span><strong className="text-white">Desenvolver foco e disciplina</strong> para executar seus planos e alcançar metas.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-turquoise mt-1 font-bold">✓</span>
+                <span><strong className="text-white">Reduzir drasticamente a ansiedade</strong>, ganhando mais paz mental e confiança.</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>
   );
 };
 
-export default LearningSection;
+export default BenefitsSection;
