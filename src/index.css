@@ -180,3 +180,24 @@ a[href*="wa.me"] {
   opacity: 1 !important;
   z-index: 9999 !important; /* Garante que ele fique na frente de tudo */
 }
+
+
+/* ========================================================================== */
+/* Animação Customizada para o Botão Flutuante do WhatsApp                    */
+/* ========================================================================== */
+
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); /* Cor do pulso */
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); /* Pulso se expande e fica transparente */
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); /* Volta ao estado inicial */
+  }
+}
+
+.animate-pulse-whatsapp {
+  animation: whatsapp-pulse 2s infinite; /* Aplica a animação com duração de 2s e infinita */
+}

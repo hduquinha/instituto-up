@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// 1. Importe o seu componente do botão
-import WhatsAppButton from './components/WhatsAppButton.jsx'; // Verifique se o nome do arquivo está correto (.jsx ou .tsx)
+// 1. Importe o seu componente do botão (AGORA CORRETO)
+import WhatsAppButton from './components/WhatsAppButton';
 
 // 2. Renderiza seu aplicativo principal normalmente na div#root
 ReactDOM.createRoot(document.getElementById('root')!).render(
