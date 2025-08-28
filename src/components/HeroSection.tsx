@@ -8,14 +8,12 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-20 bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${heroBackground})` }}
     >
-      {/* Overlay em Gradiente (RESTAURADO PARA O ORIGINAL) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-dark-bg/95 via-dark-bg/80 to-dark-bg/40"></div>
+      {/* CORREÇÃO: Gradiente adaptativo para mobile e desktop */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-dark-bg/80 to-transparent md:bg-gradient-to-r md:from-dark-bg/95 md:via-dark-bg/80 md:to-dark-bg/40"></div>
       
-      {/* Conteúdo */}
       <div className="relative z-10 container max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           
-          {/* Coluna da esquerda - Textos com alinhamento ajustado */}
           <div className="text-center md:text-left">
             <h1 
               className="text-4xl md:text-5xl xl:text-6xl font-extrabold mb-4 leading-tight text-white"
@@ -61,13 +59,13 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Coluna da direita */}
+          {/* CORREÇÃO: Adicionado 'mx-auto' para garantir o alinhamento no mobile */}
           <div 
-            className="" 
+            className="max-w-md mx-auto" 
             data-aos="fade-up"
             data-aos-delay="500"
           >
-            <div className="bg-dark-section/80 backdrop-blur-lg rounded-lg p-6 border border-turquoise/30 shadow-2xl shadow-black/30">
+            <div className="bg-dark-section/80 backdrop-blur-lg rounded-lg p-6 border border-turquoise/30 shadow-2xl shadow-black/30 text-left">
               <h3 className="text-xl font-bold text-turquoise mb-4">
                 Este treinamento é para você se...
               </h3>
@@ -90,7 +88,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Chamado para rolar a página */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-gray-400 cursor-pointer">
         <span className="text-sm font-semibold">Descubra o caminho para a mudança</span>
         <ChevronDown className="h-6 w-6 animate-bounce text-turquoise" />
