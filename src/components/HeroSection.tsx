@@ -8,17 +8,17 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-20 bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${heroBackground})` }}
     >
-      {/* Overlay em Gradiente (RESTAURADO PARA O ORIGINAL) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-dark-bg/95 via-dark-bg/80 to-dark-bg/40"></div>
+      {/* Overlay em Gradiente otimizado para mobile (de baixo para cima) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
       {/* Conteúdo */}
       <div className="relative z-10 container max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           
-          {/* Coluna da esquerda - Textos com alinhamento ajustado */}
+          {/* Coluna da esquerda - Ocupa todo o espaço no mobile */}
           <div className="text-center md:text-left">
             <h1 
-              className="text-4xl md:text-5xl xl:text-6xl font-extrabold mb-4 leading-tight text-white"
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight text-white"
               data-aos="fade-up"
             >
               Sua <span className="text-turquoise">Virada de Chave</span> Começa em 2 Dias
@@ -32,16 +32,20 @@ const HeroSection = () => {
             </h2>
             
             <p 
-              className="text-base md:text-xl text-gray-300 mb-8 leading-relaxed"
+              className="text-base md:text-xl text-gray-300 mb-8 leading-relaxed max-w-prose mx-auto md:mx-0"
               data-aos="fade-up" data-aos-delay="200"
             >
               Uma imersão online e <strong>ao vivo</strong> com Rodrigo Damaceno, desenhada para <strong>reprogramar</strong> sua resposta ao estresse e à ansiedade.
             </p>
             
-            <div className="flex flex-col items-center md:items-start gap-4">
+            {/* Bloco de Ação (Data e Botão) */}
+            <div 
+              className="flex flex-col items-center md:items-start gap-4"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
               <div 
-                className="inline-flex items-center gap-3 bg-turquoise/10 border border-turquoise/30 rounded-lg p-4 w-full justify-center md:w-auto"
-                data-aos="fade-up" data-aos-delay="300"
+                className="inline-flex items-center gap-3 bg-turquoise/10 border border-turquoise/30 rounded-lg p-4 w-full max-w-sm justify-center md:w-auto"
               >
                 <CalendarDays className="h-5 w-5 text-turquoise" />
                 <p className="text-turquoise-light font-semibold text-base md:text-lg">
@@ -49,7 +53,7 @@ const HeroSection = () => {
                 </p>
               </div>
               
-              <div data-aos="fade-up" data-aos-delay="400" className="w-full">
+              <div className="w-full max-w-sm md:w-auto">
                 <Button 
                   variant="cta" 
                   size="lg" 
@@ -61,13 +65,13 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Coluna da direita */}
+          {/* Coluna da direita - ESCONDIDA NO MOBILE para focar na conversão */}
           <div 
-            className="" 
-            data-aos="fade-up"
+            className="hidden md:block" 
+            data-aos="fade-left"
             data-aos-delay="500"
           >
-            <div className="bg-dark-section/80 backdrop-blur-lg rounded-lg p-6 border border-turquoise/30 shadow-2xl shadow-black/30">
+            <div className="bg-dark-section/80 backdrop-blur-lg rounded-lg p-8 border border-turquoise/30 shadow-2xl shadow-black/30">
               <h3 className="text-xl font-bold text-turquoise mb-4">
                 Este treinamento é para você se...
               </h3>

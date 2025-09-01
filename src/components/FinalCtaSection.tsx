@@ -1,15 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Zap, Users, Gift } from "lucide-react";
+import { ShieldCheck, Zap, Users, Check } from "lucide-react";
 
-// Componente para a Barra de Progresso das Vagas (mantido)
+// Componente para a Barra de Progresso (design refinado)
 const ProgressBar = ({ percentage }: { percentage: number }) => (
-  <div className="w-full bg-gray-800/50 rounded-full h-4 my-4 border border-gray-700">
+  <div className="w-full bg-black/20 rounded-full h-2.5 border border-gray-700">
     <div
-      className="bg-gradient-to-r from-turquoise/70 to-turquoise h-4 rounded-full flex items-center justify-end transition-all duration-500"
+      className="bg-turquoise h-2.5 rounded-full"
       style={{ width: `${percentage}%` }}
-    >
-      <div className="w-2 h-2 rounded-full bg-white mr-1 shadow-[0_0_5px_white]"></div>
-    </div>
+    ></div>
   </div>
 );
 
@@ -17,65 +15,67 @@ const FinalCtaSection = () => {
   const percentageFilled = 67.25;
 
   return (
-    <section className="relative bg-black py-20 px-4 sm:px-6 overflow-hidden">
-      {/* Fundo dinâmico com elementos animados */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-turquoise/10 rounded-full filter blur-3xl opacity-30 animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-turquoise/10 rounded-full filter blur-3xl opacity-30 animate-pulse-slow animation-delay-2000"></div>
+    <section className="relative bg-dark-section py-20 px-4 sm:px-6 overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-40">
+        <div className="absolute top-0 left-0 w-full h-full bg-grid-black"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-turquoise/10 rounded-full blur-[150px]"></div>
       </div>
 
-      <div className="relative z-10 container max-w-4xl mx-auto text-center" data-aos="fade-up">
-        {/* Card Principal da Oferta */}
-        <div className="bg-gradient-to-b from-dark-section to-[#111] rounded-2xl border border-gray-800 shadow-2xl shadow-black/50 overflow-hidden">
-          <div className="p-8 md:p-12">
-            
-            <Zap className="w-10 h-10 text-turquoise mx-auto mb-4" />
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
-              Sua <span className="text-turquoise">Última Oportunidade</span>
+      <div className="relative z-10 container max-w-3xl mx-auto" data-aos="zoom-in-up">
+        
+        {/* O Card de Inscrição */}
+        <div className="bg-gradient-to-b from-[#1c1c1c] to-black rounded-2xl border border-gray-800 shadow-2xl shadow-black/50 overflow-hidden">
+          
+          {/* Header do Card */}
+          <div className="p-8 text-center border-b border-gray-800">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
+              OFERTA ÚNICA
             </h2>
-            <p className="max-w-xl mx-auto mt-4 text-lg text-gray-300">
-              Junte-se ao grupo que decidiu transformar seus resultados. As vagas estão prestes a encerrar.
-            </p>
+            <p className="mt-2 text-lg text-turquoise">Sua Transformação Começa Aqui</p>
+          </div>
+
+          <div className="p-8">
+            {/* Lista do que está Incluso */}
+            <h3 className="font-semibold text-white text-center mb-6">Ao garantir sua vaga hoje, você recebe:</h3>
+            <ul className="space-y-4 mb-8">
+              {[
+                "Acesso Completo aos 2 Dias de Imersão",
+                "Gravação das Aulas por 1 Ano",
+                "Comunidade Exclusiva de Alunos",
+                "Bônus: Masterclass 'Foco Inabalável'",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-turquoise flex-shrink-0" />
+                  <span className="text-gray-300">{item}</span>
+                </li>
+              ))}
+            </ul>
 
             {/* Barra de Progresso */}
-            <div className="my-8 max-w-md mx-auto">
-              <div className="flex justify-between items-center text-sm font-semibold">
-                <span className="text-turquoise flex items-center"><Users className="w-4 h-4 mr-2" /> Vagas Preenchidas</span>
-                <span className="text-white">{percentageFilled}%</span>
+            <div className="my-8">
+              <div className="flex justify-between items-center text-xs font-medium text-gray-400 mb-2">
+                <span>VAGAS PREENCHIDAS</span>
+                <span>Restam poucas!</span>
               </div>
               <ProgressBar percentage={percentageFilled} />
-            </div>
-
-            {/* Seção de Bônus */}
-            <div className="bg-black/30 rounded-lg p-6 my-10 text-left border-t border-b border-turquoise/20">
-              <h4 className="flex items-center text-xl font-bold text-turquoise mb-4">
-                <Gift className="w-6 h-6 mr-3" />
-                Você Leva de Bônus (Hoje):
-              </h4>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-center gap-3">✓<span className="font-semibold text-white">Masterclass "Foco Inabalável"</span></li>
-                <li className="flex items-center gap-3">✓<span className="font-semibold text-white">E-book "O Ciclo da Produtividade"</span></li>
-                <li className="flex items-center gap-3">✓<span className="font-semibold text-white">Acesso por 1 ano às gravações</span></li>
-              </ul>
             </div>
 
             {/* Botão Principal */}
             <Button 
               variant="cta" 
               size="lg" 
-              className="w-full max-w-md mx-auto text-xl px-12 py-8 h-auto 
+              className="w-full text-xl font-bold py-8 h-auto 
                          transition-all duration-300
-                         shadow-[0_0_25px_rgba(64,224,208,0.5)] hover:shadow-[0_0_45px_rgba(64,224,208,0.9)]"
+                         shadow-[0_0_20px_#40E0D0] hover:shadow-[0_0_35px_#40E0D0]"
             >
-              QUERO TRANSFORMAR MINHA VIDA AGORA
+              GARANTIR MINHA VAGA AGORA
             </Button>
 
             {/* Garantia */}
             <div className="mt-8 flex justify-center items-center gap-3">
               <ShieldCheck className="w-6 h-6 text-gray-500 flex-shrink-0" />
-              <p className="text-sm text-gray-500">Garantia de 7 Dias. Risco Absolutamente Zero.</p>
+              <p className="text-sm text-gray-500">Garantia de 7 Dias. Risco Zero.</p>
             </div>
-
           </div>
         </div>
       </div>
