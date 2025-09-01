@@ -1,200 +1,200 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+  /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+  All colors MUST be HSL.
+  */
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+  @layer base {
+    :root {
+      --background: 0 0% 100%;
+      --foreground: 0 0% 0%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 0%;
+      --card: 0 0% 98%;
+      --card-foreground: 0 0% 0%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+      --popover: 0 0% 100%;
+      --popover-foreground: 0 0% 0%;
 
-    --primary: 174 100% 44%;
-    --primary-foreground: 0 0% 100%;
+      --primary: 174 100% 44%;
+      --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
+      --secondary: 0 0% 96%;
+      --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+      --muted: 210 40% 96.1%;
+      --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 174 100% 44%;
-    --accent-foreground: 0 0% 100%;
+      --accent: 174 100% 44%;
+      --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+      --destructive: 0 84.2% 60.2%;
+      --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 174 100% 44%;
+      --border: 214.3 31.8% 91.4%;
+      --input: 214.3 31.8% 91.4%;
+      --ring: 174 100% 44%;
 
-    --dark-bg: 0 0% 4%;
-    --dark-section: 0 0% 8%;
-    --turquoise: 174 100% 44%;
-    --turquoise-light: 174 100% 50%;
-    --text-light: 0 0% 95%;
-    --text-muted: 0 0% 70%;
+      --dark-bg: 0 0% 4%;
+      --dark-section: 0 0% 8%;
+      --turquoise: 174 100% 44%;
+      --turquoise-light: 174 100% 50%;
+      --text-light: 0 0% 95%;
+      --text-muted: 0 0% 70%;
 
-    --radius: 0.5rem;
+      --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+      --sidebar-background: 0 0% 98%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+      --sidebar-foreground: 240 5.3% 26.1%;
 
-    --sidebar-primary: 240 5.9% 10%;
+      --sidebar-primary: 240 5.9% 10%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+      --sidebar-primary-foreground: 0 0% 98%;
 
-    --sidebar-accent: 240 4.8% 95.9%;
+      --sidebar-accent: 240 4.8% 95.9%;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+      --sidebar-accent-foreground: 240 5.9% 10%;
 
-    --sidebar-border: 220 13% 91%;
+      --sidebar-border: 220 13% 91%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+      --sidebar-ring: 217.2 91.2% 59.8%;
+    }
+
+    .dark {
+      --background: 222.2 84% 4.9%;
+      --foreground: 210 40% 98%;
+
+      --card: 222.2 84% 4.9%;
+      --card-foreground: 210 40% 98%;
+
+      --popover: 222.2 84% 4.9%;
+      --popover-foreground: 210 40% 98%;
+
+      --primary: 210 40% 98%;
+      --primary-foreground: 222.2 47.4% 11.2%;
+
+      --secondary: 217.2 32.6% 17.5%;
+      --secondary-foreground: 210 40% 98%;
+
+      --muted: 217.2 32.6% 17.5%;
+      --muted-foreground: 215 20.2% 65.1%;
+
+      --accent: 217.2 32.6% 17.5%;
+      --accent-foreground: 210 40% 98%;
+
+      --destructive: 0 62.8% 30.6%;
+      --destructive-foreground: 210 40% 98%;
+
+      --border: 217.2 32.6% 17.5%;
+      --input: 217.2 32.6% 17.5%;
+      --ring: 212.7 26.8% 83.9%;
+      --sidebar-background: 240 5.9% 10%;
+      --sidebar-foreground: 240 4.8% 95.9%;
+      --sidebar-primary: 224.3 76.3% 48%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 240 3.7% 15.9%;
+      --sidebar-accent-foreground: 240 4.8% 95.9%;
+      --sidebar-border: 240 3.7% 15.9%;
+      --sidebar-ring: 217.2 91.2% 59.8%;
+    }
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+  @layer base {
+    * {
+      @apply border-border;
+    }
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
+    body {
+      @apply bg-background text-foreground;
+    }
   }
 
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+  /* ========================================================================== */
+  /* Estilização Customizada para Carrossel Horizontal (Swiper) - CORRIGIDO     */
+  /* ========================================================================== */
 
-/* ========================================================================== */
-/* Estilização Customizada para Carrossel Horizontal (Swiper) - CORRIGIDO     */
-/* ========================================================================== */
-
-/* Estilo das setas de navegação (para TODAS as telas) */
-.swiper-button-prev,
-.swiper-button-next {
-  --swiper-navigation-size: 2rem; /* Tamanho do ícone da seta */
-  color: #40E0D0; /* Cor Turquesa */
-  background-color: rgba(17, 17, 17, 0.6);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid #333;
-  backdrop-filter: blur(5px);
-  transition: background-color 0.3s ease;
-}
-
-.swiper-button-prev:hover,
-.swiper-button-next:hover {
-  background-color: rgba(25, 25, 25, 0.9);
-}
-
-/* Ajuste fino de posição para desktop */
-@media (min-width: 768px) {
-  .swiper-button-prev {
-    left: -10px;
-  }
+  /* Estilo das setas de navegação (para TODAS as telas) */
+  .swiper-button-prev,
   .swiper-button-next {
-    right: -10px;
+    --swiper-navigation-size: 2rem; /* Tamanho do ícone da seta */
+    color: #40E0D0; /* Cor Turquesa */
+    background-color: rgba(17, 17, 17, 0.6);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s ease;
   }
-}
 
-/* Estilo da Paginação (bolinhas) */
-.swiper-pagination-bullet {
-  background-color: #666;
-  width: 10px;
-  height: 10px;
-  opacity: 0.8;
-  transition: background-color 0.3s ease;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: #40E0D0;
-  transform: scale(1.2);
-}
-
-.swiper-pagination {
-  bottom: 0px !important;
-}
-/* ========================================================================== */
-/* Correção de Visibilidade para o Botão Flutuante do WhatsApp                */
-/* ========================================================================== */
-
-/* Este seletor encontra especificamente o link do WhatsApp e força 
-  sua visibilidade, sobrescrevendo qualquer regra problemática 
-  dos arquivos base do Lovable.
-*/
-a[href*="wa.me"] {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  z-index: 9999 !important; /* Garante que ele fique na frente de tudo */
-}
-
-
-/* ========================================================================== */
-/* Animação Customizada para o Botão Flutuante do WhatsApp                    */
-/* ========================================================================== */
-
-@keyframes whatsapp-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); /* Cor do pulso */
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background-color: rgba(25, 25, 25, 0.9);
   }
-  70% {
-    box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); /* Pulso se expande e fica transparente */
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); /* Volta ao estado inicial */
-  }
-}
 
-.animate-pulse-whatsapp {
-  animation: whatsapp-pulse 2s infinite; /* Aplica a animação com duração de 2s e infinita */
-}
+  /* Ajuste fino de posição para desktop */
+  @media (min-width: 768px) {
+    .swiper-button-prev {
+      left: -10px;
+    }
+    .swiper-button-next {
+      right: -10px;
+    }
+  }
+
+  /* Estilo da Paginação (bolinhas) */
+  .swiper-pagination-bullet {
+    background-color: #666;
+    width: 10px;
+    height: 10px;
+    opacity: 0.8;
+    transition: background-color 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #40E0D0;
+    transform: scale(1.2);
+  }
+
+  .swiper-pagination {
+    bottom: 0px !important;
+  }
+  /* ========================================================================== */
+  /* Correção de Visibilidade para o Botão Flutuante do WhatsApp                */
+  /* ========================================================================== */
+
+  /* Este seletor encontra especificamente o link do WhatsApp e força 
+    sua visibilidade, sobrescrevendo qualquer regra problemática 
+    dos arquivos base do Lovable.
+  */
+  a[href*="wa.me"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 9999 !important; /* Garante que ele fique na frente de tudo */
+  }
+
+
+  /* ========================================================================== */
+  /* Animação Customizada para o Botão Flutuante do WhatsApp                    */
+  /* ========================================================================== */
+
+  @keyframes whatsapp-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); /* Cor do pulso */
+    }
+    70% {
+      box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); /* Pulso se expande e fica transparente */
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); /* Volta ao estado inicial */
+    }
+  }
+
+  .animate-pulse-whatsapp {
+    animation: whatsapp-pulse 2s infinite; /* Aplica a animação com duração de 2s e infinita */
+  }
 
 

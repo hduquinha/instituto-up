@@ -22,22 +22,22 @@ const TestimonialsSection = () => {
     },
     { 
       name: "Carla Mendes", 
-      youtubeVideoId: "3tmd-ClpJxA",
+      youtubeVideoId: "afrfoLPQFl0",
       description: '"Hoje tenho ferramentas práticas para gerenciar minhas emoções e ter mais confiança."'
     },
     { 
       name: "Rafael Borges", 
-      youtubeVideoId: "8SbUC-UaAxE",
+      youtubeVideoId: "Xmft6_Eg-20",
       description: '"Um divisor de águas para a minha produtividade e foco. Recomendo demais!"'
     },
     { 
       name: "Juliana Costa", 
-      youtubeVideoId: "kJQP7kiw5Fk",
+      youtubeVideoId: "b1FLpd-LKnA",
       description: '"Consegui superar bloqueios que me impediam de avançar na carreira."'
     },
     { 
       name: "Fernando Lima", 
-      youtubeVideoId: "b-Tains_izY",
+      youtubeVideoId: "67qTFr9Tvdk",
       description: '"A comunicação com minha equipe melhorou 100% depois do treinamento."'
     },
     { 
