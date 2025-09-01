@@ -112,22 +112,17 @@ All colors MUST be HSL.
 }
 
 /* ========================================================================== */
-/* Estilização Customizada para Carrossel Horizontal (Swiper)                 */
+/* Estilização Customizada para Carrossel Horizontal (Swiper) - CORRIGIDO     */
 /* ========================================================================== */
 
-/* Cor e estilo das setas de navegação */
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  color: #40E0D0; /* Cor Turquesa */
-  font-size: 1.75rem;
-  font-weight: 800;
-}
-
+/* Estilo das setas de navegação (para TODAS as telas) */
 .swiper-button-prev,
 .swiper-button-next {
-  background-color: rgba(17, 17, 17, 0.7);
-  width: 50px;
-  height: 50px;
+  --swiper-navigation-size: 2rem; /* Tamanho do ícone da seta */
+  color: #40E0D0; /* Cor Turquesa */
+  background-color: rgba(17, 17, 17, 0.6);
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid #333;
   backdrop-filter: blur(5px);
@@ -139,18 +134,19 @@ All colors MUST be HSL.
   background-color: rgba(25, 25, 25, 0.9);
 }
 
-/* Esconder setas em telas muito pequenas */
-@media (max-width: 767px) {
-  .swiper-button-prev,
+/* Ajuste fino de posição para desktop */
+@media (min-width: 768px) {
+  .swiper-button-prev {
+    left: -10px;
+  }
   .swiper-button-next {
-    display: none;
+    right: -10px;
   }
 }
 
-
 /* Estilo da Paginação (bolinhas) */
 .swiper-pagination-bullet {
-  background-color: #666; /* Cor das bolinhas inativas */
+  background-color: #666;
   width: 10px;
   height: 10px;
   opacity: 0.8;
@@ -158,14 +154,13 @@ All colors MUST be HSL.
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #40E0D0; /* Cor Turquesa para a bolinha ativa */
+  background-color: #40E0D0;
   transform: scale(1.2);
 }
 
 .swiper-pagination {
-  bottom: 0px !important; /* Posição da paginação */
+  bottom: 0px !important;
 }
-
 /* ========================================================================== */
 /* Correção de Visibilidade para o Botão Flutuante do WhatsApp                */
 /* ========================================================================== */
@@ -201,3 +196,5 @@ a[href*="wa.me"] {
 .animate-pulse-whatsapp {
   animation: whatsapp-pulse 2s infinite; /* Aplica a animação com duração de 2s e infinita */
 }
+
+
