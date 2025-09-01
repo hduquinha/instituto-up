@@ -57,13 +57,15 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Indicador de scroll (texto + ícone) */}
+      {/* Indicador de scroll centralizado */}
       <button
         onClick={scrollToPricing}
-        className="absolute bottom-6 left-4 sm:left-6 z-10 flex items-center gap-2 text-gray-300/90 hover:text-white transition"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-gray-300/90 hover:text-white transition text-center"
         aria-label="Descer para preços"
       >
-        <span className="text-xs sm:text-sm font-semibold">Descubra o caminho para a mudança</span>
+        <span className="text-xs sm:text-sm font-semibold mb-1">
+          Descubra o caminho para a mudança
+        </span>
         <ChevronDown className="h-5 w-5 sm:h-6 sm:w-6 animate-bounce text-turquoise" />
       </button>
     </section>

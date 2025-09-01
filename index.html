@@ -1,26 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transforme sua Vida em 2 Dias - Treinamento de Inteligência Emocional</title>
-    <meta name="description" content="Treinamento online de Inteligência Emocional e Alta Performance com Rodrigo Damaçeno e Vanessa Vaz. 2 dias para dominar suas emoções e elevar sua performance." />
+
+    {/* ÍCONE DA PÁGINA (FAVICON) */}
+    {/* O navegador buscará o ícone na pasta 'public' */}
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    {/* TÍTULO DA PÁGINA (ALTERE AQUI) */}
+    <title>Sua Virada de Chave - A Imersão</title>
+    
+    <meta name="description" content="Uma imersão online e ao vivo para reprogramar sua resposta ao estresse e dominar suas emoções." />
     <meta name="author" content="Instituto UP" />
 
-    <meta property="og:title" content="Transforme sua Vida em 2 Dias - Treinamento de Inteligência Emocional" />
-    <meta property="og:description" content="Treinamento online de Inteligência Emocional e Alta Performance com Rodrigo Damaçeno e Vanessa Vaz. 2 dias para dominar suas emoções e elevar sua performance." />
+    {/* Meta tags para compartilhamento em redes sociais */}
+    <meta property="og:title" content="Sua Virada de Chave - A Imersão" />
+    <meta property="og:description" content="Uma imersão online e ao vivo para reprogramar sua resposta ao estresse e dominar suas emoções." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:image" content="/sua-imagem-de-compartilhamento.png" /> {/* Opcional: crie uma imagem para quando compartilhar o link */}
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:image" content="/sua-imagem-de-compartilhamento.png" />
     
   </head>
 
   <body>
-  <div id="root"></div>
-  <div id="whatsapp-container"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
+    <div id="root"></div>
+    {/* Mantido o container do botão do WhatsApp, caso você o use via Portal */}
+    <div id="whatsapp-container"></div> 
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
