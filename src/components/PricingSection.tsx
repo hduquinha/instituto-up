@@ -49,25 +49,24 @@ const PricingSection = () => {
   return (
     <section
       id="pricing"
-      className="relative bg-black py-20 px-4 sm:px-6 overflow-hidden"
+      className="relative bg-black py-16 sm:py-20 px-4 sm:px-6 overflow-hidden"
     >
-      <div className="absolute inset-0 flex justify-center items-center opacity-30">
-        <div className="w-[1000px] h-[1000px] bg-turquoise/10 rounded-full blur-[150px]"></div>
+      <div className="absolute inset-0 flex justify-center items-center opacity-30 pointer-events-none">
+        <div className="w-[900px] h-[900px] bg-turquoise/10 rounded-full blur-[140px]" />
       </div>
+
       <div className="relative z-10 container max-w-7xl mx-auto">
-        <div className="text-center mb-16" data-aos="fade-up">
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
-            Escolha seu Nível de{" "}
-            <span className="text-turquoise">Comprometimento</span>
+            Escolha seu Nível de <span className="text-turquoise">Comprometimento</span>
           </h2>
           <p className="max-w-3xl mx-auto mt-4 text-gray-400">
-            Cada plano é um passo em direção à sua melhor versão. Encontre a
-            experiência ideal para o seu momento.
+            Cada plano é um passo em direção à sua melhor versão. Encontre a experiência ideal para o seu momento.
           </p>
         </div>
 
-        {/* Grid responsivo */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch">
+        {/* Grid responsivo: 1 → 2 → 3 colunas */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {plans.map((plan, index) => (
             <div
               key={index}
@@ -76,44 +75,34 @@ const PricingSection = () => {
                   ? "border-turquoise shadow-2xl shadow-turquoise/20"
                   : "border-gray-800 lg:hover:scale-105"
               }`}
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
             >
               {plan.isRecommended && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-turquoise text-black font-bold text-sm px-4 py-2 rounded-full uppercase tracking-wider">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-turquoise text-black font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-wider">
                   Mais Popular
                 </div>
               )}
-              <div
-                className={`flex-grow p-8 ${
-                  plan.isRecommended ? "py-10 lg:py-16" : ""
-                }`}
-              >
-                <h3
-                  className={`text-2xl font-bold text-center ${
-                    plan.isRecommended ? "text-turquoise" : "text-white"
-                  }`}
-                >
+
+              <div className={`flex-grow p-6 sm:p-8 ${plan.isRecommended ? "pt-8 sm:pt-10 lg:pt-16" : ""}`}>
+                <h3 className={`text-2xl font-bold text-center ${plan.isRecommended ? "text-turquoise" : "text-white"}`}>
                   {plan.name}
                 </h3>
-                <div className="text-center my-6">
-                  <span className="text-5xl font-extrabold text-white">
-                    R$ {plan.price}
-                  </span>
+
+                <div className="text-center my-5 sm:my-6">
+                  <span className="text-4xl sm:text-5xl font-extrabold text-white">R$ {plan.price}</span>
                   <span className="text-gray-400"> / à vista</span>
                 </div>
-                <p className="text-gray-400 text-center text-sm min-h-[3.5rem] mb-6">
+
+                <p className="text-gray-400 text-center text-sm min-h-[3.5rem] mb-5 sm:mb-6">
                   {plan.description}
                 </p>
-                <hr className="border-gray-700 my-6" />
+
+                <hr className="border-gray-700 my-5" />
                 <ul className="space-y-4 text-gray-300">
                   {plan.features.map((feature, fIndex) => (
                     <li key={fIndex} className="flex items-start gap-3">
                       <Check
                         className={`w-5 h-5 mt-1 flex-shrink-0 ${
-                          plan.isRecommended
-                            ? "text-turquoise"
-                            : "text-gray-500"
+                          plan.isRecommended ? "text-turquoise" : "text-gray-500"
                         }`}
                       />
                       <span>{feature}</span>
@@ -121,10 +110,11 @@ const PricingSection = () => {
                   ))}
                 </ul>
               </div>
-              <div className="mt-auto p-8 pt-0">
+
+              <div className="mt-auto p-6 sm:p-8 pt-0">
                 <Button
                   variant={plan.isRecommended ? "cta" : "secondary"}
-                  className="w-full text-lg py-6"
+                  className="w-full text-base sm:text-lg py-4 sm:py-5 whitespace-normal break-words leading-tight text-center"
                 >
                   {plan.isRecommended && <Star className="w-5 h-5 mr-2" />}
                   {plan.cta}
@@ -137,4 +127,5 @@ const PricingSection = () => {
     </section>
   );
 };
+
 export default PricingSection;
