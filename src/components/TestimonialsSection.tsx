@@ -12,12 +12,12 @@ const TestimonialsSection = () => {
   const videoTestimonials = [
     { 
       name: "Ana Carolina Silva", 
-      youtubeVideoId: "dQw4w9WgXcQ",
+      youtubeVideoId: "mXSFwabhyNo",
       description: '"O treinamento mudou minha forma de lidar com o estresse. Essencial!"'
     },
     { 
       name: "Marcus Oliveira", 
-      youtubeVideoId: "L_LUpnjgPso",
+      youtubeVideoId: "_l80iApyibg",
       description: '"Aprendi técnicas que uso todos os dias para melhorar meus relacionamentos."'
     },
     { 

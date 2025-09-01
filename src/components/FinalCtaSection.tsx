@@ -15,8 +15,9 @@ const FinalCtaSection = () => {
   const percentageFilled = 67.25;
 
   return (
-    <section className="relative bg-dark-section py-20 px-4 sm:px-6 overflow-hidden">
+    <section className="relative bg-dark-section py-20 pb-32 px-4 sm:px-6 overflow-hidden"> {/* Aumentei o padding-bottom para o botão flutuante */}
       <div className="absolute inset-0 z-0 opacity-40">
+        {/* Fundo de grid (se definido no CSS global) */}
         <div className="absolute top-0 left-0 w-full h-full bg-grid-black"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-turquoise/10 rounded-full blur-[150px]"></div>
       </div>
@@ -37,15 +38,15 @@ const FinalCtaSection = () => {
           <div className="p-8">
             {/* Lista do que está Incluso */}
             <h3 className="font-semibold text-white text-center mb-6">Ao garantir sua vaga hoje, você recebe:</h3>
-            <ul className="space-y-4 mb-8">
+            <ul className="space-y-4 mb-8 text-left"> {/* text-left para a lista */}
               {[
                 "Acesso Completo aos 2 Dias de Imersão",
                 "Gravação das Aulas por 1 Ano",
                 "Comunidade Exclusiva de Alunos",
                 "Bônus: Masterclass 'Foco Inabalável'",
               ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-turquoise flex-shrink-0" />
+                <li key={item} className="flex items-start gap-3"> {/* items-start para alinhar o check ao topo */}
+                  <Check className="w-5 h-5 text-turquoise flex-shrink-0 mt-1" /> {/* mt-1 para melhor alinhamento visual */}
                   <span className="text-gray-300">{item}</span>
                 </li>
               ))}

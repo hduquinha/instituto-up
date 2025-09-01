@@ -16,31 +16,59 @@ const PricingSection = () => {
           <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">Escolha seu Nível de <span className="text-turquoise">Comprometimento</span></h2>
           <p className="max-w-3xl mx-auto mt-4 text-gray-400">Cada plano é um passo em direção à sua melhor versão. Encontre a experiência ideal para o seu momento.</p>
         </div>
-        {/* CORREÇÃO: Trocado 'items-end' por 'items-stretch' para garantir alturas iguais */}
+        
+        {/* CORREÇÃO: Usando items-stretch para garantir que os cards tenham a mesma altura */}
         <div className="grid lg:grid-cols-3 gap-8 items-stretch">
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`relative bg-[#111] rounded-xl border flex flex-col transition-all duration-300 ${
-                plan.isRecommended ? "border-turquoise shadow-2xl shadow-turquoise/20" : "border-gray-800"
+              className={`relative bg-[#111] rounded-xl border flex flex-col transition-all duration-300 h-full ${ // h-full para garantir que cada card ocupe a altura disponível
+                plan.isRecommended
+                  ? "border-turquoise shadow-2xl shadow-turquoise/20" // Removido o lg:scale-110
+                  : "border-gray-800 lg:hover:scale-105" // Hover scale nos outros cards
               }`}
               data-aos="fade-up"
               data-aos-delay={index * 100}
             >
-              {plan.isRecommended && (<div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-turquoise text-black font-bold text-sm px-4 py-1 rounded-full uppercase tracking-wider">Mais Popular</div>)}
-              
-              {/* CORREÇÃO: Padding diferente para o card recomendado para dar destaque */}
-              <div className={`flex-grow p-8 ${plan.isRecommended ? 'lg:py-12' : ''}`}>
-                <h3 className={`text-2xl font-bold text-center ${plan.isRecommended ? "text-turquoise" : "text-white"}`}>{plan.name}</h3>
-                <div className="text-center my-6"><span className="text-5xl font-extrabold text-white">R$ {plan.price}</span><span className="text-gray-400"> / à vista</span></div>
-                <p className="text-gray-400 text-center text-sm min-h-[3.5rem] mb-6">{plan.description}</p>
+              {plan.isRecommended && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-turquoise text-black font-bold text-sm px-4 py-2 rounded-full uppercase tracking-wider">
+                  Mais Popular
+                </div>
+              )}
+
+              {/* CORREÇÃO: Ajuste de padding para destacar o card recomendado sem usar scale */}
+              <div className={`flex-grow p-8 ${plan.isRecommended ? "py-10 lg:py-16" : ""}`}> 
+                <h3 className={`text-2xl font-bold text-center ${plan.isRecommended ? "text-turquoise" : "text-white"}`}>
+                  {plan.name}
+                </h3>
+                
+                <div className="text-center my-6">
+                  <span className="text-5xl font-extrabold text-white">R$ {plan.price}</span>
+                  <span className="text-gray-400"> / à vista</span>
+                </div>
+
+                <p className="text-gray-400 text-center text-sm min-h-[3.5rem] mb-6">{plan.description}</p> {/* min-h para manter altura constante na descrição */}
+                
                 <hr className="border-gray-700 my-6" />
+
                 <ul className="space-y-4 text-gray-300">
-                  {plan.features.map((feature, fIndex) => (<li key={fIndex} className="flex items-start gap-3"><Check className={`w-5 h-5 mt-1 flex-shrink-0 ${plan.isRecommended ? "text-turquoise" : "text-gray-500"}`} /><span>{feature}</span></li>))}
+                  {plan.features.map((feature, fIndex) => (
+                    <li key={fIndex} className="flex items-start gap-3">
+                      <Check className={`w-5 h-5 mt-1 flex-shrink-0 ${plan.isRecommended ? "text-turquoise" : "text-gray-500"}`} />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div className="p-8 pt-0">
-                <Button variant={plan.isRecommended ? "cta" : "secondary"} className="w-full text-lg py-6">{plan.isRecommended && <Star className="w-5 h-5 mr-2" />}{plan.cta}</Button>
+
+              <div className="mt-auto p-8 pt-0"> {/* mt-auto para empurrar o botão para baixo */}
+                <Button
+                  variant={plan.isRecommended ? "cta" : "secondary"}
+                  className="w-full text-lg py-6"
+                >
+                  {plan.isRecommended && <Star className="w-5 h-5 mr-2" />}
+                  {plan.cta}
+                </Button>
               </div>
             </div>
           ))}
