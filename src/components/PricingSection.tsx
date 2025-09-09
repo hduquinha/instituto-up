@@ -1,7 +1,23 @@
 import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import CheckoutForm from "./CheckoutForm";
 
 const PricingSection = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+
+  const handleBuyClick = (plan: any) => {
+    const productData = {
+      id: plan.name.toLowerCase().replace(/\s+/g, '-'),
+      title: `Instituto UP - ${plan.name}`,
+      description: plan.description,
+      price: parseFloat(plan.price)
+    };
+    
+    setSelectedProduct(productData);
+    setShowForm(true);
+  };
   const plans = [
     {
       name: "Acesso Essencial",
@@ -113,20 +129,29 @@ const PricingSection = () => {
 
               <div className="mt-auto p-6 sm:p-8 pt-0">
                 <Button
-                  asChild
+                  onClick={() => handleBuyClick(plan)}
                   variant={plan.isRecommended ? "cta" : "secondary"}
                   className="w-full text-base sm:text-lg py-4 sm:py-5 whitespace-normal break-words leading-tight text-center"
                 >
-                  <a href="https://www.youtube.com/" target="_blank" rel="nofollow noopener noreferrer">
-                    {plan.isRecommended && <Star className="w-5 h-5 mr-2" />}
-                    {plan.cta}
-                  </a>
+                  {plan.isRecommended && <Star className="w-5 h-5 mr-2" />}
+                  {plan.cta}
                 </Button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal do Checkout */}
+      {showForm && selectedProduct && (
+        <CheckoutForm
+          productData={selectedProduct}
+          onClose={() => {
+            setShowForm(false);
+            setSelectedProduct(null);
+          }}
+        />
+      )}
     </section>
   );
 };
