@@ -1,73 +1,89 @@
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Check } from "lucide-react";
-
-const ProgressBar = ({ percentage }) => (
-  <div className="w-full bg-black/20 rounded-full h-2.5 border border-gray-700">
-    <div className="bg-turquoise h-2.5 rounded-full" style={{ width: `${percentage}%` }} />
-  </div>
-);
+import { ShieldCheck, Heart } from "lucide-react";
 
 const FinalCtaSection = () => {
-  const percentageFilled = 67.25;
+  const scrollToPricing = () => {
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section className="relative bg-dark-section py-16 sm:py-20 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-grid-black" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-turquoise/10 rounded-full blur-[150px]" />
+    <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 px-4 sm:px-6 overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-turquoise/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 container max-w-3xl mx-auto">
-        <div className="bg-gradient-to-b from-[#1c1c1c] to-black rounded-2xl border border-gray-800 shadow-2xl shadow-black/50 overflow-hidden">
-          <div className="p-6 sm:p-8 md:p-12 text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
-              OFERTA ÚNICA
-            </h2>
-            <p className="mt-2 text-base sm:text-lg text-turquoise">Sua Transformação Começa Aqui</p>
-          </div>
-
-          <div className="p-6 sm:p-8 md:p-12 border-t border-gray-800">
-            <h3 className="font-semibold text-white text-center mb-6">
-              Ao garantir sua vaga hoje, você recebe:
-            </h3>
-
-            <ul className="space-y-4 mb-8 max-w-md mx-auto">
-              {[
-                "Acesso Completo aos 2 Dias de Imersão",
-                "Gravação das Aulas por 1 Ano",
-                "Comunidade Exclusiva de Alunos",
-                "Bônus: Masterclass 'Foco Inabalável'",
-              ].map((item) => (
-                <li key={item} className="flex items-start text-left gap-3">
-                  <Check className="w-5 h-5 text-turquoise flex-shrink-0 mt-1" />
-                  <span className="text-gray-300">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="my-8 max-w-md mx-auto">
-              <div className="flex justify-between items-center text-[11px] sm:text-xs font-medium text-gray-400 mb-2">
-                <span>VAGAS PREENCHIDAS</span>
-                <span>Restam poucas!</span>
-              </div>
-              <ProgressBar percentage={percentageFilled} />
-            </div>
-
-            <Button
-              variant="cta"
-              size="lg"
-              className="w-full max-w-md mx-auto text-base sm:text-xl font-bold py-5 sm:py-7 h-auto whitespace-normal break-words leading-tight text-center shadow-[0_0_20px_#40E0D0] hover:shadow-[0_0_35px_#40E0D0]"
-            >
-              GARANTIR MINHA VAGA AGORA
-            </Button>
-
-            <div className="mt-8 flex justify-center items-center gap-3">
-              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 flex-shrink-0" />
-              <p className="text-xs sm:text-sm text-gray-500">
-                Garantia de 7 Dias. Risco Zero.
-              </p>
+      <div className="relative z-10 container max-w-6xl mx-auto text-center">
+        <div className="mb-16">
+          <div className="flex justify-center mb-8">
+            <div className="bg-turquoise/20 p-8 rounded-full transition-all duration-500 ease-in-out hover:bg-turquoise/30">
+              <Heart className="w-16 h-16 text-turquoise" />
             </div>
           </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+            Sua <span className="text-turquoise">Nova Vida</span> Te Espera
+          </h2>
+          
+          <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
+            A vida que você sonha está a apenas uma decisão de distância. 
+            Mais de 10.000 pessoas já fizeram essa escolha e transformaram suas realidades.
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-r from-black/60 to-gray-900/60 rounded-3xl border border-turquoise/20 p-8 md:p-16 mb-16 transition-all duration-500 ease-in-out hover:scale-[1.02]">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 leading-tight">
+            O que você vai ganhar não tem preço:
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left max-w-5xl mx-auto">
+            <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
+              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">💪 Transformação Pessoal</h4>
+              <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
+                <li>• Autoconfiança inabalável</li>
+                <li>• Mentalidade de crescimento</li>
+                <li>• Controle sobre suas emoções</li>
+                <li>• Clareza sobre seus objetivos</li>
+              </ul>
+            </div>
+            
+            <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
+              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🚀 Sucesso Profissional</h4>
+              <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
+                <li>• Produtividade exponencial</li>
+                <li>• Liderança natural</li>
+                <li>• Comunicação eficaz</li>
+                <li>• Oportunidades de carreira</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-16">
+          <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
+            Não deixe mais um ano passar sem a transformação que você merece.
+          </p>
+          
+          <button
+            onClick={scrollToPricing}
+            className="bg-gradient-to-r from-turquoise to-blue-500 text-black font-bold text-xl md:text-2xl lg:text-3xl px-16 py-8 rounded-2xl transform hover:scale-105 transition-all duration-500 ease-in-out shadow-lg hover:shadow-2xl mb-8"
+          >
+            🌟 TRANSFORMAR MINHA VIDA AGORA
+          </button>
+          
+          <div className="flex justify-center items-center gap-4 text-gray-400 text-lg">
+            <ShieldCheck className="w-6 h-6 text-green-400" />
+            <span>7 dias de garantia incondicional</span>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-700 pt-8">
+          <p className="text-gray-500 text-base lg:text-lg">
+            © 2024 Instituto UP. Todos os direitos reservados. | 
+            <span className="text-turquoise"> Transformando vidas desde 2020</span>
+          </p>
         </div>
       </div>
     </section>

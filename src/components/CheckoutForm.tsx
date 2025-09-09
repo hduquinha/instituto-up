@@ -375,8 +375,18 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
           </form>
 
           <div className="mt-4 text-xs text-gray-500 text-center">
-            Ao continuar, você será redirecionado para o Mercado Pago
-            para finalizar o pagamento de forma segura.
+            <div className="mb-2">
+              <strong>✅ Compra 100% Segura pelo Mercado Pago</strong>
+            </div>
+            <div className="text-xs">
+              Você escolherá sua forma de pagamento preferida:
+            </div>
+            <div className="mt-1 font-medium text-gray-700">
+              📱 <strong>PIX</strong> (instantâneo) | 💳 <strong>Cartão</strong> (até 12x) | 🏦 <strong>Débito</strong> | 🎫 <strong>Boleto</strong>
+            </div>
+            <div className="mt-2 text-xs text-gray-400">
+              🔒 Dados protegidos | 🛡️ SSL | 📞 Suporte 24h
+            </div>
           </div>
         </CardContent>
       </Card>

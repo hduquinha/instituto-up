@@ -8,10 +8,23 @@ const PricingSection = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   const handleBuyClick = (plan: any) => {
+    // Criar descrição rica baseada no plano
+    let richDescription = '';
+    let additionalInfo = '';
+    
+    if (plan.name === 'Standard') {
+      richDescription = '🎯 STANDARD - Sua Transformação Começa Aqui!\n\n✅ 2 dias de treinamento ao vivo\n✅ Material de apoio em PDF premium\n✅ Acesso à comunidade exclusiva\n✅ Certificado de participação\n✅ Suporte via comunidade\n\n💡 Ideal para quem quer dar o primeiro passo rumo ao sucesso!\n\n🔥 OFERTA LIMITADA: De R$197 por apenas R$47 (76% OFF)';
+      additionalInfo = 'Treinamento: 2 dias ao vivo | Material: PDF premium | Comunidade: Acesso vitalício | Certificado: Incluído | Desconto: 76% OFF';
+    } else if (plan.name === 'UP VIP') {
+      richDescription = '🚀 UP VIP - A Experiência Completa! (MAIS ESCOLHIDO)\n\n✅ TUDO do plano Standard, MAIS:\n✅ Gravações por 1 ano completo\n✅ Sessão Bônus Q&A em grupo\n✅ Módulo extra: Produtividade Acelerada\n✅ Grupo VIP exclusivo no WhatsApp\n✅ Suporte direto com os mentores\n✅ Material bônus exclusivo\n✅ Certificado VIP diferenciado\n\n🔥 MÁXIMO APROVEITAMENTO garantido!\n\n💎 OFERTA VIP: De R$497 por apenas R$197 (60% OFF)\n⚡ APENAS 20 VAGAS DISPONÍVEIS!';
+      additionalInfo = 'Gravações: 1 ano | Bônus: Sessão Q&A | Extra: Produtividade Acelerada | VIP: Comunidade exclusiva | WhatsApp: Grupo VIP | Suporte: Direto com mentores';
+    }
+
     const productData = {
       id: plan.name.toLowerCase().replace(/\s+/g, '-'),
       title: `Instituto UP - ${plan.name}`,
-      description: plan.description,
+      description: richDescription,
+      additionalInfo: additionalInfo,
       price: parseFloat(plan.price)
     };
     
@@ -20,45 +33,41 @@ const PricingSection = () => {
   };
   const plans = [
     {
-      name: "Acesso Essencial",
-      price: "297",
-      description:
-        "Para quem quer dar o primeiro passo e ter acesso ao vivo à transformação.",
+      name: "Standard",
+      price: "47",
+      originalPrice: "197",
+      description: "Para quem quer dar o primeiro passo na transformação pessoal e profissional.",
       features: [
         "Acesso aos 2 dias de treinamento ao vivo",
-        "Material de apoio em PDF",
-        "Acesso à comunidade de alunos",
+        "Material de apoio em PDF premium",
+        "Acesso à comunidade exclusiva de alunos",
+        "Certificado de participação",
+        "Suporte via comunidade",
       ],
       cta: "Começar Agora",
       isRecommended: false,
+      discount: "76% OFF",
+      urgency: "Últimas vagas!"
     },
     {
-      name: "Plano UP",
-      price: "497",
-      description:
-        "A experiência completa para absorver, rever e aplicar todo o conhecimento.",
+      name: "UP VIP",
+      price: "197",
+      originalPrice: "497", 
+      description: "A experiência completa para quem quer RESULTADOS REAIS e acompanhamento VIP.",
       features: [
-        "Tudo do plano Essencial, e mais:",
-        "Acesso à gravação por 1 ano",
+        "TUDO do plano Standard, e mais:",
+        "Acesso às gravações por 1 ano completo",
         "Sessão Bônus de Q&A em grupo",
-        "Módulo extra: 'Produtividade Acelerada'",
+        "Módulo extra: 'Produtividade Acelerada'", 
+        "Grupo VIP exclusivo no WhatsApp",
+        "Suporte direto com os mentores",
+        "Material bônus exclusivo",
+        "Certificado VIP diferenciado",
       ],
-      cta: "Garantir Minha Vaga",
+      cta: "Garantir VIP Agora",
       isRecommended: true,
-    },
-    {
-      name: "Experiência Premium",
-      price: "997",
-      description:
-        "Para quem busca maestria e acompanhamento individualizado.",
-      features: [
-        "Tudo do plano UP, e mais:",
-        "Acesso VITALÍCIO às gravações",
-        "1 Sessão de mentoria individual",
-        "Acesso ao grupo Mastermind",
-      ],
-      cta: "Aplicar para Premium",
-      isRecommended: false,
+      discount: "60% OFF",
+      urgency: "APENAS 20 VAGAS!"
     },
   ];
 
@@ -81,64 +90,79 @@ const PricingSection = () => {
           </p>
         </div>
 
-        {/* Grid responsivo: 1 → 2 → 3 colunas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {plans.map((plan, index) => (
-            <div
-              key={index}
-              className={`relative bg-[#111] rounded-xl border flex flex-col transition-all duration-300 h-full w-full max-w-sm mx-auto ${
-                plan.isRecommended
-                  ? "border-turquoise shadow-2xl shadow-turquoise/20"
-                  : "border-gray-800 lg:hover:scale-105"
-              }`}
-            >
-              {plan.isRecommended && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-turquoise text-black font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-wider">
-                  Mais Popular
+        {/* Grid responsivo centralizado: 1 → 2 colunas */}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-6xl w-full">
+            {plans.map((plan, index) => (
+              <div
+                key={index}
+                className={`relative bg-[#111] rounded-2xl border flex flex-col transition-all duration-500 ease-in-out h-full w-full max-w-lg mx-auto transform hover:scale-105 ${
+                  plan.isRecommended
+                    ? "border-turquoise shadow-2xl shadow-turquoise/20 lg:scale-105"
+                    : "border-gray-800"
+                }`}
+              >
+                {plan.isRecommended && (
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-turquoise text-black font-bold text-sm px-4 py-2 rounded-full uppercase tracking-wider z-10">
+                    🔥 Mais Popular
+                  </div>
+                )}
+
+                <div className={`flex-grow p-8 ${plan.isRecommended ? "pt-12" : ""}`}>
+                  <h3 className={`text-2xl lg:text-3xl font-bold text-center mb-6 ${plan.isRecommended ? "text-turquoise" : "text-white"}`}>
+                    {plan.name}
+                  </h3>
+
+                  <div className="text-center my-8">
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <span className="text-xl text-gray-500 line-through">R$ {plan.originalPrice}</span>
+                      <span className="text-5xl lg:text-6xl font-extrabold text-white">R$ {plan.price}</span>
+                    </div>
+                    <div className="flex justify-center gap-3 mb-2">
+                      <span className="bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                        {plan.discount}
+                      </span>
+                      <span className="text-red-400 text-sm font-bold animate-pulse">{plan.urgency}</span>
+                    </div>
+                    <span className="text-gray-400 text-lg"> / à vista</span>
+                  </div>
+
+                  <p className="text-gray-400 text-center text-base lg:text-lg min-h-[4rem] mb-8 leading-relaxed">
+                    {plan.description}
+                  </p>
+
+                  <hr className="border-gray-700 my-8" />
+                  <ul className="space-y-5 text-gray-300">
+                    {plan.features.map((feature, fIndex) => (
+                      <li key={fIndex} className="flex items-start gap-4">
+                        <Check
+                          className={`w-6 h-6 mt-1 flex-shrink-0 ${
+                            plan.isRecommended ? "text-turquoise" : "text-gray-500"
+                          }`}
+                        />
+                        <span className="text-base lg:text-lg leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              )}
 
-              <div className={`flex-grow p-6 sm:p-8 ${plan.isRecommended ? "pt-8 sm:pt-10 lg:pt-16" : ""}`}>
-                <h3 className={`text-2xl font-bold text-center ${plan.isRecommended ? "text-turquoise" : "text-white"}`}>
-                  {plan.name}
-                </h3>
-
-                <div className="text-center my-5 sm:my-6">
-                  <span className="text-4xl sm:text-5xl font-extrabold text-white">R$ {plan.price}</span>
-                  <span className="text-gray-400"> / à vista</span>
+                <div className="mt-auto p-8 pt-0">
+                  <Button
+                    onClick={() => handleBuyClick(plan)}
+                    variant={plan.isRecommended ? "cta" : "secondary"}
+                    className="w-full text-lg lg:text-xl py-6 whitespace-normal break-words leading-tight text-center transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl"
+                  >
+                    {plan.isRecommended && <Star className="w-6 h-6 mr-3" />}
+                    {plan.cta}
+                  </Button>
+                  
+                  <p className="text-center text-sm text-gray-500 mt-4">
+                    💳 Parcelamento disponível • 🔒 Compra 100% segura
+                  </p>
                 </div>
-
-                <p className="text-gray-400 text-center text-sm min-h-[3.5rem] mb-5 sm:mb-6">
-                  {plan.description}
-                </p>
-
-                <hr className="border-gray-700 my-5" />
-                <ul className="space-y-4 text-gray-300">
-                  {plan.features.map((feature, fIndex) => (
-                    <li key={fIndex} className="flex items-start gap-3">
-                      <Check
-                        className={`w-5 h-5 mt-1 flex-shrink-0 ${
-                          plan.isRecommended ? "text-turquoise" : "text-gray-500"
-                        }`}
-                      />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-
-              <div className="mt-auto p-6 sm:p-8 pt-0">
-                <Button
-                  onClick={() => handleBuyClick(plan)}
-                  variant={plan.isRecommended ? "cta" : "secondary"}
-                  className="w-full text-base sm:text-lg py-4 sm:py-5 whitespace-normal break-words leading-tight text-center"
-                >
-                  {plan.isRecommended && <Star className="w-5 h-5 mr-2" />}
-                  {plan.cta}
-                </Button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

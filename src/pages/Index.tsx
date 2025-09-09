@@ -5,8 +5,11 @@ import ForWhoSection from "@/components/ForWhoSection";
 import TrainersSection from "@/components/TrainersSection";
 import LearningSection from "@/components/LearningSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import FinalCtaSection from "@/components/FinalCtaSection";
+import GuaranteeSection from "@/components/GuaranteeSection";
 import PricingSection from "@/components/PricingSection";
+import FAQSection from "@/components/FAQSection";
+import UrgencySection from "@/components/UrgencySection";
+import FinalCtaSection from "@/components/FinalCtaSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
@@ -20,7 +23,10 @@ const Index = () => {
         <TrainersSection />
         <LearningSection />
         <TestimonialsSection />
+        <GuaranteeSection />
         <PricingSection />
+        <FAQSection />
+        <UrgencySection />
         <FinalCtaSection />
       </div>
       

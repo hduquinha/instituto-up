@@ -62,38 +62,80 @@ app.post('/create_preference', async (req, res) => {
     console.log('Frontend URL:', process.env.FRONTEND_URL);
     console.log('Notification URL:', process.env.NOTIFICATION_URL);
 
+    // Separar nome e sobrenome para melhor apresentação
+    const nameParts = buyerData.name.trim().split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ') || '';
+
+    // Processar telefone (extrair código de área se possível)
+    const phoneClean = buyerData.phone.replace(/\D/g, '');
+    let areaCode = '';
+    let phoneNumber = phoneClean;
+    
+    if (phoneClean.length === 11) {
+      areaCode = phoneClean.substring(0, 2);
+      phoneNumber = phoneClean.substring(2);
+    } else if (phoneClean.length === 10) {
+      areaCode = phoneClean.substring(0, 2);
+      phoneNumber = phoneClean.substring(2);
+    }
+
+    // URL da imagem otimizada
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:8080';
+    const imageUrl = `${frontendUrl}/up.png`;
+    
+    console.log('🖼️ URL da imagem configurada:', imageUrl);
+
     const preferenceData = {
       items: [
         {
           id: productData.id || '001',
           title: productData.title,
-          description: productData.description || '',
+          description: productData.description || 'Curso completo com certificado de participação',
           quantity: 1,
           currency_id: 'BRL',
-          unit_price: parseFloat(productData.price)
+          unit_price: parseFloat(productData.price),
+          picture_url: imageUrl,
+          category_id: 'education'
         }
       ],
       payer: {
-        name: buyerData.name,
+        name: firstName,
+        surname: lastName,
         email: buyerData.email,
         phone: {
-          number: buyerData.phone
+          area_code: areaCode,
+          number: phoneNumber
         }
       },
+      payment_methods: {
+        excluded_payment_methods: [],
+        excluded_payment_types: [],
+        installments: 12,
+        default_installments: 1
+      },
       back_urls: {
-        success: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/checkout-success`,
-        failure: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/checkout-success`,
-        pending: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/checkout-success`
+        success: `${process.env.FRONTEND_URL || 'http://localhost:8080'}/checkout-success`,
+        failure: `${process.env.FRONTEND_URL || 'http://localhost:8080'}/checkout-success`,
+        pending: `${process.env.FRONTEND_URL || 'http://localhost:8080'}/checkout-success`
       },
       notification_url: process.env.NOTIFICATION_URL || 'https://webhook.site/unique-url',
-      external_reference: `${Date.now()}_${buyerData.email}`, // Referência única
-      statement_descriptor: 'INSTITUTO UP'
+      external_reference: `${Date.now()}_${buyerData.email}`,
+      statement_descriptor: 'INSTITUTO UP',
+      binary_mode: false
     };
 
     // Criar preferência no Mercado Pago
     const result = await preference.create({ body: preferenceData });
 
-    console.log('Preferência criada:', result.id);
+    console.log('✅ Preferência criada com sucesso:', result.id);
+    console.log('🎨 Detalhes enviados ao checkout:');
+    console.log('   📷 Imagem:', preferenceData.items[0].picture_url);
+    console.log('   📝 Título:', preferenceData.items[0].title);
+    console.log('   💰 Preço:', `R$ ${preferenceData.items[0].unit_price}`);
+    console.log('   🏢 Empresa:', preferenceData.statement_descriptor);
+    console.log('   💳 Métodos disponíveis: PIX, Cartão de Crédito, Cartão de Débito, Boleto');
+    console.log('   📊 Parcelamento: até', preferenceData.payment_methods.installments, 'vezes');
 
     res.json({
       id: result.id,
