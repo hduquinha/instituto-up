@@ -158,7 +158,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
       }
 
       // 2. Criar preferência de pagamento no backend
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 
+                        (window.location.hostname === 'localhost' ? 'http://localhost:4000' : '');
       
       console.log('Backend URL:', backendUrl);
       console.log('Environment variables:', {
@@ -167,34 +168,15 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
       });
       console.log('Criando preferência de pagamento...');
       
-      // Primeiro, vamos testar se o backend está acessível
-      try {
-        console.log('Testando conectividade com:', `${backendUrl}/`);
-        const testResponse = await fetch(`${backendUrl}/`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        console.log('Teste de conectividade:', testResponse.status, testResponse.ok);
-        
-        if (!testResponse.ok) {
-          throw new Error(`Backend retornou status ${testResponse.status}`);
-        }
-        
-        const testData = await testResponse.json();
-        console.log('Resposta do backend:', testData);
-      } catch (testError) {
-        console.error('Erro no teste de conectividade:', testError);
-        throw new Error('Backend não está acessível. Verifique se está rodando em ' + backendUrl);
-      }
+      // Para Vercel, usar as APIs serverless
+      const apiUrl = backendUrl ? `${backendUrl}/create_preference` : '/api/create_preference';
       
-      console.log('Backend acessível! Criando preferência...');
+      console.log('Criando preferência na URL:', apiUrl);
       
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 segundos
       
-      const response = await fetch(`${backendUrl}/create_preference`, {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
