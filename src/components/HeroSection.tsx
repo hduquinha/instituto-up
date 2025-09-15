@@ -39,12 +39,13 @@ const HeroSection = () => {
           <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2">
             <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Emoções</span>
             <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Relacionamentos</span>
+            <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Sono</span>
           </div>
 
           <p className="mt-4 text-white/90 sm:text-lg">
             Nesta quarta, 19:29–21:29. Desenvolva gerenciamento emocional para gerenciar suas reações,
-            fortalecer relacionamentos com comunicação de liderança e tomar decisões com mais
-            clareza e consistência.
+            fortalecer relacionamentos com comunicação de liderança e melhorar a qualidade do sono com hábitos simples —
+            além de tomar decisões com mais clareza e consistência.
           </p>
 
           <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-turquoise/10 px-4 py-2 ring-1 ring-turquoise/30">
@@ -56,7 +57,7 @@ const HeroSection = () => {
             <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Exercício guiado para gerir estados emocionais</li>
             <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Dinâmica de alto impacto</li>
             <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Comunicação de liderança sem conflitos</li>
-            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Decisões com foco e estabilidade</li>
+            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Higiene do sono: rotina noturna para dormir melhor</li>
           </ul>
 
       <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">

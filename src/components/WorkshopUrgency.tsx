@@ -36,7 +36,7 @@ const WorkshopUrgency: React.FC = () => {
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Relacionamentos: comunicação de liderança sem conflitos</div>
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Decisões conscientes: clareza, foco e serenidade</div>
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Exercício guiado para estrutura de gerenciamento emocional</div>
-              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Dinâmica de alto impacto para consolidar</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Sono: higiene do sono e reduzir ruminação noturna</div>
             </div>
 
             {/* Preparação */}
