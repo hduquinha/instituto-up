@@ -10,7 +10,8 @@ const HeroSection = () => {
 
   const workshopLink = ((import.meta as any).env?.VITE_WORKSHOP_LINK as string | undefined) || "https://forms.gle/SQZqtPHMAzpgtkVy7";
   const handleCta = () => {
-  if (workshopLink && workshopLink !== "#") {
+    try { (window as any).fbq && (window as any).fbq('track', 'Lead'); } catch {}
+    if (workshopLink && workshopLink !== "#") {
       window.open(workshopLink, "_blank");
     } else {
       scrollToPricing();

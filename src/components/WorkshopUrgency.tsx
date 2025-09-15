@@ -47,7 +47,7 @@ const WorkshopUrgency: React.FC = () => {
             <div className="mt-5">
               <Button
                 className="h-11 rounded-lg bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
-                onClick={() => window.open(workshopLink, "_blank")}
+                onClick={() => { try { (window as any).fbq && (window as any).fbq('track', 'Lead'); } catch {}; window.open(workshopLink, "_blank"); }}
               >
                 Garantir minha vaga gratuita
               </Button>
