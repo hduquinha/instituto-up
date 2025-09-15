@@ -8,6 +8,15 @@ const HeroSection = () => {
     if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
+  const workshopLink = (import.meta as any).env?.VITE_WORKSHOP_LINK as string | undefined;
+  const handleCta = () => {
+    if (workshopLink && workshopLink !== "#") {
+      window.open(workshopLink, "_blank");
+    } else {
+      scrollToPricing();
+    }
+  };
+
   return (
     <section
       className="relative min-h-[100svh] flex items-end md:items-center justify-end md:justify-center px-4 sm:px-6 pb-24 pt-10 bg-cover bg-center bg-no-repeat overflow-hidden"
@@ -45,9 +54,9 @@ const HeroSection = () => {
                 variant="cta"
                 size="lg"
                 className="w-full text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-5 h-auto whitespace-normal break-words leading-tight text-center"
-                onClick={scrollToPricing}
+                onClick={handleCta}
               >
-                QUERO GARANTIR MINHA VAGA AGORA
+                INSCREVER-SE NO WORKSHOP GRATUITO
               </Button>
             </div>
           </div>
