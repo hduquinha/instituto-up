@@ -1,2 +1,2 @@
-// Deprecated guarantee section removed in workshop branch
-export default function GuaranteeSection() { return null; }
+// (placeholder kept to avoid import breaks) guarantee section removed
+export default function GuaranteeSection(){ return null; }

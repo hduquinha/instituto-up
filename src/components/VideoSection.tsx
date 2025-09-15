@@ -14,7 +14,7 @@ const VideoSection = () => {
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Antes de transformar desempenho, você precisa reconhecer como reage a pressão, conflito e decisão financeira.
+          Antes de transformar desempenho, você precisa reconhecer como reage a pressão, conflito e tomada de decisão.
           Assista aos curtas e perceba onde você está hoje — e para onde pode ir aplicando gerenciamento emocional.
         </p>
 

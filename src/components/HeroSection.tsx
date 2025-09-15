@@ -3,8 +3,8 @@ import { ChevronDown, CalendarDays } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const HeroSection = () => {
-  const scrollToPricing = () => {
-    const section = document.getElementById("pricing");
+  const scrollToVideo = () => {
+    const section = document.getElementById("video");
     if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -14,7 +14,7 @@ const HeroSection = () => {
     if (workshopLink && workshopLink !== "#") {
       window.open(workshopLink, "_blank");
     } else {
-      scrollToPricing();
+      scrollToVideo();
     }
   };
 
@@ -33,18 +33,17 @@ const HeroSection = () => {
           </div>
 
           <h1 className="mt-4 text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-            Gerenciamento Emocional aplicado a <span className="text-turquoise">Emoções, Relacionamentos e Finanças</span>
+            Gerenciamento Emocional aplicado em <span className="text-turquoise">Emoções, Relacionamentos e Finanças</span>
           </h1>
 
           <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2">
             <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Emoções</span>
             <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Relacionamentos</span>
-            <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Finanças</span>
           </div>
 
           <p className="mt-4 text-white/90 sm:text-lg">
-            Nesta quarta, 19:29–21:29. Desenvolva gerenciamento emocional para equilibrar suas reações,
-            fortalecer relacionamentos com comunicação de liderança e tomar decisões financeiras com mais
+            Nesta quarta, 19:29–21:29. Desenvolva gerenciamento emocional para gerenciar suas reações,
+            fortalecer relacionamentos com comunicação de liderança e tomar decisões com mais
             clareza e consistência.
           </p>
 
@@ -57,14 +56,14 @@ const HeroSection = () => {
             <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Exercício guiado para gerir estados emocionais</li>
             <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Dinâmica de alto impacto</li>
             <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Comunicação de liderança sem conflitos</li>
-            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Decisões financeiras com foco e estabilidade</li>
+            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Decisões com foco e estabilidade</li>
           </ul>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <Button
               variant="cta"
               size="lg"
-              className="h-12 rounded-lg px-6 text-base font-semibold"
+        className="h-12 w-full sm:w-auto rounded-lg px-6 text-base font-semibold"
               onClick={handleCta}
             >
               Garantir minha vaga gratuita
@@ -72,7 +71,7 @@ const HeroSection = () => {
             <Button
               variant="secondary"
               size="lg"
-              className="h-12 rounded-lg px-6 text-base font-semibold"
+        className="h-12 w-full sm:w-auto rounded-lg px-6 text-base font-semibold"
               onClick={() => {
                 const el = document.getElementById('video');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -91,9 +90,9 @@ const HeroSection = () => {
 
       {/* Indicador de scroll centralizado */}
       <button
-        onClick={scrollToPricing}
+        onClick={scrollToVideo}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-gray-300/90 hover:text-white transition text-center"
-        aria-label="Descer para preços"
+        aria-label="Descer para vídeo"
       >
         <span className="text-xs sm:text-sm font-semibold mb-1">
           Descubra o caminho para a mudança

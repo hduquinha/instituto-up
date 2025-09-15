@@ -34,7 +34,7 @@ const WorkshopUrgency: React.FC = () => {
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Gerenciamento emocional aplicado ao dia a dia</div>
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Como lidar com emoções intensas (ansiedade, estresse)</div>
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Relacionamentos: comunicação de liderança sem conflitos</div>
-              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Financeiro: clareza, foco e decisões sem impulsividade</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Decisões conscientes: clareza, foco e serenidade</div>
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Exercício guiado para estrutura de gerenciamento emocional</div>
               <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Dinâmica de alto impacto para consolidar</div>
             </div>
@@ -44,9 +44,9 @@ const WorkshopUrgency: React.FC = () => {
               Prepare-se: encontre um lugar calmo, traga <strong>papel e caneta</strong> e use <strong>fone de ouvido</strong>.
             </div>
 
-            <div className="mt-5">
+      <div className="mt-5">
               <Button
-                className="h-11 rounded-lg bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
+        className="h-11 w-full sm:w-auto rounded-lg bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
                 onClick={() => { try { (window as any).fbq && (window as any).fbq('track', 'Lead'); } catch {}; window.open(workshopLink, "_blank"); }}
               >
                 Garantir minha vaga gratuita
