@@ -3,7 +3,7 @@ import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const WorkshopUrgency: React.FC = () => {
-  const workshopLink = import.meta.env.VITE_WORKSHOP_LINK || "#";
+  const workshopLink = import.meta.env.VITE_WORKSHOP_LINK || "https://forms.gle/SQZqtPHMAzpgtkVy7";
   const percent = 83; // requested value
 
   return (

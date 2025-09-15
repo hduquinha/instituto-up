@@ -8,9 +8,9 @@ const HeroSection = () => {
     if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
-  const workshopLink = (import.meta as any).env?.VITE_WORKSHOP_LINK as string | undefined;
+  const workshopLink = ((import.meta as any).env?.VITE_WORKSHOP_LINK as string | undefined) || "https://forms.gle/SQZqtPHMAzpgtkVy7";
   const handleCta = () => {
-    if (workshopLink && workshopLink !== "#") {
+  if (workshopLink && workshopLink !== "#") {
       window.open(workshopLink, "_blank");
     } else {
       scrollToPricing();
