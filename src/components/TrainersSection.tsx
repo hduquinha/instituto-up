@@ -57,7 +57,7 @@ const TrainersSection = () => {
                   </li>
                   <li className="flex items-center gap-3">
                     <Star style={{ color: turquoiseColor }} className="h-6 w-6 flex-shrink-0" />
-                    <span>Especialista em <strong className="text-white">Inteligência Emocional e PNL</strong></span>
+                    <span>Especialista em <strong className="text-white">Gerenciamento Emocional e PNL</strong></span>
                   </li>
                 </ul>
               </div>

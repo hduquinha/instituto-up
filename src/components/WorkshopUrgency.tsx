@@ -29,6 +29,21 @@ const WorkshopUrgency: React.FC = () => {
               </div>
               <div className="mt-1 text-right text-xs text-white/70">{percent}% preenchido</div>
             </div>
+            {/* Tópicos que serão abordados */}
+            <div className="mt-5 grid gap-2 text-sm text-white/90 sm:grid-cols-2">
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Gerenciamento emocional aplicado ao dia a dia</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Como lidar com emoções intensas (ansiedade, estresse)</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Relacionamentos: comunicação de liderança sem conflitos</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Financeiro: clareza, foco e decisões sem impulsividade</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Exercício guiado para estrutura de gerenciamento emocional</div>
+              <div className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Dinâmica de alto impacto para consolidar</div>
+            </div>
+
+            {/* Preparação */}
+            <div className="mt-4 rounded-md bg-amber-500/10 p-3 text-xs text-amber-200 ring-1 ring-amber-400/30">
+              Prepare-se: encontre um lugar calmo, traga <strong>papel e caneta</strong> e use <strong>fone de ouvido</strong>.
+            </div>
+
             <div className="mt-5">
               <Button
                 className="h-11 rounded-lg bg-emerald-500 text-emerald-950 hover:bg-emerald-400"

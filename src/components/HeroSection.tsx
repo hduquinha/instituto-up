@@ -25,44 +25,66 @@ const HeroSection = () => {
       {/* overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent" />
 
-      <div className="relative z-10 container max-w-6xl mx-auto w-full">
-        <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-end">
-          {/* Texto (sempre alinhado à esquerda) */}
-          <div className="text-left max-w-xl w-full px-1">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight tracking-tight text-white break-words">
-              Sua <span className="text-turquoise">Virada de Chave</span> começa em 2 dias
-            </h1>
-
-            <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
-              Domine suas Emoções, eleve sua Performance.
-            </h2>
-
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão online e <strong>ao vivo</strong> com Rodrigo Damaceno, desenhada para
-              <strong> reprogramar</strong> sua resposta ao estresse e à ansiedade.
-            </p>
-
-            <div className="flex flex-col items-stretch gap-3 sm:gap-4">
-              <div className="flex items-center gap-2 bg-turquoise/10 border border-turquoise/30 rounded-lg p-3">
-                <CalendarDays className="h-5 w-5 text-turquoise flex-shrink-0" />
-                <p className="text-white font-semibold text-sm sm:text-base">
-                  6 horas por dia, das 9h às 12h
-                </p>
-              </div>
-
-              <Button
-                variant="cta"
-                size="lg"
-                className="w-full text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-5 h-auto whitespace-normal break-words leading-tight text-center"
-                onClick={handleCta}
-              >
-                INSCREVER-SE NO WORKSHOP GRATUITO
-              </Button>
-            </div>
+      <div className="relative z-10 container mx-auto w-full max-w-6xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide ring-1 ring-white/15">
+            Workshop gratuito • Ao vivo
           </div>
 
-          {/* Coluna direita escondida no mobile */}
-          <div className="hidden md:block" />
+          <h1 className="mt-4 text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+            Gerenciamento Emocional aplicado a <span className="text-turquoise">Emoções, Relacionamentos e Finanças</span>
+          </h1>
+
+          <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2">
+            <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Emoções</span>
+            <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Relacionamentos</span>
+            <span className="rounded-full bg-turquoise/10 px-3 py-1 text-xs font-semibold text-turquoise ring-1 ring-turquoise/30">Finanças</span>
+          </div>
+
+          <p className="mt-4 text-white/90 sm:text-lg">
+            Nesta quarta, 19:29–21:29. Desenvolva gerenciamento emocional para equilibrar suas reações,
+            fortalecer relacionamentos com comunicação de liderança e tomar decisões financeiras com mais
+            clareza e consistência.
+          </p>
+
+          <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-turquoise/10 px-4 py-2 ring-1 ring-turquoise/30">
+            <CalendarDays className="h-5 w-5 text-turquoise" />
+            <span className="text-sm font-semibold text-white">Quarta • 19:29–21:29 • Online e gratuito</span>
+          </div>
+
+          <ul className="mx-auto mt-6 grid max-w-2xl gap-2 text-left text-white/90 sm:grid-cols-2">
+            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Exercício guiado para gerir estados emocionais</li>
+            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Dinâmica de alto impacto</li>
+            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Comunicação de liderança sem conflitos</li>
+            <li className="rounded-md bg-white/5 p-3 ring-1 ring-white/10">Decisões financeiras com foco e estabilidade</li>
+          </ul>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button
+              variant="cta"
+              size="lg"
+              className="h-12 rounded-lg px-6 text-base font-semibold"
+              onClick={handleCta}
+            >
+              Garantir minha vaga gratuita
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="h-12 rounded-lg px-6 text-base font-semibold"
+              onClick={() => {
+                const el = document.getElementById('video');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Ver 1 min do conteúdo
+            </Button>
+          </div>
+
+          <div className="mx-auto mt-4 max-w-xl rounded-lg border border-white/10 bg-black/40 p-3 text-xs sm:text-sm text-gray-300">
+            Para aproveitar ao máximo: encontre um lugar calmo, tenha <strong>papel e caneta</strong> e use
+            <strong> fone de ouvido</strong>.
+          </div>
         </div>
       </div>
 

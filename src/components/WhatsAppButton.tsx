@@ -5,8 +5,8 @@ import React from 'react';
 import whatsappLogo from '@/assets/wwplogo.png'; 
 
 const WhatsAppButton = () => {
-  const phoneNumber = "5511999999999"; // ⚠️ Altere para seu número, ex: "5513999999999" (código do país + DDD + número)
-  const message = "Olá! Tenho interesse no treinamento e gostaria de mais informações.";
+  const phoneNumber = "5513997832766"; // +55 (Brasil) 13 (DDD) 99783-2766
+  const message = "quero saber sobre o encontro online";
   const encodedMessage = encodeURIComponent(message);
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
