@@ -158,8 +158,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
       }
 
       // 2. Criar preferência de pagamento no backend
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 
-                        (window.location.hostname === 'localhost' ? 'http://localhost:4000' : '');
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
       
       console.log('Backend URL:', backendUrl);
       console.log('Environment variables:', {
@@ -169,7 +168,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
       console.log('Criando preferência de pagamento...');
       
       // Para Vercel, usar as APIs serverless
-      const apiUrl = backendUrl ? `${backendUrl}/create_preference` : '/api/create_preference';
+  const apiUrl = backendUrl ? `${backendUrl}/create_preference` : '/api/create_preference';
       
       console.log('Criando preferência na URL:', apiUrl);
       
