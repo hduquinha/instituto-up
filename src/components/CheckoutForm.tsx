@@ -124,6 +124,18 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
         }).catch(() => {});
       }
 
+      // Persistimos a sessão para suportar refresh/abertura direta do /checkout
+      try {
+        const payload = {
+          buyer: buyerData,
+          product: productData,
+          includeRecording: formData.includeRecording,
+          price: totalPrice,
+          ts: Date.now()
+        };
+        sessionStorage.setItem('checkout:session', JSON.stringify(payload));
+      } catch {}
+
       navigate('/checkout', {
         state: {
           buyer: buyerData,

@@ -14,9 +14,24 @@ const Checkout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const state = (location.state as any) || {};
-  const buyer: Buyer | undefined = state.buyer;
-  const product: Product | undefined = state.product;
-  const includeRecording: boolean = !!state.includeRecording;
+  // Recupera do estado de navegação OU do sessionStorage
+  let initialBuyer: Buyer | undefined = state.buyer;
+  let initialProduct: Product | undefined = state.product;
+  let initialIncludeRecording: boolean = !!state.includeRecording;
+  if (!initialBuyer || !initialProduct) {
+    try {
+      const raw = typeof window !== 'undefined' ? sessionStorage.getItem('checkout:session') : null;
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        initialBuyer = parsed?.buyer;
+        initialProduct = parsed?.product;
+        initialIncludeRecording = !!parsed?.includeRecording;
+      }
+    } catch {}
+  }
+  const buyer: Buyer | undefined = initialBuyer;
+  const product: Product | undefined = initialProduct;
+  const includeRecording: boolean = initialIncludeRecording;
 
   const finalTitle = product ? (includeRecording ? `${product.title} + Aula Gravada` : product.title) : '';
   const finalPrice = product ? product.price + (includeRecording ? 100 : 0) : 0;
@@ -45,6 +60,8 @@ const Checkout: React.FC = () => {
       return;
     }
 
+    // Garante que estamos no client
+    if (typeof window === 'undefined') return;
     const MP = (window as any).MercadoPago;
     if (!MP) {
       setError('SDK do Mercado Pago não foi carregado.');
