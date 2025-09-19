@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MercadoPagoConfig, Preference } = require('mercadopago');
+const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const axios = require('axios');
 
 const app = express();
@@ -17,6 +17,49 @@ app.use(express.json());
 // Configuração do Mercado Pago
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN
+});
+
+// Endpoint de processamento de pagamento (Checkout Transparente via Bricks)
+app.post('/api/process_payment', async (req, res) => {
+  try {
+    const {
+      transaction_amount,
+      token,
+      description,
+      installments,
+      payment_method_id,
+      payer,
+      notification_url
+    } = req.body;
+
+    if (!transaction_amount || !payment_method_id || !payer?.email) {
+      return res.status(400).json({ error: 'Dados de pagamento incompletos' });
+    }
+
+    const payment = new Payment(client);
+
+    const body = {
+      transaction_amount: Number(transaction_amount),
+      description,
+      installments: installments ? Number(installments) : 1,
+      payment_method_id,
+      token, // obrigatório para cartão; ausente para PIX e boleto
+      notification_url: notification_url || process.env.NOTIFICATION_URL,
+      payer: {
+        email: payer.email,
+        first_name: payer.first_name,
+        last_name: payer.last_name,
+        identification: payer.identification, // {type, number}
+      }
+    };
+
+    // Para PIX, o token não é enviado; Mercado Pago retorna point_of_interaction com qr_code_base64
+    const result = await payment.create({ body });
+    res.status(201).json(result);
+  } catch (error) {
+    console.error('Erro ao processar pagamento:', error?.message || error);
+    res.status(500).json({ error: 'Erro ao processar pagamento', details: error?.message });
+  }
 });
 
 // Rota para criar preferência de pagamento
