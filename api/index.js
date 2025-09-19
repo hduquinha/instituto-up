@@ -32,33 +32,54 @@ app.post('/api/process_payment', async (req, res) => {
       notification_url
     } = req.body;
 
-    if (!transaction_amount || !payment_method_id || !payer?.email) {
+    if (!transaction_amount || !payer?.email) {
       return res.status(400).json({ error: 'Dados de pagamento incompletos' });
     }
 
+    const method = (payment_method_id || '').toLowerCase();
     const payment = new Payment(client);
 
-    const body = {
+    let body = {
       transaction_amount: Number(transaction_amount),
       description,
-      installments: installments ? Number(installments) : 1,
-      payment_method_id,
-      token, // obrigatório para cartão; ausente para PIX e boleto
+      payment_method_id: method,
       notification_url: notification_url || process.env.NOTIFICATION_URL,
       payer: {
         email: payer.email,
         first_name: payer.first_name,
         last_name: payer.last_name,
-        identification: payer.identification, // {type, number}
+      },
+      metadata: {
+        source: 'instituto-up-bricks',
+        timestamp: Date.now()
       }
     };
 
-    // Para PIX, o token não é enviado; Mercado Pago retorna point_of_interaction com qr_code_base64
+    if (method === 'pix' || method.includes('pix')) {
+      // PIX não usa token nem installments
+    } else if (token) {
+      // Cartão
+      body.token = token;
+      body.installments = installments ? Number(installments) : 1;
+      if (payer.identification) {
+        body.payer.identification = payer.identification; // { type, number }
+      }
+    } else if (method === 'bolbradesco' || method.includes('boleto') || method === 'ticket') {
+      // Boleto exige identification; se não vier, falhar explicitamente
+      if (!payer.identification?.type || !payer.identification?.number) {
+        return res.status(400).json({ error: 'Boleto requer CPF/CNPJ em payer.identification' });
+      }
+      body.payer.identification = payer.identification;
+    } else if (!method) {
+      return res.status(400).json({ error: 'payment_method_id ausente' });
+    }
+
     const result = await payment.create({ body });
     res.status(201).json(result);
   } catch (error) {
-    console.error('Erro ao processar pagamento:', error?.message || error);
-    res.status(500).json({ error: 'Erro ao processar pagamento', details: error?.message });
+    const details = error?.response?.data || error?.message || error;
+    console.error('Erro ao processar pagamento:', details);
+    res.status(500).json({ error: 'Erro ao processar pagamento', details });
   }
 });
 
