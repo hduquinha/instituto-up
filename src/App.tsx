@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
+import Checkout from "./pages/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout-failure" element={<CheckoutSuccess />} />
           <Route path="/checkout-pending" element={<CheckoutSuccess />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

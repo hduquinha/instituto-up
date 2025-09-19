@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -91,144 +92,51 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
     return true;
   };
 
-  // ===== Checkout Transparente (Mercado Pago Bricks) =====
-  const brickContainerRef = useRef<HTMLDivElement | null>(null);
-  const [brickLoaded, setBrickLoaded] = useState(false);
-  const [missingPublicKey, setMissingPublicKey] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Verifica se SDK do MP está presente
-    if (!(window as any).MercadoPago) return;
-
-    const publicKey = import.meta.env.VITE_MP_PUBLIC_KEY;
-    if (!publicKey) {
-      console.warn('VITE_MP_PUBLIC_KEY ausente. Defina no .env');
-      setMissingPublicKey(true);
-      return;
-    }
-
-    const mp = new (window as any).MercadoPago(publicKey, { locale: 'pt-BR' });
-
-    // Limpa container ao reabrir modal
-    if (brickContainerRef.current) {
-      brickContainerRef.current.innerHTML = '';
-    }
-
-    const bricksBuilder = mp.bricks();
-
-    const renderPaymentBrick = async () => {
+  const handleContinue = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    if (!validateForm()) return;
+    setIsLoading(true);
+    try {
       const totalPrice = calculateTotalPrice();
-      const settings = {
-        initialization: {
-          amount: Number(totalPrice),
-        },
-        customization: {
-          visual: { style: { theme: 'default' } },
-          paymentMethods: {
-            ticket: 'all', // boleto
-            bankTransfer: 'all', // PIX
-            creditCard: 'all'
-          }
-        },
-        callbacks: {
-          onReady: () => setBrickLoaded(true),
-          onSubmit: async (cardFormData: any) => {
-            try {
-              setIsLoading(true);
-              setError(null);
+      const buyerData = {
+        name: formData.name.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formatPhoneNumber(formData.phone)
+      };
 
-              // Envia remarketing opcionalmente
-              const buyerData = {
-                name: formData.name.trim(),
-                email: formData.email.trim().toLowerCase(),
-                phone: formatPhoneNumber(formData.phone)
-              };
-              const remarketingWebhookUrl = import.meta.env.VITE_N8N_WEBHOOK_REMARKETING;
-              if (remarketingWebhookUrl && remarketingWebhookUrl !== 'https://seu-n8n.webhook.url/remarketing') {
-                fetch(remarketingWebhookUrl, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    ...buyerData,
-                    product: formData.includeRecording ? `${productData.title} + Aula Gravada` : productData.title,
-                    price: totalPrice,
-                    includeRecording: formData.includeRecording,
-                    timestamp: new Date().toISOString(),
-                    source: 'payment_brick'
-                  })
-                }).catch(() => {});
-              }
+      // opcional: enviar remarketing antes de navegar
+      const remarketingWebhookUrl = import.meta.env.VITE_N8N_WEBHOOK_REMARKETING;
+      if (remarketingWebhookUrl && remarketingWebhookUrl !== 'https://seu-n8n.webhook.url/remarketing') {
+        fetch(remarketingWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...buyerData,
+            product: formData.includeRecording ? `${productData.title} + Aula Gravada` : productData.title,
+            price: totalPrice,
+            includeRecording: formData.includeRecording,
+            timestamp: new Date().toISOString(),
+            source: 'checkout_step1'
+          })
+        }).catch(() => {});
+      }
 
-              const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
-              const apiUrl = backendUrl ? `${backendUrl}/process_payment` : '/api/process_payment';
-
-              const { paymentMethodId, issuerId, token, installments } = cardFormData;
-
-              const nameParts = formData.name.trim().split(' ');
-              const body = {
-                transaction_amount: Number(totalPrice),
-                description: formData.includeRecording ? `${productData.title} + Aula Gravada` : productData.title,
-                payment_method_id: paymentMethodId,
-                token,
-                installments: Number(installments) || 1,
-                payer: {
-                  email: formData.email.trim().toLowerCase(),
-                  first_name: nameParts[0] || '',
-                  last_name: nameParts.slice(1).join(' ') || '',
-                  identification: cardFormData?.payer?.identification
-                }
-              };
-
-              const resp = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-              });
-
-              if (!resp.ok) {
-                const t = await resp.text();
-                throw new Error(t || 'Falha no pagamento');
-              }
-              const data = await resp.json();
-
-              // Fluxos por método:
-              // - Cartão: status approved/authorized/in_process
-              // - PIX: retorna point_of_interaction com qr_code_base64 e link
-              // - Boleto: boleto_url
-              if (data.status === 'approved' || data.status === 'authorized') {
-                window.location.href = '/checkout-success';
-              } else if (data.point_of_interaction?.transaction_data?.ticket_url) {
-                window.location.href = data.point_of_interaction.transaction_data.ticket_url;
-              } else if (data.point_of_interaction?.transaction_data?.qr_code) {
-                // Mostrar instruções PIX: vamos abrir em nova aba se tiver link
-                const link = data.point_of_interaction.transaction_data.qr_code_link;
-                if (link) window.location.href = link;
-              } else if (data.status === 'in_process' || data.status_detail) {
-                window.location.href = '/checkout-success';
-              } else {
-                setError('Pagamento enviado. Aguarde confirmação.');
-              }
-
-              return;
-            } catch (err: any) {
-              setError(err?.message || 'Erro ao processar pagamento');
-            } finally {
-              setIsLoading(false);
-            }
-          },
-          onError: (error: any) => {
-            console.error('Brick error', error);
-            setError('Erro no componente de pagamento.');
-          }
+      navigate('/checkout', {
+        state: {
+          buyer: buyerData,
+          product: productData,
+          includeRecording: formData.includeRecording
         }
-      } as any;
-
-      await bricksBuilder.create('payment', 'payment-brick-container', settings);
-    };
-
-    renderPaymentBrick();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formData.includeRecording, productData.price]);
+      });
+    } catch (err: any) {
+      setError(err?.message || 'Erro ao iniciar checkout');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -251,7 +159,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
         </CardHeader>
         
         <CardContent>
-          <form onSubmit={(e) => { e.preventDefault(); }} className="space-y-4">
+          <form onSubmit={handleContinue} className="space-y-4">
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
@@ -324,32 +232,29 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
               </div>
             </div>
 
-            <div className="space-y-2 pt-2">
-              <Label className="text-sm font-medium">Pagamento</Label>
-              {missingPublicKey && (
-                <Alert variant="destructive">
-                  <AlertDescription>
-                    Pagamento indisponível. Defina VITE_MP_PUBLIC_KEY nas variáveis de ambiente.
-                  </AlertDescription>
-                </Alert>
-              )}
-              {!missingPublicKey && !brickLoaded && (
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Loader2 className="h-4 w-4 animate-spin" /> Carregando métodos de pagamento...
-                </div>
-              )}
-              <div ref={brickContainerRef} id="payment-brick-container"></div>
-            </div>
-
-            <div className="pt-4">
+            <div className="flex gap-3 pt-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={onClose}
                 disabled={isLoading}
-                className="w-full"
+                className="flex-1"
               >
                 Cancelar
+              </Button>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="flex-1"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Continuando...
+                  </>
+                ) : (
+                  `Continuar`
+                )}
               </Button>
             </div>
           </form>
