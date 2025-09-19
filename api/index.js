@@ -1,4 +1,9 @@
 const express = require('express');
+const path = require('path');
+// Carrega variáveis de ambiente no local (não afeta Vercel)
+try {
+  require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+} catch {}
 const cors = require('cors');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const axios = require('axios');
@@ -240,3 +245,11 @@ app.post('/api/webhook-mercadopago', async (req, res) => {
 
 // Para Vercel, exportar a app como handler
 module.exports = app;
+
+// Execução local: iniciar servidor apenas quando chamado diretamente (node index.js)
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`API rodando em http://localhost:${port}`);
+  });
+}

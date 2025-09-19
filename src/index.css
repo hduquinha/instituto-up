@@ -79,6 +79,27 @@ body {
   }
 }
 
+/* Utilitários para nuvem de imagens (flutuação e rotação lentas) */
+@keyframes floatY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes slowSpin {
+  to { transform: rotate(360deg); }
+}
+
+@layer utilities {
+  .animate-float-slow { animation: floatY 6s ease-in-out infinite; }
+  .animate-float-slower { animation: floatY 8s ease-in-out infinite; }
+  .animate-slow-spin { animation: slowSpin 40s linear infinite; }
+  .anim-delay-500 { animation-delay: 0.5s; }
+  .anim-delay-1000 { animation-delay: 1s; }
+  .anim-delay-1500 { animation-delay: 1.5s; }
+  .anim-delay-2000 { animation-delay: 2s; }
+}
+
 /* Animação personalizada para elementos que entram na tela */
 @keyframes fadeInUp {
   from {
@@ -296,6 +317,97 @@ body {
 
   .animate-pulse-whatsapp {
     animation: whatsapp-pulse 2s infinite; /* Aplica a animação com duração de 2s e infinita */
+  }
+
+  /* ======================== */
+  /* Orbit bubbles (Amigos UP)*/
+  /* ======================== */
+  @keyframes orbit360 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .bubble-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+    animation: orbit360 var(--speed, 30s) linear infinite;
+    will-change: transform;
+  }
+  .bubble-orbit.reverse {
+    animation-direction: reverse;
+  }
+  .bubble-orbit:hover {
+    animation-play-state: paused;
+    z-index: 30;
+  }
+
+  .bubble-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(var(--radius, 140px)) translate(-50%, -50%);
+    width: var(--size, 44px);
+    height: var(--size, 44px);
+    border-radius: 9999px;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,.18);
+    transition: transform 300ms ease, box-shadow 300ms ease, filter 300ms ease;
+    will-change: transform, filter;
+  }
+  .bubble-img:hover {
+    transform: translateX(var(--radius, 140px)) translate(-50%, -50%) scale(1.35);
+    box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    filter: saturate(1.15);
+    z-index: 40;
+  }
+
+  /* Drift across screen variants */
+  @keyframes drift-lr {
+    0%   { transform: translate(-12vw, var(--y, 0)); }
+    100% { transform: translate(112vw, var(--y, 0)); }
+  }
+  @keyframes drift-rl {
+    0%   { transform: translate(112vw, var(--y, 0)); }
+    100% { transform: translate(-12vw, var(--y, 0)); }
+  }
+  @keyframes drift-d1 {
+    0%   { transform: translate(-12vw, -12vh); }
+    100% { transform: translate(112vw, 22vh); }
+  }
+  @keyframes drift-d2 {
+    0%   { transform: translate(-12vw, 22vh); }
+    100% { transform: translate(112vw, -12vh); }
+  }
+
+  .drift {
+    position: absolute;
+    will-change: transform;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .drift.lr { animation-name: drift-lr; }
+  .drift.rl { animation-name: drift-rl; }
+  .drift.d1 { animation-name: drift-d1; }
+  .drift.d2 { animation-name: drift-d2; }
+
+  .drift .bubble-img {
+    position: relative;
+    left: 0; top: 0;
+    transform: translate(-50%, -50%);
+    transition: transform 250ms ease, box-shadow 250ms ease, filter 250ms ease;
+    width: var(--size, 44px);
+    height: var(--size, 44px);
+    object-fit: cover; /* não deforma */
+    border-radius: 9999px;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,.18);
+  }
+  .drift .bubble-img:hover {
+    transform: translate(-50%, -50%) scale(1.35);
+    box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    filter: saturate(1.15);
   }
 
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ShieldCheck, Lock, Award, Calendar, Clock, Users, BadgeCheck, CreditCard, QrCode, Flame, Tag, Star } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import heroBackground from '@/assets/hero-background.jpg';
 
 type Buyer = { name: string; email: string; phone: string };
@@ -51,6 +52,23 @@ const Checkout: React.FC = () => {
   const expEl = useRef<HTMLDivElement | null>(null);
   const cvvEl = useRef<HTMLDivElement | null>(null);
   const fieldsRef = useRef<any>(null);
+  const paySectionRef = useRef<HTMLDivElement | null>(null);
+
+  // Countdown de urgência (exemplo de virada de lote)
+  const [countdown, setCountdown] = useState<{ d: number; h: number; m: number; s: number }>({ d: 0, h: 0, m: 0, s: 0 });
+  useEffect(() => {
+    const target = new Date('2025-10-05T23:59:59-03:00').getTime();
+    const id = setInterval(() => {
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      setCountdown({ d, h, m, s });
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     if (!buyer || !product) return;
@@ -69,7 +87,8 @@ const Checkout: React.FC = () => {
     }
 
     const mp = new MP(publicKey, { locale: 'pt-BR' });
-    const fields = mp.fields();
+    // mp.fields é um objeto com create/createCardToken
+    const fields = mp.fields;
     fieldsRef.current = fields;
 
   const cardNumber = fields.create('cardNumber', {
@@ -269,6 +288,16 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    {/* Top info strip com gatilhos (data, formato, vagas, lote, countdown) */}
+      <div className="w-full bg-black text-white">
+        <div className="max-w-6xl mx-auto px-4 py-2 text-xs sm:text-sm flex flex-wrap items-center gap-3 justify-center sm:justify-between">
+          <div className="flex items-center gap-2"><Calendar size={16} className="text-turquoise"/> <span>04 e 05 de Outubro</span></div>
+          <div className="flex items-center gap-2"><Clock size={16} className="text-turquoise"/> <span>09h às 18h • 100% Online e Ao Vivo</span></div>
+          <div className="flex items-center gap-2"><Users size={16} className="text-turquoise"/> <span>Vagas limitadas • Lote atual</span></div>
+      <div className="flex items-center gap-2"><Tag size={16} className="text-turquoise"/> <span className="rounded-full bg-white/10 px-2 py-0.5">Lote 1 • 85% OFF</span></div>
+      <div className="flex items-center gap-2"><Flame size={16} className="text-red-400"/> <span>Vira em: {countdown.d}d {countdown.h}h {countdown.m}m</span></div>
+        </div>
+      </div>
       {!buyer || !product ? (
         <div className="max-w-3xl mx-auto p-6">
           <Card className="w-full">
@@ -320,17 +349,18 @@ const Checkout: React.FC = () => {
       </div>
 
       {buyer && product ? (
-      <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
-        <div className="space-y-4">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6 grid md:grid-cols-2 gap-6 lg:gap-10">
+        {/* Payment section */}
+  <div ref={paySectionRef} className="space-y-4 order-2 md:order-1">
           <div className="text-3xl font-extrabold tracking-tight">Formas de pagamento</div>
           {error && (
             <div className="text-sm text-red-700 bg-red-50 border border-red-200 p-3 rounded">{error}</div>
           )}
           <Tabs value={activeTab} onValueChange={(v:any)=>setActiveTab(v)} className="w-full">
             <TabsList className="grid grid-cols-3 w-full">
-              <TabsTrigger value="card">Cartão</TabsTrigger>
-              <TabsTrigger value="pix">PIX</TabsTrigger>
-              <TabsTrigger value="boleto">Boleto</TabsTrigger>
+              <TabsTrigger value="card" className="flex items-center gap-2"><CreditCard size={16}/> Cartão</TabsTrigger>
+              <TabsTrigger value="pix" className="flex items-center gap-2"><QrCode size={16}/> PIX</TabsTrigger>
+              <TabsTrigger value="boleto" className="flex items-center gap-2">Boleto</TabsTrigger>
             </TabsList>
 
             <TabsContent value="card" className="space-y-3 pt-3">
@@ -405,7 +435,8 @@ const Checkout: React.FC = () => {
             </TabsContent>
           </Tabs>
         </div>
-  <div className="space-y-4">
+        {/* Summary + reassurance section */}
+        <div className="space-y-4 order-1 md:order-2">
           <Card className="shadow-sm border-turquoise/30">
             <CardContent className="p-4">
               <div className="aspect-video bg-white border rounded flex items-center justify-center overflow-hidden border-turquoise/30">
@@ -414,20 +445,87 @@ const Checkout: React.FC = () => {
               <div className="mt-4">
                 <div className="text-xl font-semibold">{finalTitle}</div>
                 <div className="text-gray-600 text-sm mt-1">{product.description || 'Compra 100% segura pelo Mercado Pago'}</div>
-                <div className="mt-3 text-2xl font-bold text-turquoise">R$ {finalPrice.toFixed(2)}</div>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="text-2xl font-bold text-turquoise">R$ {finalPrice.toFixed(2)}</div>
+                  <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">Lote atual</span>
+                </div>
+                <div className="mt-3 text-xs text-gray-500">Pagamentos via Mercado Pago • Cartão em até 12x • PIX instantâneo • Boleto</div>
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                  <div className="flex items-center gap-2"><BadgeCheck className="text-turquoise" size={18}/> 2 dias online e ao vivo</div>
+                  <div className="flex items-center gap-2"><Award className="text-turquoise" size={18}/> Certificado digital</div>
+                  <div className="flex items-center gap-2"><ShieldCheck className="text-turquoise" size={18}/> Compra protegida</div>
+                  <div className="flex items-center gap-2"><Lock className="text-turquoise" size={18}/> SSL • Mercado Pago</div>
+                </div>
               </div>
             </CardContent>
           </Card>
+          {/* Dados do comprador */}
           <Card className="shadow-sm">
             <CardContent className="p-4 text-sm text-gray-700 space-y-1">
-              <div>Nome: {buyer.name}</div>
-              <div>Email: {buyer.email}</div>
-              <div>WhatsApp: {buyer.phone}</div>
+              <div><span className="text-gray-500">Nome:</span> {buyer.name}</div>
+              <div><span className="text-gray-500">Email:</span> {buyer.email}</div>
+              <div><span className="text-gray-500">WhatsApp:</span> {buyer.phone}</div>
             </CardContent>
           </Card>
+          {/* Garantia e selos de confiança */}
+          <Card className="shadow-sm border border-turquoise/30">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="text-turquoise mt-1"/>
+                <div>
+                  <div className="font-semibold">Ambiente 100% seguro</div>
+                  <div className="text-sm text-gray-600">Seus dados estão protegidos com criptografia e processados pelo Mercado Pago.</div>
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div className="flex items-center gap-2 bg-gray-50 border rounded px-3 py-2"><Lock size={16}/> SSL Ativo</div>
+                <div className="flex items-center gap-2 bg-gray-50 border rounded px-3 py-2"><BadgeCheck size={16}/> Compra Garantida</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Micro depoimentos (prova social) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="border rounded p-3 bg-white shadow-sm">
+              <div className="flex items-center gap-1 text-yellow-500 mb-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={14} fill="#eab308" className="text-yellow-500" />
+                ))}
+              </div>
+              <div className="text-sm text-gray-700">“Em 2 dias saí com um plano claro e já fechei meus 2 primeiros clientes.”</div>
+              <div className="text-xs text-gray-500 mt-1">— Camila, Coach de Carreira</div>
+            </div>
+            <div className="border rounded p-3 bg-white shadow-sm">
+              <div className="flex items-center gap-1 text-yellow-500 mb-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={`b-${i}`} size={14} fill="#eab308" className="text-yellow-500" />
+                ))}
+              </div>
+              <div className="text-sm text-gray-700">“Conteúdo direto ao ponto. A segurança para aplicar o método fez toda a diferença.”</div>
+              <div className="text-xs text-gray-500 mt-1">— Lucas, Coach de Performance</div>
+            </div>
+          </div>
+
+          {/* ... */}
         </div>
   </div>
   ) : null}
+
+      {/* Barra fixa no mobile para ação rápida */}
+      {buyer && product ? (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow z-40 p-3 flex items-center justify-between">
+          <div>
+            <div className="text-xs text-gray-500 leading-none">Total</div>
+            <div className="text-lg font-bold text-turquoise leading-none">R$ {finalPrice.toFixed(2)}</div>
+          </div>
+          <Button
+            variant="cta"
+            onClick={() => paySectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          >
+            Finalizar agora
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };

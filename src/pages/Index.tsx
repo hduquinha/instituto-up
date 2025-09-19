@@ -5,6 +5,7 @@ import ForWhoSection from "@/components/ForWhoSection";
 import TrainersSection from "@/components/TrainersSection";
 import LearningSection from "@/components/LearningSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import AmigosDoUPSection from "@/components/AmigosDoUPSection";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
@@ -22,7 +23,8 @@ const Index = () => {
         <ForWhoSection />
         <TrainersSection />
         <LearningSection />
-        <TestimonialsSection />
+    <TestimonialsSection />
+    <AmigosDoUPSection />
         <GuaranteeSection />
         <PricingSection />
         <FAQSection />

@@ -159,15 +159,15 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
           </CardTitle>
           <CardDescription className="text-center">
             {productData.title}
-            <div className="mt-2">
-              <span className="text-lg font-semibold">Total: R$ {calculateTotalPrice().toFixed(2)}</span>
-              {formData.includeRecording && (
-                <div className="text-sm text-gray-600 mt-1">
-                  Base: R$ {productData.price.toFixed(2)} + Aula Gravada: R$ 100,00
-                </div>
-              )}
-            </div>
           </CardDescription>
+          <div className="text-center mt-2">
+            <span className="text-lg font-semibold">Total: R$ {calculateTotalPrice().toFixed(2)}</span>
+            {formData.includeRecording && (
+              <div className="text-sm text-gray-600 mt-1">
+                Base: R$ {productData.price.toFixed(2)} + Aula Gravada: R$ 100,00
+              </div>
+            )}
+          </div>
         </CardHeader>
         
         <CardContent>
