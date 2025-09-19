@@ -94,6 +94,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
   // ===== Checkout Transparente (Mercado Pago Bricks) =====
   const brickContainerRef = useRef<HTMLDivElement | null>(null);
   const [brickLoaded, setBrickLoaded] = useState(false);
+  const [missingPublicKey, setMissingPublicKey] = useState(false);
 
   useEffect(() => {
     // Verifica se SDK do MP está presente
@@ -102,6 +103,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
     const publicKey = import.meta.env.VITE_MP_PUBLIC_KEY;
     if (!publicKey) {
       console.warn('VITE_MP_PUBLIC_KEY ausente. Defina no .env');
+      setMissingPublicKey(true);
       return;
     }
 
@@ -322,20 +324,33 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ productData, onClose }) => 
               </div>
             </div>
 
-            <div className="flex gap-3 pt-4">
+            <div className="space-y-2 pt-2">
+              <Label className="text-sm font-medium">Pagamento</Label>
+              {missingPublicKey && (
+                <Alert variant="destructive">
+                  <AlertDescription>
+                    Pagamento indisponível. Defina VITE_MP_PUBLIC_KEY nas variáveis de ambiente.
+                  </AlertDescription>
+                </Alert>
+              )}
+              {!missingPublicKey && !brickLoaded && (
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Loader2 className="h-4 w-4 animate-spin" /> Carregando métodos de pagamento...
+                </div>
+              )}
+              <div ref={brickContainerRef} id="payment-brick-container"></div>
+            </div>
+
+            <div className="pt-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={onClose}
                 disabled={isLoading}
-                className="flex-1"
+                className="w-full"
               >
                 Cancelar
               </Button>
-              
-              <div className="flex-1">
-                <div ref={brickContainerRef} id="payment-brick-container"></div>
-              </div>
             </div>
           </form>
 
