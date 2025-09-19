@@ -4,6 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import heroBackground from '@/assets/hero-background.jpg';
 
 type Buyer = { name: string; email: string; phone: string };
 type Product = { id?: string; title: string; description?: string; price: number; image?: string };
@@ -26,6 +28,8 @@ const Checkout: React.FC = () => {
   const [docNumber, setDocNumber] = useState('');
   const [installments, setInstallments] = useState(1);
   const [paymentMethodId, setPaymentMethodId] = useState<string>('');
+  const [installmentOptions, setInstallmentOptions] = useState<Array<{ value: number; label: string }>>([{ value: 1, label: '1x sem juros' }]);
+  const [activeTab, setActiveTab] = useState<'card'|'pix'|'boleto'>('card');
 
   // Mercado Pago Fields
   const numberEl = useRef<HTMLDivElement | null>(null);
@@ -35,15 +39,23 @@ const Checkout: React.FC = () => {
 
   useEffect(() => {
     if (!buyer || !product) return;
-    const MP = (window as any).MercadoPago;
     const publicKey = import.meta.env.VITE_MP_PUBLIC_KEY;
-    if (!MP || !publicKey) return;
+    if (!publicKey) {
+      setError('Chave pública não configurada (VITE_MP_PUBLIC_KEY).');
+      return;
+    }
+
+    const MP = (window as any).MercadoPago;
+    if (!MP) {
+      setError('SDK do Mercado Pago não foi carregado.');
+      return;
+    }
 
     const mp = new MP(publicKey, { locale: 'pt-BR' });
     const fields = mp.fields();
     fieldsRef.current = fields;
 
-    const cardNumber = fields.create('cardNumber', {
+  const cardNumber = fields.create('cardNumber', {
       placeholder: 'Número do cartão',
       style: { label: { paddingBottom: '6px' }, input: { fontSize: '14px' } }
     });
@@ -61,6 +73,18 @@ const Checkout: React.FC = () => {
         if (data?.bin && data.bin.length >= 6) {
           const methods = await mp.getPaymentMethods({ bin: data.bin });
           if (methods?.results?.[0]?.id) setPaymentMethodId(methods.results[0].id);
+
+          // Parcelas dinâmicas com base no BIN e valor
+          try {
+            const inst = await mp.getInstallments({ amount: Number(finalPrice), bin: data.bin });
+            const payerCosts = inst?.[0]?.payer_costs || [];
+            const opts = payerCosts.slice(0, 12).map((pc: any) => ({
+              value: pc.installments,
+              label: `${pc.installments}x de R$ ${pc.installment_amount?.toFixed?.(2)}${pc.installments_rate === 0 ? ' sem juros' : ''} (Total R$ ${pc.total_amount?.toFixed?.(2)})`
+            }))
+            setInstallmentOptions(opts.length ? opts : [{ value: 1, label: '1x sem juros' }]);
+            if (opts.length) setInstallments(opts[0].value);
+          } catch {}
         }
       } catch {}
     });
@@ -78,7 +102,7 @@ const Checkout: React.FC = () => {
     };
   }, [buyer, product]);
 
-  const handlePay = async () => {
+  const handlePayCard = async () => {
     try {
       setError(null);
       setLoading(true);
@@ -128,6 +152,76 @@ const Checkout: React.FC = () => {
     }
   };
 
+  const handlePayPix = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+      const url = backendUrl ? `${backendUrl}/process_payment` : '/api/process_payment';
+      const nameParts = buyer!.name.trim().split(' ');
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          transaction_amount: Number(finalPrice),
+          description: finalTitle,
+          payment_method_id: 'pix',
+          payer: {
+            email: buyer!.email,
+            first_name: nameParts[0] || '',
+            last_name: nameParts.slice(1).join(' ') || ''
+          }
+        })
+      });
+      if (!resp.ok) throw new Error(await resp.text());
+      const data = await resp.json();
+      const t = data?.point_of_interaction?.transaction_data;
+      if (t?.qr_code_base64 || t?.qr_code_link) {
+        // Abre em nova aba; opcionalmente poderíamos exibir inline numa modal.
+        if (t.qr_code_link) window.open(t.qr_code_link, '_blank');
+      }
+    } catch (e: any) {
+      setError(e?.message || 'Erro no PIX');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePayBoleto = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+      const url = backendUrl ? `${backendUrl}/process_payment` : '/api/process_payment';
+      const nameParts = buyer!.name.trim().split(' ');
+      const identification = { type: 'CPF', number: docNumber.replace(/\D/g, '') };
+      if (!identification.number) throw new Error('Informe o CPF');
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          transaction_amount: Number(finalPrice),
+          description: finalTitle,
+          payment_method_id: 'bolbradesco',
+          payer: {
+            email: buyer!.email,
+            first_name: nameParts[0] || '',
+            last_name: nameParts.slice(1).join(' ') || '',
+            identification
+          }
+        })
+      });
+      if (!resp.ok) throw new Error(await resp.text());
+      const data = await resp.json();
+      const ticket = data?.point_of_interaction?.transaction_data?.ticket_url || data?.transaction_details?.external_resource_url;
+      if (ticket) window.open(ticket, '_blank');
+    } catch (e: any) {
+      setError(e?.message || 'Erro no boleto');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!buyer || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
@@ -143,14 +237,36 @@ const Checkout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-5xl mx-auto p-6 grid md:grid-cols-2 gap-8">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Header com fundo da landing */}
+      <div
+        className="w-full mb-6 rounded-xl overflow-hidden border border-white/10"
+        style={{ backgroundImage: `url(${heroBackground})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="bg-black/60">
+          <div className="max-w-6xl mx-auto px-6 py-10">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white">
+              Finalize sua compra com <span className="text-turquoise">segurança</span>
+            </h1>
+            <p className="text-gray-200 mt-1">Dados protegidos • SSL • Mercado Pago</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
         <div className="space-y-4">
-          <div className="text-2xl font-bold">Pagamento (Cartão)</div>
+          <div className="text-3xl font-extrabold tracking-tight">Formas de pagamento</div>
           {error && (
-            <div className="text-sm text-red-600 bg-red-50 border border-red-200 p-3 rounded">{error}</div>
+            <div className="text-sm text-red-700 bg-red-50 border border-red-200 p-3 rounded">{error}</div>
           )}
-          <div className="space-y-3">
+          <Tabs value={activeTab} onValueChange={(v:any)=>setActiveTab(v)} className="w-full">
+            <TabsList className="grid grid-cols-3 w-full">
+              <TabsTrigger value="card">Cartão</TabsTrigger>
+              <TabsTrigger value="pix">PIX</TabsTrigger>
+              <TabsTrigger value="boleto">Boleto</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="card" className="space-y-3 pt-3">
             <div>
               <Label>Nome no cartão</Label>
               <Input value={cardholderName} onChange={(e) => setCardholderName(e.target.value)} placeholder="Como está no cartão" />
@@ -169,19 +285,16 @@ const Checkout: React.FC = () => {
               <div>
                 <Label>Parcelas</Label>
                 <select className="border rounded px-2 py-2 w-full text-sm" value={installments} onChange={(e) => setInstallments(Number(e.target.value))}>
-                  <option value={1}>1x</option>
-                  <option value={2}>2x</option>
-                  <option value={3}>3x</option>
-                  <option value={4}>4x</option>
-                  <option value={5}>5x</option>
-                  <option value={6}>6x</option>
-                  <option value={12}>12x</option>
+                  {installmentOptions.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
                 </select>
               </div>
             </div>
-            <div>
+            <div className="relative">
               <Label>Número do cartão</Label>
               <div ref={numberEl} className="border rounded px-3 py-2" id="mpf-card-number"></div>
+              <div className="absolute right-2 top-8 text-xs text-turquoise">Seguro • SSL</div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -193,27 +306,53 @@ const Checkout: React.FC = () => {
                 <div ref={cvvEl} className="border rounded px-3 py-2" id="mpf-cvv"></div>
               </div>
             </div>
-            <Button onClick={handlePay} disabled={loading}>
-              {loading ? 'Processando...' : 'Pagar agora'}
-            </Button>
-            <Button variant="outline" onClick={() => navigate(-1)}>Voltar</Button>
-          </div>
+            <div className="flex gap-3 pt-2">
+              <Button onClick={handlePayCard} disabled={loading} className="flex-1" variant="cta">
+                {loading ? 'Processando...' : 'Pagar agora'}
+              </Button>
+              <Button variant="outline" onClick={() => navigate(-1)} className="flex-1">Voltar</Button>
+            </div>
+            </TabsContent>
+
+            <TabsContent value="pix" className="space-y-3 pt-3">
+              <p className="text-sm text-gray-700">Geraremos um QR Code PIX em seguida.</p>
+              <div className="flex gap-3 pt-2">
+                <Button onClick={handlePayPix} disabled={loading} className="flex-1" variant="cta">
+                  {loading ? 'Gerando...' : 'Pagar com PIX'}
+                </Button>
+                <Button variant="outline" onClick={() => navigate(-1)} className="flex-1">Voltar</Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="boleto" className="space-y-3 pt-3">
+              <div>
+                <Label>CPF</Label>
+                <Input value={docNumber} onChange={(e)=>setDocNumber(e.target.value)} placeholder="Somente números" />
+              </div>
+              <div className="flex gap-3 pt-2">
+                <Button onClick={handlePayBoleto} disabled={loading} className="flex-1" variant="cta">
+                  {loading ? 'Gerando...' : 'Gerar boleto'}
+                </Button>
+                <Button variant="outline" onClick={() => navigate(-1)} className="flex-1">Voltar</Button>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
         <div className="space-y-4">
-          <Card>
+          <Card className="shadow-sm border-turquoise/30">
             <CardContent className="p-4">
-              <div className="aspect-video bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+              <div className="aspect-video bg-white border rounded flex items-center justify-center overflow-hidden border-turquoise/30">
                 <img src={product.image || '/up.png'} alt={product.title} className="object-cover w-full h-full" />
               </div>
               <div className="mt-4">
-                <div className="text-lg font-semibold">{finalTitle}</div>
+                <div className="text-xl font-semibold">{finalTitle}</div>
                 <div className="text-gray-600 text-sm mt-1">{product.description || 'Compra 100% segura pelo Mercado Pago'}</div>
-                <div className="mt-3 text-xl font-bold">R$ {finalPrice.toFixed(2)}</div>
+                <div className="mt-3 text-2xl font-bold text-turquoise">R$ {finalPrice.toFixed(2)}</div>
               </div>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-4 text-sm text-gray-600 space-y-1">
+          <Card className="shadow-sm">
+            <CardContent className="p-4 text-sm text-gray-700 space-y-1">
               <div>Nome: {buyer.name}</div>
               <div>Email: {buyer.email}</div>
               <div>WhatsApp: {buyer.phone}</div>
