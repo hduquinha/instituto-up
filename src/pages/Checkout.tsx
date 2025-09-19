@@ -29,9 +29,9 @@ const Checkout: React.FC = () => {
       }
     } catch {}
   }
-  const buyer: Buyer | undefined = initialBuyer;
-  const product: Product | undefined = initialProduct;
-  const includeRecording: boolean = initialIncludeRecording;
+  const [buyer, setBuyer] = useState<Buyer | undefined>(initialBuyer);
+  const [product, setProduct] = useState<Product | undefined>(initialProduct);
+  const [includeRecording, setIncludeRecording] = useState<boolean>(initialIncludeRecording);
 
   const finalTitle = product ? (includeRecording ? `${product.title} + Aula Gravada` : product.title) : '';
   const finalPrice = product ? product.price + (includeRecording ? 100 : 0) : 0;
@@ -239,22 +239,71 @@ const Checkout: React.FC = () => {
     }
   };
 
-  if (!buyer || !product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <Card className="max-w-md w-full">
-          <CardContent className="p-6 text-center space-y-4">
-            <div className="text-lg font-semibold">Sessão de checkout expirada</div>
-            <p className="text-sm text-gray-600">Volte e preencha seus dados para continuar.</p>
-            <Button onClick={() => navigate('/')}>Voltar</Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Fallback inline: coleta dados básicos e produto quando não há sessão
+  const [fbName, setFbName] = useState('');
+  const [fbEmail, setFbEmail] = useState('');
+  const [fbPhone, setFbPhone] = useState('');
+  const [fbPlan, setFbPlan] = useState<'standard' | 'vip'>('standard');
+
+  const formatPhone = (phone: string) => phone.replace(/\D/g, '').replace(/^55/, '');
+  const startInlineCheckout = () => {
+    const cleanName = fbName.trim();
+    const cleanEmail = fbEmail.trim().toLowerCase();
+    const cleanPhone = formatPhone(fbPhone);
+    if (!cleanName || !cleanEmail.includes('@') || cleanPhone.length < 10) {
+      setError('Preencha nome, email válido e telefone.');
+      return;
+    }
+    const chosen: Product = fbPlan === 'vip'
+      ? { id: 'up-vip', title: 'Instituto UP - UP VIP', price: 197, description: 'Plano VIP' }
+      : { id: 'standard', title: 'Instituto UP - Standard', price: 47, description: 'Plano Standard' };
+    const buyerData: Buyer = { name: cleanName, email: cleanEmail, phone: cleanPhone };
+    setBuyer(buyerData);
+    setProduct(chosen);
+    setIncludeRecording(false);
+    try {
+      sessionStorage.setItem('checkout:session', JSON.stringify({ buyer: buyerData, product: chosen, includeRecording: false, ts: Date.now() }));
+    } catch {}
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {!buyer || !product ? (
+        <div className="max-w-3xl mx-auto p-6">
+          <Card className="w-full">
+            <CardContent className="p-6 space-y-4">
+              <div className="text-xl font-semibold">Iniciar Checkout</div>
+              {error && <div className="text-sm text-red-700 bg-red-50 border border-red-200 p-3 rounded">{error}</div>}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label>Nome completo</Label>
+                  <Input value={fbName} onChange={e=>setFbName(e.target.value)} placeholder="Seu nome" />
+                </div>
+                <div>
+                  <Label>Email</Label>
+                  <Input type="email" value={fbEmail} onChange={e=>setFbEmail(e.target.value)} placeholder="seu@email.com" />
+                </div>
+                <div>
+                  <Label>WhatsApp</Label>
+                  <Input value={fbPhone} onChange={e=>setFbPhone(e.target.value)} placeholder="(11) 99999-9999" />
+                </div>
+                <div>
+                  <Label>Plano</Label>
+                  <select className="border rounded px-3 py-2 w-full" value={fbPlan} onChange={e=>setFbPlan(e.target.value as any)}>
+                    <option value="standard">Standard (R$ 47)</option>
+                    <option value="vip">UP VIP (R$ 197)</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex gap-3 pt-2">
+                <Button onClick={startInlineCheckout} className="flex-1" variant="cta">Continuar</Button>
+                <Button variant="outline" className="flex-1" onClick={()=>navigate('/')}>Voltar</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      ) : null}
       {/* Header com fundo da landing */}
       <div
         className="w-full mb-6 rounded-xl overflow-hidden border border-white/10"
@@ -270,6 +319,7 @@ const Checkout: React.FC = () => {
         </div>
       </div>
 
+      {buyer && product ? (
       <div className="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10">
         <div className="space-y-4">
           <div className="text-3xl font-extrabold tracking-tight">Formas de pagamento</div>
@@ -355,7 +405,7 @@ const Checkout: React.FC = () => {
             </TabsContent>
           </Tabs>
         </div>
-        <div className="space-y-4">
+  <div className="space-y-4">
           <Card className="shadow-sm border-turquoise/30">
             <CardContent className="p-4">
               <div className="aspect-video bg-white border rounded flex items-center justify-center overflow-hidden border-turquoise/30">
@@ -376,7 +426,8 @@ const Checkout: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
+  </div>
+  ) : null}
     </div>
   );
 };
