@@ -21,23 +21,23 @@ const HeroSection = () => {
           {/* Texto (sempre alinhado à esquerda) */}
           <div className="text-left max-w-xl w-full px-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight tracking-tight text-white break-words">
-              Sua <span className="text-turquoise">Virada de Chave</span> começa em 2 dias
+              Sua <span className="text-turquoise">Transformação Presencial</span> te espera
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
-              Domine suas Emoções, eleve sua Performance.
+              2 dias intensivos no Lito Palace Hotel - Experiência VIP exclusiva
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão online e <strong>ao vivo</strong> com Rodrigo Damaceno, desenhada para
-              <strong> reprogramar</strong> sua resposta ao estresse e à ansiedade.
+              Uma imersão <strong>presencial</strong> com Rodrigo Damaceno no luxuoso Lito Palace Hotel, 
+              desenhada para <strong>transformar</strong> sua mentalidade e elevar seu potencial.
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">
               <div className="flex items-center gap-2 bg-turquoise/10 border border-turquoise/30 rounded-lg p-3">
                 <CalendarDays className="h-5 w-5 text-turquoise flex-shrink-0" />
                 <p className="text-white font-semibold text-sm sm:text-base">
-                  6 horas por dia, das 9h às 12h
+                  Local: Lito Palace Hotel - Vagas Limitadas
                 </p>
               </div>
 

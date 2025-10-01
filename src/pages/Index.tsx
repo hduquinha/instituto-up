@@ -1,15 +1,11 @@
 import React from 'react';
 import HeroSection from "@/components/HeroSection";
 import VideoSection from "@/components/VideoSection";
-import ForWhoSection from "@/components/ForWhoSection";
-import TrainersSection from "@/components/TrainersSection";
-import LearningSection from "@/components/LearningSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import AmigosDoUPSection from "@/components/AmigosDoUPSection";
-import GuaranteeSection from "@/components/GuaranteeSection";
+import LocationSection from "@/components/LocationSection";
 import PricingSection from "@/components/PricingSection";
+import SocialVacanciesSection from "@/components/SocialVacanciesSection";
 import FAQSection from "@/components/FAQSection";
-import UrgencySection from "@/components/UrgencySection";
 import FinalCtaSection from "@/components/FinalCtaSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -20,15 +16,11 @@ const Index = () => {
       <div className="min-h-screen">
         <HeroSection />
         <VideoSection />
-        <ForWhoSection />
-        <TrainersSection />
-        <LearningSection />
-    <TestimonialsSection />
-    <AmigosDoUPSection />
-        <GuaranteeSection />
+        <TestimonialsSection />
+        <LocationSection />
         <PricingSection />
+        <SocialVacanciesSection />
         <FAQSection />
-        <UrgencySection />
         <FinalCtaSection />
       </div>
       

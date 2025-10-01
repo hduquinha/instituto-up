@@ -24,12 +24,12 @@ const FinalCtaSection = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-            Sua <span className="text-turquoise">Nova Vida</span> Te Espera
+            Sua <span className="text-turquoise">Transformação Presencial</span> Te Espera
           </h2>
           
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
-            A vida que você sonha está a apenas uma decisão de distância. 
-            Mais de 10.000 pessoas já fizeram essa escolha e transformaram suas realidades.
+            Uma experiência única no Lito Palace Hotel. 
+            Apenas 50 vagas para garantir exclusividade e resultados excepcionais.
           </p>
         </div>
 
@@ -40,22 +40,22 @@ const FinalCtaSection = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left max-w-5xl mx-auto">
             <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
-              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">💪 Transformação Pessoal</h4>
+              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🏨 Experiência VIP</h4>
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• Autoconfiança inabalável</li>
-                <li>• Mentalidade de crescimento</li>
-                <li>• Controle sobre suas emoções</li>
-                <li>• Clareza sobre seus objetivos</li>
+                <li>• Local premium no Lito Palace Hotel</li>
+                <li>• Networking exclusivo presencial</li>
+                <li>• Coffee breaks e almoços gourmet</li>
+                <li>• Kit de boas-vindas exclusivo</li>
               </ul>
             </div>
             
             <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
-              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🚀 Sucesso Profissional</h4>
+              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🚀 Transformação Completa</h4>
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• Produtividade exponencial</li>
-                <li>• Liderança natural</li>
-                <li>• Comunicação eficaz</li>
-                <li>• Oportunidades de carreira</li>
+                <li>• 2 dias de imersão intensiva</li>
+                <li>• Contato direto com os mentores</li>
+                <li>• Material físico + digital premium</li>
+                <li>• Certificado presencial exclusivo</li>
               </ul>
             </div>
           </div>
@@ -63,19 +63,19 @@ const FinalCtaSection = () => {
 
         <div className="mb-16">
           <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-            Não deixe mais um ano passar sem a transformação que você merece.
+            São apenas 50 vagas no Lito Palace Hotel. Não perca a oportunidade de se transformar em um ambiente exclusivo.
           </p>
           
           <button
             onClick={scrollToPricing}
             className="bg-gradient-to-r from-turquoise to-blue-500 text-black font-bold text-xl md:text-2xl lg:text-3xl px-16 py-8 rounded-2xl transform hover:scale-105 transition-all duration-500 ease-in-out shadow-lg hover:shadow-2xl mb-8"
           >
-            🌟 TRANSFORMAR MINHA VIDA AGORA
+            � GARANTIR VAGA PRESENCIAL AGORA
           </button>
           
           <div className="flex justify-center items-center gap-4 text-gray-400 text-lg">
             <ShieldCheck className="w-6 h-6 text-green-400" />
-            <span>7 dias de garantia incondicional</span>
+            <span>7 dias de garantia incondicional + Local Premium</span>
           </div>
         </div>
 

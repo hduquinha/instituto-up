@@ -33,41 +33,26 @@ const PricingSection = () => {
   };
   const plans = [
     {
-      name: "Standard",
-      price: "47",
-      originalPrice: "197",
-      description: "Para quem quer dar o primeiro passo na transformação pessoal e profissional.",
+      name: "Presencial",
+      price: "1997",
+      originalPrice: "3997",
+      description: "Treinamento presencial exclusivo no Lito Palace Hotel com experiência VIP completa.",
       features: [
-        "Acesso aos 2 dias de treinamento ao vivo",
-        "Material de apoio em PDF premium",
-        "Acesso à comunidade exclusiva de alunos",
-        "Certificado de participação",
-        "Suporte via comunidade",
+        "2 dias de treinamento presencial intensivo",
+        "Local: Lito Palace Hotel (localização premium)",
+        "Material físico premium + digital",
+        "Coffee breaks e almoços inclusos",
+        "Networking exclusivo com outros participantes",
+        "Acesso às gravações por 6 meses",
+        "Certificado de participação presencial",
+        "Suporte direto durante o evento",
+        "Kit de boas-vindas exclusivo",
+        "Sessão de fotos com os mentores"
       ],
-      cta: "Começar Agora",
-      isRecommended: false,
-      discount: "76% OFF",
-      urgency: "Últimas vagas!"
-    },
-    {
-      name: "UP VIP",
-      price: "197",
-      originalPrice: "497", 
-      description: "A experiência completa para quem quer RESULTADOS REAIS e acompanhamento VIP.",
-      features: [
-        "TUDO do plano Standard, e mais:",
-        "Acesso às gravações por 1 ano completo",
-        "Sessão Bônus de Q&A em grupo",
-        "Módulo extra: 'Produtividade Acelerada'", 
-        "Grupo VIP exclusivo no WhatsApp",
-        "Suporte direto com os mentores",
-        "Material bônus exclusivo",
-        "Certificado VIP diferenciado",
-      ],
-      cta: "Garantir VIP Agora",
+      cta: "Garantir Vaga Presencial",
       isRecommended: true,
-      discount: "60% OFF",
-      urgency: "APENAS 20 VAGAS!"
+      discount: "50% OFF",
+      urgency: "VAGAS LIMITADAS!"
     },
   ];
 
@@ -83,16 +68,16 @@ const PricingSection = () => {
       <div className="relative z-10 container max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
-            Escolha seu Nível de <span className="text-turquoise">Comprometimento</span>
+            Treinamento Presencial <span className="text-turquoise">Exclusivo</span>
           </h2>
           <p className="max-w-3xl mx-auto mt-4 text-gray-400">
-            Cada plano é um passo em direção à sua melhor versão. Encontre a experiência ideal para o seu momento.
+            Uma experiência única no Lito Palace Hotel. Vagas limitadas para garantir qualidade e exclusividade.
           </p>
         </div>
 
-        {/* Grid responsivo centralizado: 1 → 2 colunas */}
+        {/* Card único centralizado */}
         <div className="flex justify-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-6xl w-full">
+          <div className="max-w-lg w-full">
             {plans.map((plan, index) => (
               <div
                 key={index}
