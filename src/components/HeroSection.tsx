@@ -25,19 +25,19 @@ const HeroSection = () => {
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
-              2 dias intensivos no Lito Palace Hotel - Experiência VIP exclusiva
+              25 de Outubro - Lito Palace Hotel, Registro-SP
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão <strong>presencial</strong> com Rodrigo Damaceno no luxuoso Lito Palace Hotel, 
-              desenhada para <strong>transformar</strong> sua mentalidade e elevar seu potencial.
+              Uma imersão <strong>presencial intensiva</strong> com Rodrigo Damaceno no Lito Palace Hotel em Registro-SP, 
+              desenhada para <strong>transformar</strong> sua mentalidade em apenas 1 dia.
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">
               <div className="flex items-center gap-2 bg-turquoise/10 border border-turquoise/30 rounded-lg p-3">
                 <CalendarDays className="h-5 w-5 text-turquoise flex-shrink-0" />
                 <p className="text-white font-semibold text-sm sm:text-base">
-                  Local: Lito Palace Hotel - Vagas Limitadas
+                  25/10 - 7h às 21h - Registro-SP
                 </p>
               </div>
 

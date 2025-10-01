@@ -22,11 +22,11 @@ const FAQSection = () => {
   const faqs = [
     {
       question: "O que está incluído no treinamento presencial?",
-      answer: "O treinamento inclui 2 dias intensivos no Lito Palace Hotel, coffee breaks e almoços gourmet, material físico e digital premium, certificado de participação presencial, kit de boas-vindas exclusivo, networking com outros participantes e acesso às gravações por 6 meses."
+      answer: "O treinamento inclui 1 dia intensivo (14 horas) no Lito Palace Hotel em Registro-SP, coffee breaks e almoços gourmet, material físico e digital premium, certificado de participação presencial, kit de boas-vindas exclusivo, networking com outros participantes e acesso às gravações por 6 meses."
     },
     {
       question: "Qual a localização exata do evento?",
-      answer: "O evento será realizado no luxuoso Lito Palace Hotel, localizado no centro de São Paulo. O hotel oferece estacionamento gratuito para participantes, valet e excelente localização com fácil acesso por transporte público e veículos particulares."
+      answer: "O evento será realizado no Lito Palace Hotel, localizado em Registro-SP, no Vale do Ribeira. O hotel oferece estacionamento gratuito para participantes e excelente estrutura para nosso treinamento intensivo."
     },
     {
       question: "Funciona mesmo? Como posso ter certeza?",
@@ -34,7 +34,11 @@ const FAQSection = () => {
     },
     {
       question: "Quais são os horários do treinamento?",
-      answer: "O evento acontece sábado e domingo, das 9h às 18h, com intervalos estratégicos para coffee breaks, almoço e networking. O programa é intensivo, mas foi desenvolvido para maximizar o aprendizado sem sobrecarga."
+      answer: "O evento acontece no dia 25 de outubro de 2025, das 7h às 21h (14 horas intensivas), com intervalos estratégicos para coffee breaks, almoço e networking. O programa é intensivo, mas foi desenvolvido para maximizar o aprendizado."
+    },
+    {
+      question: "Como chegar ao Lito Palace Hotel em Registro-SP?",
+      answer: "Registro fica no Vale do Ribeira, a cerca de 200km de São Paulo. Oferecemos informações detalhadas de como chegar de carro, ônibus ou outros meios de transporte após a confirmação da inscrição. O hotel tem estacionamento gratuito."
     },
     {
       question: "É seguro comprar online? Como funciona o pagamento?",
