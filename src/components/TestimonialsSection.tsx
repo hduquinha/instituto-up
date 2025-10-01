@@ -8,47 +8,32 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const TestimonialsSection = () => {
-  // Array com 8 depoimentos, agora incluindo uma descrição/quote
+  // Array com depoimentos e descrições fiéis ao conteúdo dos vídeos
   const videoTestimonials = [
-    { 
-      name: "Ana Carolina Silva", 
+    {
+      name: "Jhonata Lopes", 
       youtubeVideoId: "mXSFwabhyNo",
-      description: '"O treinamento mudou minha forma de lidar com o estresse. Essencial!"'
+      description: '"O treinamento foi um divisor de águas, me dando clareza e ferramentas para alcançar resultados que eu buscava há muito tempo."'
     },
-    { 
-      name: "Marcus Oliveira", 
-      youtubeVideoId: "_l80iApyibg",
-      description: '"Aprendi técnicas que uso todos os dias para melhorar meus relacionamentos."'
-    },
-    { 
-      name: "Carla Mendes", 
-      youtubeVideoId: "afrfoLPQFl0",
-      description: '"Hoje tenho ferramentas práticas para gerenciar minhas emoções e ter mais confiança."'
-    },
-    { 
-      name: "Rafael Borges", 
+    {
+      name: "Jociely Ribeiro", 
       youtubeVideoId: "Xmft6_Eg-20",
-      description: '"Um divisor de águas para a minha produtividade e foco. Recomendo demais!"'
+      description: '"Eu me redescobri. O curso me ajudou a derrubar uma muralha de medo e a encontrar a grandeza que existe dentro de mim."'
     },
-    { 
-      name: "Juliana Costa", 
+    {
+      name: "Ana Nere", 
+      youtubeVideoId: "_l80iApyibg",
+      description: '"Foi uma jornada de crescimento imenso. Aprendi a ressignificar minha história e a ver a vida com muito mais gratidão e propósito."'
+    },
+    {
+      name: "Jorge Florêncio", 
+      youtubeVideoId: "afrfoLPQFl0",
+      description: '"Eu me sentia travado, sem sair do lugar. O curso foi a experiência transformadora que me fez quebrar barreiras internas e evoluir."'
+    },
+    {
+      name: "Letícia Chagas", 
       youtubeVideoId: "b1FLpd-LKnA",
-      description: '"Consegui superar bloqueios que me impediam de avançar na carreira."'
-    },
-    { 
-      name: "Fernando Lima", 
-      youtubeVideoId: "67qTFr9Tvdk",
-      description: '"A comunicação com minha equipe melhorou 100% depois do treinamento."'
-    },
-    { 
-      name: "Patrícia Almeida", 
-      youtubeVideoId: "RgKAFK5djSk",
-      description: '"Finalmente entendi a raiz da minha ansiedade e aprendi a controlá-la."'
-    },
-    { 
-      name: "Lucas Martins", 
-      youtubeVideoId: "fJ9rUzIMcZQ",
-      description: '"O impacto na minha vida pessoal e profissional foi simplesmente imensurável."'
+      description: '"Mais do que um curso, foi um processo de autoconhecimento profundo que me reconectou com a minha verdadeira essência e força."'
     }
   ];
 
@@ -90,8 +75,7 @@ const TestimonialsSection = () => {
             {videoTestimonials.map((testimonial, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-col h-full items-center">
-                  
-                  {/* Container com aspect ratio de vídeo VERTICAL (9:16) */}
+
                   <div className="w-full max-w-[300px] aspect-[9/16] rounded-lg overflow-hidden border border-gray-800">
                     <iframe
                       className="w-full h-full"
@@ -103,8 +87,7 @@ const TestimonialsSection = () => {
                       loading="lazy"
                     ></iframe>
                   </div>
-                  
-                  {/* Nome e Descrição abaixo do vídeo */}
+
                   <div className="text-center mt-4 w-full max-w-[300px]">
                     <p className="font-bold text-white text-lg">
                       {testimonial.name}
