@@ -16,9 +16,9 @@ const FireWalkVideoSection = () => {
             <span className="text-3xl">🔥</span>
           </div>
           
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Veja como é a experiência transformadora que vai quebrar suas crenças limitantes 
-            e consolidar todo o aprendizado dos 4 pilares. Uma caminhada que vai mudar sua vida para sempre.
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+            Veja como é a experiência transformadora que vai quebrar suas crenças limitantes e ativar seu potencial máximo. 
+            Uma caminhada sobre brasas que vai reprogramar sua mente para o sucesso.
           </p>
         </div>
         
@@ -45,7 +45,7 @@ const FireWalkVideoSection = () => {
           <div className="bg-black/50 rounded-xl p-6 border border-orange-500/30 text-center">
             <div className="text-4xl mb-4">🧠</div>
             <h3 className="text-xl font-bold text-orange-400 mb-3">Quebra de Crenças</h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-200 text-sm">
               O momento exato em que você percebe que seus limites são apenas construções mentais. 
               Uma experiência que reprograma sua mente instantaneamente.
             </p>
@@ -54,7 +54,7 @@ const FireWalkVideoSection = () => {
           <div className="bg-black/50 rounded-xl p-6 border border-orange-500/30 text-center">
             <div className="text-4xl mb-4">⚡</div>
             <h3 className="text-xl font-bold text-orange-400 mb-3">Estado de Peak</h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-200 text-sm">
               Acesse um estado emocional de máxima confiança e determinação. 
               Sinta na pele o que é ter controle total sobre suas emoções.
             </p>
@@ -63,7 +63,7 @@ const FireWalkVideoSection = () => {
           <div className="bg-black/50 rounded-xl p-6 border border-orange-500/30 text-center">
             <div className="text-4xl mb-4">🚀</div>
             <h3 className="text-xl font-bold text-orange-400 mb-3">Transformação Instantânea</h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-200 text-sm">
               Uma mudança tão profunda que você sairá dali sabendo que pode conquistar 
               qualquer objetivo que se propuser na vida.
             </p>
@@ -76,11 +76,11 @@ const FireWalkVideoSection = () => {
           data-aos-delay="400"
         >
           <h3 className="text-2xl font-bold text-white mb-4">
-            ⚠️ ATENÇÃO: Esta experiência é opcional
+            🔥 TODO MUNDO CONSEGUE PASSAR NO FIRE WALK
           </h3>
-          <p className="text-gray-300 max-w-3xl mx-auto">
-            O Fire Walk é uma experiência voluntária e 100% segura. Mesmo que você escolha não participar da caminhada, 
-            apenas assistir já gera um impacto transformador. O importante é que você esteja aberto para quebrar seus limites.
+          <p className="text-gray-200 max-w-3xl mx-auto">
+            Esta experiência é 100% segura e TODOS os participantes conseguem completar o Fire Walk com sucesso. 
+            Nossa metodologia prepara você mental e emocionalmente para quebrar seus limites e ter esta experiência transformadora única.
           </p>
         </div>
       </div>

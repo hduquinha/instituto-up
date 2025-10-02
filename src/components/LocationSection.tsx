@@ -1,4 +1,4 @@
-import { MapPin, Car, Phone, Clock } from "lucide-react";
+import { MapPin, Phone, Clock } from "lucide-react";
 
 const LocationSection = () => {
   return (
@@ -34,15 +34,6 @@ const LocationSection = () => {
                 </div>
                 
                 <div className="flex items-start gap-3">
-                  <Car className="h-5 w-5 text-turquoise mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-white font-semibold">Estacionamento</p>
-                    <p className="text-gray-400">Gratuito para participantes</p>
-                    <p className="text-gray-400">Valet disponível</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-3">
                   <Phone className="h-5 w-5 text-turquoise mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Contato do Hotel</p>
@@ -71,7 +62,7 @@ const LocationSection = () => {
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-turquoise rounded-full"></span>
-                  Almoços gourmet
+                  Coffee breaks premium
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-turquoise rounded-full"></span>

@@ -44,7 +44,7 @@ const FinalCtaSection = () => {
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
                 <li>• Local: Lito Palace Hotel - Registro-SP</li>
                 <li>• Data: 25 de Outubro de 2025</li>
-                <li>• Coffee breaks e almoços gourmet</li>
+                <li>• Coffee breaks premium</li>
                 <li>• Kit de boas-vindas exclusivo</li>
               </ul>
             </div>

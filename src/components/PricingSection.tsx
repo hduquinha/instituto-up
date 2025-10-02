@@ -46,9 +46,7 @@ const PricingSection = () => {
         "Crachá personalizado de participante",
         "Certificado de participação presencial",
         "Fire Walk - Experiência transformadora",
-        "Acesso às gravações por 6 meses",
-        "Comunidade exclusiva de participantes",
-        "Suporte pós-treinamento contínuo"
+        "Suporte durante o evento"
       ],
       cta: "Garantir Vaga Presencial",
       isRecommended: true,
