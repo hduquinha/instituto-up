@@ -61,6 +61,10 @@ const FAQSection = () => {
       answer: "Não há limites! Nossos métodos funcionam para qualquer pessoa, independente da idade, profissão ou momento de vida. Temos participantes desde jovens universitários até executivos experientes, todos buscando sua transformação."
     },
     {
+      question: "Como funciona o acompanhamento pós-treinamento?",
+      answer: "Após o evento, você terá acesso por 6 meses às gravações completas do treinamento, participação em uma comunidade exclusiva com outros participantes, e suporte contínuo para aplicar as técnicas aprendidas. O objetivo é garantir que sua transformação seja duradoura e se amplifique ao longo do tempo."
+    },
+    {
       question: "O que é o Fire Walk e é seguro?",
       answer: "O Fire Walk é uma caminhada sobre brasas ardentes, uma experiência transformadora que quebra crenças limitantes e consolida todo o aprendizado. É 100% seguro quando conduzido por profissionais experientes, seguindo protocolos rigorosos de segurança. Milhares de pessoas já vivenciaram esta experiência sem qualquer problema."
     },

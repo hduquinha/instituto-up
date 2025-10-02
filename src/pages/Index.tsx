@@ -2,7 +2,9 @@ import React from 'react';
 import HeroSection from "@/components/HeroSection";
 import VideoSection from "@/components/VideoSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import TrainersSection from "@/components/TrainersSection";
 import TrainingContentSection from "@/components/TrainingContentSection";
+import FireWalkVideoSection from "@/components/FireWalkVideoSection";
 import LocationSection from "@/components/LocationSection";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
@@ -17,7 +19,9 @@ const Index = () => {
         <HeroSection />
         <VideoSection />
         <TestimonialsSection />
+        <TrainersSection />
         <TrainingContentSection />
+        <FireWalkVideoSection />
         <LocationSection />
         <PricingSection />
         <FAQSection />
