@@ -21,8 +21,8 @@ const FAQSection = () => {
 
   const faqs = [
     {
-      question: "O que está incluído no treinamento presencial?",
-      answer: "O treinamento inclui 1 dia intensivo (14 horas) no Lito Palace Hotel em Registro-SP, coffee breaks e almoços gourmet, material físico e digital premium, certificado de participação presencial, kit de boas-vindas exclusivo, networking com outros participantes e acesso às gravações por 6 meses."
+      question: "O que vou aprender sobre comunicação e liderança?",
+      answer: "Você dominará 4 pilares fundamentais: Autoconhecimento emocional, Reprogramação de crenças limitantes, Gestão emocional avançada e Habilidades sociais com foco em liderança. Inclui técnicas de comunicação assertiva, escuta ativa, persuasão ética, gestão de conflitos e desenvolvimento de presença de liderança."
     },
     {
       question: "Qual a localização exata do evento?",
@@ -63,10 +63,6 @@ const FAQSection = () => {
     {
       question: "O que acontece se eu precisar de acomodação no hotel?",
       answer: "O Lito Palace Hotel oferece descontos especiais para participantes do Instituto UP. Entre em contato conosco após a inscrição e ajudaremos com reservas e condições preferenciais para sua estadia."
-    },
-    {
-      question: "Como funciona o programa de vagas sociais?",
-      answer: "Temos vagas sociais limitadas para pessoas com renda familiar até 3 salários mínimos. O processo é criterioso e baseado em análise socioeconômica. Candidaturas são analisadas em até 48h através de formulário específico."
     }
   ];
 

@@ -21,7 +21,7 @@ const HeroSection = () => {
           {/* Texto (sempre alinhado à esquerda) */}
           <div className="text-left max-w-xl w-full px-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight tracking-tight text-white break-words">
-              Sua <span className="text-turquoise">Transformação Presencial</span> te espera
+              Domine <span className="text-turquoise">Comunicação e Liderança</span> em 1 Dia
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
@@ -30,7 +30,7 @@ const HeroSection = () => {
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
               Uma imersão <strong>presencial intensiva</strong> com Rodrigo Damaceno no Lito Palace Hotel em Registro-SP, 
-              desenhada para <strong>transformar</strong> sua mentalidade em apenas 1 dia.
+              focada em <strong>comunicação assertiva</strong> e <strong>liderança transformadora</strong>.
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">
