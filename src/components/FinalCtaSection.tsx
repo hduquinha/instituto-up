@@ -75,7 +75,7 @@ const FinalCtaSection = () => {
           
           <div className="flex justify-center items-center gap-4 text-gray-400 text-lg">
             <ShieldCheck className="w-6 h-6 text-green-400" />
-            <span>7 dias de garantia incondicional + Local Premium</span>
+            <span>Garantia no dia + Local Premium</span>
           </div>
         </div>
 

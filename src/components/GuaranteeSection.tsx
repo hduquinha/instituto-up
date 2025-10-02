@@ -27,20 +27,20 @@ const GuaranteeSection = () => {
             </div>
             
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-              🛡️ GARANTIA INCONDICIONAL DE <span className="text-turquoise">7 DIAS</span>
+              🛡️ GARANTIA INCONDICIONAL <span className="text-turquoise">NO DIA</span>
             </h2>
             
             <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-10 leading-relaxed max-w-5xl mx-auto">
-              Se em 7 dias você não sentir que está no caminho certo para sua transformação,
-              <span className="text-white font-bold"> devolvemos 100% do seu dinheiro</span> - sem perguntas, sem burocracia.
+              Apenas no dia, no final do treinamento, se o treinamento não for excelente,
+              <span className="text-white font-bold"> devolvemos 100% do seu dinheiro</span> gasto no treinamento.
             </p>
             
             <div className="bg-black/40 rounded-2xl p-8 border border-turquoise/20 max-w-4xl mx-auto">
               <p className="text-turquoise font-bold text-xl lg:text-2xl mb-3">
-                ✅ Garantia válida para ambos os planos
+                ✅ Garantia válida no local, no mesmo dia
               </p>
               <p className="text-gray-400 text-lg lg:text-xl">
-                Testamos nossa metodologia com mais de 10.000 pessoas. Temos certeza absoluta de que funciona.
+                Estamos tão confiantes na qualidade do nosso treinamento que oferecemos reembolso total no próprio dia se não for excelente.
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ const GuaranteeSection = () => {
           </a>
           
           <p className="text-base text-gray-500 mt-6">
-            ⭐ Oferta por tempo limitado • 🔒 Compra 100% segura • 🛡️ Garantia de 7 dias
+            ⭐ Oferta por tempo limitado • 🔒 Compra 100% segura • 🛡️ Garantia no dia
           </p>
         </div>
       </div>

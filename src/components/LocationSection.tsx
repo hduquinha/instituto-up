@@ -37,7 +37,7 @@ const LocationSection = () => {
                   <Phone className="h-5 w-5 text-turquoise mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Contato do Hotel</p>
-                    <p className="text-gray-400">(13) 3821-1000</p>
+                    <p className="text-gray-400">(13) 3821-1055</p>
                   </div>
                 </div>
                 
@@ -50,33 +50,6 @@ const LocationSection = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Comodidades do Hotel */}
-            <div className="bg-black/50 rounded-2xl p-6 border border-gray-800">
-              <h4 className="text-xl font-bold text-white mb-4">Comodidades Incluídas</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-turquoise rounded-full"></span>
-                  Coffee breaks premium
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-turquoise rounded-full"></span>
-                  Coffee breaks premium
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-turquoise rounded-full"></span>
-                  Wi-Fi de alta velocidade
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-turquoise rounded-full"></span>
-                  Ar-condicionado
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-turquoise rounded-full"></span>
-                  Equipamentos audiovisuais
-                </li>
-              </ul>
             </div>
           </div>
           

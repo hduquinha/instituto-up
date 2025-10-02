@@ -45,7 +45,7 @@ const PricingSection = () => {
         "Material físico premium entregue no local",
         "Crachá personalizado de participante",
         "Certificado de participação presencial",
-        "Fire Walk - Experiência transformadora",
+        "Firewalking - Experiência transformadora",
         "Suporte durante o evento"
       ],
       cta: "Garantir Vaga Presencial",

@@ -11,7 +11,7 @@ const FireWalkVideoSection = () => {
           <div className="inline-flex items-center gap-3 bg-orange-500/20 rounded-full px-8 py-4 mb-6">
             <span className="text-3xl">🔥</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-orange-400 uppercase tracking-wider">
-              FIRE WALK EM AÇÃO
+              FIREWALKING EM AÇÃO
             </h2>
             <span className="text-3xl">🔥</span>
           </div>
@@ -30,7 +30,7 @@ const FireWalkVideoSection = () => {
           <iframe
             className="absolute top-0 left-0 w-full h-full"
             src="https://www.youtube.com/embed/fire-walk-video-id"
-            title="Fire Walk - Experiência Transformadora"
+            title="Firewalking - Experiência Transformadora"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -76,10 +76,10 @@ const FireWalkVideoSection = () => {
           data-aos-delay="400"
         >
           <h3 className="text-2xl font-bold text-white mb-4">
-            🔥 TODO MUNDO CONSEGUE PASSAR NO FIRE WALK
+            🔥 TODO MUNDO CONSEGUE PASSAR NO FIREWALKING
           </h3>
           <p className="text-white max-w-3xl mx-auto text-base">
-            Esta experiência é 100% segura e TODOS os participantes conseguem completar o Fire Walk com sucesso. 
+            Esta experiência é 100% segura e TODOS os participantes conseguem completar o Firewalking com sucesso. 
             Nossa metodologia prepara você mental e emocionalmente para quebrar seus limites e ter esta experiência transformadora única.
           </p>
         </div>

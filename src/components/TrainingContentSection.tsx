@@ -99,7 +99,7 @@ const TrainingContentSection = () => {
             🎯 Metodologia Comprovada + Experiência Única
           </h3>
           <p className="text-lg text-gray-300 max-w-4xl mx-auto mb-6">
-            Combine o aprendizado estruturado com a experiência transformadora do Fire Walk. 
+            Combine o aprendizado estruturado com a experiência transformadora do Firewalking. 
             Uma jornada completa que vai <strong className="text-turquoise">reprogramar sua mente</strong> e 
             <strong className="text-turquoise"> elevar sua confiança</strong> a níveis que você nunca imaginou.
           </p>
@@ -110,7 +110,7 @@ const TrainingContentSection = () => {
               <p className="text-gray-400 text-sm">Metodologia estruturada com exercícios práticos e aplicação imediata</p>
             </div>
             <div className="bg-black/30 rounded-xl p-6">
-              <h4 className="text-orange-400 font-bold text-lg mb-2">Fire Walk Experiencial</h4>
+              <h4 className="text-orange-400 font-bold text-lg mb-2">Firewalking Experiencial</h4>
               <p className="text-gray-400 text-sm">Caminhada sobre brasas para consolidar toda a transformação</p>
             </div>
           </div>

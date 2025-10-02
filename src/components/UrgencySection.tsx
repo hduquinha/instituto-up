@@ -218,7 +218,7 @@ const UrgencySection = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
               <div className="flex items-center justify-center text-gray-300 text-lg">
                 <Shield className="w-6 h-6 text-green-400 mr-3" />
-                <span>7 dias de garantia</span>
+                <span>Garantia no dia</span>
               </div>
               <div className="flex items-center justify-center text-gray-300 text-lg">
                 <Star className="w-6 h-6 text-yellow-400 mr-3" />

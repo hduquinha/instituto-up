@@ -30,7 +30,7 @@ const HeroSection = () => {
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
               Uma imersão <strong>presencial intensiva</strong> com Rodrigo Damaceno no Lito Palace Hotel em Registro-SP, 
-              focada em <strong>comunicação assertiva</strong>, <strong>liderança transformadora</strong> e a experiência única do <strong className="text-orange-400">Fire Walk</strong>.
+              focada em <strong>comunicação assertiva</strong>, <strong>liderança transformadora</strong> e a experiência única do <strong className="text-orange-400">Firewalking</strong>.
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">
