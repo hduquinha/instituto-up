@@ -81,7 +81,7 @@ const TrainersSection = () => {
               <h5 className="text-2xl font-bold text-white">Vanessa Vaz</h5>
               <p style={{ color: turquoiseColor }} className="font-semibold mb-3">Coordenadora & Suporte ao Aluno</p>
               <p className="text-gray-400 text-sm">
-                Como Co-fundadora do Instituto UP e especialista em TCC, Vanessa garante que sua experiência seja impecável, gerenciando a organização para que sua única preocupação seja a sua evolução.
+                Como Co-fundadora do Instituto UP e especialista em TCC e Analista Comportamental, Vanessa garante que sua experiência seja impecável, gerenciando a organização para que sua única preocupação seja a sua evolução.
               </p>
             </div>
           </div>

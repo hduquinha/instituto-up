@@ -26,11 +26,11 @@ const FAQSection = () => {
     },
     {
       question: "Qual a localização exata do evento?",
-      answer: "O evento será realizado no Lito Palace Hotel, localizado em Registro-SP, no Vale do Ribeira. O hotel oferece estacionamento gratuito para participantes e excelente estrutura para nosso treinamento intensivo."
+      answer: "O evento será realizado no Lito Palace Hotel, localizado em Registro-SP, no Vale do Ribeira. O hotel oferece excelente estrutura para nosso treinamento intensivo."
     },
     {
-      question: "Funciona mesmo? Como posso ter certeza?",
-      answer: "Apenas no dia, no final do treinamento, se o treinamento não for excelente, devolvemos 100% do seu dinheiro gasto no treinamento. Estamos tão confiantes na qualidade que oferecemos reembolso total no próprio dia."
+      question: "E se eu não gostar ou não for bom?",
+      answer: "Simples: se no final do dia você não estiver satisfeito com o treinamento, devolvemos 100% do seu dinheiro na hora. Sem burocracia, sem perguntas. Estamos tão confiantes na qualidade que assumimos todo o risco."
     },
     {
       question: "Quais são os horários do treinamento?",
