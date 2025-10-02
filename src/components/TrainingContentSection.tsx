@@ -4,51 +4,42 @@ const TrainingContentSection = () => {
   const pillars = [
     {
       icon: Brain,
-      title: "Pilar 1: Autoconhecimento e Diagnóstico Emocional",
-      description: "Identificação de padrões comportamentais automáticos e mapeamento das emoções primárias.",
-      details: [
-        "Mapeamento de emoções: medo, raiva e tristeza",
-        "Reconhecimento de manifestações físicas das emoções",
-        "Investigação da origem de crenças e valores pessoais",
-        "Conexão com eventos marcantes e experiências formativas",
-        "Compreensão da arquitetura da percepção de mundo atual"
+      title: "Pilar 1: Autoconhecimento Emocional",
+      subtitle: "Mapeie suas emoções e comportamentos",
+      highlights: [
+        "Identificação de padrões comportamentais automáticos",
+        "Mapeamento das emoções primárias (medo, raiva, tristeza)",
+        "Investigação da origem de crenças pessoais"
       ]
     },
     {
       icon: Lightbulb,
-      title: "Pilar 2: Reprogramação de Crenças Limitantes",
-      description: "Técnicas para identificação e transformação de pensamentos autossabotadores.",
-      details: [
-        "Identificação consciente de crenças restritivas",
-        "Processo de ressignificação de memórias e eventos",
-        "Transformação de fontes de dor em aprendizado",
+      title: "Pilar 2: Reprogramação Mental",
+      subtitle: "Transforme crenças limitantes em fortalecedoras",
+      highlights: [
+        "Técnicas de ressignificação de memórias",
         "Substituição de diálogos internos negativos",
-        "Implementação de programações mentais fortalecedoras"
+        "Implementação de programações mentais de sucesso"
       ]
     },
     {
       icon: Target,
-      title: "Pilar 3: Gestão e Domínio Emocional",
-      description: "Ferramentas práticas para gerenciamento de estados emocionais em tempo real.",
-      details: [
-        "Técnicas de controle de impulsos",
-        "Modulação da ansiedade e manejo do estresse",
-        "Análise e escolha de resposta consciente vs reação automática",
-        "Uso das emoções como sinalizadores para tomada de decisão",
-        "Desenvolvimento de inteligência emocional aplicada"
+      title: "Pilar 3: Domínio Emocional",
+      subtitle: "Controle seus estados emocionais em tempo real",
+      highlights: [
+        "Técnicas de controle de impulsos e ansiedade",
+        "Escolha consciente vs reação automática",
+        "Uso das emoções para tomada de decisão"
       ]
     },
     {
       icon: Users,
-      title: "Pilar 4: Habilidades Sociais e Liderança Comunicativa",
-      description: "Desenvolvimento de competências avançadas de comunicação, liderança e influência.",
-      details: [
-        "Escuta ativa e percepção do estado emocional de outros",
+      title: "Pilar 4: Liderança Comunicativa",
+      subtitle: "Desenvolva presença e influência natural",
+      highlights: [
         "Comunicação assertiva e não-violenta",
-        "Construção de conexões genuínas (rapport)",
-        "Técnicas de liderança e influência positiva",
-        "Mediação de conflitos e gestão de equipes",
-        "Melhoria da dinâmica em relacionamentos pessoais e profissionais"
+        "Construção de rapport e conexões genuínas",
+        "Técnicas de liderança e gestão de conflitos"
       ]
     }
   ];
@@ -63,14 +54,14 @@ const TrainingContentSection = () => {
       <div className="relative z-10 container max-w-7xl mx-auto">
         <div className="text-center mb-16" data-aos="fade-up">
           <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider mb-6">
-            O que você vai <span className="text-turquoise">Dominar</span>
+            4 Pilares da <span className="text-turquoise">Transformação</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            14 horas intensivas divididas em 4 pilares fundamentais para sua transformação em comunicação e liderança
+            Metodologia estruturada para dominar comunicação, liderança e inteligência emocional em 1 dia intensivo
           </p>
         </div>
         
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid lg:grid-cols-2 gap-8 mb-16">
           {pillars.map((pillar, index) => (
             <div 
               key={index}
@@ -86,17 +77,17 @@ const TrainingContentSection = () => {
                   <h3 className="text-xl font-bold text-white mb-2 leading-tight">
                     {pillar.title}
                   </h3>
-                  <p className="text-gray-400 text-sm">
-                    {pillar.description}
+                  <p className="text-turquoise text-sm font-semibold">
+                    {pillar.subtitle}
                   </p>
                 </div>
               </div>
               
               <ul className="space-y-3">
-                {pillar.details.map((detail, detailIndex) => (
-                  <li key={detailIndex} className="flex items-start gap-3 text-gray-300">
+                {pillar.highlights.map((highlight, highlightIndex) => (
+                  <li key={highlightIndex} className="flex items-start gap-3 text-gray-300">
                     <span className="w-2 h-2 bg-turquoise rounded-full mt-2 flex-shrink-0"></span>
-                    <span className="text-sm leading-relaxed">{detail}</span>
+                    <span className="text-sm leading-relaxed">{highlight}</span>
                   </li>
                 ))}
               </ul>
@@ -104,29 +95,63 @@ const TrainingContentSection = () => {
           ))}
         </div>
         
+        {/* Seção Fire Walk */}
+        <div className="bg-gradient-to-r from-orange-900/30 via-red-900/30 to-orange-900/30 rounded-2xl p-8 border border-orange-500/30 mb-12" data-aos="fade-up">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 bg-orange-500/20 rounded-full px-6 py-3 mb-4">
+              <span className="text-2xl">🔥</span>
+              <h3 className="text-2xl md:text-3xl font-bold text-orange-400">
+                FIRE WALK
+              </h3>
+              <span className="text-2xl">🔥</span>
+            </div>
+            <h4 className="text-xl font-bold text-white mb-4">
+              A Experiência Transformadora Que Quebra Todos os Limites
+            </h4>
+            <p className="text-gray-300 max-w-3xl mx-auto">
+              O momento mais poderoso do treinamento: uma caminhada sobre brasas ardentes que representa 
+              sua capacidade de superar qualquer obstáculo. Uma experiência única que consolida todo 
+              o aprendizado dos 4 pilares.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-black/40 rounded-xl p-6 text-center">
+              <span className="text-3xl mb-3 block">🧠</span>
+              <h5 className="text-orange-400 font-bold text-lg mb-2">Quebra de Crenças</h5>
+              <p className="text-gray-400 text-sm">Supere limitações mentais que você acreditava serem impossíveis</p>
+            </div>
+            <div className="bg-black/40 rounded-xl p-6 text-center">
+              <span className="text-3xl mb-3 block">⚡</span>
+              <h5 className="text-orange-400 font-bold text-lg mb-2">Estado de Peak</h5>
+              <p className="text-gray-400 text-sm">Acesse um estado emocional de máxima confiança e determinação</p>
+            </div>
+            <div className="bg-black/40 rounded-xl p-6 text-center">
+              <span className="text-3xl mb-3 block">🚀</span>
+              <h5 className="text-orange-400 font-bold text-lg mb-2">Transformação Total</h5>
+              <p className="text-gray-400 text-sm">Saia com a certeza de que pode conquistar qualquer objetivo</p>
+            </div>
+          </div>
+        </div>
+        
         <div className="bg-gradient-to-r from-turquoise/10 to-blue-500/10 rounded-2xl p-8 border border-turquoise/20 text-center" data-aos="fade-up">
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            🎯 Foco Especial em Comunicação e Liderança
+            🎯 Metodologia Comprovada + Experiência Única
           </h3>
           <p className="text-lg text-gray-300 max-w-4xl mx-auto mb-6">
-            Este treinamento foi especialmente desenvolvido para profissionais que desejam se destacar através de 
-            <strong className="text-turquoise"> comunicação assertiva</strong> e 
-            <strong className="text-turquoise"> liderança influente</strong>. Você sairá com ferramentas práticas 
-            para se tornar um comunicador excepcional e um líder nato.
+            Combine o aprendizado estruturado dos 4 pilares com a experiência transformadora do Fire Walk. 
+            Uma jornada completa que vai <strong className="text-turquoise">reprogramar sua mente</strong> e 
+            <strong className="text-turquoise"> elevar sua confiança</strong> a níveis que você nunca imaginou.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
+          <div className="grid md:grid-cols-2 gap-6 mt-8">
             <div className="bg-black/30 rounded-xl p-6">
-              <h4 className="text-turquoise font-bold text-lg mb-2">Comunicação Transformadora</h4>
-              <p className="text-gray-400 text-sm">Domine técnicas avançadas de persuasão, escuta ativa e comunicação não-violenta</p>
+              <h4 className="text-turquoise font-bold text-lg mb-2">Parte Teórica + Prática</h4>
+              <p className="text-gray-400 text-sm">4 pilares estruturados com exercícios práticos e aplicação imediata</p>
             </div>
             <div className="bg-black/30 rounded-xl p-6">
-              <h4 className="text-turquoise font-bold text-lg mb-2">Liderança Autêntica</h4>
-              <p className="text-gray-400 text-sm">Desenvolva presença de liderança, gestão de conflitos e influência positiva</p>
-            </div>
-            <div className="bg-black/30 rounded-xl p-6">
-              <h4 className="text-turquoise font-bold text-lg mb-2">Inteligência Emocional</h4>
-              <p className="text-gray-400 text-sm">Aprenda a ler pessoas, gerenciar emoções e criar conexões genuínas</p>
+              <h4 className="text-orange-400 font-bold text-lg mb-2">Fire Walk Experiencial</h4>
+              <p className="text-gray-400 text-sm">Caminhada sobre brasas para consolidar toda a transformação</p>
             </div>
           </div>
         </div>

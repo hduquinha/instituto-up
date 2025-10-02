@@ -61,6 +61,10 @@ const FAQSection = () => {
       answer: "Não há limites! Nossos métodos funcionam para qualquer pessoa, independente da idade, profissão ou momento de vida. Temos participantes desde jovens universitários até executivos experientes, todos buscando sua transformação."
     },
     {
+      question: "O que é o Fire Walk e é seguro?",
+      answer: "O Fire Walk é uma caminhada sobre brasas ardentes, uma experiência transformadora que quebra crenças limitantes e consolida todo o aprendizado. É 100% seguro quando conduzido por profissionais experientes, seguindo protocolos rigorosos de segurança. Milhares de pessoas já vivenciaram esta experiência sem qualquer problema."
+    },
+    {
       question: "O que acontece se eu precisar de acomodação no hotel?",
       answer: "O Lito Palace Hotel oferece descontos especiais para participantes do Instituto UP. Entre em contato conosco após a inscrição e ajudaremos com reservas e condições preferenciais para sua estadia."
     }
