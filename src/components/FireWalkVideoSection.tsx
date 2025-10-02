@@ -16,7 +16,7 @@ const FireWalkVideoSection = () => {
             <span className="text-3xl">🔥</span>
           </div>
           
-          <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-orange max-w-3xl mx-auto leading-relaxed">
             Veja como é a experiência transformadora que vai quebrar suas crenças limitantes e ativar seu potencial máximo. 
             Uma caminhada sobre brasas que vai reprogramar sua mente para o sucesso.
           </p>
