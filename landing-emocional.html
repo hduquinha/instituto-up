@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Jornada de Inteligência Emocional - Instituto UP</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--primary: #27abb6;
+				--primary-dark: #1f8a92;
+				--primary-light: #5fc7cf;
+				--bg: #ffffff;
+				--text: #101010;
+				--muted: #4f5b61;
+				--border: rgba(0, 0, 0, 0.08);
+				--radius: 16px;
+				font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				background: linear-gradient(135deg, #f7fbfc 0%, rgba(39, 171, 182, 0.15) 100%);
+				color: var(--text);
+				line-height: 1.5;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			.page {
+				min-height: 100vh;
+				display: flex;
+				align-items: stretch;
+				padding: 40px 24px;
+			}
+
+			.shell {
+				max-width: 1180px;
+				margin: 0 auto;
+				width: 100%;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+				gap: 32px;
+				align-items: start;
+			}
+
+			.hero-card {
+				background: var(--bg);
+				border-radius: 28px;
+				padding: 48px 40px;
+				box-shadow: 0 24px 60px rgba(16, 48, 56, 0.12);
+				border: 1px solid rgba(39, 171, 182, 0.15);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.hero-card::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				background: linear-gradient(180deg, rgba(39, 171, 182, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+			}
+
+			.hero-card h1 {
+				font-size: clamp(2.4rem, 4vw, 3.4rem);
+				line-height: 1.05;
+				margin: 0 0 24px;
+				font-weight: 800;
+				letter-spacing: -0.02em;
+			}
+
+			.hero-card h1 span {
+				color: var(--primary);
+			}
+
+			.hero-card p.lead {
+				font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+
+			.hero-badges {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 12px;
+				margin-bottom: 28px;
+			}
+
+			.badge {
+				background: rgba(39, 171, 182, 0.15);
+				border-radius: 999px;
+				padding: 8px 16px;
+				font-size: 0.88rem;
+				font-weight: 600;
+				color: var(--primary-dark);
+			}
+
+			.hero-list {
+				list-style: none;
+				padding: 0;
+				margin: 0 0 32px;
+				display: grid;
+				gap: 16px;
+			}
+
+			.hero-list li {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				align-items: start;
+				gap: 16px;
+				padding: 16px 18px;
+				border-radius: 16px;
+				border: 1px solid rgba(39, 171, 182, 0.18);
+				background: rgba(255, 255, 255, 0.85);
+				box-shadow: 0 10px 28px rgba(15, 76, 82, 0.08);
+			}
+
+			.hero-list .icon {
+				width: 28px;
+				height: 28px;
+				border-radius: 999px;
+				background: var(--primary);
+				display: grid;
+				place-items: center;
+				color: #fff;
+				font-weight: 700;
+			}
+
+			.hero-footer {
+				display: grid;
+				gap: 16px;
+			}
+
+			.hero-footer .cta {
+				background: var(--primary);
+				color: #fff;
+				padding: 16px 24px;
+				border-radius: 16px;
+				font-size: 1.05rem;
+				font-weight: 700;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 12px;
+				border: none;
+				cursor: pointer;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+
+			.hero-footer .cta:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 14px 38px rgba(39, 171, 182, 0.35);
+				background: var(--primary-dark);
+			}
+
+			.hero-footer small {
+				color: var(--muted);
+				font-size: 0.85rem;
+			}
+
+			.form-card {
+				background: var(--bg);
+				border-radius: 32px;
+				padding: clamp(24px, 3vw, 34px);
+				box-shadow: 0 24px 60px rgba(14, 48, 56, 0.14);
+				border: 1px solid rgba(39, 171, 182, 0.18);
+				position: relative;
+			}
+
+			.status-banner {
+				background: rgba(39, 171, 182, 0.12);
+				color: var(--primary-dark);
+				border-radius: 999px;
+				padding: 10px 18px;
+				font-size: 0.85rem;
+				display: inline-flex;
+				gap: 10px;
+				align-items: center;
+				margin-bottom: 20px;
+			}
+
+			.progress {
+				display: grid;
+				grid-template-columns: repeat(15, minmax(0, 1fr));
+				gap: 6px;
+				margin-bottom: 18px;
+			}
+
+			.progress div {
+				aspect-ratio: 1;
+				border-radius: 999px;
+				border: 2px solid rgba(39, 171, 182, 0.35);
+				background: rgba(255, 255, 255, 0.65);
+				position: relative;
+				transition: background 0.2s ease, border 0.2s ease;
+			}
+
+			.progress div.active {
+				background: var(--primary);
+				border-color: var(--primary);
+			}
+
+			.progress div.completed {
+				background: var(--primary-light);
+				border-color: var(--primary-light);
+			}
+
+			.step-indicator {
+				font-weight: 600;
+				margin-bottom: 12px;
+				color: var(--muted);
+			}
+
+			form {
+				display: flex;
+				flex-direction: column;
+				gap: 18px;
+			}
+
+			.step {
+				display: none;
+			}
+
+			.step.active {
+				display: block;
+				animation: fadeIn 0.3s ease;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(8px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.field {
+				display: grid;
+				gap: 6px;
+				margin-bottom: 18px;
+			}
+
+			label {
+				font-weight: 600;
+				font-size: 0.95rem;
+				color: var(--text);
+			}
+
+			input[type="text"],
+			input[type="tel"],
+			input[type="number"],
+			textarea {
+				width: 100%;
+				padding: 14px 16px;
+				border-radius: 14px;
+				border: 1.5px solid var(--border);
+				background: rgba(255, 255, 255, 0.92);
+				font-size: 1rem;
+				transition: border 0.2s ease, box-shadow 0.2s ease;
+			}
+
+			input:focus,
+			textarea:focus {
+				border-color: var(--primary);
+				outline: none;
+				box-shadow: 0 0 0 3px rgba(39, 171, 182, 0.18);
+			}
+
+			.option-group {
+				display: grid;
+				gap: 10px;
+				margin-top: 8px;
+			}
+
+			.option {
+				border: 1px solid rgba(39, 171, 182, 0.25);
+				border-radius: 14px;
+				padding: 12px 14px;
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				background: rgba(255, 255, 255, 0.9);
+			}
+
+			.option input {
+				margin: 0;
+				accent-color: var(--primary);
+				transform: scale(1.2);
+			}
+
+			.grid-two {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+				gap: 12px;
+			}
+
+			.inline-actions {
+				display: flex;
+				gap: 10px;
+				margin-top: 8px;
+			}
+
+			.inline-actions button {
+				border: 1px solid rgba(39, 171, 182, 0.3);
+				background: rgba(39, 171, 182, 0.12);
+				color: var(--primary-dark);
+				padding: 8px 12px;
+				border-radius: 10px;
+				font-size: 0.85rem;
+				cursor: pointer;
+			}
+
+			.inline-actions button:hover {
+				background: rgba(39, 171, 182, 0.2);
+			}
+
+			.error {
+				color: #c0392b;
+				font-size: 0.85rem;
+				margin-top: 4px;
+			}
+
+			.actions {
+				display: flex;
+				justify-content: space-between;
+				gap: 12px;
+				margin-top: 4px;
+			}
+
+			.actions button {
+				flex: 1;
+				padding: 14px 16px;
+				border-radius: 14px;
+				border: none;
+				font-weight: 700;
+				cursor: pointer;
+				font-size: 1rem;
+				transition: background 0.2s ease, transform 0.2s ease;
+			}
+
+			.btn-secondary {
+				background: rgba(39, 171, 182, 0.12);
+				color: var(--primary-dark);
+			}
+
+			.btn-secondary:hover {
+				background: rgba(39, 171, 182, 0.2);
+			}
+
+			.btn-primary {
+				background: var(--primary);
+				color: #fff;
+			}
+
+			.btn-primary:hover {
+				background: var(--primary-dark);
+				transform: translateY(-1px);
+			}
+
+			textarea {
+				min-height: 140px;
+				resize: vertical;
+			}
+
+			.modal-backdrop {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.45);
+				backdrop-filter: blur(4px);
+				display: none;
+				align-items: center;
+				justify-content: center;
+				padding: 24px;
+				z-index: 999;
+			}
+
+			.modal-backdrop.active {
+				display: flex;
+			}
+
+			.modal {
+				background: #fff;
+				border-radius: 24px;
+				padding: 32px;
+				max-width: 420px;
+				width: 100%;
+				text-align: center;
+				box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+			}
+
+			.modal h3 {
+				margin-top: 0;
+				margin-bottom: 12px;
+				font-size: 1.6rem;
+			}
+
+			.modal p {
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+
+			.modal button {
+				padding: 12px 16px;
+				border: none;
+				border-radius: 12px;
+				background: var(--primary);
+				color: #fff;
+				font-weight: 600;
+				cursor: pointer;
+			}
+
+			@media (max-width: 960px) {
+				.page {
+					padding: 28px 18px;
+				}
+
+				.hero-card {
+					padding: 36px 28px;
+					text-align: center;
+				}
+
+				.hero-list li {
+					text-align: left;
+				}
+
+				.form-card {
+					padding: 24px;
+				}
+
+				.actions {
+					flex-direction: column-reverse;
+				}
+
+				.actions button {
+					width: 100%;
+				}
+			}
+
+			@media (max-width: 640px) {
+				.page {
+					padding: 18px 12px 60px;
+				}
+
+				.hero-card {
+					padding: 28px 24px;
+				}
+
+				.hero-list {
+					gap: 12px;
+				}
+
+				.badge {
+					font-size: 0.78rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page">
+			<div class="shell">
+				<section class="hero-card" aria-labelledby="hero-title">
+					<h1 id="hero-title">Jornada de <span>Inteligência Emocional</span> 2025</h1>
+					<p class="lead">Um encontro ao vivo para destravar as emoções, resgatar confiança e construir uma rotina mental saudável em 8 semanas.</p>
+					<div class="hero-badges" role="list">
+						<span class="badge" role="listitem">Evento gratuito</span>
+						<span class="badge" role="listitem">Vagas limitadas</span>
+						<span class="badge" role="listitem">Mentoria com especialistas</span>
+					</div>
+					<ul class="hero-list">
+						<li>
+							<span class="icon">1</span>
+							<div>
+								<strong>Descubra seus gatilhos emocionais.</strong>
+								<div>Mapeie padrões que afetam sono, relações e produtividade.</div>
+							</div>
+						</li>
+						<li>
+							<span class="icon">2</span>
+							<div>
+								<strong>Construa um plano personalizado.</strong>
+								<div>Priorize pilares físicos, financeiros e afetivos com clareza.</div>
+							</div>
+						</li>
+						<li>
+							<span class="icon">3</span>
+							<div>
+								<strong>Conquiste equilíbrio diário.</strong>
+								<div>Ferramentas práticas para ansiedade, comunicação e liderança.</div>
+							</div>
+						</li>
+					</ul>
+					<div class="hero-footer">
+						<button class="cta" type="button" id="cta-open" aria-controls="form-card">Quero participar agora</button>
+						<small>Preencha o formulário ao lado. Em menos de 4 minutos você garante a vaga.</small>
+					</div>
+				</section>
+
+				<section class="form-card" id="form-card" aria-labelledby="form-title">
+					<div class="status-banner" id="status-banner" aria-live="polite">Pronto para começar. Avançamos juntos etapa a etapa.</div>
+					<h2 id="form-title">Inscrição guiada em 15 etapas</h2>
+					<div class="progress" aria-hidden="true" id="progress-indicator"></div>
+					<div class="step-indicator" id="step-counter">Etapa 1 de 15</div>
+
+					<form id="multi-form" novalidate>
+						<div class="step active" data-step="1">
+							<div class="field">
+								<label for="nome">Nome completo*</label>
+								<input id="nome" name="nome" type="text" autocomplete="name" required minlength="3" />
+								<div class="error" data-error="nome" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="2">
+							<div class="field">
+								<label for="cidade">Cidade*</label>
+								<input id="cidade" name="cidade" type="text" autocomplete="address-level2" required />
+								<div class="error" data-error="cidade" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="3">
+							<div class="field">
+								<label for="telefone">Telefone (WhatsApp)*</label>
+								<input id="telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" required />
+								<div class="error" data-error="telefone" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="4">
+							<div class="field">
+								<label for="idade">Idade*</label>
+								<input id="idade" name="idade" type="number" min="10" max="110" required />
+								<div class="error" data-error="idade" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="5">
+							<div class="field">
+								<label>Nível de ansiedade*</label>
+								<div class="option-group" role="radiogroup" aria-labelledby="ansiedade-label">
+									<div class="option"><input type="radio" name="nivel_ansiedade" value="Muito ansioso" required /> Muito ansioso</div>
+									<div class="option"><input type="radio" name="nivel_ansiedade" value="Ansioso" /> Ansioso</div>
+									<div class="option"><input type="radio" name="nivel_ansiedade" value="Moderado" /> Moderado</div>
+									<div class="option"><input type="radio" name="nivel_ansiedade" value="Tranquilo" /> Tranquilo</div>
+									<div class="option"><input type="radio" name="nivel_ansiedade" value="Não sei" /> Não sei</div>
+									<div class="option"><input type="radio" name="nivel_ansiedade" value="Não quero responder" /> Não quero responder</div>
+								</div>
+								<div class="error" data-error="nivel_ansiedade" aria-live="polite"></div>
+							</div>
+
+							<div class="field">
+								<label>Qualidade do sono*</label>
+								<div class="option-group">
+									<div class="option"><input type="radio" name="qualidade_sono" value="Dorme muito mal" required /> Dorme muito mal</div>
+									<div class="option"><input type="radio" name="qualidade_sono" value="Sono irregular" /> Sono irregular</div>
+									<div class="option"><input type="radio" name="qualidade_sono" value="Sono razoável" /> Sono razoável</div>
+									<div class="option"><input type="radio" name="qualidade_sono" value="Sono restaurador" /> Sono restaurador</div>
+									<div class="option"><input type="radio" name="qualidade_sono" value="Não sei" /> Não sei</div>
+									<div class="option"><input type="radio" name="qualidade_sono" value="Não quero responder" /> Não quero responder</div>
+								</div>
+								<div class="error" data-error="qualidade_sono" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="6">
+							<div class="field">
+								<label>Vida financeira*</label>
+								<div class="option-group">
+									<div class="option"><input type="radio" name="vida_financeira" value="Muito desafiadora" required /> Muito desafiadora</div>
+									<div class="option"><input type="radio" name="vida_financeira" value="Os altos e baixos me afetam" /> Os altos e baixos me afetam</div>
+									<div class="option"><input type="radio" name="vida_financeira" value="Estável" /> Estável</div>
+									<div class="option"><input type="radio" name="vida_financeira" value="Fluida e estruturada" /> Fluida e estruturada</div>
+									<div class="option"><input type="radio" name="vida_financeira" value="Não sei" /> Não sei</div>
+									<div class="option"><input type="radio" name="vida_financeira" value="Não quero responder" /> Não quero responder</div>
+								</div>
+								<div class="error" data-error="vida_financeira" aria-live="polite"></div>
+							</div>
+
+							<div class="field">
+								<label>Saúde física*</label>
+								<div class="option-group">
+									<div class="option"><input type="radio" name="saude_fisica" value="Precisa de atenção urgente" required /> Precisa de atenção urgente</div>
+									<div class="option"><input type="radio" name="saude_fisica" value="Oscila bastante" /> Oscila bastante</div>
+									<div class="option"><input type="radio" name="saude_fisica" value="Regular" /> Regular</div>
+									<div class="option"><input type="radio" name="saude_fisica" value="Muito boa" /> Muito boa</div>
+									<div class="option"><input type="radio" name="saude_fisica" value="Não sei" /> Não sei</div>
+									<div class="option"><input type="radio" name="saude_fisica" value="Não quero responder" /> Não quero responder</div>
+								</div>
+								<div class="error" data-error="saude_fisica" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="7">
+							<div class="field">
+								<label>Relacionamentos familiares*</label>
+								<div class="option-group">
+									<div class="option"><input type="radio" name="relacionamento_familiar" value="Conflituosos" required /> Conflituosos</div>
+									<div class="option"><input type="radio" name="relacionamento_familiar" value="Distantes" /> Distantes</div>
+									<div class="option"><input type="radio" name="relacionamento_familiar" value="Harmônicos" /> Harmônicos</div>
+									<div class="option"><input type="radio" name="relacionamento_familiar" value="Não tenho família próxima" /> Não tenho família próxima</div>
+									<div class="option"><input type="radio" name="relacionamento_familiar" value="Não sei" /> Não sei</div>
+									<div class="option"><input type="radio" name="relacionamento_familiar" value="Não quero responder" /> Não quero responder</div>
+								</div>
+								<div class="error" data-error="relacionamento_familiar" aria-live="polite"></div>
+							</div>
+
+							<div class="field">
+								<label>Relacionamento amoroso*</label>
+								<div class="option-group">
+									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Estou em conflito" required /> Estou em conflito</div>
+									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Estou solteiro(a)" /> Estou solteiro(a)</div>
+									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Vivendo bem" /> Vivendo bem</div>
+									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Não sei" /> Não sei</div>
+									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Não quero responder" /> Não quero responder</div>
+								</div>
+								<div class="error" data-error="relacionamento_amoroso" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="8">
+							<div class="field">
+								<label>Áreas para melhorar*</label>
+								<div class="option-group">
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Saúde emocional" /> Saúde emocional</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Saúde física" /> Saúde física</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Relações familiares" /> Relações familiares</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Relação amorosa" /> Relação amorosa</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Área financeira" /> Área financeira</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Área profissional" /> Área profissional</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Nível de ansiedade/estresse" /> Nível de ansiedade/estresse</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Qualidade do sono" /> Qualidade do sono</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Comunicação" /> Comunicação</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Liderança" /> Liderança</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Não quero responder" /> Não quero responder</label>
+								</div>
+								<div class="error" data-error="areas_para_melhorar" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="9">
+							<div class="field">
+								<label for="profissao">Trabalho ou profissão</label>
+								<input id="profissao" name="profissao" type="text" />
+								<div class="inline-actions">
+									<button type="button" data-fill="profissao" data-value="Não sei">Não sei</button>
+									<button type="button" data-fill="profissao" data-value="Não quero responder">Não quero responder</button>
+								</div>
+								<div class="error" data-error="profissao" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="10">
+							<div class="field">
+								<label>Gatilhos</label>
+								<div class="option-group">
+									<label class="option"><input type="checkbox" name="gatilhos" value="Pressão no trabalho" /> Pressão no trabalho</label>
+									<label class="option"><input type="checkbox" name="gatilhos" value="Conflitos familiares" /> Conflitos familiares</label>
+									<label class="option"><input type="checkbox" name="gatilhos" value="Relacionamento amoroso" /> Relacionamento amoroso</label>
+									<label class="option"><input type="checkbox" name="gatilhos" value="Expectativas pessoais" /> Expectativas pessoais</label>
+									<label class="option"><input type="checkbox" name="gatilhos" value="Sobrecarrega de tarefas" /> Sobrecarga de tarefas</label>
+									<label class="option"><input type="checkbox" name="gatilhos" value="Situações financeiras" /> Situações financeiras</label>
+									<label class="option"><input type="checkbox" name="gatilhos" value="Outros" data-with-text="gatilhos_outros" /> Outros</label>
+								</div>
+								<input type="text" id="gatilhos_outros" name="gatilhos_outros" placeholder="Conte quais outros gatilhos" style="display:none" />
+							</div>
+						</div>
+
+						<div class="step" data-step="11">
+							<div class="field">
+								<label>Sintomas físicos</label>
+								<div class="option-group">
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Tensão muscular" /> Tensão muscular</label>
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Dor de cabeça" /> Dor de cabeça</label>
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Taquicardia" /> Taquicardia</label>
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Insônia" /> Insônia</label>
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Cansaço extremo" /> Cansaço extremo</label>
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Alterações alimentares" /> Alterações alimentares</label>
+									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Outros" data-with-text="sintomas_fisicos_outros" /> Outros</label>
+								</div>
+								<input type="text" id="sintomas_fisicos_outros" name="sintomas_fisicos_outros" placeholder="Descreva outros sintomas físicos" style="display:none" />
+							</div>
+						</div>
+
+						<div class="step" data-step="12">
+							<div class="field">
+								<label>Sintomas emocionais</label>
+								<div class="option-group">
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Crises de choro" /> Crises de choro</label>
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Irritabilidade" /> Irritabilidade</label>
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Sensação de vazio" /> Sensação de vazio</label>
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Falta de motivação" /> Falta de motivação</label>
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Medos constantes" /> Medos constantes</label>
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Oscilações de humor" /> Oscilações de humor</label>
+									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Outros" data-with-text="sintomas_emocionais_outros" /> Outros</label>
+								</div>
+								<input type="text" id="sintomas_emocionais_outros" name="sintomas_emocionais_outros" placeholder="Descreva outros sintomas emocionais" style="display:none" />
+							</div>
+						</div>
+
+						<div class="step" data-step="13">
+							<div class="field">
+								<label>O que já tentou?</label>
+								<div class="option-group">
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Psicoterapia" /> Psicoterapia</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Psiquiatria" /> Psiquiatria</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Livros de autoajuda" /> Livros de autoajuda</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Cursos online" /> Cursos online</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Meditação" /> Meditação</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Atividade física" /> Atividade física</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Mentorias" /> Mentorias</label>
+									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Outros" data-with-text="o_que_ja_tentou_outros" /> Outros</label>
+								</div>
+								<input type="text" id="o_que_ja_tentou_outros" name="o_que_ja_tentou_outros" placeholder="Compartilhe outras tentativas" style="display:none" />
+							</div>
+						</div>
+
+						<div class="step" data-step="14">
+							<div class="field">
+								<label>Como conheceu o Instituto?</label>
+								<div class="option-group">
+									<label class="option"><input type="radio" name="como_conheceu" value="Instagram" /> Instagram</label>
+									<label class="option"><input type="radio" name="como_conheceu" value="Indicação" /> Indicação</label>
+									<label class="option"><input type="radio" name="como_conheceu" value="Pesquisa Google" /> Pesquisa Google</label>
+									<label class="option"><input type="radio" name="como_conheceu" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="como_conheceu" value="Não quero responder" /> Não quero responder</label>
+									<label class="option"><input type="radio" name="como_conheceu" value="Outro" data-with-text="como_conheceu_outro" /> Outro</label>
+								</div>
+								<input type="text" id="como_conheceu_outro" name="como_conheceu_outro" placeholder="Conte para nós" style="display:none" />
+								<div class="error" data-error="como_conheceu" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="15">
+							<div class="field">
+								<label for="comentarios">Comentários adicionais</label>
+								<textarea id="comentarios" name="comentarios" placeholder="Compartilhe algo que devemos saber"></textarea>
+							</div>
+						</div>
+
+						<div class="actions">
+							<button type="button" class="btn-secondary" id="btn-prev">Voltar</button>
+							<button type="button" class="btn-primary" id="btn-next">Próximo</button>
+						</div>
+					</form>
+				</section>
+			</div>
+		</div>
+
+		<div class="modal-backdrop" id="modal-success" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+			<div class="modal">
+				<h3 id="modal-title">Inscrição concluída!</h3>
+				<p id="modal-desc">Recebemos suas respostas. Um de nossos especialistas entrará em contato em breve.</p>
+				<button type="button" id="modal-close">Fechar e reiniciar</button>
+			</div>
+		</div>
+
+		<script>
+			(function () {
+				const TOTAL_STEPS = 15;
+				const N8N_WEBHOOK_URL = "https://hooks.instituto-up.com/emocional";
+				const statusBanner = document.getElementById("status-banner");
+				const stepCounter = document.getElementById("step-counter");
+				const progressIndicator = document.getElementById("progress-indicator");
+				const form = document.getElementById("multi-form");
+				const steps = Array.from(document.querySelectorAll(".step"));
+				const btnPrev = document.getElementById("btn-prev");
+				const btnNext = document.getElementById("btn-next");
+				const modal = document.getElementById("modal-success");
+				const modalClose = document.getElementById("modal-close");
+				const ctaOpen = document.getElementById("cta-open");
+				let currentStep = 0;
+				const allData = {};
+				const clientId = crypto.randomUUID();
+				const usedPhonesKey = "instituto-up-telefones";
+				const usedPhones = new Set(JSON.parse(localStorage.getItem(usedPhonesKey) || "[]"));
+				const searchParams = new URLSearchParams(window.location.search);
+				const tracking = collectTracking(searchParams);
+
+				form.setAttribute("aria-live", "assertive");
+
+				function collectTracking(params) {
+					const data = {
+						utm_source: params.get("utm_source") || "",
+						utm_medium: params.get("utm_medium") || "",
+						utm_campaign: params.get("utm_campaign") || "",
+						utm_term: params.get("utm_term") || "",
+						utm_content: params.get("utm_content") || "",
+						traffic_source: params.get("traffic_source") || params.get("utm_source") || "",
+						from_bio: parseBoolean(params.get("from_bio")),
+						is_whatsapp_traffic:
+							parseBoolean(params.get("is_whatsapp_traffic")) || /whatsapp/i.test(params.get("utm_source") || ""),
+						is_bio_traffic:
+							parseBoolean(params.get("is_bio_traffic")) || /bio/i.test(params.get("utm_source") || ""),
+						audience_segment: params.get("audience_segment") || "",
+					};
+					return data;
+				}
+
+				function parseBoolean(value) {
+					if (!value) return false;
+					return ["1", "true", "yes", "sim"].includes(value.toLowerCase());
+				}
+
+				function buildProgress() {
+					for (let i = 0; i < TOTAL_STEPS; i++) {
+						const dot = document.createElement("div");
+						if (i === 0) dot.classList.add("active");
+						progressIndicator.appendChild(dot);
+					}
+				}
+
+				function updateProgress() {
+					const dots = progressIndicator.children;
+					for (let i = 0; i < dots.length; i++) {
+						dots[i].classList.toggle("active", i === currentStep);
+						dots[i].classList.toggle("completed", i < currentStep);
+					}
+					stepCounter.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS}`;
+				}
+
+				function showStep(index) {
+					steps.forEach((step, idx) => {
+						step.classList.toggle("active", idx === index);
+					});
+					btnPrev.disabled = index === 0;
+					btnPrev.style.visibility = index === 0 ? "hidden" : "visible";
+					btnNext.textContent = index === steps.length - 1 ? "Enviar" : "Próximo";
+					updateProgress();
+				}
+
+				function handleInlineActions() {
+					document.querySelectorAll("[data-fill]").forEach((btn) => {
+						btn.addEventListener("click", () => {
+							const targetId = btn.getAttribute("data-fill");
+							const value = btn.getAttribute("data-value") || "";
+							const target = document.getElementById(targetId);
+							if (target) {
+								target.value = value;
+								target.dispatchEvent(new Event("input"));
+							}
+						});
+					});
+				}
+
+				function handleDynamicOthers() {
+					document.querySelectorAll('[data-with-text]').forEach((input) => {
+						const targetId = input.getAttribute('data-with-text');
+						const target = document.getElementById(targetId);
+						input.addEventListener('change', () => {
+							if (input.checked && target) {
+								target.style.display = 'block';
+								target.required = true;
+								target.focus();
+							} else if (target) {
+								target.style.display = 'none';
+								target.required = false;
+								target.value = '';
+							}
+						});
+					});
+				}
+
+				function maskPhone(value) {
+					const digits = value.replace(/\D/g, "").slice(0, 11);
+					if (digits.length <= 10) {
+						return digits
+							.replace(/(\d{2})(\d{4})(\d{0,4})/, function (_, ddd, part1, part2) {
+								return `(${ddd}) ${part1}${part2 ? '-' + part2 : ''}`;
+							})
+							.trim();
+					}
+					return digits
+						.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, function (_, ddd, n9, part1, part2) {
+							return `(${ddd}) ${n9}${part1 ? part1 : ''}${part2 ? '-' + part2 : ''}`;
+						})
+						.trim();
+				}
+
+				const phoneInput = document.getElementById("telefone");
+				phoneInput.addEventListener("input", (event) => {
+					const cursorPosition = event.target.selectionStart;
+					const prevLength = event.target.value.length;
+					event.target.value = maskPhone(event.target.value);
+					const newLength = event.target.value.length;
+					const diff = newLength - prevLength;
+					event.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+				});
+
+				function validatePhone(value) {
+					const digits = value.replace(/\D/g, "");
+					if (!(digits.length === 10 || digits.length === 11)) {
+						return "Informe um telefone com DDD válido.";
+					}
+					if (digits.length === 11 && digits[2] !== "9") {
+						return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
+					}
+					if (usedPhones.has(digits)) {
+						return "Este telefone já foi utilizado. Informe outro número.";
+					}
+					return "";
+				}
+
+				function collectStepData(stepEl) {
+					const stepIndex = parseInt(stepEl.getAttribute("data-step"), 10);
+					const data = {};
+					let valid = true;
+					const errors = {};
+
+					const setError = (field, message) => {
+						const target = form.querySelector(`[data-error="${field}"]`);
+						if (target) {
+							target.textContent = message;
+						}
+						if (message) valid = false;
+						errors[field] = message;
+					};
+
+					stepEl.querySelectorAll(".error").forEach((node) => (node.textContent = ""));
+
+					switch (stepIndex) {
+						case 1: {
+							const nome = form.nome.value.trim();
+							if (!nome || nome.length < 3) setError("nome", "Informe seu nome completo.");
+							data.nome_completo = nome;
+							break;
+						}
+						case 2: {
+							const cidade = form.cidade.value.trim();
+							if (!cidade) setError("cidade", "Informe a cidade onde mora.");
+							data.cidade = cidade;
+							break;
+						}
+						case 3: {
+							const telefone = form.telefone.value.trim();
+							const phoneError = validatePhone(telefone);
+							if (!telefone) setError("telefone", "Informe um número de WhatsApp válido.");
+							if (!phoneError && telefone) {
+								const digits = telefone.replace(/\D/g, "");
+								data.telefone = telefone;
+								data.telefone_digits = digits;
+							} else if (phoneError) {
+								setError("telefone", phoneError);
+							}
+							break;
+						}
+						case 4: {
+							const idade = form.idade.value.trim();
+							const idadeNum = Number(idade);
+							if (!idade) setError("idade", "Informe sua idade.");
+							else if (idadeNum < 10 || idadeNum > 110) setError("idade", "Idade entre 10 e 110 anos.");
+							data.idade = idadeNum;
+							break;
+						}
+						case 5: {
+							const ansiedade = form.querySelector('input[name="nivel_ansiedade"]:checked');
+							const sono = form.querySelector('input[name="qualidade_sono"]:checked');
+							if (!ansiedade) setError("nivel_ansiedade", "Selecione seu nível de ansiedade.");
+							if (!sono) setError("qualidade_sono", "Como está a qualidade do seu sono?");
+							data.nivel_ansiedade = ansiedade ? ansiedade.value : "";
+							data.qualidade_sono = sono ? sono.value : "";
+							break;
+						}
+						case 6: {
+							const financeira = form.querySelector('input[name="vida_financeira"]:checked');
+							const fisica = form.querySelector('input[name="saude_fisica"]:checked');
+							if (!financeira) setError("vida_financeira", "Selecione como está sua vida financeira.");
+							if (!fisica) setError("saude_fisica", "Compartilhe como está sua saúde física.");
+							data.vida_financeira = financeira ? financeira.value : "";
+							data.saude_fisica = fisica ? fisica.value : "";
+							break;
+						}
+						case 7: {
+							const familiar = form.querySelector('input[name="relacionamento_familiar"]:checked');
+							const amoroso = form.querySelector('input[name="relacionamento_amoroso"]:checked');
+							if (!familiar) setError("relacionamento_familiar", "Conte sobre seus relacionamentos familiares.");
+							if (!amoroso) setError("relacionamento_amoroso", "Conte sobre seu relacionamento amoroso.");
+							data.relacionamento_familiar = familiar ? familiar.value : "";
+							data.relacionamento_amoroso = amoroso ? amoroso.value : "";
+							break;
+						}
+						case 8: {
+							const selecionadas = Array.from(form.querySelectorAll('input[name="areas_para_melhorar"]:checked')).map(
+								(input) => input.value
+							);
+							if (!selecionadas.length) setError("areas_para_melhorar", "Selecione ao menos uma área que deseja melhorar.");
+							data.areas_para_melhorar = selecionadas;
+							break;
+						}
+						case 9: {
+							const profissao = form.profissao.value.trim();
+							data.profissao = profissao;
+							break;
+						}
+						case 10: {
+							const selecionadas = Array.from(form.querySelectorAll('input[name="gatilhos"]:checked')).map(
+								(input) => input.value
+							);
+							const outros = form.gatilhos_outros.value.trim();
+							data.gatilhos = selecionadas;
+							if (selecionadas.includes("Outros")) {
+								data.gatilhos_outros = outros;
+							}
+							break;
+						}
+						case 11: {
+							const selecionadas = Array.from(form.querySelectorAll('input[name="sintomas_fisicos"]:checked')).map(
+								(input) => input.value
+							);
+							const outros = form.sintomas_fisicos_outros.value.trim();
+							data.sintomas_fisicos = selecionadas;
+							if (selecionadas.includes("Outros")) {
+								data.sintomas_fisicos_outros = outros;
+							}
+							break;
+						}
+						case 12: {
+							const selecionadas = Array.from(form.querySelectorAll('input[name="sintomas_emocionais"]:checked')).map(
+								(input) => input.value
+							);
+							const outros = form.sintomas_emocionais_outros.value.trim();
+							data.sintomas_emocionais = selecionadas;
+							if (selecionadas.includes("Outros")) {
+								data.sintomas_emocionais_outros = outros;
+							}
+							break;
+						}
+						case 13: {
+							const selecionadas = Array.from(form.querySelectorAll('input[name="o_que_ja_tentou"]:checked')).map(
+								(input) => input.value
+							);
+							const outros = form.o_que_ja_tentou_outros.value.trim();
+							data.o_que_ja_tentou = selecionadas;
+							if (selecionadas.includes("Outros")) {
+								data.o_que_ja_tentou_outros = outros;
+							}
+							break;
+						}
+						case 14: {
+							const conheceu = form.querySelector('input[name="como_conheceu"]:checked');
+							const outro = form.como_conheceu_outro.value.trim();
+							if (!conheceu) setError("como_conheceu", "Selecione como conheceu o Instituto.");
+							data.como_conheceu = conheceu ? conheceu.value : "";
+							if (conheceu && conheceu.value === "Outro") {
+								data.como_conheceu_outro = outro;
+							}
+							break;
+						}
+						case 15: {
+							data.comentarios_adicionais = form.comentarios.value.trim();
+							break;
+						}
+						default:
+							break;
+					}
+
+					return { valid, data, errors };
+				}
+
+				function getEndpoint() {
+					const endpointParam = searchParams.get("endpoint");
+					if (endpointParam) return endpointParam;
+					const host = window.location.hostname;
+					if (/\.vercel\.app$/i.test(host)) return "/api/n8n-proxy";
+					return N8N_WEBHOOK_URL;
+				}
+
+				async function sendStepPayload(stepPayload, isFinal = false) {
+					const endpoint = getEndpoint();
+					const payload = {
+						clientId,
+						timestamp: new Date().toISOString(),
+						data_preenchimento: new Date().toLocaleString("pt-BR"),
+						_step: currentStep + 1,
+						_final: isFinal,
+						...tracking,
+						...allData,
+						...stepPayload,
+					};
+
+					try {
+						statusBanner.textContent = "Enviando etapa...";
+						const response = await fetch(endpoint, {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify(payload),
+						});
+						if (!response.ok) throw new Error(`Erro ${response.status}`);
+						statusBanner.textContent = isFinal
+							? "Tudo certo! Recebemos suas respostas."
+							: `Etapa ${currentStep + 1} registrada com sucesso.`;
+					} catch (err) {
+						statusBanner.textContent = "Não conseguimos enviar agora. Tentaremos novamente na próxima etapa.";
+						console.error("Erro ao enviar payload:", err);
+					}
+				}
+
+				async function goNext() {
+					const stepEl = steps[currentStep];
+					const { valid, data } = collectStepData(stepEl);
+					if (!valid) return;
+
+					Object.assign(allData, data);
+
+					if (stepEl.getAttribute("data-step") === "3" && allData.telefone_digits) {
+						usedPhones.add(allData.telefone_digits);
+						localStorage.setItem(usedPhonesKey, JSON.stringify(Array.from(usedPhones)));
+					}
+
+					const isLast = currentStep === steps.length - 1;
+					await sendStepPayload(data, isLast);
+
+					if (isLast) {
+						modal.classList.add("active");
+					} else {
+						currentStep += 1;
+						showStep(currentStep);
+					}
+				}
+
+				function goPrev() {
+					if (currentStep === 0) return;
+					currentStep -= 1;
+					showStep(currentStep);
+				}
+
+				form.addEventListener("keydown", (event) => {
+					if (event.key === "Enter") {
+						const isTextArea = event.target.tagName === "TEXTAREA";
+						if (!isTextArea) {
+							event.preventDefault();
+							btnNext.click();
+						}
+					}
+				});
+
+				btnPrev.addEventListener("click", goPrev);
+				btnNext.addEventListener("click", goNext);
+				modalClose.addEventListener("click", () => {
+					modal.classList.remove("active");
+					window.location.reload();
+				});
+
+				ctaOpen.addEventListener("click", () => {
+					document.getElementById("form-card").scrollIntoView({ behavior: "smooth", block: "start" });
+				});
+
+				buildProgress();
+				handleInlineActions();
+				handleDynamicOthers();
+				showStep(currentStep);
+				statusBanner.textContent = "Comece contando quem é você. Estamos aqui para ouvir.";
+			})();
+		</script>
+	</body>
+</html>
