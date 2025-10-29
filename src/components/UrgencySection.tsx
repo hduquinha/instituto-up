@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, Zap, Shield, Star } from 'lucide-react';
-import CheckoutForm from './CheckoutForm';
 
 const UrgencySection = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -9,9 +8,6 @@ const UrgencySection = () => {
     seconds: 59
   });
   
-  const [showForm, setShowForm] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -38,31 +34,14 @@ const UrgencySection = () => {
     }
   };
 
-  const handleStandardPurchase = () => {
-    const standardProduct = {
-      id: 'standard',
-      title: 'Instituto UP - Standard',
-      description: '🎯 STANDARD - Sua Transformação Começa Aqui!\n\n✅ 2 dias de treinamento ao vivo\n✅ Material de apoio em PDF premium\n✅ Acesso à comunidade exclusiva\n✅ Certificado de participação\n✅ Suporte via comunidade\n\n💡 Ideal para quem quer dar o primeiro passo rumo ao sucesso!\n\n🔥 OFERTA LIMITADA: De R$197 por apenas R$47 (76% OFF)',
-      additionalInfo: 'Treinamento: 2 dias ao vivo | Material: PDF premium | Comunidade: Acesso vitalício | Certificado: Incluído | Desconto: 76% OFF',
-      price: 47
-    };
-    
-    setSelectedProduct(standardProduct);
-    setShowForm(true);
+  const redirectToForm = (plan: string) => {
+    const url = `/landing-emocional.html?plan=${encodeURIComponent(plan)}`;
+    window.location.href = url;
   };
 
-  const handleVIPPurchase = () => {
-    const vipProduct = {
-      id: 'up-vip',
-      title: 'Instituto UP - UP VIP',
-      description: '🚀 UP VIP - A Experiência Completa! (MAIS ESCOLHIDO)\n\n✅ TUDO do plano Standard, MAIS:\n✅ Gravações por 1 ano completo\n✅ Sessão Bônus Q&A em grupo\n✅ Módulo extra: Produtividade Acelerada\n✅ Grupo VIP exclusivo no WhatsApp\n✅ Suporte direto com os mentores\n✅ Material bônus exclusivo\n✅ Certificado VIP diferenciado\n\n🔥 MÁXIMO APROVEITAMENTO garantido!\n\n💎 OFERTA VIP: De R$497 por apenas R$197 (60% OFF)\n⚡ APENAS 20 VAGAS DISPONÍVEIS!',
-      additionalInfo: 'Gravações: 1 ano | Bônus: Sessão Q&A | Extra: Produtividade Acelerada | VIP: Comunidade exclusiva | WhatsApp: Grupo VIP | Suporte: Direto com mentores',
-      price: 197
-    };
-    
-    setSelectedProduct(vipProduct);
-    setShowForm(true);
-  };
+  const handleStandardPurchase = () => redirectToForm('Standard');
+
+  const handleVIPPurchase = () => redirectToForm('UP VIP');
 
   return (
     <section className="relative bg-gradient-to-br from-red-900/20 via-black to-orange-900/20 py-20 px-4 sm:px-6 overflow-hidden">
@@ -246,16 +225,6 @@ const UrgencySection = () => {
         </div>
       </div>
 
-      {/* Modal do Checkout */}
-      {showForm && selectedProduct && (
-        <CheckoutForm
-          productData={selectedProduct}
-          onClose={() => {
-            setShowForm(false);
-            setSelectedProduct(null);
-          }}
-        />
-      )}
     </section>
   );
 };

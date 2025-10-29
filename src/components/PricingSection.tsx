@@ -1,35 +1,11 @@
 import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import CheckoutForm from "./CheckoutForm";
 
 const PricingSection = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
-
   const handleBuyClick = (plan: any) => {
-    // Criar descrição rica baseada no plano
-    let richDescription = '';
-    let additionalInfo = '';
-    
-    if (plan.name === 'Standard') {
-      richDescription = '🎯 STANDARD - Sua Transformação Começa Aqui!\n\n✅ 2 dias de treinamento ao vivo\n✅ Material de apoio em PDF premium\n✅ Acesso à comunidade exclusiva\n✅ Certificado de participação\n✅ Suporte via comunidade\n\n💡 Ideal para quem quer dar o primeiro passo rumo ao sucesso!\n\n🔥 OFERTA LIMITADA: De R$197 por apenas R$47 (76% OFF)';
-      additionalInfo = 'Treinamento: 2 dias ao vivo | Material: PDF premium | Comunidade: Acesso vitalício | Certificado: Incluído | Desconto: 76% OFF';
-    } else if (plan.name === 'UP VIP') {
-      richDescription = '🚀 UP VIP - A Experiência Completa! (MAIS ESCOLHIDO)\n\n✅ TUDO do plano Standard, MAIS:\n✅ Gravações por 1 ano completo\n✅ Sessão Bônus Q&A em grupo\n✅ Módulo extra: Produtividade Acelerada\n✅ Grupo VIP exclusivo no WhatsApp\n✅ Suporte direto com os mentores\n✅ Material bônus exclusivo\n✅ Certificado VIP diferenciado\n\n🔥 MÁXIMO APROVEITAMENTO garantido!\n\n💎 OFERTA VIP: De R$497 por apenas R$197 (60% OFF)\n⚡ APENAS 20 VAGAS DISPONÍVEIS!';
-      additionalInfo = 'Gravações: 1 ano | Bônus: Sessão Q&A | Extra: Produtividade Acelerada | VIP: Comunidade exclusiva | WhatsApp: Grupo VIP | Suporte: Direto com mentores';
-    }
-
-    const productData = {
-      id: plan.name.toLowerCase().replace(/\s+/g, '-'),
-      title: `Instituto UP - ${plan.name}`,
-      description: richDescription,
-      additionalInfo: additionalInfo,
-      price: parseFloat(plan.price)
-    };
-    
-    setSelectedProduct(productData);
-    setShowForm(true);
+    const basePath = `/landing-emocional.html`;
+    const targetUrl = `${basePath}?plan=${encodeURIComponent(plan.name || "" )}`;
+    window.location.href = targetUrl;
   };
   const plans = [
     {
@@ -141,7 +117,7 @@ const PricingSection = () => {
                   </Button>
                   
                   <p className="text-center text-sm text-gray-500 mt-4">
-                    💳 Parcelamento disponível • 🔒 Compra 100% segura
+                    � Preenchimento rápido • 🔒 Seus dados ficam somente com nossa equipe
                   </p>
                 </div>
               </div>
@@ -149,17 +125,6 @@ const PricingSection = () => {
           </div>
         </div>
       </div>
-
-      {/* Modal do Checkout */}
-      {showForm && selectedProduct && (
-        <CheckoutForm
-          productData={selectedProduct}
-          onClose={() => {
-            setShowForm(false);
-            setSelectedProduct(null);
-          }}
-        />
-      )}
     </section>
   );
 };
