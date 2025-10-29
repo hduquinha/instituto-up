@@ -28,8 +28,8 @@ const FinalCtaSection = () => {
           </h2>
           
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
-            Uma experiência única no Lito Palace Hotel em Registro-SP. 
-            25 de Outubro - 1 dia intensivo que vai transformar sua vida.
+            Uma experiência única em São Paulo-SP. 
+            17 de Janeiro - 1 dia intensivo que vai transformar sua vida.
           </p>
         </div>
 
@@ -42,18 +42,18 @@ const FinalCtaSection = () => {
             <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
               <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🏨 Experiência VIP</h4>
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• Local: Lito Palace Hotel - Registro-SP</li>
-                <li>• Data: 25 de Outubro de 2025</li>
-                <li>• Coffee breaks premium</li>
+                <li>• Local: São Paulo-SP</li>
+                <li>• Data: 17 de Janeiro de 2026</li>
                 <li>• Kit de boas-vindas exclusivo</li>
+                <li>• Material físico premium</li>
               </ul>
             </div>
             
             <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
               <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🚀 Transformação Completa</h4>
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• 1 dia de imersão intensiva (14h)</li>
-                <li>• Das 7h às 21h - 25/10/2025</li>
+                <li>• 1 dia de imersão intensiva</li>
+                <li>• 17 de Janeiro de 2026</li>
                 <li>• Material físico + digital premium</li>
                 <li>• Certificado presencial exclusivo</li>
               </ul>
@@ -63,7 +63,7 @@ const FinalCtaSection = () => {
 
         <div className="mb-16">
           <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-            25 de Outubro no Lito Palace Hotel, Registro-SP. Uma experiência transformadora de 14 horas intensivas.
+            17 de Janeiro em São Paulo-SP. Uma experiência transformadora intensiva.
           </p>
           
           <button

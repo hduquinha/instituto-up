@@ -12,12 +12,11 @@ const PricingSection = () => {
       name: "Presencial",
       price: "1997",
       originalPrice: "3997",
-      description: "Treinamento presencial intensivo em comunicação e liderança no Lito Palace Hotel, Registro-SP.",
+      description: "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP.",
       features: [
-        "Treinamento presencial intensivo (14h)",
-        "Data: 25 de Outubro de 2025",
-        "Local: Lito Palace Hotel - Registro-SP", 
-        "Café da manhã e coffee breaks inclusos",
+        "Treinamento presencial intensivo",
+        "Data: 17 de Janeiro de 2026",
+        "Local: São Paulo-SP", 
         "Material físico premium entregue no local",
         "Crachá personalizado de participante",
         "Certificado de participação presencial",
@@ -46,7 +45,7 @@ const PricingSection = () => {
             Treinamento Presencial <span className="text-turquoise">Exclusivo</span>
           </h2>
           <p className="max-w-3xl mx-auto mt-4 text-gray-400">
-            Uma experiência única no Lito Palace Hotel. Vagas limitadas para garantir qualidade e exclusividade.
+            Uma experiência única em São Paulo. Vagas limitadas para garantir qualidade e exclusividade.
           </p>
         </div>
 

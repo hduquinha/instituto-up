@@ -5,7 +5,6 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import TrainersSection from "@/components/TrainersSection";
 import TrainingContentSection from "@/components/TrainingContentSection";
 import FireWalkVideoSection from "@/components/FireWalkVideoSection";
-import LocationSection from "@/components/LocationSection";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCtaSection from "@/components/FinalCtaSection";
@@ -22,7 +21,6 @@ const Index = () => {
         <TrainersSection />
         <TrainingContentSection />
         <FireWalkVideoSection />
-        <LocationSection />
         <PricingSection />
         <FAQSection />
         <FinalCtaSection />

@@ -25,20 +25,12 @@ const FAQSection = () => {
       answer: "Você dominará 4 pilares fundamentais: Autoconhecimento emocional, Reprogramação de crenças limitantes, Gestão emocional avançada e Habilidades sociais com foco em liderança. Inclui técnicas de comunicação assertiva, escuta ativa, persuasão ética, gestão de conflitos e desenvolvimento de presença de liderança."
     },
     {
-      question: "Qual a localização exata do evento?",
-      answer: "O evento será realizado no Lito Palace Hotel, localizado em Registro-SP, no Vale do Ribeira. O hotel oferece excelente estrutura para nosso treinamento intensivo."
-    },
-    {
       question: "E se eu não gostar ou não for bom?",
       answer: "Simples: se no final do dia você não estiver satisfeito com o treinamento, devolvemos 100% do seu dinheiro na hora. Sem burocracia, sem perguntas. Estamos tão confiantes na qualidade que assumimos todo o risco."
     },
     {
-      question: "Quais são os horários do treinamento?",
-      answer: "O evento acontece no dia 25 de outubro de 2025, das 7h às 21h (14 horas intensivas), com intervalos estratégicos para coffee breaks, almoço e networking. O programa é intensivo, mas foi desenvolvido para maximizar o aprendizado."
-    },
-    {
-      question: "Como chegar ao Lito Palace Hotel em Registro-SP?",
-      answer: "Registro fica no Vale do Ribeira, a cerca de 200km de São Paulo. Oferecemos informações detalhadas de como chegar de carro, ônibus ou outros meios de transporte após a confirmação da inscrição."
+      question: "Quando acontece o treinamento?",
+      answer: "O evento acontece no dia 17 de janeiro de 2026 em São Paulo-SP. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
     },
     {
       question: "É seguro comprar online? Como funciona o pagamento?",
@@ -59,10 +51,6 @@ const FAQSection = () => {
     {
       question: "O que é o Firewalking e é seguro?",
       answer: "O Firewalking é uma caminhada sobre brasas ardentes, uma experiência transformadora que quebra crenças limitantes e consolida todo o aprendizado. É 100% seguro quando conduzido por profissionais experientes, e TODO MUNDO consegue passar no Firewalking. Nossa metodologia prepara você completamente para ter esta experiência única de transformação."
-    },
-    {
-      question: "O que acontece se eu precisar de acomodação no hotel?",
-      answer: "Para acomodação no Lito Palace Hotel, você deve tratar diretamente com o hotel. Entre em contato pelo telefone (13) 3821-1055 para verificar disponibilidade e tarifas."
     }
   ];
 

@@ -25,11 +25,11 @@ const HeroSection = () => {
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
-              25 de Outubro - Lito Palace Hotel, Registro-SP
+              17 de Janeiro - São Paulo-SP
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão <strong>presencial intensiva</strong> com Rodrigo Damaceno no Lito Palace Hotel em Registro-SP, 
+              Uma imersão <strong>presencial intensiva</strong> com Rodrigo Damaceno em São Paulo-SP, 
               focada em <strong>comunicação assertiva</strong>, <strong>liderança transformadora</strong> e a experiência única do <strong className="text-orange-400">Firewalking</strong>.
             </p>
 
@@ -37,7 +37,7 @@ const HeroSection = () => {
               <div className="flex items-center gap-2 bg-turquoise/10 border border-turquoise/30 rounded-lg p-3">
                 <CalendarDays className="h-5 w-5 text-turquoise flex-shrink-0" />
                 <p className="text-white font-semibold text-sm sm:text-base">
-                  25/10 - 7h às 21h - Registro-SP
+                  17 de Janeiro - São Paulo-SP
                 </p>
               </div>
 
