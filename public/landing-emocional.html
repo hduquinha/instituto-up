@@ -783,10 +783,10 @@
 				let currentStep = 0;
 				const allData = {};
 				const clientId = crypto.randomUUID();
-				const usedPhonesKey = "instituto-up-telefones";
-				const usedPhones = new Set(JSON.parse(localStorage.getItem(usedPhonesKey) || "[]"));
 				const searchParams = new URLSearchParams(window.location.search);
 				const tracking = collectTracking(searchParams);
+				const formDataKey = "instituto-up-form-data";
+				const formStepKey = "instituto-up-form-step";
 
 				form.setAttribute("aria-live", "assertive");
 
@@ -905,9 +905,6 @@
 					}
 					if (digits.length === 11 && digits[2] !== "9") {
 						return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
-					}
-					if (usedPhones.has(digits)) {
-						return "Este telefone já foi utilizado. Informe outro número.";
 					}
 					return "";
 				}
@@ -1131,16 +1128,16 @@
 					if (!valid) return;
 
 					Object.assign(allData, data);
-
-					if (stepEl.getAttribute("data-step") === "3" && allData.telefone_digits) {
-						usedPhones.add(allData.telefone_digits);
-						localStorage.setItem(usedPhonesKey, JSON.stringify(Array.from(usedPhones)));
-					}
+					
+					// Salva progresso no localStorage
+					saveProgress();
 
 					const isLast = currentStep === steps.length - 1;
 					await sendStepPayload(data, isLast);
 
 					if (isLast) {
+						// Limpa o progresso salvo ao finalizar
+						clearProgress();
 						modal.classList.add("active");
 					} else {
 						currentStep += 1;
@@ -1152,6 +1149,57 @@
 					if (currentStep === 0) return;
 					currentStep -= 1;
 					showStep(currentStep);
+					saveProgress();
+				}
+				
+				function saveProgress() {
+					try {
+						localStorage.setItem(formDataKey, JSON.stringify(allData));
+						localStorage.setItem(formStepKey, currentStep.toString());
+					} catch (e) {
+						console.error("Erro ao salvar progresso:", e);
+					}
+				}
+				
+				function clearProgress() {
+					try {
+						localStorage.removeItem(formDataKey);
+						localStorage.removeItem(formStepKey);
+					} catch (e) {
+						console.error("Erro ao limpar progresso:", e);
+					}
+				}
+				
+				function restoreProgress() {
+					try {
+						const savedData = localStorage.getItem(formDataKey);
+						const savedStep = localStorage.getItem(formStepKey);
+						
+						if (savedData) {
+							const data = JSON.parse(savedData);
+							Object.assign(allData, data);
+							
+							// Preenche os campos com os dados salvos
+							Object.keys(data).forEach(key => {
+								const input = form.elements[key];
+								if (input) {
+									if (input.type === 'radio' || input.type === 'checkbox') {
+										const radioInput = form.querySelector(`input[name="${key}"][value="${data[key]}"]`);
+										if (radioInput) radioInput.checked = true;
+									} else {
+										input.value = data[key];
+									}
+								}
+							});
+						}
+						
+						if (savedStep) {
+							currentStep = parseInt(savedStep, 10);
+							showStep(currentStep);
+						}
+					} catch (e) {
+						console.error("Erro ao restaurar progresso:", e);
+					}
 				}
 
 				form.addEventListener("keydown", (event) => {
@@ -1178,6 +1226,7 @@
 				buildProgress();
 				handleInlineActions();
 				handleDynamicOthers();
+				restoreProgress(); // Restaura progresso ao carregar
 				showStep(currentStep);
 				statusBanner.textContent = "Comece contando quem é você. Estamos aqui para ouvir.";
 			})();
