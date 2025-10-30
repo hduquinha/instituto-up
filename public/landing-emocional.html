@@ -279,24 +279,41 @@
 
 			.option-group {
 				display: grid;
-				gap: 10px;
-				margin-top: 8px;
+				gap: 12px;
+				margin-top: 12px;
 			}
 
 			.option {
-				border: 1px solid rgba(39, 171, 182, 0.25);
-				border-radius: 14px;
-				padding: 12px 14px;
+				border: 2px solid rgba(39, 171, 182, 0.25);
+				border-radius: 16px;
+				padding: 18px 20px;
 				display: flex;
 				align-items: center;
-				gap: 12px;
-				background: rgba(255, 255, 255, 0.9);
+				gap: 14px;
+				background: rgba(255, 255, 255, 0.95);
+				cursor: pointer;
+				transition: all 0.2s ease;
+				font-size: 1.05rem;
+				font-weight: 500;
+			}
+
+			.option:hover {
+				border-color: var(--primary);
+				background: rgba(39, 171, 182, 0.08);
+				transform: translateX(4px);
 			}
 
 			.option input {
 				margin: 0;
 				accent-color: var(--primary);
-				transform: scale(1.2);
+				transform: scale(1.4);
+				cursor: pointer;
+			}
+
+			.option:has(input:checked) {
+				border-color: var(--primary);
+				background: rgba(39, 171, 182, 0.15);
+				font-weight: 600;
 			}
 
 			.grid-two {
@@ -508,9 +525,19 @@
 
 				<section class="form-card" id="form-card" aria-labelledby="form-title">
 					<div class="status-banner" id="status-banner" aria-live="polite">Pronto para começar. Avançamos juntos etapa a etapa.</div>
-					<h2 id="form-title">Inscrição guiada em 15 etapas</h2>
+					
+					<!-- Barra de vagas -->
+					<div style="margin-bottom: 24px; padding: 16px; background: rgba(231, 76, 60, 0.1); border-left: 4px solid #e74c3c; border-radius: 12px;">
+						<div style="font-weight: 700; font-size: 0.95rem; color: #c0392b; margin-bottom: 8px;">⚠️ Atenção: Vagas limitadas!</div>
+						<div style="background: rgba(0,0,0,0.08); height: 24px; border-radius: 12px; overflow: hidden; position: relative;">
+							<div style="background: linear-gradient(90deg, #e74c3c, #c0392b); height: 100%; width: 78%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; transition: width 0.8s ease;">78%</div>
+						</div>
+						<div style="font-size: 0.88rem; color: var(--muted); margin-top: 6px; font-weight: 500;">Apenas 22% das vagas disponíveis</div>
+					</div>
+
+					<h2 id="form-title">Inscrição guiada</h2>
 					<div class="progress" aria-hidden="true" id="progress-indicator"></div>
-					<div class="step-indicator" id="step-counter">Etapa 1 de 15</div>
+					<div class="step-indicator" id="step-counter">Etapa 1</div>
 
 					<form id="multi-form" novalidate>
 						<div class="step active" data-step="1">
@@ -549,86 +576,92 @@
 							<div class="field">
 								<label>Nível de ansiedade*</label>
 								<div class="option-group" role="radiogroup" aria-labelledby="ansiedade-label">
-									<div class="option"><input type="radio" name="nivel_ansiedade" value="Muito ansioso" required /> Muito ansioso</div>
-									<div class="option"><input type="radio" name="nivel_ansiedade" value="Ansioso" /> Ansioso</div>
-									<div class="option"><input type="radio" name="nivel_ansiedade" value="Moderado" /> Moderado</div>
-									<div class="option"><input type="radio" name="nivel_ansiedade" value="Tranquilo" /> Tranquilo</div>
-									<div class="option"><input type="radio" name="nivel_ansiedade" value="Não sei" /> Não sei</div>
-									<div class="option"><input type="radio" name="nivel_ansiedade" value="Não quero responder" /> Não quero responder</div>
+									<label class="option"><input type="radio" name="nivel_ansiedade" value="Muito ansioso" required /> Muito ansioso</label>
+									<label class="option"><input type="radio" name="nivel_ansiedade" value="Ansioso" /> Ansioso</label>
+									<label class="option"><input type="radio" name="nivel_ansiedade" value="Moderado" /> Moderado</label>
+									<label class="option"><input type="radio" name="nivel_ansiedade" value="Tranquilo" /> Tranquilo</label>
+									<label class="option"><input type="radio" name="nivel_ansiedade" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="nivel_ansiedade" value="Não quero responder" /> Não quero responder</label>
 								</div>
 								<div class="error" data-error="nivel_ansiedade" aria-live="polite"></div>
-							</div>
-
-							<div class="field">
-								<label>Qualidade do sono*</label>
-								<div class="option-group">
-									<div class="option"><input type="radio" name="qualidade_sono" value="Dorme muito mal" required /> Dorme muito mal</div>
-									<div class="option"><input type="radio" name="qualidade_sono" value="Sono irregular" /> Sono irregular</div>
-									<div class="option"><input type="radio" name="qualidade_sono" value="Sono razoável" /> Sono razoável</div>
-									<div class="option"><input type="radio" name="qualidade_sono" value="Sono restaurador" /> Sono restaurador</div>
-									<div class="option"><input type="radio" name="qualidade_sono" value="Não sei" /> Não sei</div>
-									<div class="option"><input type="radio" name="qualidade_sono" value="Não quero responder" /> Não quero responder</div>
-								</div>
-								<div class="error" data-error="qualidade_sono" aria-live="polite"></div>
 							</div>
 						</div>
 
 						<div class="step" data-step="6">
 							<div class="field">
-								<label>Vida financeira*</label>
+								<label>Qualidade do sono*</label>
 								<div class="option-group">
-									<div class="option"><input type="radio" name="vida_financeira" value="Muito desafiadora" required /> Muito desafiadora</div>
-									<div class="option"><input type="radio" name="vida_financeira" value="Os altos e baixos me afetam" /> Os altos e baixos me afetam</div>
-									<div class="option"><input type="radio" name="vida_financeira" value="Estável" /> Estável</div>
-									<div class="option"><input type="radio" name="vida_financeira" value="Fluida e estruturada" /> Fluida e estruturada</div>
-									<div class="option"><input type="radio" name="vida_financeira" value="Não sei" /> Não sei</div>
-									<div class="option"><input type="radio" name="vida_financeira" value="Não quero responder" /> Não quero responder</div>
+									<label class="option"><input type="radio" name="qualidade_sono" value="Dorme muito mal" required /> Dorme muito mal</label>
+									<label class="option"><input type="radio" name="qualidade_sono" value="Sono irregular" /> Sono irregular</label>
+									<label class="option"><input type="radio" name="qualidade_sono" value="Sono razoável" /> Sono razoável</label>
+									<label class="option"><input type="radio" name="qualidade_sono" value="Sono restaurador" /> Sono restaurador</label>
+									<label class="option"><input type="radio" name="qualidade_sono" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="qualidade_sono" value="Não quero responder" /> Não quero responder</label>
 								</div>
-								<div class="error" data-error="vida_financeira" aria-live="polite"></div>
-							</div>
-
-							<div class="field">
-								<label>Saúde física*</label>
-								<div class="option-group">
-									<div class="option"><input type="radio" name="saude_fisica" value="Precisa de atenção urgente" required /> Precisa de atenção urgente</div>
-									<div class="option"><input type="radio" name="saude_fisica" value="Oscila bastante" /> Oscila bastante</div>
-									<div class="option"><input type="radio" name="saude_fisica" value="Regular" /> Regular</div>
-									<div class="option"><input type="radio" name="saude_fisica" value="Muito boa" /> Muito boa</div>
-									<div class="option"><input type="radio" name="saude_fisica" value="Não sei" /> Não sei</div>
-									<div class="option"><input type="radio" name="saude_fisica" value="Não quero responder" /> Não quero responder</div>
-								</div>
-								<div class="error" data-error="saude_fisica" aria-live="polite"></div>
+								<div class="error" data-error="qualidade_sono" aria-live="polite"></div>
 							</div>
 						</div>
 
 						<div class="step" data-step="7">
 							<div class="field">
+								<label>Vida financeira*</label>
+								<div class="option-group">
+									<label class="option"><input type="radio" name="vida_financeira" value="Muito desafiadora" required /> Muito desafiadora</label>
+									<label class="option"><input type="radio" name="vida_financeira" value="Os altos e baixos me afetam" /> Os altos e baixos me afetam</label>
+									<label class="option"><input type="radio" name="vida_financeira" value="Estável" /> Estável</label>
+									<label class="option"><input type="radio" name="vida_financeira" value="Fluida e estruturada" /> Fluida e estruturada</label>
+									<label class="option"><input type="radio" name="vida_financeira" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="vida_financeira" value="Não quero responder" /> Não quero responder</label>
+								</div>
+								<div class="error" data-error="vida_financeira" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="8">
+							<div class="field">
+								<label>Saúde física*</label>
+								<div class="option-group">
+									<label class="option"><input type="radio" name="saude_fisica" value="Precisa de atenção urgente" required /> Precisa de atenção urgente</label>
+									<label class="option"><input type="radio" name="saude_fisica" value="Oscila bastante" /> Oscila bastante</label>
+									<label class="option"><input type="radio" name="saude_fisica" value="Regular" /> Regular</label>
+									<label class="option"><input type="radio" name="saude_fisica" value="Muito boa" /> Muito boa</label>
+									<label class="option"><input type="radio" name="saude_fisica" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="saude_fisica" value="Não quero responder" /> Não quero responder</label>
+								</div>
+								<div class="error" data-error="saude_fisica" aria-live="polite"></div>
+							</div>
+						</div>
+
+						<div class="step" data-step="9">
+							<div class="field">
 								<label>Relacionamentos familiares*</label>
 								<div class="option-group">
-									<div class="option"><input type="radio" name="relacionamento_familiar" value="Conflituosos" required /> Conflituosos</div>
-									<div class="option"><input type="radio" name="relacionamento_familiar" value="Distantes" /> Distantes</div>
-									<div class="option"><input type="radio" name="relacionamento_familiar" value="Harmônicos" /> Harmônicos</div>
-									<div class="option"><input type="radio" name="relacionamento_familiar" value="Não tenho família próxima" /> Não tenho família próxima</div>
-									<div class="option"><input type="radio" name="relacionamento_familiar" value="Não sei" /> Não sei</div>
-									<div class="option"><input type="radio" name="relacionamento_familiar" value="Não quero responder" /> Não quero responder</div>
+									<label class="option"><input type="radio" name="relacionamento_familiar" value="Conflituosos" required /> Conflituosos</label>
+									<label class="option"><input type="radio" name="relacionamento_familiar" value="Distantes" /> Distantes</label>
+									<label class="option"><input type="radio" name="relacionamento_familiar" value="Harmônicos" /> Harmônicos</label>
+									<label class="option"><input type="radio" name="relacionamento_familiar" value="Não tenho família próxima" /> Não tenho família próxima</label>
+									<label class="option"><input type="radio" name="relacionamento_familiar" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="relacionamento_familiar" value="Não quero responder" /> Não quero responder</label>
 								</div>
 								<div class="error" data-error="relacionamento_familiar" aria-live="polite"></div>
 							</div>
+						</div>
 
+						<div class="step" data-step="10">
 							<div class="field">
 								<label>Relacionamento amoroso*</label>
 								<div class="option-group">
-									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Estou em conflito" required /> Estou em conflito</div>
-									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Estou solteiro(a)" /> Estou solteiro(a)</div>
-									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Vivendo bem" /> Vivendo bem</div>
-									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Não sei" /> Não sei</div>
-									<div class="option"><input type="radio" name="relacionamento_amoroso" value="Não quero responder" /> Não quero responder</div>
+									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Estou em conflito" required /> Estou em conflito</label>
+									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Estou solteiro(a)" /> Estou solteiro(a)</label>
+									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Vivendo bem" /> Vivendo bem</label>
+									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Não sei" /> Não sei</label>
+									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Não quero responder" /> Não quero responder</label>
 								</div>
 								<div class="error" data-error="relacionamento_amoroso" aria-live="polite"></div>
 							</div>
 						</div>
 
-						<div class="step" data-step="8">
+						<div class="step" data-step="11">
 							<div class="field">
 								<label>Áreas para melhorar*</label>
 								<div class="option-group">
@@ -649,7 +682,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="9">
+						<div class="step" data-step="12">
 							<div class="field">
 								<label for="profissao">Trabalho ou profissão</label>
 								<input id="profissao" name="profissao" type="text" />
@@ -661,7 +694,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="10">
+						<div class="step" data-step="13">
 							<div class="field">
 								<label>Gatilhos</label>
 								<div class="option-group">
@@ -677,7 +710,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="11">
+						<div class="step" data-step="14">
 							<div class="field">
 								<label>Sintomas físicos</label>
 								<div class="option-group">
@@ -693,7 +726,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="12">
+						<div class="step" data-step="15">
 							<div class="field">
 								<label>Sintomas emocionais</label>
 								<div class="option-group">
@@ -709,7 +742,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="13">
+						<div class="step" data-step="16">
 							<div class="field">
 								<label>O que já tentou?</label>
 								<div class="option-group">
@@ -726,7 +759,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="14">
+						<div class="step" data-step="17">
 							<div class="field">
 								<label>Como conheceu o Instituto?</label>
 								<div class="option-group">
@@ -742,7 +775,7 @@
 							</div>
 						</div>
 
-						<div class="step" data-step="15">
+						<div class="step" data-step="18">
 							<div class="field">
 								<label for="comentarios">Comentários adicionais</label>
 								<textarea id="comentarios" name="comentarios" placeholder="Compartilhe algo que devemos saber"></textarea>
@@ -768,7 +801,7 @@
 
 		<script>
 			(function () {
-				const TOTAL_STEPS = 15;
+				const TOTAL_STEPS = 18;
 				const N8N_WEBHOOK_URL = "https://up-n8n.welzbd.easypanel.host/webhook-test/972ed6cb-32ad-453b-a43d-fed1f1cd6f4d";
 				const statusBanner = document.getElementById("status-banner");
 				const stepCounter = document.getElementById("step-counter");
@@ -827,7 +860,7 @@
 						dots[i].classList.toggle("active", i === currentStep);
 						dots[i].classList.toggle("completed", i < currentStep);
 					}
-					stepCounter.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS}`;
+					stepCounter.textContent = `Etapa ${currentStep + 1}`;
 				}
 
 				function showStep(index) {
