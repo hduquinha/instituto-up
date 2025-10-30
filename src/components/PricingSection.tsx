@@ -10,8 +10,9 @@ const PricingSection = () => {
   const plans = [
     {
       name: "Presencial",
-      price: "1997",
-      originalPrice: "3997",
+      price: "2997",
+      originalPrice: "4997",
+      installments: "10x R$ 299,70",
       description: "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP.",
       features: [
         "Treinamento presencial intensivo - 2 dias",
@@ -25,8 +26,8 @@ const PricingSection = () => {
       ],
       cta: "Garantir Vaga Presencial",
       isRecommended: true,
-      discount: "50% OFF",
-      urgency: "VAGAS LIMITADAS!"
+      discount: "1º LOTE",
+      urgency: "78% DAS VAGAS JÁ PREENCHIDAS!"
     },
   ];
 
@@ -73,17 +74,35 @@ const PricingSection = () => {
                   </h3>
 
                   <div className="text-center my-8">
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                      <span className="text-xl text-gray-500 line-through">R$ {plan.originalPrice}</span>
-                      <span className="text-5xl lg:text-6xl font-extrabold text-white">R$ {plan.price}</span>
+                    {/* Barra de vagas */}
+                    <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+                      <div className="font-bold text-red-400 text-sm mb-2">⚠️ ATENÇÃO: VAGAS LIMITADAS</div>
+                      <div className="bg-gray-800 h-6 rounded-full overflow-hidden mb-2">
+                        <div className="bg-gradient-to-r from-red-500 to-red-600 h-full flex items-center justify-center text-white font-bold text-xs" style={{width: '78%'}}>
+                          78% PREENCHIDO
+                        </div>
+                      </div>
+                      <div className="text-gray-400 text-xs font-semibold">Apenas 22% das vagas disponíveis</div>
                     </div>
+
+                    <div className="flex items-center justify-center gap-3 mb-2">
+                      <span className="text-xl text-gray-500 line-through">R$ {plan.originalPrice}</span>
+                    </div>
+                    <div className="flex items-baseline justify-center gap-2 mb-3">
+                      <span className="text-5xl lg:text-6xl font-extrabold text-white">R$ {plan.price}</span>
+                      <span className="text-gray-400 text-lg">à vista</span>
+                    </div>
+                    {plan.installments && (
+                      <div className="text-turquoise text-3xl lg:text-4xl font-bold mb-3">
+                        {plan.installments}
+                      </div>
+                    )}
                     <div className="flex justify-center gap-3 mb-2">
-                      <span className="bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                      <span className="bg-turquoise text-black text-sm font-bold px-3 py-1 rounded-full">
                         {plan.discount}
                       </span>
                       <span className="text-red-400 text-sm font-bold animate-pulse">{plan.urgency}</span>
                     </div>
-                    <span className="text-gray-400 text-lg"> / à vista</span>
                   </div>
 
                   <p className="text-gray-400 text-center text-base lg:text-lg min-h-[4rem] mb-8 leading-relaxed">
