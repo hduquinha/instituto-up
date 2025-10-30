@@ -21,7 +21,7 @@ const HeroSection = () => {
           {/* Texto (sempre alinhado à esquerda) */}
           <div className="text-left max-w-xl w-full px-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight tracking-tight text-white break-words">
-              Domine <span className="text-turquoise">Comunicação e Liderança</span> em 1 Dia
+              Domine <span className="text-turquoise">Comunicação e Liderança</span> em 2 Dias
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
