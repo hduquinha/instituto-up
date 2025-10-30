@@ -527,12 +527,14 @@
 					<div class="status-banner" id="status-banner" aria-live="polite">Pronto para começar. Avançamos juntos etapa a etapa.</div>
 					
 					<!-- Barra de vagas -->
-					<div style="margin-bottom: 24px; padding: 16px; background: rgba(231, 76, 60, 0.1); border-left: 4px solid #e74c3c; border-radius: 12px;">
-						<div style="font-weight: 700; font-size: 0.95rem; color: #c0392b; margin-bottom: 8px;">⚠️ Atenção: Vagas limitadas!</div>
-						<div style="background: rgba(0,0,0,0.08); height: 24px; border-radius: 12px; overflow: hidden; position: relative;">
-							<div style="background: linear-gradient(90deg, #e74c3c, #c0392b); height: 100%; width: 78%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; transition: width 0.8s ease;">78%</div>
+					<div style="margin-bottom: 24px; padding: 18px 20px; background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(192, 57, 43, 0.08) 100%); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 14px;">
+						<div style="font-weight: 700; font-size: 0.9rem; color: #e74c3c; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+							<span style="font-size: 1.1rem;">⚠️</span> Atenção: Vagas limitadas
 						</div>
-						<div style="font-size: 0.88rem; color: var(--muted); margin-top: 6px; font-weight: 500;">Apenas 22% das vagas disponíveis</div>
+						<div style="background: rgba(0,0,0,0.06); height: 28px; border-radius: 14px; overflow: hidden; position: relative; border: 1px solid rgba(0,0,0,0.08);">
+							<div style="background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); height: 100%; width: 59%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.8rem; transition: width 0.8s ease; box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);">59% preenchido</div>
+						</div>
+						<div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 8px; font-weight: 500;">Restam poucas vagas disponíveis</div>
 					</div>
 
 					<h2 id="form-title">Inscrição guiada</h2>
@@ -995,32 +997,41 @@
 						}
 						case 5: {
 							const ansiedade = form.querySelector('input[name="nivel_ansiedade"]:checked');
-							const sono = form.querySelector('input[name="qualidade_sono"]:checked');
 							if (!ansiedade) setError("nivel_ansiedade", "Selecione seu nível de ansiedade.");
-							if (!sono) setError("qualidade_sono", "Como está a qualidade do seu sono?");
 							data.nivel_ansiedade = ansiedade ? ansiedade.value : "";
-							data.qualidade_sono = sono ? sono.value : "";
 							break;
 						}
 						case 6: {
-							const financeira = form.querySelector('input[name="vida_financeira"]:checked');
-							const fisica = form.querySelector('input[name="saude_fisica"]:checked');
-							if (!financeira) setError("vida_financeira", "Selecione como está sua vida financeira.");
-							if (!fisica) setError("saude_fisica", "Compartilhe como está sua saúde física.");
-							data.vida_financeira = financeira ? financeira.value : "";
-							data.saude_fisica = fisica ? fisica.value : "";
+							const sono = form.querySelector('input[name="qualidade_sono"]:checked');
+							if (!sono) setError("qualidade_sono", "Como está a qualidade do seu sono?");
+							data.qualidade_sono = sono ? sono.value : "";
 							break;
 						}
 						case 7: {
-							const familiar = form.querySelector('input[name="relacionamento_familiar"]:checked');
-							const amoroso = form.querySelector('input[name="relacionamento_amoroso"]:checked');
-							if (!familiar) setError("relacionamento_familiar", "Conte sobre seus relacionamentos familiares.");
-							if (!amoroso) setError("relacionamento_amoroso", "Conte sobre seu relacionamento amoroso.");
-							data.relacionamento_familiar = familiar ? familiar.value : "";
-							data.relacionamento_amoroso = amoroso ? amoroso.value : "";
+							const financeira = form.querySelector('input[name="vida_financeira"]:checked');
+							if (!financeira) setError("vida_financeira", "Selecione como está sua vida financeira.");
+							data.vida_financeira = financeira ? financeira.value : "";
 							break;
 						}
 						case 8: {
+							const fisica = form.querySelector('input[name="saude_fisica"]:checked');
+							if (!fisica) setError("saude_fisica", "Compartilhe como está sua saúde física.");
+							data.saude_fisica = fisica ? fisica.value : "";
+							break;
+						}
+						case 9: {
+							const familiar = form.querySelector('input[name="relacionamento_familiar"]:checked');
+							if (!familiar) setError("relacionamento_familiar", "Conte sobre seus relacionamentos familiares.");
+							data.relacionamento_familiar = familiar ? familiar.value : "";
+							break;
+						}
+						case 10: {
+							const amoroso = form.querySelector('input[name="relacionamento_amoroso"]:checked');
+							if (!amoroso) setError("relacionamento_amoroso", "Conte sobre seu relacionamento amoroso.");
+							data.relacionamento_amoroso = amoroso ? amoroso.value : "";
+							break;
+						}
+						case 11: {
 							const selecionadas = Array.from(form.querySelectorAll('input[name="areas_para_melhorar"]:checked')).map(
 								(input) => input.value
 							);
@@ -1028,12 +1039,12 @@
 							data.areas_para_melhorar = selecionadas;
 							break;
 						}
-						case 9: {
+						case 12: {
 							const profissao = form.profissao.value.trim();
 							data.profissao = profissao;
 							break;
 						}
-						case 10: {
+						case 13: {
 							const selecionadas = Array.from(form.querySelectorAll('input[name="gatilhos"]:checked')).map(
 								(input) => input.value
 							);
@@ -1044,7 +1055,7 @@
 							}
 							break;
 						}
-						case 11: {
+						case 14: {
 							const selecionadas = Array.from(form.querySelectorAll('input[name="sintomas_fisicos"]:checked')).map(
 								(input) => input.value
 							);
@@ -1055,7 +1066,7 @@
 							}
 							break;
 						}
-						case 12: {
+						case 15: {
 							const selecionadas = Array.from(form.querySelectorAll('input[name="sintomas_emocionais"]:checked')).map(
 								(input) => input.value
 							);
@@ -1066,7 +1077,7 @@
 							}
 							break;
 						}
-						case 13: {
+						case 16: {
 							const selecionadas = Array.from(form.querySelectorAll('input[name="o_que_ja_tentou"]:checked')).map(
 								(input) => input.value
 							);
@@ -1077,7 +1088,7 @@
 							}
 							break;
 						}
-						case 14: {
+						case 17: {
 							const conheceu = form.querySelector('input[name="como_conheceu"]:checked');
 							const outro = form.como_conheceu_outro.value.trim();
 							if (!conheceu) setError("como_conheceu", "Selecione como conheceu o Instituto.");
@@ -1087,7 +1098,7 @@
 							}
 							break;
 						}
-						case 15: {
+						case 18: {
 							data.comentarios_adicionais = form.comentarios.value.trim();
 							break;
 						}

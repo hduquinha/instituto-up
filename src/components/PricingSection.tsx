@@ -27,7 +27,7 @@ const PricingSection = () => {
       cta: "Garantir Vaga Presencial",
       isRecommended: true,
       discount: "1º LOTE",
-      urgency: "78% DAS VAGAS JÁ PREENCHIDAS!"
+      urgency: "59% DAS VAGAS JÁ PREENCHIDAS!"
     },
   ];
 
@@ -75,14 +75,19 @@ const PricingSection = () => {
 
                   <div className="text-center my-8">
                     {/* Barra de vagas */}
-                    <div className="mb-6 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                      <div className="font-bold text-red-400 text-sm mb-2">⚠️ ATENÇÃO: VAGAS LIMITADAS</div>
-                      <div className="bg-gray-800 h-6 rounded-full overflow-hidden mb-2">
-                        <div className="bg-gradient-to-r from-red-500 to-red-600 h-full flex items-center justify-center text-white font-bold text-xs" style={{width: '78%'}}>
-                          78% PREENCHIDO
+                    <div className="mb-6 p-4 bg-gradient-to-br from-red-900/10 to-red-800/10 border border-red-500/20 rounded-xl">
+                      <div className="font-bold text-red-400 text-xs mb-2 flex items-center justify-center gap-2">
+                        <span className="text-sm">⚠️</span> ATENÇÃO: VAGAS LIMITADAS
+                      </div>
+                      <div className="bg-gray-800/50 h-7 rounded-full overflow-hidden mb-2 border border-gray-700/50">
+                        <div 
+                          className="bg-gradient-to-r from-red-500 to-red-600 h-full flex items-center justify-center text-white font-bold text-xs shadow-lg" 
+                          style={{width: '59%'}}
+                        >
+                          59% PREENCHIDO
                         </div>
                       </div>
-                      <div className="text-gray-400 text-xs font-semibold">Apenas 22% das vagas disponíveis</div>
+                      <div className="text-gray-400 text-xs">Restam poucas vagas disponíveis</div>
                     </div>
 
                     <div className="flex items-center justify-center gap-3 mb-2">
@@ -93,7 +98,7 @@ const PricingSection = () => {
                       <span className="text-gray-400 text-lg">à vista</span>
                     </div>
                     {plan.installments && (
-                      <div className="text-turquoise text-3xl lg:text-4xl font-bold mb-3">
+                      <div className="text-turquoise font-bold mb-3" style={{fontSize: '2.5rem', lineHeight: '1.2'}}>
                         {plan.installments}
                       </div>
                     )}
