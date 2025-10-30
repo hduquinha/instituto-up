@@ -1091,18 +1091,38 @@
 
 					try {
 						statusBanner.textContent = "Enviando etapa...";
+						console.log("Enviando para:", endpoint);
+						console.log("Payload:", payload);
+						
 						const response = await fetch(endpoint, {
 							method: "POST",
-							headers: { "Content-Type": "application/json" },
+							headers: { 
+								"Content-Type": "application/json",
+								"Accept": "application/json"
+							},
 							body: JSON.stringify(payload),
+							mode: "cors"
 						});
-						if (!response.ok) throw new Error(`Erro ${response.status}`);
+						
+						console.log("Response status:", response.status);
+						
+						if (!response.ok) {
+							const errorText = await response.text();
+							console.error("Response error:", errorText);
+							throw new Error(`Erro ${response.status}: ${errorText}`);
+						}
+						
+						const responseData = await response.json();
+						console.log("Response data:", responseData);
+						
 						statusBanner.textContent = isFinal
 							? "Tudo certo! Recebemos suas respostas."
 							: `Etapa ${currentStep + 1} registrada com sucesso.`;
 					} catch (err) {
+						console.error("Erro completo ao enviar payload:", err);
+						console.error("Erro nome:", err.name);
+						console.error("Erro mensagem:", err.message);
 						statusBanner.textContent = "Não conseguimos enviar agora. Tentaremos novamente na próxima etapa.";
-						console.error("Erro ao enviar payload:", err);
 					}
 				}
 
