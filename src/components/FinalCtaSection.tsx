@@ -29,7 +29,7 @@ const FinalCtaSection = () => {
           
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
             Uma experiência única em São Paulo-SP. 
-            17 de Janeiro - 1 dia intensivo que vai transformar sua vida.
+            17 e 18 de Janeiro - 2 dias intensivos que vão transformar sua vida.
           </p>
         </div>
 
@@ -43,7 +43,7 @@ const FinalCtaSection = () => {
               <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🏨 Experiência VIP</h4>
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
                 <li>• Local: São Paulo-SP</li>
-                <li>• Data: 17 de Janeiro de 2026</li>
+                <li>• Data: 17 e 18 de Janeiro de 2026</li>
                 <li>• Kit de boas-vindas exclusivo</li>
                 <li>• Material físico premium</li>
               </ul>
@@ -52,8 +52,8 @@ const FinalCtaSection = () => {
             <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
               <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🚀 Transformação Completa</h4>
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• 1 dia de imersão intensiva</li>
-                <li>• 17 de Janeiro de 2026</li>
+                <li>• 2 dias de imersão intensiva</li>
+                <li>• 17 e 18 de Janeiro de 2026</li>
                 <li>• Material físico + digital premium</li>
                 <li>• Certificado presencial exclusivo</li>
               </ul>
@@ -63,7 +63,7 @@ const FinalCtaSection = () => {
 
         <div className="mb-16">
           <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-            17 de Janeiro em São Paulo-SP. Uma experiência transformadora intensiva.
+            17 e 18 de Janeiro em São Paulo-SP. Uma experiência transformadora intensiva de 2 dias.
           </p>
           
           <button

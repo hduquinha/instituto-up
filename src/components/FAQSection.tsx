@@ -30,19 +30,11 @@ const FAQSection = () => {
     },
     {
       question: "Quando acontece o treinamento?",
-      answer: "O evento acontece no dia 17 de janeiro de 2026 em São Paulo-SP. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
-    },
-    {
-      question: "É seguro comprar online? Como funciona o pagamento?",
-      answer: "Absolutamente seguro! Utilizamos a plataforma do Mercado Pago, líder em segurança de pagamentos no Brasil. Você pode pagar com cartão de crédito, débito, PIX ou boleto bancário. Oferecemos parcelamento em até 12x sem juros."
+      answer: "O evento acontece nos dias 17 e 18 de janeiro de 2026 em São Paulo-SP. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
     },
     {
       question: "Preciso ter conhecimento prévio?",
       answer: "Não! Nosso método foi desenvolvido para pessoas que estão começando sua jornada de transformação. Começamos do básico e evoluímos gradualmente. O importante é ter vontade de mudar e crescer."
-    },
-    {
-      question: "Quantas pessoas participam do treinamento?",
-      answer: "Limitamos intencionalmente a 50 participantes para garantir qualidade, atenção personalizada e networking efetivo. Isso permite que todos tenham contato direto com os mentores e uma experiência mais exclusiva."
     },
     {
       question: "Há limite de idade ou área profissional?",

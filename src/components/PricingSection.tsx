@@ -14,8 +14,8 @@ const PricingSection = () => {
       originalPrice: "3997",
       description: "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP.",
       features: [
-        "Treinamento presencial intensivo",
-        "Data: 17 de Janeiro de 2026",
+        "Treinamento presencial intensivo - 2 dias",
+        "Data: 17 e 18 de Janeiro de 2026",
         "Local: São Paulo-SP", 
         "Material físico premium entregue no local",
         "Crachá personalizado de participante",
