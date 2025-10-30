@@ -1071,8 +1071,7 @@
 				function getEndpoint() {
 					const endpointParam = searchParams.get("endpoint");
 					if (endpointParam) return endpointParam;
-					const host = window.location.hostname;
-					if (/\.vercel\.app$/i.test(host)) return "/api/n8n-proxy";
+					// Sempre usa o webhook direto
 					return N8N_WEBHOOK_URL;
 				}
 
