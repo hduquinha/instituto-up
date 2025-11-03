@@ -62,12 +62,12 @@ const VideoSection = () => {
                 >
                   <iframe
                     className="h-full w-full"
-                    src="https://www.youtube.com/embed/JK3s28xw27c?rel=0&modestbranding=1"
+                    src="https://www.instagram.com/reel/DQUz2r-CbdJ/embed"
                     title="Prévia do treinamento Comunicação e Liderança - Firewalking"
                     frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     allowFullScreen
+                    loading="lazy"
                   />
                 </div>
               </div>
