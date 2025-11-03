@@ -804,7 +804,7 @@
 		<script>
 			(function () {
 				const TOTAL_STEPS = 18;
-				const N8N_WEBHOOK_URL = "https://up-n8n.welzbd.easypanel.host/webhook/972ed6cb-32ad-453b-a43d-fed1f1cd6f4d";
+				const N8N_WEBHOOK_URL = "/api/n8n-form";
 				const statusBanner = document.getElementById("status-banner");
 				const stepCounter = document.getElementById("step-counter");
 				const progressIndicator = document.getElementById("progress-indicator");
@@ -1130,19 +1130,19 @@
 				};
 
 				try {
-					console.log("Enviando para:", endpoint);
-					console.log("Payload:", payload);
-					
 					const response = await fetch(endpoint, {
 						method: "POST",
 						headers: { 
-							"Content-Type": "application/json"
+							"Content-Type": "application/json",
+							"Accept": "application/json"
 						},
 						body: JSON.stringify(payload),
-						mode: "no-cors"
+						keepalive: isFinal
 					});
-					
-					console.log("Dados enviados (no-cors mode)");
+				
+					if (!response.ok && response.type !== "opaque") {
+						throw new Error(`HTTP ${response.status}`);
+					}
 					
 					statusBanner.textContent = isFinal
 						? "Formulário concluído!"

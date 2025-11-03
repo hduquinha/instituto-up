@@ -243,6 +243,29 @@ app.post('/api/webhook-mercadopago', async (req, res) => {
   }
 });
 
+// Proxy para enviar os dados do formulário ao n8n com headers controlados
+app.post('/api/n8n-form', async (req, res) => {
+  try {
+    const targetUrl = process.env.N8N_WEBHOOK_FORM || process.env.N8N_WEBHOOK_GRUPO_VIP;
+
+    if (!targetUrl) {
+      return res.status(500).json({ error: 'Webhook do formulário não configurado' });
+    }
+
+    await axios.post(targetUrl, req.body, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    res.status(200).json({ ok: true });
+  } catch (error) {
+    const details = error?.response?.data || error?.message || 'Erro desconhecido';
+    console.error('Erro ao encaminhar dados do formulário para o n8n:', details);
+    res.status(500).json({ error: 'Erro ao enviar dados para o n8n', details });
+  }
+});
+
 // Para Vercel, exportar a app como handler
 module.exports = app;
 
