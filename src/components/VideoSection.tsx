@@ -53,7 +53,7 @@ const VideoSection = () => {
           </div>
 
           <div className="flex justify-center" data-aos="fade-up" data-aos-delay="150">
-            <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[420px]">
+            <div className="relative w-full max-w-[360px] sm:max-w-[420px] md:max-w-[520px] lg:max-w-[580px]">
               <div className="absolute inset-0 translate-x-6 translate-y-6 rounded-[40px] bg-gradient-to-br from-orange-500/40 to-turquoise/30 blur-3xl opacity-60" />
               <div className="relative rounded-[36px] border border-white/15 bg-black/80 p-4 shadow-[0_25px_80px_rgba(255,140,0,0.35)]">
                 <div
