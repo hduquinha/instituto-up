@@ -62,15 +62,13 @@ const VideoSection = () => {
                 >
                   <iframe
                     className="h-full w-full"
-                    src="https://www.youtube.com/embed/JK3s28xw27c"
+                    src="https://www.youtube.com/embed/JK3s28xw27c?rel=0&modestbranding=1"
                     title="Prévia do treinamento Comunicação e Liderança - Firewalking"
                     frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
                   />
-                </div>
-                <div className="mt-4 text-center text-sm text-gray-400">
-                  Vídeo oficial do Instituto UP • Formato vertical para mostrar a experiência real
                 </div>
               </div>
             </div>
