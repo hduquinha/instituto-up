@@ -525,7 +525,7 @@
 				</section>
 
 				<section class="form-card" id="form-card" aria-labelledby="form-title">
-					<div class="status-banner" id="status-banner" aria-live="polite">Pronto para começar. Avançamos juntos etapa a etapa.</div>
+					<div class="status-banner" id="status-banner" aria-live="polite">Pronto para começar. Os dados só serão enviados no final.</div>
 					
 					<!-- Barra de vagas -->
 					<div style="margin-bottom: 24px; padding: 18px 20px; background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(192, 57, 43, 0.08) 100%); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 14px;">
@@ -687,8 +687,8 @@
 
 						<div class="step" data-step="12">
 							<div class="field">
-								<label for="profissao">Trabalho ou profissão</label>
-								<input id="profissao" name="profissao" type="text" />
+								<label for="profissao">Trabalho ou profissão*</label>
+								<input id="profissao" name="profissao" type="text" required />
 								<div class="inline-actions">
 									<button type="button" data-fill="profissao" data-value="Não sei">Não sei</button>
 									<button type="button" data-fill="profissao" data-value="Não quero responder">Não quero responder</button>
@@ -699,7 +699,7 @@
 
 						<div class="step" data-step="13">
 							<div class="field">
-								<label>Gatilhos</label>
+								<label>Gatilhos*</label>
 								<div class="option-group">
 									<label class="option"><input type="checkbox" name="gatilhos" value="Pressão no trabalho" /> Pressão no trabalho</label>
 									<label class="option"><input type="checkbox" name="gatilhos" value="Conflitos familiares" /> Conflitos familiares</label>
@@ -710,12 +710,13 @@
 									<label class="option"><input type="checkbox" name="gatilhos" value="Outros" data-with-text="gatilhos_outros" /> Outros</label>
 								</div>
 								<input type="text" id="gatilhos_outros" name="gatilhos_outros" placeholder="Conte quais outros gatilhos" style="display:none" />
+								<div class="error" data-error="gatilhos" aria-live="polite"></div>
 							</div>
 						</div>
 
 						<div class="step" data-step="14">
 							<div class="field">
-								<label>Sintomas físicos</label>
+								<label>Sintomas físicos*</label>
 								<div class="option-group">
 									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Tensão muscular" /> Tensão muscular</label>
 									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Dor de cabeça" /> Dor de cabeça</label>
@@ -726,12 +727,13 @@
 									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Outros" data-with-text="sintomas_fisicos_outros" /> Outros</label>
 								</div>
 								<input type="text" id="sintomas_fisicos_outros" name="sintomas_fisicos_outros" placeholder="Descreva outros sintomas físicos" style="display:none" />
+								<div class="error" data-error="sintomas_fisicos" aria-live="polite"></div>
 							</div>
 						</div>
 
 						<div class="step" data-step="15">
 							<div class="field">
-								<label>Sintomas emocionais</label>
+								<label>Sintomas emocionais*</label>
 								<div class="option-group">
 									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Crises de choro" /> Crises de choro</label>
 									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Irritabilidade" /> Irritabilidade</label>
@@ -742,12 +744,13 @@
 									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Outros" data-with-text="sintomas_emocionais_outros" /> Outros</label>
 								</div>
 								<input type="text" id="sintomas_emocionais_outros" name="sintomas_emocionais_outros" placeholder="Descreva outros sintomas emocionais" style="display:none" />
+								<div class="error" data-error="sintomas_emocionais" aria-live="polite"></div>
 							</div>
 						</div>
 
 						<div class="step" data-step="16">
 							<div class="field">
-								<label>O que já tentou?</label>
+								<label>O que já tentou?*</label>
 								<div class="option-group">
 									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Psicoterapia" /> Psicoterapia</label>
 									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Psiquiatria" /> Psiquiatria</label>
@@ -759,12 +762,13 @@
 									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Outros" data-with-text="o_que_ja_tentou_outros" /> Outros</label>
 								</div>
 								<input type="text" id="o_que_ja_tentou_outros" name="o_que_ja_tentou_outros" placeholder="Compartilhe outras tentativas" style="display:none" />
+								<div class="error" data-error="o_que_ja_tentou" aria-live="polite"></div>
 							</div>
 						</div>
 
 						<div class="step" data-step="17">
 							<div class="field">
-								<label>Como conheceu o Instituto?</label>
+								<label>Como conheceu o Instituto?*</label>
 								<div class="option-group">
 									<label class="option"><input type="radio" name="como_conheceu" value="Instagram" /> Instagram</label>
 									<label class="option"><input type="radio" name="como_conheceu" value="Indicação" /> Indicação</label>
@@ -780,8 +784,9 @@
 
 						<div class="step" data-step="18">
 							<div class="field">
-								<label for="comentarios">Comentários adicionais</label>
-								<textarea id="comentarios" name="comentarios" placeholder="Compartilhe algo que devemos saber"></textarea>
+								<label for="comentarios">Comentários adicionais*</label>
+								<textarea id="comentarios" name="comentarios" placeholder="Compartilhe algo que devemos saber" required></textarea>
+								<div class="error" data-error="comentarios" aria-live="polite"></div>
 							</div>
 						</div>
 
@@ -796,8 +801,8 @@
 
 		<div class="modal-backdrop" id="modal-success" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
 			<div class="modal">
-				<h3 id="modal-title">Inscrição concluída!</h3>
-				<p id="modal-desc">Recebemos suas respostas. Um de nossos especialistas entrará em contato em breve.</p>
+				<h3 id="modal-title">Inscrição finalizada!</h3>
+				<p id="modal-desc">Entre em contato com nossa equipe para avançar com a sua vaga.</p>
 				<button type="button" id="modal-close">Fechar e reiniciar</button>
 			</div>
 		</div>
@@ -890,21 +895,25 @@
 					});
 				}
 
+				function toggleOtherField(input) {
+					const targetId = input.getAttribute("data-with-text");
+					if (!targetId) return;
+					const target = document.getElementById(targetId);
+					if (!target) return;
+					if (input.checked) {
+						target.style.display = "block";
+						target.required = true;
+					} else {
+						target.style.display = "none";
+						target.required = false;
+						target.value = "";
+					}
+				}
+
 				function handleDynamicOthers() {
 					document.querySelectorAll('[data-with-text]').forEach((input) => {
-						const targetId = input.getAttribute('data-with-text');
-						const target = document.getElementById(targetId);
-						input.addEventListener('change', () => {
-							if (input.checked && target) {
-								target.style.display = 'block';
-								target.required = true;
-								target.focus();
-							} else if (target) {
-								target.style.display = 'none';
-								target.required = false;
-								target.value = '';
-							}
-						});
+						input.addEventListener("change", () => toggleOtherField(input));
+						toggleOtherField(input);
 					});
 				}
 
@@ -936,11 +945,11 @@
 
 				function validatePhone(value) {
 					const digits = value.replace(/\D/g, "");
-					if (!(digits.length === 10 || digits.length === 11)) {
-						return "Informe um telefone com DDD válido.";
+					if (digits.length !== 11) {
+						return "Informe um número de celular com DDD (11 dígitos).";
 					}
-					if (digits.length === 11 && digits[2] !== "9") {
-						return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
+					if (digits[2] !== "9") {
+						return "O número de celular deve iniciar com 9 após o DDD.";
 					}
 					return "";
 				}
@@ -1042,6 +1051,7 @@
 						}
 						case 12: {
 							const profissao = form.profissao.value.trim();
+							if (!profissao) setError("profissao", "Informe sua área de atuação ou profissão.");
 							data.profissao = profissao;
 							break;
 						}
@@ -1050,10 +1060,10 @@
 								(input) => input.value
 							);
 							const outros = form.gatilhos_outros.value.trim();
+							if (!selecionadas.length) setError("gatilhos", "Selecione ao menos um gatilho.");
+							if (selecionadas.includes("Outros") && !outros) setError("gatilhos", "Descreva os outros gatilhos.");
 							data.gatilhos = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.gatilhos_outros = outros;
-							}
+							data.gatilhos_outros = selecionadas.includes("Outros") ? outros : "";
 							break;
 						}
 						case 14: {
@@ -1061,10 +1071,11 @@
 								(input) => input.value
 							);
 							const outros = form.sintomas_fisicos_outros.value.trim();
+							if (!selecionadas.length) setError("sintomas_fisicos", "Selecione ao menos um sintoma físico.");
+							if (selecionadas.includes("Outros") && !outros)
+								setError("sintomas_fisicos", "Descreva os outros sintomas físicos.");
 							data.sintomas_fisicos = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.sintomas_fisicos_outros = outros;
-							}
+							data.sintomas_fisicos_outros = selecionadas.includes("Outros") ? outros : "";
 							break;
 						}
 						case 15: {
@@ -1072,10 +1083,11 @@
 								(input) => input.value
 							);
 							const outros = form.sintomas_emocionais_outros.value.trim();
+							if (!selecionadas.length) setError("sintomas_emocionais", "Selecione ao menos um sintoma emocional.");
+							if (selecionadas.includes("Outros") && !outros)
+								setError("sintomas_emocionais", "Descreva os outros sintomas emocionais.");
 							data.sintomas_emocionais = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.sintomas_emocionais_outros = outros;
-							}
+							data.sintomas_emocionais_outros = selecionadas.includes("Outros") ? outros : "";
 							break;
 						}
 						case 16: {
@@ -1083,10 +1095,11 @@
 								(input) => input.value
 							);
 							const outros = form.o_que_ja_tentou_outros.value.trim();
+							if (!selecionadas.length) setError("o_que_ja_tentou", "Selecione ao menos uma tentativa anterior.");
+							if (selecionadas.includes("Outros") && !outros)
+								setError("o_que_ja_tentou", "Descreva outras tentativas que realizou.");
 							data.o_que_ja_tentou = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.o_que_ja_tentou_outros = outros;
-							}
+							data.o_que_ja_tentou_outros = selecionadas.includes("Outros") ? outros : "";
 							break;
 						}
 						case 17: {
@@ -1095,12 +1108,18 @@
 							if (!conheceu) setError("como_conheceu", "Selecione como conheceu o Instituto.");
 							data.como_conheceu = conheceu ? conheceu.value : "";
 							if (conheceu && conheceu.value === "Outro") {
+								if (!outro) setError("como_conheceu", "Conte como conheceu o Instituto.");
 								data.como_conheceu_outro = outro;
+							} else {
+								data.como_conheceu_outro = "";
 							}
 							break;
 						}
 						case 18: {
-							data.comentarios_adicionais = form.comentarios.value.trim();
+							const comentarios = form.comentarios.value.trim();
+							if (!comentarios) setError("comentarios", "Compartilhe um comentário para finalizarmos.");
+							data.comentarios = comentarios;
+							data.comentarios_adicionais = comentarios;
 							break;
 						}
 						default:
@@ -1117,64 +1136,68 @@
 					return N8N_WEBHOOK_URL;
 				}
 
-			async function sendStepPayload(stepPayload, isFinal = false) {
-				const endpoint = getEndpoint();
-				const payload = {
-					clientId,
-					timestamp: new Date().toISOString(),
-					data_preenchimento: new Date().toLocaleString("pt-BR"),
-					_step: currentStep + 1,
-					_final: isFinal,
-					...tracking,
-					...allData,
-					...stepPayload,
-				};
+				async function submitForm() {
+					statusBanner.textContent = "Enviando suas respostas finais...";
+					btnNext.disabled = true;
+					btnPrev.disabled = true;
 
-				try {
-					const response = await fetch(endpoint, {
-						method: "POST",
-						headers: { 
-							"Content-Type": "application/json",
-							"Accept": "application/json"
-						},
-						body: JSON.stringify(payload),
-						keepalive: isFinal
-					});
-				
-					if (!response.ok && response.type !== "opaque") {
-						throw new Error(`HTTP ${response.status}`);
+					const endpoint = getEndpoint();
+					const payload = {
+						clientId,
+						timestamp: new Date().toISOString(),
+						data_preenchimento: new Date().toLocaleString("pt-BR"),
+						_steps_total: TOTAL_STEPS,
+						_final: true,
+						...tracking,
+						...allData,
+					};
+
+					try {
+						const response = await fetch(endpoint, {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								Accept: "application/json",
+							},
+							body: JSON.stringify(payload),
+							keepalive: true,
+						});
+
+						if (!response.ok && response.type !== "opaque") {
+							throw new Error(`HTTP ${response.status}`);
+						}
+
+						statusBanner.textContent = "Tudo certo! Entre em contato com nossa equipe.";
+						return true;
+					} catch (err) {
+						console.error("Erro ao enviar:", err);
+						statusBanner.textContent = "Não conseguimos enviar. Verifique a conexão e tente novamente.";
+						btnNext.disabled = false;
+						btnPrev.disabled = currentStep === 0;
+						btnPrev.style.visibility = currentStep === 0 ? "hidden" : "visible";
+						return false;
 					}
-					
-					statusBanner.textContent = isFinal
-						? "Formulário concluído!"
-						: `Etapa ${currentStep + 1} salva.`;
-				} catch (err) {
-					console.error("Erro ao enviar:", err);
-					// Continua mesmo com erro
-					statusBanner.textContent = isFinal
-						? "Formulário concluído!"
-						: `Etapa ${currentStep + 1} salva.`;
 				}
-			}				async function goNext() {
+
+				async function goNext() {
 					const stepEl = steps[currentStep];
 					const { valid, data } = collectStepData(stepEl);
 					if (!valid) return;
 
 					Object.assign(allData, data);
-					
-					// Salva progresso no localStorage
-					saveProgress();
 
 					const isLast = currentStep === steps.length - 1;
-					await sendStepPayload(data, isLast);
-
 					if (isLast) {
-						// Limpa o progresso salvo ao finalizar
+						saveProgress();
+						const submitted = await submitForm();
+						if (!submitted) return;
 						clearProgress();
 						modal.classList.add("active");
 					} else {
 						currentStep += 1;
 						showStep(currentStep);
+						saveProgress();
+						statusBanner.textContent = "Dados salvos localmente. Continue para a próxima etapa.";
 					}
 				}
 
@@ -1183,6 +1206,8 @@
 					currentStep -= 1;
 					showStep(currentStep);
 					saveProgress();
+					btnNext.disabled = false;
+					statusBanner.textContent = "Revise suas respostas com tranquilidade. Enviaremos tudo só no final.";
 				}
 				
 				function saveProgress() {
@@ -1207,25 +1232,49 @@
 					try {
 						const savedData = localStorage.getItem(formDataKey);
 						const savedStep = localStorage.getItem(formStepKey);
-						
+
 						if (savedData) {
 							const data = JSON.parse(savedData);
 							Object.assign(allData, data);
-							
-							// Preenche os campos com os dados salvos
-							Object.keys(data).forEach(key => {
-								const input = form.elements[key];
-								if (input) {
-									if (input.type === 'radio' || input.type === 'checkbox') {
-										const radioInput = form.querySelector(`input[name="${key}"][value="${data[key]}"]`);
-										if (radioInput) radioInput.checked = true;
-									} else {
-										input.value = data[key];
+
+							Object.entries(data).forEach(([key, value]) => {
+								const fields = form.querySelectorAll(`[name="${key}"]`);
+
+								if (!fields.length) {
+									const singleField = document.getElementById(key);
+									if (singleField && typeof value === "string") {
+										singleField.value = value;
 									}
+									return;
+								}
+
+								const fieldType = fields[0].type;
+
+								if (fieldType === "radio") {
+									fields.forEach((field) => {
+										field.checked = field.value === value;
+										if (field.checked && field.hasAttribute("data-with-text")) {
+											toggleOtherField(field);
+										}
+									});
+								} else if (fieldType === "checkbox") {
+									const values = Array.isArray(value) ? value : [value];
+									fields.forEach((field) => {
+										field.checked = values.includes(field.value);
+										if (field.hasAttribute("data-with-text")) {
+											toggleOtherField(field);
+										}
+									});
+								} else {
+									fields.forEach((field) => {
+										if (typeof value === "string" || typeof value === "number") {
+											field.value = value;
+										}
+									});
 								}
 							});
 						}
-						
+
 						if (savedStep) {
 							currentStep = parseInt(savedStep, 10);
 							showStep(currentStep);
@@ -1259,9 +1308,9 @@
 				buildProgress();
 				handleInlineActions();
 				handleDynamicOthers();
-				restoreProgress(); // Restaura progresso ao carregar
+				restoreProgress();
 				showStep(currentStep);
-				statusBanner.textContent = "Comece contando quem é você. Estamos aqui para ouvir.";
+				statusBanner.textContent = "Comece contando quem é você. Seus dados só serão enviados ao concluir.";
 			})();
 		</script>
 	</body>
