@@ -21,7 +21,7 @@ const HeroSection = () => {
           {/* Texto (sempre alinhado à esquerda) */}
           <div className="text-left max-w-xl w-full px-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight tracking-tight text-white break-words">
-              Domine <span className="text-turquoise">Comunicação e Liderança</span> em 2 Dias
+              Viva o <span className="text-turquoise">UP Day Plus</span>
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
@@ -29,8 +29,7 @@ const HeroSection = () => {
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão <strong>presencial intensiva</strong> com Rodrigo Damaceno em São Paulo-SP, 
-              focada em <strong>comunicação assertiva</strong>, <strong>liderança transformadora</strong> e a experiência única do <strong className="text-orange-400">Firewalking</strong>.
+              Uma imersão <strong>presencial intensiva</strong> de 2 dias para elevar sua <strong>produtividade</strong>, aprimorar relacionamentos por meio de <strong>comunicação de excelência</strong> e ganhar <strong className="text-orange-400">autocontrole emocional</strong> para viver uma vida UP.
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">
