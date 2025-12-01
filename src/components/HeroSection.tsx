@@ -29,7 +29,7 @@ const HeroSection = () => {
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão <strong>presencial intensiva</strong> de 2 dias para elevar sua <strong>produtividade</strong>, aprimorar relacionamentos por meio de <strong>comunicação de excelência</strong>, ganhar <strong className="text-orange-400">autocontrole emocional</strong> e encerrar com a experiência transformadora do <strong className="text-orange-400">Firewalking</strong>.
+              Uma imersão presencial intensa de 2 dias para elevar sua comunicação, gestão das emoções e construir relacionamentos mais saudáveis e passar pela experiência transformadora do firewalking
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">

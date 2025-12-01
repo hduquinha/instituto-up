@@ -18,16 +18,16 @@ const VideoSection = () => {
             </h2>
 
             <p className="text-lg text-gray-300">
-              Assista e entenda como preparamos você emocionalmente para desafiar o impossível. O Firewalking é o ápice do treinamento de Comunicação e Liderança — e este vídeo mostra exatamente como você chegará pronto para atravessar as brasas com segurança e confiança.
+              O firewalking é mais do que apenas uma caminhada sobre brasas; é um símbolo de nossa capacidade de superar desafios e alcançar nossos objetivos. É um lembrete de que somos capazes de mais do que imaginamos, e que a coragem e a determinação podem nos levar a lugares incríveis. E que podemos resgatar aquilo que já existe dentro de nós
             </p>
 
             <ul className="space-y-5 text-gray-300">
               <li className="flex gap-4">
                 <span className="text-3xl" role="img" aria-label="Ícone fogo">🔥</span>
                 <div>
-                  <h3 className="text-xl font-semibold text-white">Mentalidade inabalável</h3>
+                  <h3 className="text-xl font-semibold text-white">Mentalidade de crescimento</h3>
                   <p className="text-sm sm:text-base text-gray-400">
-                    Descubra as técnicas que usamos para reprogramar crenças limitantes e colocar você em estado de ação imediata.
+                    Descubra as técnicas que utilizamos para reprogramar crenças limitantes e colocar você no estado de ação.
                   </p>
                 </div>
               </li>
