@@ -81,9 +81,9 @@ const PricingSection = () => {
                       <div className="bg-gray-800/50 h-7 rounded-full overflow-hidden mb-2 border border-gray-700/50">
                         <div 
                           className="bg-gradient-to-r from-red-500 to-red-600 h-full flex items-center justify-center text-white font-bold text-xs shadow-lg" 
-                          style={{width: '59%'}}
+                          style={{width: '83%'}}
                         >
-                          59% PREENCHIDO
+                          83% PREENCHIDO
                         </div>
                       </div>
                       <div className="text-gray-400 text-xs">Restam poucas vagas disponíveis</div>
