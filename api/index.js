@@ -246,11 +246,17 @@ app.post('/api/webhook-mercadopago', async (req, res) => {
 // Proxy para enviar os dados do formulário ao n8n com headers controlados
 app.post('/api/n8n-form', async (req, res) => {
   try {
-    const targetUrl = process.env.N8N_WEBHOOK_FORM || process.env.N8N_WEBHOOK_GRUPO_VIP;
+    // Tenta pegar das variáveis de ambiente, ou usa o fallback hardcoded (já que está no .env público)
+    const targetUrl = process.env.N8N_WEBHOOK_FORM || 
+                      process.env.N8N_WEBHOOK_GRUPO_VIP || 
+                      'https://up-n8n.welzbd.easypanel.host/webhook/972ed6cb-32ad-453b-a43d-fed1f1cd6f4d';
 
     if (!targetUrl) {
       return res.status(500).json({ error: 'Webhook do formulário não configurado' });
     }
+
+    // Log para debug (aparecerá nos logs da Vercel)
+    console.log('Encaminhando para n8n:', targetUrl);
 
     await axios.post(targetUrl, req.body, {
       headers: {
