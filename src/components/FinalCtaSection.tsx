@@ -81,8 +81,8 @@ const FinalCtaSection = () => {
 
         <div className="border-t border-gray-700 pt-8">
           <p className="text-gray-500 text-base lg:text-lg">
-            © 2024 Instituto UP. Todos os direitos reservados. | 
-            <span className="text-turquoise"> Transformando vidas desde 2020</span>
+            © 2025 Instituto UP. Todos os direitos reservados. | 
+            <span className="text-turquoise"> Transformando vidas desde 2014</span>
           </p>
         </div>
       </div>
