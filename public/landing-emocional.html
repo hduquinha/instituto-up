@@ -188,51 +188,101 @@
 				margin-bottom: 20px;
 			}
 
-			.progress {
-				display: grid;
-				grid-template-columns: repeat(15, minmax(0, 1fr));
+			.form-header {
+				display: flex;
+				justify-content: center;
 				gap: 6px;
 				margin-bottom: 18px;
+				flex-wrap: wrap;
 			}
 
-			.progress div {
-				aspect-ratio: 1;
-				border-radius: 999px;
-				border: 2px solid rgba(39, 171, 182, 0.35);
-				background: rgba(255, 255, 255, 0.65);
-				position: relative;
-				transition: background 0.2s ease, border 0.2s ease;
+			.dot {
+				width: 26px;
+				height: 26px;
+				border-radius: 50%;
+				background: rgba(39, 171, 182, 0.15);
+				color: var(--primary-dark);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 0.75rem;
+				font-weight: 700;
+				transition: all 0.3s ease;
+				cursor: default;
 			}
 
-			.progress div.active {
+			.dot.active {
 				background: var(--primary);
-				border-color: var(--primary);
+				color: #fff;
+				transform: scale(1.1);
+				box-shadow: 0 4px 10px rgba(39, 171, 182, 0.3);
 			}
 
-			.progress div.completed {
+			.dot.completed {
 				background: var(--primary-light);
-				border-color: var(--primary-light);
+				color: #fff;
 			}
 
-			.step-indicator {
-				font-weight: 600;
-				margin-bottom: 12px;
+			.form-step {
+				display: none;
+				animation: fadeIn 0.4s ease;
+			}
+
+			.form-step.active {
+				display: block;
+			}
+
+			.success-state {
+				text-align: center;
+				padding: 40px 20px;
+				animation: fadeIn 0.5s ease;
+			}
+
+			.success-icon {
+				font-size: 3.5rem;
+				margin-bottom: 16px;
+			}
+
+			.success-tip {
+				font-size: 0.9rem;
 				color: var(--muted);
+				margin-top: 24px;
+				margin-bottom: 16px;
+			}
+
+			.note {
+				font-size: 0.85rem;
+				color: var(--muted);
+				margin-top: 8px;
+				font-style: italic;
+			}
+
+			.option-shortcuts {
+				display: flex;
+				gap: 8px;
+				margin-top: 8px;
+				flex-wrap: wrap;
+			}
+
+			.fill-option {
+				background: rgba(39, 171, 182, 0.1);
+				border: 1px solid rgba(39, 171, 182, 0.2);
+				color: var(--primary-dark);
+				padding: 6px 12px;
+				border-radius: 8px;
+				font-size: 0.8rem;
+				cursor: pointer;
+				transition: background 0.2s;
+			}
+
+			.fill-option:hover {
+				background: rgba(39, 171, 182, 0.2);
 			}
 
 			form {
 				display: flex;
 				flex-direction: column;
 				gap: 18px;
-			}
-
-			.step {
-				display: none;
-			}
-
-			.step.active {
-				display: block;
-				animation: fadeIn 0.3s ease;
 			}
 
 			@keyframes fadeIn {
@@ -538,258 +588,344 @@
 						<div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 8px; font-weight: 500;">Restam poucas vagas disponíveis</div>
 					</div>
 
-					<h2 id="form-title">Inscrição guiada</h2>
-					<div class="progress" aria-hidden="true" id="progress-indicator"></div>
-					<div class="step-indicator" id="step-counter">Etapa 1</div>
+					<h2 class="form-title" id="formTitle">GARANTA SUA VAGA AGORA</h2>
+              <div class="form-header" id="progressDots" aria-label="Progresso do formulário">
+                <div class="dot" data-step="0">1</div>
+                <div class="dot" data-step="1">2</div>
+                <div class="dot" data-step="2">3</div>
+                <div class="dot" data-step="3">4</div>
+                <div class="dot" data-step="4">5</div>
+                <div class="dot" data-step="5">6</div>
+                <div class="dot" data-step="6">7</div>
+                <div class="dot" data-step="7">8</div>
+                <div class="dot" data-step="8">9</div>
+                <div class="dot" data-step="9">10</div>
+                <div class="dot" data-step="10">11</div>
+                <div class="dot" data-step="11">12</div>
+                <div class="dot" data-step="12">13</div>
+                <div class="dot" data-step="13">14</div>
+                <div class="dot" data-step="14">15</div>
+              </div>
+              <div id="progressText" style="text-align:center;font-size:12px;color:#8aa0ff;margin:-4px 0 12px;">Etapa 1 de 15</div>
 
-					<form id="multi-form" novalidate>
-						<div class="step active" data-step="1">
-							<div class="field">
-								<label for="nome">Nome completo*</label>
-								<input id="nome" name="nome" type="text" autocomplete="name" required minlength="3" />
-								<div class="error" data-error="nome" aria-live="polite"></div>
-							</div>
-						</div>
+              <div id="formSuccess" class="success-state" hidden role="status" aria-live="polite">
+                <div class="success-icon" aria-hidden="true">✅</div>
+                <h3>Cadastro confirmado!</h3>
+                <p>Recebemos suas informações. Você receberá as orientações oficiais no WhatsApp e no e-mail informado.</p>
+                <p class="success-tip">Não é necessário enviar novamente. Caso precise ajustar os dados, clique no botão abaixo.</p>
+                <button type="button" class="btn btn-primary" id="successReset" style="justify-content:center;">Preciso editar os dados</button>
+              </div>
 
-						<div class="step" data-step="2">
-							<div class="field">
-								<label for="cidade">Cidade*</label>
-								<input id="cidade" name="cidade" type="text" autocomplete="address-level2" required />
-								<div class="error" data-error="cidade" aria-live="polite"></div>
-							</div>
-						</div>
+              <form id="msForm" novalidate>
+                <!-- Etapa 1: Dados Pessoais -->
+                <div class="form-step active" data-step="0">
+                  <div class="field">
+                    <label for="nome">Nome Completo</label>
+                    <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
+                    <div class="error" data-for="nome"></div>
+                  </div>
+                  <div class="field">
+                    <label for="cidade">Cidade</label>
+                    <input id="cidade" name="cidade" type="text" placeholder="Sua cidade" required />
+                    <div class="error" data-for="cidade"></div>
+                  </div>
+                  <div class="field">
+                    <label for="telefone">Telefone</label>
+                    <input id="telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" required />
+                    <div class="error" data-for="telefone"></div>
+                  </div>
+                  <div class="actions">
+                    <span></span>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="3">
-							<div class="field">
-								<label for="telefone">Telefone (WhatsApp)*</label>
-								<input id="telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" required />
-								<div class="error" data-error="telefone" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 2: Informações Adicionais -->
+                <div class="form-step" data-step="1">
+                  <div class="field">
+                    <label for="idade">Idade</label>
+                    <input id="idade" name="idade" type="number" min="0" max="120" placeholder="Sua idade" required />
+                    <div class="error" data-for="idade"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="4">
-							<div class="field">
-								<label for="idade">Idade*</label>
-								<input id="idade" name="idade" type="number" min="10" max="110" required />
-								<div class="error" data-error="idade" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 3: Nível de Ansiedade -->
+                <div class="form-step" data-step="2">
+                  <div class="field">
+                    <label>Como está seu nível de ansiedade?</label>
+                    <label><input type="radio" name="ansiedade" value="Muito ansioso" required /> Muito ansioso</label>
+                    <label><input type="radio" name="ansiedade" value="Ansioso" /> Ansioso</label>
+                    <label><input type="radio" name="ansiedade" value="Controlado" /> Controlado</label>
+                    <label><input type="radio" name="ansiedade" value="Pouco ansioso" /> Pouco ansioso</label>
+                    <label><input type="radio" name="ansiedade" value="Não tenho ansiedade" /> Não tenho ansiedade</label>
+                    <label><input type="radio" name="ansiedade" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="ansiedade" value="Não quero responder" /> Não quero responder</label>
+                    <div class="error" data-for="ansiedade"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="5">
-							<div class="field">
-								<label>Nível de ansiedade*</label>
-								<div class="option-group" role="radiogroup" aria-labelledby="ansiedade-label">
-									<label class="option"><input type="radio" name="nivel_ansiedade" value="Muito ansioso" required /> Muito ansioso</label>
-									<label class="option"><input type="radio" name="nivel_ansiedade" value="Ansioso" /> Ansioso</label>
-									<label class="option"><input type="radio" name="nivel_ansiedade" value="Moderado" /> Moderado</label>
-									<label class="option"><input type="radio" name="nivel_ansiedade" value="Tranquilo" /> Tranquilo</label>
-									<label class="option"><input type="radio" name="nivel_ansiedade" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="nivel_ansiedade" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="nivel_ansiedade" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 4: Qualidade do Sono -->
+                <div class="form-step" data-step="3">
+                  <div class="field">
+                    <label>Como está sua qualidade do sono?</label>
+                    <label><input type="radio" name="sono" value="Muito Boa" required /> Muito Boa</label>
+                    <label><input type="radio" name="sono" value="Boa" /> Boa</label>
+                    <label><input type="radio" name="sono" value="Regular" /> Regular</label>
+                    <label><input type="radio" name="sono" value="Ruim" /> Ruim</label>
+                    <label><input type="radio" name="sono" value="Muito ruim" /> Muito ruim</label>
+                    <label><input type="radio" name="sono" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="sono" value="Não quero responder" /> Não quero responder</label>
+                    <div class="error" data-for="sono"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="6">
-							<div class="field">
-								<label>Qualidade do sono*</label>
-								<div class="option-group">
-									<label class="option"><input type="radio" name="qualidade_sono" value="Dorme muito mal" required /> Dorme muito mal</label>
-									<label class="option"><input type="radio" name="qualidade_sono" value="Sono irregular" /> Sono irregular</label>
-									<label class="option"><input type="radio" name="qualidade_sono" value="Sono razoável" /> Sono razoável</label>
-									<label class="option"><input type="radio" name="qualidade_sono" value="Sono restaurador" /> Sono restaurador</label>
-									<label class="option"><input type="radio" name="qualidade_sono" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="qualidade_sono" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="qualidade_sono" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 5: Vida Financeira -->
+                <div class="form-step" data-step="4">
+                  <div class="field">
+                    <label>Como está sua vida financeira?</label>
+                    <label><input type="radio" name="vida_financeira" value="Muito Boa" required /> Muito Boa</label>
+                    <label><input type="radio" name="vida_financeira" value="Boa" /> Boa</label>
+                    <label><input type="radio" name="vida_financeira" value="Regular" /> Regular</label>
+                    <label><input type="radio" name="vida_financeira" value="Ruim" /> Ruim</label>
+                    <label><input type="radio" name="vida_financeira" value="Muito ruim" /> Muito ruim</label>
+                    <label><input type="radio" name="vida_financeira" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="vida_financeira" value="Não quero responder" /> Não quero responder</label>
+                    <div class="error" data-for="vida_financeira"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="7">
-							<div class="field">
-								<label>Vida financeira*</label>
-								<div class="option-group">
-									<label class="option"><input type="radio" name="vida_financeira" value="Muito desafiadora" required /> Muito desafiadora</label>
-									<label class="option"><input type="radio" name="vida_financeira" value="Os altos e baixos me afetam" /> Os altos e baixos me afetam</label>
-									<label class="option"><input type="radio" name="vida_financeira" value="Estável" /> Estável</label>
-									<label class="option"><input type="radio" name="vida_financeira" value="Fluida e estruturada" /> Fluida e estruturada</label>
-									<label class="option"><input type="radio" name="vida_financeira" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="vida_financeira" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="vida_financeira" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 6: Saúde Física -->
+                <div class="form-step" data-step="5">
+                  <div class="field">
+                    <label>Como está sua saúde física?</label>
+                    <label><input type="radio" name="saude_fisica" value="Muito Boa" required /> Muito Boa</label>
+                    <label><input type="radio" name="saude_fisica" value="Boa" /> Boa</label>
+                    <label><input type="radio" name="saude_fisica" value="Regular" /> Regular</label>
+                    <label><input type="radio" name="saude_fisica" value="Ruim" /> Ruim</label>
+                    <label><input type="radio" name="saude_fisica" value="Muito ruim" /> Muito ruim</label>
+                    <label><input type="radio" name="saude_fisica" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="saude_fisica" value="Não quero responder" /> Não quero responder</label>
+                    <div class="error" data-for="saude_fisica"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="8">
-							<div class="field">
-								<label>Saúde física*</label>
-								<div class="option-group">
-									<label class="option"><input type="radio" name="saude_fisica" value="Precisa de atenção urgente" required /> Precisa de atenção urgente</label>
-									<label class="option"><input type="radio" name="saude_fisica" value="Oscila bastante" /> Oscila bastante</label>
-									<label class="option"><input type="radio" name="saude_fisica" value="Regular" /> Regular</label>
-									<label class="option"><input type="radio" name="saude_fisica" value="Muito boa" /> Muito boa</label>
-									<label class="option"><input type="radio" name="saude_fisica" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="saude_fisica" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="saude_fisica" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 7: Relacionamentos Familiares -->
+                <div class="form-step" data-step="6">
+                  <div class="field">
+                    <label>Como está a qualidade dos seus relacionamentos familiares?</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Muito Boa" required /> Muito Boa</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Boa" /> Boa</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Regular" /> Regular</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Ruim" /> Ruim</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Muito ruim" /> Muito ruim</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Não tenho família próxima" /> Não tenho família próxima</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="relacionamentos_familiares" value="Não quero responder" /> Não quero responder</label>
+                    <div class="error" data-for="relacionamentos_familiares"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="9">
-							<div class="field">
-								<label>Relacionamentos familiares*</label>
-								<div class="option-group">
-									<label class="option"><input type="radio" name="relacionamento_familiar" value="Conflituosos" required /> Conflituosos</label>
-									<label class="option"><input type="radio" name="relacionamento_familiar" value="Distantes" /> Distantes</label>
-									<label class="option"><input type="radio" name="relacionamento_familiar" value="Harmônicos" /> Harmônicos</label>
-									<label class="option"><input type="radio" name="relacionamento_familiar" value="Não tenho família próxima" /> Não tenho família próxima</label>
-									<label class="option"><input type="radio" name="relacionamento_familiar" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="relacionamento_familiar" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="relacionamento_familiar" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 8: Relacionamento Amoroso -->
+                <div class="form-step" data-step="7">
+                  <div class="field">
+                    <label>Como está seu relacionamento amoroso?</label>
+                    <label><input type="radio" name="relacionamento" value="Muito Bom" required /> Muito Bom</label>
+                    <label><input type="radio" name="relacionamento" value="Bom" /> Bom</label>
+                    <label><input type="radio" name="relacionamento" value="Regular" /> Regular</label>
+                    <label><input type="radio" name="relacionamento" value="Ruim" /> Ruim</label>
+                    <label><input type="radio" name="relacionamento" value="Muito ruim" /> Muito ruim</label>
+                    <label><input type="radio" name="relacionamento" value="Não tenho" /> Não tenho</label>
+                    <label><input type="radio" name="relacionamento" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="relacionamento" value="Não quero responder" /> Não quero responder</label>
+                    <div class="error" data-for="relacionamento"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="10">
-							<div class="field">
-								<label>Relacionamento amoroso*</label>
-								<div class="option-group">
-									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Estou em conflito" required /> Estou em conflito</label>
-									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Estou solteiro(a)" /> Estou solteiro(a)</label>
-									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Vivendo bem" /> Vivendo bem</label>
-									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="relacionamento_amoroso" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="relacionamento_amoroso" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 9: Áreas para Melhorar -->
+                <div class="form-step" data-step="8">
+                  <div class="field">
+                    <label>Quais áreas você quer melhorar? (marque quantas desejar)</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Saúde emocional" data-required-group="areas_melhoria" /> Saúde emocional</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Saúde física" data-required-group="areas_melhoria" /> Saúde física</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Relações familiares" data-required-group="areas_melhoria" /> Relações familiares</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Relação amorosa" data-required-group="areas_melhoria" /> Relação amorosa</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Área financeira" data-required-group="areas_melhoria" /> Área financeira</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Área profissional" data-required-group="areas_melhoria" /> Área profissional</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Nível de ansiedade/estresse" data-required-group="areas_melhoria" /> Nível de ansiedade/estresse</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Qualidade do sono" data-required-group="areas_melhoria" /> Qualidade do sono</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Comunicação" data-required-group="areas_melhoria" /> Comunicação</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Liderança" data-required-group="areas_melhoria" /> Liderança</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Não sei" data-required-group="areas_melhoria" /> Não sei</label>
+                    <label><input type="checkbox" name="areas_melhoria" value="Não quero responder" data-required-group="areas_melhoria" /> Não quero responder</label>
+                    <div class="error" data-for="areas_melhoria"></div>
+                  </div>
+                  <div class="note">Avance para informar brevemente seu trabalho ou profissão.</div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="11">
-							<div class="field">
-								<label>Áreas para melhorar*</label>
-								<div class="option-group">
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Saúde emocional" /> Saúde emocional</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Saúde física" /> Saúde física</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Relações familiares" /> Relações familiares</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Relação amorosa" /> Relação amorosa</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Área financeira" /> Área financeira</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Área profissional" /> Área profissional</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Nível de ansiedade/estresse" /> Nível de ansiedade/estresse</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Qualidade do sono" /> Qualidade do sono</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Comunicação" /> Comunicação</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Liderança" /> Liderança</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="checkbox" name="areas_para_melhorar" value="Não quero responder" /> Não quero responder</label>
-								</div>
-								<div class="error" data-error="areas_para_melhorar" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 10: Trabalho ou Profissão -->
+                <div class="form-step" data-step="9">
+                  <div class="field">
+                    <label for="profissao_area">Qual é o seu trabalho ou profissão?</label>
+                    <input id="profissao_area" name="profissao_area" type="text" placeholder="Ex.: Professor(a), Empreendedor(a), Analista, Estudante" required />
+                    <div class="note">Se preferir não informar, escolha uma das opções abaixo.</div>
+                    <div class="option-shortcuts" data-target="profissao_area">
+                      <button type="button" class="fill-option" data-target="profissao_area" data-value="Não sei">Não sei</button>
+                      <button type="button" class="fill-option" data-target="profissao_area" data-value="Não quero responder">Não quero responder</button>
+                    </div>
+                    <div class="error" data-for="profissao_area"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="12">
-							<div class="field">
-								<label for="profissao">Trabalho ou profissão</label>
-								<input id="profissao" name="profissao" type="text" />
-								<div class="inline-actions">
-									<button type="button" data-fill="profissao" data-value="Não sei">Não sei</button>
-									<button type="button" data-fill="profissao" data-value="Não quero responder">Não quero responder</button>
-								</div>
-								<div class="error" data-error="profissao" aria-live="polite"></div>
-							</div>
-						</div>
+                <!-- Etapa 11: Gatilhos Principais -->
+                <div class="form-step" data-step="10">
+                  <div class="field">
+                    <label>Quais situações mais disparam sua ansiedade ou estresse? (marque todas)</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Pressão no trabalho" data-required-group="gatilhos_ansiedade" /> Pressão no trabalho</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Demandas familiares" data-required-group="gatilhos_ansiedade" /> Demandas familiares</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Questões financeiras" data-required-group="gatilhos_ansiedade" /> Questões financeiras</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Saúde física" data-required-group="gatilhos_ansiedade" /> Saúde física</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Relacionamentos amorosos" data-required-group="gatilhos_ansiedade" /> Relacionamentos amorosos</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Autocobrança e perfeccionismo" data-required-group="gatilhos_ansiedade" /> Autocobrança e perfeccionismo</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Incertezas sobre o futuro" data-required-group="gatilhos_ansiedade" /> Incertezas sobre o futuro</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Não sei" data-required-group="gatilhos_ansiedade" /> Não sei</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Não quero responder" data-required-group="gatilhos_ansiedade" /> Não quero responder</label>
+                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Outros" data-required-group="gatilhos_ansiedade" /> Outros</label>
+                    <div class="error" data-for="gatilhos_ansiedade"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="13">
-							<div class="field">
-								<label>Gatilhos</label>
-								<div class="option-group">
-									<label class="option"><input type="checkbox" name="gatilhos" value="Pressão no trabalho" /> Pressão no trabalho</label>
-									<label class="option"><input type="checkbox" name="gatilhos" value="Conflitos familiares" /> Conflitos familiares</label>
-									<label class="option"><input type="checkbox" name="gatilhos" value="Relacionamento amoroso" /> Relacionamento amoroso</label>
-									<label class="option"><input type="checkbox" name="gatilhos" value="Expectativas pessoais" /> Expectativas pessoais</label>
-									<label class="option"><input type="checkbox" name="gatilhos" value="Sobrecarrega de tarefas" /> Sobrecarga de tarefas</label>
-									<label class="option"><input type="checkbox" name="gatilhos" value="Situações financeiras" /> Situações financeiras</label>
-									<label class="option"><input type="checkbox" name="gatilhos" value="Outros" data-with-text="gatilhos_outros" /> Outros</label>
-								</div>
-								<input type="text" id="gatilhos_outros" name="gatilhos_outros" placeholder="Conte quais outros gatilhos" style="display:none" />
-							</div>
-						</div>
+                <!-- Etapa 12: Sintomas Físicos -->
+                <div class="form-step" data-step="11">
+                  <div class="field">
+                    <label>Quais sintomas físicos sente com mais frequência? (marque todas)</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Tensão muscular" data-required-group="sintomas_fisicos" /> Tensão muscular</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Alterações no sono" data-required-group="sintomas_fisicos" /> Alterações no sono</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Taquicardia" data-required-group="sintomas_fisicos" /> Taquicardia</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Falta de ar" data-required-group="sintomas_fisicos" /> Falta de ar</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Queda de energia" data-required-group="sintomas_fisicos" /> Queda de energia</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Problemas digestivos" data-required-group="sintomas_fisicos" /> Problemas digestivos</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Não sei" data-required-group="sintomas_fisicos" /> Não sei</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Não quero responder" data-required-group="sintomas_fisicos" /> Não quero responder</label>
+                    <label><input type="checkbox" name="sintomas_fisicos" value="Outros" data-required-group="sintomas_fisicos" /> Outros</label>
+                    <div class="error" data-for="sintomas_fisicos"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="14">
-							<div class="field">
-								<label>Sintomas físicos</label>
-								<div class="option-group">
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Tensão muscular" /> Tensão muscular</label>
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Dor de cabeça" /> Dor de cabeça</label>
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Taquicardia" /> Taquicardia</label>
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Insônia" /> Insônia</label>
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Cansaço extremo" /> Cansaço extremo</label>
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Alterações alimentares" /> Alterações alimentares</label>
-									<label class="option"><input type="checkbox" name="sintomas_fisicos" value="Outros" data-with-text="sintomas_fisicos_outros" /> Outros</label>
-								</div>
-								<input type="text" id="sintomas_fisicos_outros" name="sintomas_fisicos_outros" placeholder="Descreva outros sintomas físicos" style="display:none" />
-							</div>
-						</div>
+                <!-- Etapa 13: Sintomas Emocionais -->
+                <div class="form-step" data-step="12">
+                  <div class="field">
+                    <label>Quais sinais emocionais percebe em você? (marque todas)</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Ansiedade constante" data-required-group="sintomas_emocionais" /> Ansiedade constante</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Oscilação de humor" data-required-group="sintomas_emocionais" /> Oscilação de humor</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Irritabilidade" data-required-group="sintomas_emocionais" /> Irritabilidade</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Sensação de impotência" data-required-group="sintomas_emocionais" /> Sensação de impotência</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Desânimo / falta de motivação" data-required-group="sintomas_emocionais" /> Desânimo / falta de motivação</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Dificuldade de concentração" data-required-group="sintomas_emocionais" /> Dificuldade de concentração</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Não sei" data-required-group="sintomas_emocionais" /> Não sei</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Não quero responder" data-required-group="sintomas_emocionais" /> Não quero responder</label>
+                    <label><input type="checkbox" name="sintomas_emocionais" value="Outros" data-required-group="sintomas_emocionais" /> Outros</label>
+                    <div class="error" data-for="sintomas_emocionais"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="15">
-							<div class="field">
-								<label>Sintomas emocionais</label>
-								<div class="option-group">
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Crises de choro" /> Crises de choro</label>
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Irritabilidade" /> Irritabilidade</label>
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Sensação de vazio" /> Sensação de vazio</label>
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Falta de motivação" /> Falta de motivação</label>
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Medos constantes" /> Medos constantes</label>
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Oscilações de humor" /> Oscilações de humor</label>
-									<label class="option"><input type="checkbox" name="sintomas_emocionais" value="Outros" data-with-text="sintomas_emocionais_outros" /> Outros</label>
-								</div>
-								<input type="text" id="sintomas_emocionais_outros" name="sintomas_emocionais_outros" placeholder="Descreva outros sintomas emocionais" style="display:none" />
-							</div>
-						</div>
+                <!-- Etapa 14: O que já tentou -->
+                <div class="form-step" data-step="13">
+                  <div class="field">
+                    <label>O que já tentou para lidar com isso? (marque todas)</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Psicoterapia" data-required-group="tentativas_anteriores" /> Psicoterapia</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Atividade física" data-required-group="tentativas_anteriores" /> Atividade física</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Meditação ou respiração" data-required-group="tentativas_anteriores" /> Meditação ou respiração</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Medicamentos" data-required-group="tentativas_anteriores" /> Medicamentos</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Cursos ou workshops" data-required-group="tentativas_anteriores" /> Cursos ou workshops</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Não tentei nada ainda" data-required-group="tentativas_anteriores" /> Não tentei nada ainda</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Não sei" data-required-group="tentativas_anteriores" /> Não sei</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Não quero responder" data-required-group="tentativas_anteriores" /> Não quero responder</label>
+                    <label><input type="checkbox" name="tentativas_anteriores" value="Outros" data-required-group="tentativas_anteriores" /> Outros</label>
+                    <div class="error" data-for="tentativas_anteriores"></div>
+                  </div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
+                  </div>
+                </div>
 
-						<div class="step" data-step="16">
-							<div class="field">
-								<label>O que já tentou?</label>
-								<div class="option-group">
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Psicoterapia" /> Psicoterapia</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Psiquiatria" /> Psiquiatria</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Livros de autoajuda" /> Livros de autoajuda</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Cursos online" /> Cursos online</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Meditação" /> Meditação</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Atividade física" /> Atividade física</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Mentorias" /> Mentorias</label>
-									<label class="option"><input type="checkbox" name="o_que_ja_tentou" value="Outros" data-with-text="o_que_ja_tentou_outros" /> Outros</label>
-								</div>
-								<input type="text" id="o_que_ja_tentou_outros" name="o_que_ja_tentou_outros" placeholder="Compartilhe outras tentativas" style="display:none" />
-							</div>
-						</div>
-
-						<div class="step" data-step="17">
-							<div class="field">
-								<label>Como conheceu o Instituto?</label>
-								<div class="option-group">
-									<label class="option"><input type="radio" name="como_conheceu" value="Instagram" /> Instagram</label>
-									<label class="option"><input type="radio" name="como_conheceu" value="Indicação" /> Indicação</label>
-									<label class="option"><input type="radio" name="como_conheceu" value="Pesquisa Google" /> Pesquisa Google</label>
-									<label class="option"><input type="radio" name="como_conheceu" value="Não sei" /> Não sei</label>
-									<label class="option"><input type="radio" name="como_conheceu" value="Não quero responder" /> Não quero responder</label>
-									<label class="option"><input type="radio" name="como_conheceu" value="Outro" data-with-text="como_conheceu_outro" /> Outro</label>
-								</div>
-								<input type="text" id="como_conheceu_outro" name="como_conheceu_outro" placeholder="Conte para nós" style="display:none" />
-								<div class="error" data-error="como_conheceu" aria-live="polite"></div>
-							</div>
-						</div>
-
-						<div class="step" data-step="18">
-							<div class="field">
-								<label for="comentarios">Comentários adicionais</label>
-								<textarea id="comentarios" name="comentarios" placeholder="Compartilhe algo que devemos saber"></textarea>
-							</div>
-						</div>
-
-						<div class="actions">
-							<button type="button" class="btn-secondary" id="btn-prev">Voltar</button>
-							<button type="button" class="btn-primary" id="btn-next">Próximo</button>
-						</div>
-					</form>
+                <!-- Etapa 15: Observações Finais -->
+                <div class="form-step" data-step="14">
+                  <div class="field">
+                    <label>Como conheceu o Instituto UP?</label>
+                    <label><input type="radio" name="como_conheceu" value="Instagram" required /> Instagram</label>
+                    <label><input type="radio" name="como_conheceu" value="Indicação" /> Indicação</label>
+                    <label><input type="radio" name="como_conheceu" value="Pesquisa Google" /> Pesquisa Google</label>
+                    <label><input type="radio" name="como_conheceu" value="Não sei" /> Não sei</label>
+                    <label><input type="radio" name="como_conheceu" value="Não quero responder" /> Não quero responder</label>
+                    <label><input type="radio" name="como_conheceu" value="Outro" /> Outro</label>
+                    <div class="error" data-for="como_conheceu"></div>
+                  </div>
+                  <div class="field">
+                    <label for="comentarios_adicionais">Expectativas ou comentários adicionais</label>
+                    <textarea id="comentarios_adicionais" name="comentarios_adicionais" rows="3" placeholder="Compartilhe expectativas, dúvidas ou contexto." required></textarea>
+                    <div class="note">Se não quiser detalhar, clique em uma das opções rápidas abaixo.</div>
+                    <div class="option-shortcuts" data-target="comentarios_adicionais">
+                      <button type="button" class="fill-option" data-target="comentarios_adicionais" data-value="Nenhuma observação no momento">Nenhuma observação</button>
+                      <button type="button" class="fill-option" data-target="comentarios_adicionais" data-value="Não quero responder">Não quero responder</button>
+                    </div>
+                    <div class="error" data-for="comentarios_adicionais"></div>
+                  </div>
+                  <div class="note">Obrigado! Suas respostas nos ajudam a personalizar o acompanhamento após o encontro.</div>
+                  <div class="actions">
+                    <button type="button" class="btn" data-back>VOLTAR</button>
+                    <button type="submit" class="btn btn-primary">FINALIZAR</button>
+                  </div>
+                </div>
+              </form>
 				</section>
 			</div>
 		</div>
@@ -804,17 +940,15 @@
 
 		<script>
 			(function () {
-				const TOTAL_STEPS = 18;
+				const TOTAL_STEPS = 15;
 				const N8N_WEBHOOK_URL = "/api/n8n-form";
 				const statusBanner = document.getElementById("status-banner");
-				const stepCounter = document.getElementById("step-counter");
-				const progressIndicator = document.getElementById("progress-indicator");
-				const form = document.getElementById("multi-form");
-				const steps = Array.from(document.querySelectorAll(".step"));
-				const btnPrev = document.getElementById("btn-prev");
-				const btnNext = document.getElementById("btn-next");
-				const modal = document.getElementById("modal-success");
-				const modalClose = document.getElementById("modal-close");
+				const stepCounter = document.getElementById("progressText");
+				const progressDots = document.querySelectorAll(".dot");
+				const form = document.getElementById("msForm");
+				const steps = Array.from(document.querySelectorAll(".form-step"));
+				const formSuccess = document.getElementById("formSuccess");
+				const successReset = document.getElementById("successReset");
 				const ctaOpen = document.getElementById("cta-open");
 				let currentStep = 0;
 				const allData = {};
@@ -849,60 +983,37 @@
 					return ["1", "true", "yes", "sim"].includes(value.toLowerCase());
 				}
 
-				function buildProgress() {
-					for (let i = 0; i < TOTAL_STEPS; i++) {
-						const dot = document.createElement("div");
-						if (i === 0) dot.classList.add("active");
-						progressIndicator.appendChild(dot);
-					}
-				}
-
 				function updateProgress() {
-					const dots = progressIndicator.children;
-					for (let i = 0; i < dots.length; i++) {
-						dots[i].classList.toggle("active", i === currentStep);
-						dots[i].classList.toggle("completed", i < currentStep);
+					progressDots.forEach((dot, i) => {
+						dot.classList.toggle("active", i === currentStep);
+						dot.classList.toggle("completed", i < currentStep);
+					});
+					if (stepCounter) {
+						stepCounter.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS}`;
 					}
-					stepCounter.textContent = `Etapa ${currentStep + 1}`;
 				}
 
 				function showStep(index) {
 					steps.forEach((step, idx) => {
 						step.classList.toggle("active", idx === index);
 					});
-					btnPrev.disabled = index === 0;
-					btnPrev.style.visibility = index === 0 ? "hidden" : "visible";
-					btnNext.textContent = index === steps.length - 1 ? "Enviar" : "Próximo";
 					updateProgress();
 				}
 
 				function handleInlineActions() {
-					document.querySelectorAll("[data-fill]").forEach((btn) => {
+					document.querySelectorAll(".fill-option").forEach((btn) => {
 						btn.addEventListener("click", () => {
-							const targetId = btn.getAttribute("data-fill");
+							const targetName = btn.getAttribute("data-target");
 							const value = btn.getAttribute("data-value") || "";
-							const target = document.getElementById(targetId);
+							
+							const target = form.querySelector(`[name="${targetName}"]`);
 							if (target) {
 								target.value = value;
 								target.dispatchEvent(new Event("input"));
-							}
-						});
-					});
-				}
-
-				function handleDynamicOthers() {
-					document.querySelectorAll('[data-with-text]').forEach((input) => {
-						const targetId = input.getAttribute('data-with-text');
-						const target = document.getElementById(targetId);
-						input.addEventListener('change', () => {
-							if (input.checked && target) {
-								target.style.display = 'block';
-								target.required = true;
-								target.focus();
-							} else if (target) {
-								target.style.display = 'none';
-								target.required = false;
-								target.value = '';
+								
+								const step = btn.closest(".form-step");
+								const nextBtn = step.querySelector("[data-next]");
+								if (nextBtn) nextBtn.click();
 							}
 						});
 					});
@@ -925,14 +1036,16 @@
 				}
 
 				const phoneInput = document.getElementById("telefone");
-				phoneInput.addEventListener("input", (event) => {
-					const cursorPosition = event.target.selectionStart;
-					const prevLength = event.target.value.length;
-					event.target.value = maskPhone(event.target.value);
-					const newLength = event.target.value.length;
-					const diff = newLength - prevLength;
-					event.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
-				});
+				if (phoneInput) {
+					phoneInput.addEventListener("input", (event) => {
+						const cursorPosition = event.target.selectionStart;
+						const prevLength = event.target.value.length;
+						event.target.value = maskPhone(event.target.value);
+						const newLength = event.target.value.length;
+						const diff = newLength - prevLength;
+						event.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+					});
+				}
 
 				function validatePhone(value) {
 					const digits = value.replace(/\D/g, "");
@@ -952,158 +1065,132 @@
 					const errors = {};
 
 					const setError = (field, message) => {
-						const target = form.querySelector(`[data-error="${field}"]`);
+						const target = stepEl.querySelector(`[data-for="${field}"]`);
 						if (target) {
 							target.textContent = message;
+							target.style.display = message ? "block" : "none";
 						}
 						if (message) valid = false;
 						errors[field] = message;
 					};
 
-					stepEl.querySelectorAll(".error").forEach((node) => (node.textContent = ""));
+					stepEl.querySelectorAll(".error").forEach((node) => {
+						node.textContent = "";
+						node.style.display = "none";
+					});
+
+					const getChecked = (name) => {
+						return Array.from(stepEl.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+					};
+					
+					const getValue = (name) => {
+						const el = stepEl.querySelector(`[name="${name}"]`);
+						return el ? el.value.trim() : "";
+					};
 
 					switch (stepIndex) {
-						case 1: {
-							const nome = form.nome.value.trim();
+						case 0: // Nome, Cidade, Telefone
+							const nome = getValue("nome");
 							if (!nome || nome.length < 3) setError("nome", "Informe seu nome completo.");
-							data.nome_completo = nome;
-							break;
-						}
-						case 2: {
-							const cidade = form.cidade.value.trim();
-							if (!cidade) setError("cidade", "Informe a cidade onde mora.");
+							data.nome = nome;
+
+							const cidade = getValue("cidade");
+							if (!cidade) setError("cidade", "Informe sua cidade.");
 							data.cidade = cidade;
-							break;
-						}
-						case 3: {
-							const telefone = form.telefone.value.trim();
+
+							const telefone = getValue("telefone");
 							const phoneError = validatePhone(telefone);
-							if (!telefone) setError("telefone", "Informe um número de WhatsApp válido.");
-							if (!phoneError && telefone) {
-								const digits = telefone.replace(/\D/g, "");
-								data.telefone = telefone;
-								data.telefone_digits = digits;
-							} else if (phoneError) {
-								setError("telefone", phoneError);
-							}
+							if (!telefone) setError("telefone", "Informe seu WhatsApp.");
+							else if (phoneError) setError("telefone", phoneError);
+							data.telefone = telefone;
 							break;
-						}
-						case 4: {
-							const idade = form.idade.value.trim();
-							const idadeNum = Number(idade);
+
+						case 1: // Idade
+							const idade = getValue("idade");
 							if (!idade) setError("idade", "Informe sua idade.");
-							else if (idadeNum < 10 || idadeNum > 110) setError("idade", "Idade entre 10 e 110 anos.");
-							data.idade = idadeNum;
+							data.idade = idade;
 							break;
-						}
-						case 5: {
-							const ansiedade = form.querySelector('input[name="nivel_ansiedade"]:checked');
-							if (!ansiedade) setError("nivel_ansiedade", "Selecione seu nível de ansiedade.");
-							data.nivel_ansiedade = ansiedade ? ansiedade.value : "";
+
+						case 2: // Ansiedade
+							const ansiedade = stepEl.querySelector('input[name="ansiedade"]:checked');
+							if (!ansiedade) setError("ansiedade", "Selecione uma opção.");
+							data.ansiedade = ansiedade ? ansiedade.value : "";
 							break;
-						}
-						case 6: {
-							const sono = form.querySelector('input[name="qualidade_sono"]:checked');
-							if (!sono) setError("qualidade_sono", "Como está a qualidade do seu sono?");
-							data.qualidade_sono = sono ? sono.value : "";
+
+						case 3: // Sono
+							const sono = stepEl.querySelector('input[name="sono"]:checked');
+							if (!sono) setError("sono", "Selecione uma opção.");
+							data.sono = sono ? sono.value : "";
 							break;
-						}
-						case 7: {
-							const financeira = form.querySelector('input[name="vida_financeira"]:checked');
-							if (!financeira) setError("vida_financeira", "Selecione como está sua vida financeira.");
-							data.vida_financeira = financeira ? financeira.value : "";
+
+						case 4: // Vida Financeira
+							const fin = stepEl.querySelector('input[name="vida_financeira"]:checked');
+							if (!fin) setError("vida_financeira", "Selecione uma opção.");
+							data.vida_financeira = fin ? fin.value : "";
 							break;
-						}
-						case 8: {
-							const fisica = form.querySelector('input[name="saude_fisica"]:checked');
-							if (!fisica) setError("saude_fisica", "Compartilhe como está sua saúde física.");
-							data.saude_fisica = fisica ? fisica.value : "";
+
+						case 5: // Saúde Física
+							const fis = stepEl.querySelector('input[name="saude_fisica"]:checked');
+							if (!fis) setError("saude_fisica", "Selecione uma opção.");
+							data.saude_fisica = fis ? fis.value : "";
 							break;
-						}
-						case 9: {
-							const familiar = form.querySelector('input[name="relacionamento_familiar"]:checked');
-							if (!familiar) setError("relacionamento_familiar", "Conte sobre seus relacionamentos familiares.");
-							data.relacionamento_familiar = familiar ? familiar.value : "";
+
+						case 6: // Relacionamentos Familiares
+							const fam = stepEl.querySelector('input[name="relacionamentos_familiares"]:checked');
+							if (!fam) setError("relacionamentos_familiares", "Selecione uma opção.");
+							data.relacionamentos_familiares = fam ? fam.value : "";
 							break;
-						}
-						case 10: {
-							const amoroso = form.querySelector('input[name="relacionamento_amoroso"]:checked');
-							if (!amoroso) setError("relacionamento_amoroso", "Conte sobre seu relacionamento amoroso.");
-							data.relacionamento_amoroso = amoroso ? amoroso.value : "";
+
+						case 7: // Relacionamento Amoroso
+							const amor = stepEl.querySelector('input[name="relacionamento"]:checked');
+							if (!amor) setError("relacionamento", "Selecione uma opção.");
+							data.relacionamento = amor ? amor.value : "";
 							break;
-						}
-						case 11: {
-							const selecionadas = Array.from(form.querySelectorAll('input[name="areas_para_melhorar"]:checked')).map(
-								(input) => input.value
-							);
-							if (!selecionadas.length) setError("areas_para_melhorar", "Selecione ao menos uma área que deseja melhorar.");
-							data.areas_para_melhorar = selecionadas;
+
+						case 8: // Áreas para Melhorar
+							const areas = getChecked("areas_melhoria");
+							if (areas.length === 0) setError("areas_melhoria", "Selecione pelo menos uma opção.");
+							data.areas_melhoria = areas;
 							break;
-						}
-						case 12: {
-							const profissao = form.profissao.value.trim();
-							data.profissao = profissao;
+
+						case 9: // Profissão
+							const prof = getValue("profissao_area");
+							if (!prof) setError("profissao_area", "Informe sua profissão ou escolha uma opção.");
+							data.profissao_area = prof;
 							break;
-						}
-						case 13: {
-							const selecionadas = Array.from(form.querySelectorAll('input[name="gatilhos"]:checked')).map(
-								(input) => input.value
-							);
-							const outros = form.gatilhos_outros.value.trim();
-							data.gatilhos = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.gatilhos_outros = outros;
-							}
+
+						case 10: // Gatilhos
+							const gatilhos = getChecked("gatilhos_ansiedade");
+							if (gatilhos.length === 0) setError("gatilhos_ansiedade", "Selecione pelo menos uma opção.");
+							data.gatilhos_ansiedade = gatilhos;
 							break;
-						}
-						case 14: {
-							const selecionadas = Array.from(form.querySelectorAll('input[name="sintomas_fisicos"]:checked')).map(
-								(input) => input.value
-							);
-							const outros = form.sintomas_fisicos_outros.value.trim();
-							data.sintomas_fisicos = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.sintomas_fisicos_outros = outros;
-							}
+
+						case 11: // Sintomas Físicos
+							const sintFis = getChecked("sintomas_fisicos");
+							if (sintFis.length === 0) setError("sintomas_fisicos", "Selecione pelo menos uma opção.");
+							data.sintomas_fisicos = sintFis;
 							break;
-						}
-						case 15: {
-							const selecionadas = Array.from(form.querySelectorAll('input[name="sintomas_emocionais"]:checked')).map(
-								(input) => input.value
-							);
-							const outros = form.sintomas_emocionais_outros.value.trim();
-							data.sintomas_emocionais = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.sintomas_emocionais_outros = outros;
-							}
+
+						case 12: // Sintomas Emocionais
+							const sintEmo = getChecked("sintomas_emocionais");
+							if (sintEmo.length === 0) setError("sintomas_emocionais", "Selecione pelo menos uma opção.");
+							data.sintomas_emocionais = sintEmo;
 							break;
-						}
-						case 16: {
-							const selecionadas = Array.from(form.querySelectorAll('input[name="o_que_ja_tentou"]:checked')).map(
-								(input) => input.value
-							);
-							const outros = form.o_que_ja_tentou_outros.value.trim();
-							data.o_que_ja_tentou = selecionadas;
-							if (selecionadas.includes("Outros")) {
-								data.o_que_ja_tentou_outros = outros;
-							}
+
+						case 13: // Tentativas Anteriores
+							const tent = getChecked("tentativas_anteriores");
+							if (tent.length === 0) setError("tentativas_anteriores", "Selecione pelo menos uma opção.");
+							data.tentativas_anteriores = tent;
 							break;
-						}
-						case 17: {
-							const conheceu = form.querySelector('input[name="como_conheceu"]:checked');
-							const outro = form.como_conheceu_outro.value.trim();
-							if (!conheceu) setError("como_conheceu", "Selecione como conheceu o Instituto.");
+
+						case 14: // Final
+							const conheceu = stepEl.querySelector('input[name="como_conheceu"]:checked');
+							if (!conheceu) setError("como_conheceu", "Selecione como nos conheceu.");
 							data.como_conheceu = conheceu ? conheceu.value : "";
-							if (conheceu && conheceu.value === "Outro") {
-								data.como_conheceu_outro = outro;
-							}
-							break;
-						}
-						case 18: {
-							data.comentarios_adicionais = form.comentarios.value.trim();
-							break;
-						}
-						default:
+
+							const comentarios = getValue("comentarios_adicionais");
+							if (!comentarios) setError("comentarios_adicionais", "Preencha este campo ou selecione uma opção.");
+							data.comentarios_adicionais = comentarios;
 							break;
 					}
 
@@ -1113,65 +1200,70 @@
 				function getEndpoint() {
 					const endpointParam = searchParams.get("endpoint");
 					if (endpointParam) return endpointParam;
-					// Sempre usa o webhook direto
 					return N8N_WEBHOOK_URL;
 				}
 
-			async function sendStepPayload(stepPayload, isFinal = false) {
-				const endpoint = getEndpoint();
-				const payload = {
-					clientId,
-					timestamp: new Date().toISOString(),
-					data_preenchimento: new Date().toLocaleString("pt-BR"),
-					_step: currentStep + 1,
-					_final: isFinal,
-					...tracking,
-					...allData,
-					...stepPayload,
-				};
+				async function sendStepPayload(stepPayload, isFinal = false) {
+					const endpoint = getEndpoint();
+					const payload = {
+						clientId,
+						timestamp: new Date().toISOString(),
+						data_preenchimento: new Date().toLocaleString("pt-BR"),
+						_step: currentStep + 1,
+						_final: isFinal,
+						...tracking,
+						...allData,
+						...stepPayload,
+					};
 
-				try {
-					const response = await fetch(endpoint, {
-						method: "POST",
-						headers: { 
-							"Content-Type": "application/json",
-							"Accept": "application/json"
-						},
-						body: JSON.stringify(payload),
-						keepalive: isFinal
-					});
-				
-					if (!response.ok && response.type !== "opaque") {
-						throw new Error(`HTTP ${response.status}`);
-					}
+					try {
+						const response = await fetch(endpoint, {
+							method: "POST",
+							headers: { 
+								"Content-Type": "application/json",
+								"Accept": "application/json"
+							},
+							body: JSON.stringify(payload),
+							keepalive: isFinal
+						});
 					
-					statusBanner.textContent = isFinal
-						? "Formulário concluído!"
-						: `Etapa ${currentStep + 1} salva.`;
-				} catch (err) {
-					console.error("Erro ao enviar:", err);
-					// Continua mesmo com erro
-					statusBanner.textContent = isFinal
-						? "Formulário concluído!"
-						: `Etapa ${currentStep + 1} salva.`;
+						if (!response.ok && response.type !== "opaque") {
+							throw new Error(`HTTP ${response.status}`);
+						}
+						
+						if (statusBanner) {
+							statusBanner.textContent = isFinal
+								? "Formulário concluído!"
+								: `Etapa ${currentStep + 1} salva.`;
+						}
+					} catch (err) {
+						console.error("Erro ao enviar:", err);
+						if (statusBanner) {
+							statusBanner.textContent = isFinal
+								? "Formulário concluído!"
+								: `Etapa ${currentStep + 1} salva.`;
+						}
+					}
 				}
-			}				async function goNext() {
+
+				async function goNext() {
 					const stepEl = steps[currentStep];
 					const { valid, data } = collectStepData(stepEl);
 					if (!valid) return;
 
 					Object.assign(allData, data);
-					
-					// Salva progresso no localStorage
 					saveProgress();
 
 					const isLast = currentStep === steps.length - 1;
 					
 					if (isLast) {
-						await sendStepPayload(data, isLast);
-						// Limpa o progresso salvo ao finalizar
+						await sendStepPayload(data, true);
 						clearProgress();
-						modal.classList.add("active");
+						form.hidden = true;
+						formSuccess.hidden = false;
+						document.getElementById("formTitle").textContent = "INSCRIÇÃO RECEBIDA";
+						document.getElementById("progressDots").style.display = "none";
+						document.getElementById("progressText").style.display = "none";
 					} else {
 						currentStep += 1;
 						showStep(currentStep);
@@ -1212,15 +1304,21 @@
 							const data = JSON.parse(savedData);
 							Object.assign(allData, data);
 							
-							// Preenche os campos com os dados salvos
 							Object.keys(data).forEach(key => {
-								const input = form.elements[key];
-								if (input) {
-									if (input.type === 'radio' || input.type === 'checkbox') {
-										const radioInput = form.querySelector(`input[name="${key}"][value="${data[key]}"]`);
-										if (radioInput) radioInput.checked = true;
+								if (Array.isArray(data[key])) {
+									data[key].forEach(val => {
+										const cb = form.querySelector(`input[name="${key}"][value="${val}"]`);
+										if (cb) cb.checked = true;
+									});
+								} else {
+									const radios = form.querySelectorAll(`input[name="${key}"]`);
+									if (radios.length > 0) {
+										radios.forEach(r => {
+											if (r.value === data[key]) r.checked = true;
+										});
 									} else {
-										input.value = data[key];
+										const input = form.querySelector(`[name="${key}"]`);
+										if (input) input.value = data[key];
 									}
 								}
 							});
@@ -1228,6 +1326,7 @@
 						
 						if (savedStep) {
 							currentStep = parseInt(savedStep, 10);
+							if (currentStep >= steps.length) currentStep = steps.length - 1;
 							showStep(currentStep);
 						}
 					} catch (e) {
@@ -1240,28 +1339,38 @@
 						const isTextArea = event.target.tagName === "TEXTAREA";
 						if (!isTextArea) {
 							event.preventDefault();
-							btnNext.click();
+							const currentStepEl = steps[currentStep];
+							const nextBtn = currentStepEl.querySelector("[data-next]");
+							if (nextBtn) nextBtn.click();
 						}
 					}
 				});
 
-				btnPrev.addEventListener("click", goPrev);
-				btnNext.addEventListener("click", goNext);
-				modalClose.addEventListener("click", () => {
-					modal.classList.remove("active");
-					window.location.reload();
+				document.querySelectorAll("[data-next]").forEach(btn => {
+					btn.addEventListener("click", goNext);
 				});
 
-				ctaOpen.addEventListener("click", () => {
-					document.getElementById("form-card").scrollIntoView({ behavior: "smooth", block: "start" });
+				document.querySelectorAll("[data-back]").forEach(btn => {
+					btn.addEventListener("click", goPrev);
 				});
 
-				buildProgress();
+				if (successReset) {
+					successReset.addEventListener("click", () => {
+						clearProgress();
+						window.location.reload();
+					});
+				}
+
+				if (ctaOpen) {
+					ctaOpen.addEventListener("click", () => {
+						document.getElementById("form-card").scrollIntoView({ behavior: "smooth", block: "start" });
+					});
+				}
+
 				handleInlineActions();
-				handleDynamicOthers();
-				restoreProgress(); // Restaura progresso ao carregar
+				restoreProgress();
 				showStep(currentStep);
-				statusBanner.textContent = "Comece contando quem é você. Estamos aqui para ouvir.";
+				if (statusBanner) statusBanner.textContent = "Comece contando quem é você. Estamos aqui para ouvir.";
 			})();
 		</script>
 	</body>
