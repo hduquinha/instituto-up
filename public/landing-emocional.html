@@ -1267,11 +1267,8 @@
 						}
 
 						clearProgress();
-						form.hidden = true;
-						formSuccess.hidden = false;
-						document.getElementById("formTitle").textContent = "INSCRIÇÃO RECEBIDA";
-						document.getElementById("progressDots").style.display = "none";
-						document.getElementById("progressText").style.display = "none";
+						// Redireciona para a tela inicial após sucesso
+						window.location.href = "/";
 					} else {
 						currentStep += 1;
 						showStep(currentStep);
