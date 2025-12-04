@@ -29,7 +29,7 @@ const HeroSection = () => {
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
-              Uma imersão presencial intensa de 2 dias para elevar sua comunicação, gestão das emoções e construir relacionamentos mais saudáveis.
+              Uma imersão presencial intensa de 2 dias para elevar sua comunicação, gestão das emoções e construir relacionamentos mais saudáveis. Com dinâmicas de alto impacto e exercícios vivenciais, você vai experimentar uma jornada de autoconhecimento e crescimento pessoal. Nossa equipe irá guiá-la em uma jornada de descoberta e desenvolvimento de habilidades práticas e aplicáveis.
             </p>
 
             <div className="flex flex-col items-stretch gap-3 sm:gap-4">
