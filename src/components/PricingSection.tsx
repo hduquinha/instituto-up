@@ -26,7 +26,7 @@ const PricingSection = () => {
       cta: "Garantir Vaga Presencial",
       isRecommended: true,
       discount: "1º LOTE",
-      urgency: "59% DAS VAGAS JÁ PREENCHIDAS!"
+      urgency: "83% DAS VAGAS JÁ PREENCHIDAS!"
     },
   ];
 
