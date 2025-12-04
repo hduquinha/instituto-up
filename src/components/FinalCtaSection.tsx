@@ -38,26 +38,30 @@ const FinalCtaSection = () => {
             O que você vai ganhar não tem preço:
           </h3>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 text-left max-w-5xl mx-auto">
-            <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
-              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🏨 Experiência VIP</h4>
-              <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• Local: São Paulo-SP</li>
-                <li>• Data: 17 e 18 de Janeiro de 2026</li>
-                <li>• Kit de boas-vindas</li>
-                <li>• Material físico</li>
-              </ul>
-            </div>
-            
-            <div className="bg-black/30 rounded-2xl p-8 transition-all duration-500 ease-in-out hover:scale-105">
-              <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-6">🚀 Transformação Completa</h4>
-              <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
-                <li>• 2 dias de imersão intensiva</li>
-                <li>• 17 e 18 de Janeiro de 2026</li>
-                <li>• Material físico</li>
-                <li>• Certificado presencial</li>
-              </ul>
-            </div>
+          <div className="bg-black/30 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto transition-all duration-500 ease-in-out hover:scale-105">
+            <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-8">🚀 Experiência Completa</h4>
+            <ul className="grid md:grid-cols-2 gap-x-8 gap-y-6 text-left text-gray-300 text-lg lg:text-xl">
+              <li className="flex items-center gap-3">
+                <span className="text-turquoise text-2xl">•</span>
+                Local: São Paulo-SP
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-turquoise text-2xl">•</span>
+                Data: 17 e 18 de Janeiro de 2026
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-turquoise text-2xl">•</span>
+                2 dias de imersão intensiva
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-turquoise text-2xl">•</span>
+                Material físico
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-turquoise text-2xl">•</span>
+                Certificado presencial
+              </li>
+            </ul>
           </div>
         </div>
 
