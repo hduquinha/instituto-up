@@ -31,7 +31,7 @@ const CheckoutSuccess: React.FC = () => {
             </p>
             <p className="text-sm text-green-700 mt-2">
               Em breve você receberá um email com todas as informações 
-              sobre como acessar o conteúdo exclusivo.
+              sobre como acessar o conteúdo.
             </p>
           </div>
 

@@ -121,14 +121,6 @@ const UrgencySection = () => {
                   </li>
                   <li className="flex items-center text-gray-300 text-lg">
                     <span className="text-green-400 mr-3 text-xl">✓</span>
-                    Material premium em PDF
-                  </li>
-                  <li className="flex items-center text-gray-300 text-lg">
-                    <span className="text-green-400 mr-3 text-xl">✓</span>
-                    Comunidade exclusiva
-                  </li>
-                  <li className="flex items-center text-gray-300 text-lg">
-                    <span className="text-green-400 mr-3 text-xl">✓</span>
                     Certificado de participação
                   </li>
                 </ul>

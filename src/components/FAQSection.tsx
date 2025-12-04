@@ -39,10 +39,6 @@ const FAQSection = () => {
     {
       question: "Há limite de idade ou área profissional?",
       answer: "Apenas para maiores de 18 anos. Nossos métodos funcionam para qualquer pessoa, independente da profissão ou momento de vida. Temos participantes desde jovens universitários até executivos experientes, todos buscando sua transformação."
-    },
-    {
-      question: "O que é o Firewalking e é seguro?",
-      answer: "O Firewalking é uma caminhada sobre brasas ardentes, uma experiência transformadora que quebra crenças limitantes e consolida todo o aprendizado. É 100% seguro quando conduzido por profissionais experientes, e TODO MUNDO consegue passar no Firewalking. Nossa metodologia prepara você completamente para ter esta experiência única de transformação."
     }
   ];
 
@@ -116,7 +112,7 @@ const FAQSection = () => {
           </a>
           
           <p className="text-base text-gray-500 mt-6">
-            🛡️ Garantia no dia • 🔒 Pagamento seguro • 🏨 Local premium • ⭐ Qualidade garantida
+            🛡️ Garantia no dia • 🔒 Pagamento seguro • 🏨 Local • ⭐ Qualidade garantida
           </p>
         </div>
       </div>

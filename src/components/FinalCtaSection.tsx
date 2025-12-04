@@ -44,8 +44,8 @@ const FinalCtaSection = () => {
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
                 <li>• Local: São Paulo-SP</li>
                 <li>• Data: 17 e 18 de Janeiro de 2026</li>
-                <li>• Kit de boas-vindas exclusivo</li>
-                <li>• Material físico premium</li>
+                <li>• Kit de boas-vindas</li>
+                <li>• Material físico</li>
               </ul>
             </div>
             
@@ -54,8 +54,8 @@ const FinalCtaSection = () => {
               <ul className="space-y-4 text-gray-300 text-lg lg:text-xl">
                 <li>• 2 dias de imersão intensiva</li>
                 <li>• 17 e 18 de Janeiro de 2026</li>
-                <li>• Material físico + digital premium</li>
-                <li>• Certificado presencial exclusivo</li>
+                <li>• Material físico</li>
+                <li>• Certificado presencial</li>
               </ul>
             </div>
           </div>
@@ -75,7 +75,7 @@ const FinalCtaSection = () => {
           
           <div className="flex justify-center items-center gap-4 text-gray-400 text-lg">
             <ShieldCheck className="w-6 h-6 text-green-400" />
-            <span>Garantia no dia + Local Premium</span>
+            <span>Garantia no dia + Local</span>
           </div>
         </div>
 

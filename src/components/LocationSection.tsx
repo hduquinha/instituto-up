@@ -9,7 +9,7 @@ const LocationSection = () => {
             Local do <span className="text-turquoise">Evento</span>
           </h2>
           <p className="max-w-2xl mx-auto mt-4 text-gray-400">
-            Um ambiente premium e inspirador para sua transformação completa.
+            Um ambiente inspirador para sua transformação completa.
           </p>
         </div>
         

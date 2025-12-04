@@ -57,7 +57,7 @@ const TrainingContentSection = () => {
             O que você vai <span className="text-turquoise">Dominar</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Metodologia completa para transformar sua comunicação, liderança e inteligência emocional em 1 dia intensivo
+            Metodologia completa para transformar sua comunicação, liderança e inteligência emocional em 2 dias intensivos
           </p>
         </div>
         
@@ -99,19 +99,14 @@ const TrainingContentSection = () => {
             🎯 Metodologia Comprovada + Experiência Única
           </h3>
           <p className="text-lg text-gray-300 max-w-4xl mx-auto mb-6">
-            Combine o aprendizado estruturado com a experiência transformadora do Firewalking. 
             Uma jornada completa que vai <strong className="text-turquoise">reprogramar sua mente</strong> e 
             <strong className="text-turquoise"> elevar sua confiança</strong> a níveis que você nunca imaginou.
           </p>
           
-          <div className="grid md:grid-cols-2 gap-6 mt-8">
-            <div className="bg-black/30 rounded-xl p-6">
+          <div className="flex justify-center mt-8">
+            <div className="bg-black/30 rounded-xl p-6 max-w-md w-full">
               <h4 className="text-turquoise font-bold text-lg mb-2">Parte Teórica + Prática</h4>
               <p className="text-gray-400 text-sm">Metodologia estruturada com exercícios práticos e aplicação imediata</p>
-            </div>
-            <div className="bg-black/30 rounded-xl p-6">
-              <h4 className="text-orange-400 font-bold text-lg mb-2">Firewalking Experiencial</h4>
-              <p className="text-gray-400 text-sm">Caminhada sobre brasas para consolidar toda a transformação</p>
             </div>
           </div>
         </div>

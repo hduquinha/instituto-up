@@ -18,10 +18,9 @@ const PricingSection = () => {
         "Treinamento presencial intensivo - 2 dias",
         "Data: 17 e 18 de Janeiro de 2026",
         "Local: São Paulo-SP", 
-        "Material físico premium entregue no local",
+        "Material físico entregue no local",
         "Crachá personalizado de participante",
         "Certificado de participação presencial",
-        "Firewalking - Experiência transformadora",
         "Suporte durante o evento"
       ],
       cta: "Garantir Vaga Presencial",
@@ -43,10 +42,10 @@ const PricingSection = () => {
       <div className="relative z-10 container max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
-            Treinamento Presencial <span className="text-turquoise">Exclusivo</span>
+            Treinamento Presencial
           </h2>
           <p className="max-w-3xl mx-auto mt-4 text-gray-400">
-            Uma experiência única em São Paulo. Vagas limitadas para garantir qualidade e exclusividade.
+            Uma experiência única em São Paulo. Vagas limitadas para garantir qualidade.
           </p>
         </div>
 
