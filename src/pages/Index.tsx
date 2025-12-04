@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroSection from "@/components/HeroSection";
+import AboutTrainingSection from "@/components/AboutTrainingSection";
 import VideoSection from "@/components/VideoSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import TrainersSection from "@/components/TrainersSection";
@@ -15,8 +16,9 @@ const Index = () => {
     <>
       <div className="min-h-screen">
         <HeroSection />
-  <VideoSection />
-  <TestimonialsSection />
+        <AboutTrainingSection />
+        <VideoSection />
+        <TestimonialsSection />
   <TrainersSection />
   <TrainingContentSection />
         <PricingSection />
