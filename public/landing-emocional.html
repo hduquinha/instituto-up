@@ -1236,13 +1236,13 @@
 								? "Formulário concluído!"
 								: `Etapa ${currentStep + 1} salva.`;
 						}
+						return true;
 					} catch (err) {
 						console.error("Erro ao enviar:", err);
 						if (statusBanner) {
-							statusBanner.textContent = isFinal
-								? "Formulário concluído!"
-								: `Etapa ${currentStep + 1} salva.`;
+							statusBanner.textContent = "Erro de conexão. Tente novamente.";
 						}
+						return false;
 					}
 				}
 
@@ -1257,7 +1257,15 @@
 					const isLast = currentStep === steps.length - 1;
 					
 					if (isLast) {
-						await sendStepPayload(data, true);
+						// Tenta enviar o payload final
+						const success = await sendStepPayload(data, true);
+						
+						// Se falhar, não avança para a tela de sucesso
+						if (!success) {
+							if (statusBanner) statusBanner.textContent = "Erro ao enviar. Tente novamente.";
+							return;
+						}
+
 						clearProgress();
 						form.hidden = true;
 						formSuccess.hidden = false;
