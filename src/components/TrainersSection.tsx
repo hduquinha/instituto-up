@@ -49,7 +49,7 @@ const TrainersSection = () => {
                 <ul className="space-y-4 text-gray-300">
                   <li className="flex items-center gap-3">
                     <Star style={{ color: turquoiseColor }} className="h-6 w-6 flex-shrink-0" />
-                    <span><strong className="text-white">+10.000 Vidas Impactadas</strong></span>
+                    <span><strong className="text-white">+20.000 Vidas Impactadas</strong></span>
                   </li>
                   <li className="flex items-center gap-3">
                     <Star style={{ color: turquoiseColor }} className="h-6 w-6 flex-shrink-0" />
@@ -57,7 +57,7 @@ const TrainersSection = () => {
                   </li>
                   <li className="flex items-center gap-3">
                     <Star style={{ color: turquoiseColor }} className="h-6 w-6 flex-shrink-0" />
-                    <span>Especialista em <strong className="text-white">Inteligência Emocional e PNL</strong></span>
+                    <span>Especialista em <strong className="text-white">Inteligência Emocional e diversas outras técnicas de mudança comportamental</strong></span>
                   </li>
                 </ul>
               </div>
