@@ -13,11 +13,11 @@ const PricingSection = () => {
       price: "2997",
       originalPrice: "4997",
       installments: "10x R$ 299,70",
-      description: "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP.",
+      description: "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso).",
       features: [
         "Treinamento presencial intensivo - 2 dias",
         "Data: 17 e 18 de Janeiro de 2026",
-        "Local: São Paulo-SP", 
+        "Local: Rua Abílio Soares, 245 – Bairro Paraíso — São Paulo-SP",
         "Material físico entregue no local",
         "Crachá personalizado de participante",
         "Certificado de participação presencial",
@@ -45,7 +45,7 @@ const PricingSection = () => {
             Treinamento Presencial
           </h2>
           <p className="max-w-3xl mx-auto mt-4 text-gray-400">
-            Uma experiência única em São Paulo. Vagas limitadas para garantir qualidade.
+            Uma experiência única em São Paulo (Rua Abílio Soares, 245 – Bairro Paraíso). Vagas limitadas para garantir qualidade.
           </p>
         </div>
 

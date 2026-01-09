@@ -28,7 +28,7 @@ const FinalCtaSection = () => {
           </h2>
           
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
-            Uma experiência única em São Paulo-SP. 
+            Uma experiência única em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). 
             17 e 18 de Janeiro - 2 dias intensivos que vão transformar sua vida.
           </p>
         </div>
@@ -43,7 +43,7 @@ const FinalCtaSection = () => {
             <ul className="grid md:grid-cols-2 gap-x-8 gap-y-6 text-left text-gray-300 text-lg lg:text-xl">
               <li className="flex items-center gap-3">
                 <span className="text-turquoise text-2xl">•</span>
-                Local: São Paulo-SP
+                Local: Rua Abílio Soares, 245 – Bairro Paraíso — São Paulo-SP
               </li>
               <li className="flex items-center gap-3">
                 <span className="text-turquoise text-2xl">•</span>
@@ -67,7 +67,7 @@ const FinalCtaSection = () => {
 
         <div className="mb-16">
           <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-            17 e 18 de Janeiro em São Paulo-SP. Uma experiência transformadora intensiva de 2 dias.
+            17 e 18 de Janeiro em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). Uma experiência transformadora intensiva de 2 dias.
           </p>
           
           <button

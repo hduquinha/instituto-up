@@ -30,7 +30,7 @@ const FAQSection = () => {
     },
     {
       question: "Quando acontece o treinamento?",
-      answer: "O evento acontece nos dias 17 e 18 de janeiro de 2026 em São Paulo-SP. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
+      answer: "O evento acontece nos dias 17 e 18 de janeiro de 2026 em São Paulo-SP, na Rua Abílio Soares, 245 – Bairro Paraíso. Horário: Sábado: 6:59h às 20:59h; Domingo: 8:59h às 18:59h. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
     },
     {
       question: "Preciso ter conhecimento prévio?",
