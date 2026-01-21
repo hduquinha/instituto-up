@@ -16,7 +16,7 @@ const PricingSection = () => {
       description: "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso).",
       features: [
         "Treinamento presencial intensivo - 2 dias",
-        "Data: 17 e 18 de Janeiro de 2026",
+        "Data: 18 e 19 de Abril de 2026",
         "Local: Rua Abílio Soares, 245 – Bairro Paraíso — São Paulo-SP",
         "Material físico entregue no local",
         "Crachá personalizado de participante",

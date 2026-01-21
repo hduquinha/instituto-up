@@ -29,7 +29,7 @@ const FinalCtaSection = () => {
           
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
             Uma experiência única em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). 
-            17 e 18 de Janeiro - 2 dias intensivos que vão transformar sua vida.
+            18 e 19 de Abril - 2 dias intensivos que vão transformar sua vida.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ const FinalCtaSection = () => {
               </li>
               <li className="flex items-center gap-3">
                 <span className="text-turquoise text-2xl">•</span>
-                Data: 17 e 18 de Janeiro de 2026
+                Data: 18 e 19 de Abril de 2026
               </li>
               <li className="flex items-center gap-3">
                 <span className="text-turquoise text-2xl">•</span>
@@ -67,7 +67,7 @@ const FinalCtaSection = () => {
 
         <div className="mb-16">
           <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-            17 e 18 de Janeiro em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). Uma experiência transformadora intensiva de 2 dias.
+            18 e 19 de Abril em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). Uma experiência transformadora intensiva de 2 dias.
           </p>
           
           <button

@@ -25,7 +25,7 @@ const HeroSection = () => {
             </h1>
 
             <h2 className="text-sm sm:text-base md:text-xl font-semibold mb-4 sm:mb-5 text-gray-200">
-              17 e 18 de Janeiro - São Paulo-SP
+              18 e 19 de Abril - São Paulo-SP
             </h2>
 
             <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-6 sm:mb-8 leading-relaxed break-words">
@@ -36,7 +36,7 @@ const HeroSection = () => {
               <div className="flex items-center gap-2 bg-turquoise/10 border border-turquoise/30 rounded-lg p-3">
                 <CalendarDays className="h-5 w-5 text-turquoise flex-shrink-0" />
                 <p className="text-white font-semibold text-sm sm:text-base leading-snug">
-                  17 e 18 de Janeiro - Rua Abílio Soares, 245 – Bairro Paraíso - São Paulo-SP
+                  18 e 19 de Abril - Rua Abílio Soares, 245 – Bairro Paraíso - São Paulo-SP
                 </p>
               </div>
 
