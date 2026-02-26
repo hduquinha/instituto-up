@@ -20,15 +20,23 @@ app.use(express.json());
 
 // ─── Pool PostgreSQL (Aiven) ───────────────────────────────────────────────────
 // Remove sslmode da connection string para evitar conflito com pg driver
-const dbUrl = (process.env.DATABASE_URL || '').replace(/[?&]sslmode=[^&]*/gi, '');
-const pool = new Pool({
-  connectionString: dbUrl,
-  ssl: { rejectUnauthorized: false }
-});
+const rawUrl = process.env.DATABASE_URL || '';
+const dbUrl = rawUrl.replace(/[?&]sslmode=[^&]*/gi, '');
+
+let pool;
+if (dbUrl) {
+  pool = new Pool({
+    connectionString: dbUrl,
+    ssl: { rejectUnauthorized: false }
+  });
+} else {
+  console.error('⚠️  DATABASE_URL não configurada!');
+}
 
 // Garante que schema + tabela existam no primeiro request
 let dbReady = false;
 async function ensureTable() {
+  if (!pool) throw new Error('DATABASE_URL não configurada. Adicione a env var na Vercel.');
   if (dbReady) return;
   await pool.query('CREATE SCHEMA IF NOT EXISTS inscricoes');
   await pool.query(`
