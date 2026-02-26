@@ -4,6 +4,10 @@ const path = require('path');
 try {
   require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 } catch {}
+
+// Aceitar certificados auto-assinados do Aiven (deve vir ANTES de qualquer conexão)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const cors = require('cors');
 const { Pool } = require('pg');
 
@@ -19,15 +23,11 @@ app.use(cors({
 app.use(express.json());
 
 // ─── Pool PostgreSQL (Aiven) ───────────────────────────────────────────────────
-// Remove sslmode da connection string para evitar conflito com pg driver
-const rawUrl = process.env.DATABASE_URL || '';
-const dbUrl = rawUrl.replace(/[?&]sslmode=[^&]*/gi, '');
-
 let pool;
-if (dbUrl) {
+if (process.env.DATABASE_URL) {
   pool = new Pool({
-    connectionString: dbUrl,
-    ssl: { rejectUnauthorized: false }
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
   });
 } else {
   console.error('⚠️  DATABASE_URL não configurada!');
