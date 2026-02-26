@@ -50,6 +50,21 @@ async function ensureTable() {
       created_at       TIMESTAMPTZ DEFAULT NOW()
     )
   `);
+  // Garante que colunas existam (caso tabela já existisse sem elas)
+  const cols = [
+    { name: 'client_id',        def: 'TEXT' },
+    { name: 'data_treinamento', def: 'TEXT' },
+    { name: 'step',             def: 'INTEGER' },
+    { name: 'is_final',         def: 'BOOLEAN DEFAULT FALSE' },
+    { name: 'payload',          def: 'JSONB' },
+    { name: 'created_at',       def: 'TIMESTAMPTZ DEFAULT NOW()' },
+  ];
+  for (const col of cols) {
+    await pool.query(`
+      ALTER TABLE inscricoes.inscricoes
+      ADD COLUMN IF NOT EXISTS ${col.name} ${col.def}
+    `).catch(() => {});
+  }
   dbReady = true;
 }
 
