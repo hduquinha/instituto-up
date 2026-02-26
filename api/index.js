@@ -43,26 +43,10 @@ async function ensureTable() {
   await pool.query('CREATE SCHEMA IF NOT EXISTS inscricoes');
   await pool.query(`
     CREATE TABLE IF NOT EXISTS inscricoes.inscricoes (
-      id               SERIAL PRIMARY KEY,
-      client_id        TEXT,
-      data_treinamento TEXT,
-      step             INTEGER,
-      is_final         BOOLEAN DEFAULT FALSE,
-      payload          JSONB NOT NULL,
-      created_at       TIMESTAMPTZ DEFAULT NOW()
+      id      SERIAL PRIMARY KEY,
+      payload JSONB NOT NULL
     )
   `);
-  const legacyCols = [
-    { name: 'client_id',        def: 'TEXT' },
-    { name: 'data_treinamento', def: 'TEXT' },
-    { name: 'step',             def: 'INTEGER' },
-    { name: 'is_final',         def: 'BOOLEAN DEFAULT FALSE' },
-    { name: 'payload',          def: 'JSONB' },
-    { name: 'created_at',       def: 'TIMESTAMPTZ DEFAULT NOW()' },
-  ];
-  for (const col of legacyCols) {
-    await pool.query(`ALTER TABLE inscricoes.inscricoes ADD COLUMN IF NOT EXISTS ${col.name} ${col.def}`).catch(() => {});
-  }
 
   // ── Schema normalizado (dashboard) ─────────────────────────────────────────
   await pool.query('CREATE SCHEMA IF NOT EXISTS dashboard');
@@ -204,11 +188,10 @@ app.post('/api/inscricao', async (req, res) => {
     const step = body._step || null;
     const isFinal = body._final || false;
 
-    // 1) Sempre gravar no schema legado (todas as etapas)
+    // 1) Sempre gravar no schema legado (só a coluna payload que já existe)
     await pool.query(
-      `INSERT INTO inscricoes.inscricoes (client_id, data_treinamento, step, is_final, payload)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [clientId, dataTreinamento, step, isFinal, JSON.stringify(body)]
+      `INSERT INTO inscricoes.inscricoes (payload) VALUES ($1::jsonb)`,
+      [JSON.stringify(body)]
     );
 
     // 2) No submit final, gravar também no schema normalizado (dashboard.*)
