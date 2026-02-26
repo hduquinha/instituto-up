@@ -5,8 +5,7 @@ try {
   require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 } catch {}
 const cors = require('cors');
-const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
-const axios = require('axios');
+const { Pool } = require('pg');
 
 const app = express();
 
@@ -19,256 +18,120 @@ app.use(cors({
 // Parser JSON
 app.use(express.json());
 
-// Configuração do Mercado Pago
-const client = new MercadoPagoConfig({
-  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN
+// ─── Pool PostgreSQL (Aiven) ───────────────────────────────────────────────────
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
 });
 
-// Endpoint de processamento de pagamento (Checkout Transparente via Bricks)
-app.post('/api/process_payment', async (req, res) => {
+// Garante que schema + tabela existam no primeiro request
+let dbReady = false;
+async function ensureTable() {
+  if (dbReady) return;
+  await pool.query('CREATE SCHEMA IF NOT EXISTS inscricoes');
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS inscricoes.inscricoes (
+      id               SERIAL PRIMARY KEY,
+      client_id        TEXT,
+      data_treinamento TEXT,
+      step             INTEGER,
+      is_final         BOOLEAN DEFAULT FALSE,
+      payload          JSONB NOT NULL,
+      created_at       TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  dbReady = true;
+}
+
+// ─── Endpoint principal: gravar inscrição no banco ─────────────────────────────
+app.post('/api/inscricao', async (req, res) => {
   try {
-    const {
-      transaction_amount,
-      token,
-      description,
-      installments,
-      payment_method_id,
-      payer,
-      notification_url
-    } = req.body;
+    await ensureTable();
 
-    if (!transaction_amount || !payer?.email) {
-      return res.status(400).json({ error: 'Dados de pagamento incompletos' });
-    }
+    const body = req.body || {};
+    const clientId = body.clientId || null;
+    const dataTreinamento = body.data_treinamento || null;
+    const step = body._step || null;
+    const isFinal = body._final || false;
 
-    const method = (payment_method_id || '').toLowerCase();
-    const payment = new Payment(client);
+    await pool.query(
+      `INSERT INTO inscricoes.inscricoes (client_id, data_treinamento, step, is_final, payload)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [clientId, dataTreinamento, step, isFinal, JSON.stringify(body)]
+    );
 
-    let body = {
-      transaction_amount: Number(transaction_amount),
-      description,
-      payment_method_id: method,
-      notification_url: notification_url || process.env.NOTIFICATION_URL,
-      payer: {
-        email: payer.email,
-        first_name: payer.first_name,
-        last_name: payer.last_name,
-      },
-      metadata: {
-        source: 'instituto-up-bricks',
-        timestamp: Date.now()
-      }
-    };
-
-    if (method === 'pix' || method.includes('pix')) {
-      // PIX não usa token nem installments
-    } else if (token) {
-      // Cartão
-      body.token = token;
-      body.installments = installments ? Number(installments) : 1;
-      if (payer.identification) {
-        body.payer.identification = payer.identification; // { type, number }
-      }
-    } else if (method === 'bolbradesco' || method.includes('boleto') || method === 'ticket') {
-      // Boleto exige identification; se não vier, falhar explicitamente
-      if (!payer.identification?.type || !payer.identification?.number) {
-        return res.status(400).json({ error: 'Boleto requer CPF/CNPJ em payer.identification' });
-      }
-      body.payer.identification = payer.identification;
-    } else if (!method) {
-      return res.status(400).json({ error: 'payment_method_id ausente' });
-    }
-
-    const result = await payment.create({ body });
-    res.status(201).json(result);
-  } catch (error) {
-    const details = error?.response?.data || error?.message || error;
-    console.error('Erro ao processar pagamento:', details);
-    res.status(500).json({ error: 'Erro ao processar pagamento', details });
-  }
-});
-
-// Rota para criar preferência de pagamento
-app.post('/api/create_preference', async (req, res) => {
-  try {
-    const { buyerData, productData } = req.body;
-
-    // Validação dos dados recebidos
-    if (!buyerData || !buyerData.name || !buyerData.email || !buyerData.phone) {
-      return res.status(400).json({ 
-        error: 'Dados do comprador incompletos' 
-      });
-    }
-
-    if (!productData || !productData.title || !productData.price) {
-      return res.status(400).json({ 
-        error: 'Dados do produto incompletos' 
-      });
-    }
-
-    // Configuração da preferência
-    const preference = new Preference(client);
-
-    // Separar nome e sobrenome para melhor apresentação
-    const nameParts = buyerData.name.trim().split(' ');
-    const firstName = nameParts[0] || '';
-    const lastName = nameParts.slice(1).join(' ') || '';
-
-    // Processar telefone (extrair código de área se possível)
-    const phoneClean = buyerData.phone.replace(/\D/g, '');
-    let areaCode = '';
-    let phoneNumber = phoneClean;
-    
-    if (phoneClean.length === 11) {
-      areaCode = phoneClean.substring(0, 2);
-      phoneNumber = phoneClean.substring(2);
-    } else if (phoneClean.length === 10) {
-      areaCode = phoneClean.substring(0, 2);
-      phoneNumber = phoneClean.substring(2);
-    }
-
-    // URL da imagem otimizada para Vercel
-    const frontendUrl = process.env.FRONTEND_URL || 'https://instituto-up.vercel.app';
-    const imageUrl = `${frontendUrl}/up.png`;
-
-    const preferenceData = {
-      items: [
-        {
-          id: productData.id || '001',
-          title: productData.title,
-          description: productData.description || 'Curso completo com certificado de participação',
-          quantity: 1,
-          currency_id: 'BRL',
-          unit_price: parseFloat(productData.price),
-          picture_url: imageUrl,
-          category_id: 'education'
-        }
-      ],
-      payer: {
-        name: firstName,
-        surname: lastName,
-        email: buyerData.email,
-        phone: {
-          area_code: areaCode,
-          number: phoneNumber
-        }
-      },
-      payment_methods: {
-        excluded_payment_methods: [],
-        excluded_payment_types: [],
-        installments: 12,
-        default_installments: 1
-      },
-      back_urls: {
-        success: `${frontendUrl}/checkout-success`,
-        failure: `${frontendUrl}/checkout-success`,
-        pending: `${frontendUrl}/checkout-success`
-      },
-      notification_url: process.env.NOTIFICATION_URL || `${frontendUrl}/api/webhook-mercadopago`,
-      external_reference: `${Date.now()}_${buyerData.email}`,
-      statement_descriptor: 'INSTITUTO UP',
-      binary_mode: false
-    };
-
-    // Criar preferência no Mercado Pago
-    const result = await preference.create({ body: preferenceData });
-
-    console.log('✅ Preferência criada com sucesso:', result.id);
-
-    res.json({
-      id: result.id,
-      init_point: result.init_point,
-      sandbox_init_point: result.sandbox_init_point
-    });
-
-  } catch (error) {
-    console.error('Erro ao criar preferência:', error);
-    res.status(500).json({ 
-      error: 'Erro interno do servidor',
-      details: error.message 
-    });
-  }
-});
-
-// Webhook para receber notificações do Mercado Pago
-app.post('/api/webhook-mercadopago', async (req, res) => {
-  try {
-    const { type, data } = req.body;
-
-    // Verificar se é uma notificação de pagamento
-    if (type === 'payment') {
-      const paymentId = data.id;
-
-      // Buscar detalhes do pagamento
-      const paymentResponse = await axios.get(
-        `https://api.mercadopago.com/v1/payments/${paymentId}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`
-          }
-        }
-      );
-
-      const payment = paymentResponse.data;
-
-      // Se o pagamento foi aprovado
-      if (payment.status === 'approved') {
-        // Extrair dados do comprador
-        const buyerData = {
-          name: payment.payer.first_name + ' ' + (payment.payer.last_name || ''),
-          email: payment.payer.email,
-          phone: payment.payer.phone?.number || '',
-          payment_id: payment.id,
-          amount: payment.transaction_amount,
-          date: new Date().toISOString(),
-          external_reference: payment.external_reference
-        };
-
-        // Enviar para webhook do n8n (Grupo VIP)
-        if (process.env.N8N_WEBHOOK_GRUPO_VIP) {
-          try {
-            await axios.post(process.env.N8N_WEBHOOK_GRUPO_VIP, buyerData);
-          } catch (webhookError) {
-            console.error('Erro ao enviar para webhook do Grupo VIP:', webhookError.message);
-          }
-        }
-      }
-    }
-
-    res.status(200).send('OK');
-
-  } catch (error) {
-    console.error('Erro no webhook:', error);
-    res.status(200).send('OK');
-  }
-});
-
-// Proxy para enviar os dados do formulário ao n8n com headers controlados
-app.post('/api/n8n-form', async (req, res) => {
-  try {
-    // Tenta pegar das variáveis de ambiente, ou usa o fallback hardcoded (já que está no .env público)
-    const targetUrl = process.env.N8N_WEBHOOK_FORM || 
-                      process.env.N8N_WEBHOOK_GRUPO_VIP || 
-                      'https://up-n8n.welzbd.easypanel.host/webhook/972ed6cb-32ad-453b-a43d-fed1f1cd6f4d';
-
-    if (!targetUrl) {
-      return res.status(500).json({ error: 'Webhook do formulário não configurado' });
-    }
-
-    // Log para debug (aparecerá nos logs da Vercel)
-    console.log('Encaminhando para n8n:', targetUrl);
-
-    await axios.post(targetUrl, req.body, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
+    console.log(`✅ Inscrição salva — step ${step}, final=${isFinal}, client=${clientId}`);
     res.status(200).json({ ok: true });
   } catch (error) {
-    const details = error?.response?.data || error?.message || 'Erro desconhecido';
-    console.error('Erro ao encaminhar dados do formulário para o n8n:', details);
-    res.status(500).json({ error: 'Erro ao enviar dados para o n8n', details });
+    const details = error?.message || 'Erro desconhecido';
+    console.error('Erro ao salvar inscrição:', details);
+    res.status(500).json({ error: 'Erro ao salvar inscrição', details });
+  }
+});
+
+// ─── Manter compatibilidade com endpoint antigo (/api/n8n-form) ────────────────
+// Redireciona para o novo endpoint de inscrição no banco
+app.post('/api/n8n-form', async (req, res) => {
+  try {
+    await ensureTable();
+
+    const body = req.body || {};
+    const clientId = body.clientId || null;
+    const dataTreinamento = body.data_treinamento || null;
+    const step = body._step || null;
+    const isFinal = body._final || false;
+
+    await pool.query(
+      `INSERT INTO inscricoes.inscricoes (client_id, data_treinamento, step, is_final, payload)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [clientId, dataTreinamento, step, isFinal, JSON.stringify(body)]
+    );
+
+    console.log(`✅ [n8n-form compat] Inscrição salva — step ${step}, final=${isFinal}`);
+    res.status(200).json({ ok: true });
+  } catch (error) {
+    const details = error?.message || 'Erro desconhecido';
+    console.error('Erro ao salvar inscrição:', details);
+    res.status(500).json({ error: 'Erro ao salvar inscrição', details });
+  }
+});
+
+// ─── Listar inscrições (uso interno / dashboard) ──────────────────────────────
+app.get('/api/inscricoes', async (req, res) => {
+  try {
+    await ensureTable();
+
+    const treinamento = req.query.treinamento || null;
+    const onlyFinal = req.query.final === 'true';
+
+    let query = 'SELECT * FROM inscricoes.inscricoes WHERE 1=1';
+    const params = [];
+
+    if (treinamento) {
+      params.push(treinamento);
+      query += ` AND data_treinamento = $${params.length}`;
+    }
+    if (onlyFinal) {
+      query += ' AND is_final = true';
+    }
+
+    query += ' ORDER BY created_at DESC LIMIT 500';
+
+    const result = await pool.query(query, params);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Erro ao buscar inscrições:', error.message);
+    res.status(500).json({ error: 'Erro ao buscar inscrições', details: error.message });
+  }
+});
+
+// ─── Health check ──────────────────────────────────────────────────────────────
+app.get('/api/health', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.json({ status: 'ok', db: 'connected' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', db: error.message });
   }
 });
 

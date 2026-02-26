@@ -943,8 +943,22 @@
 
 		<script>
 			(function () {
+				/* ═══════════════════════════════════════════════════════════════════
+				   TRAINING_CONFIG — altere aqui para cada novo treinamento
+				   ═══════════════════════════════════════════════════════════════════ */
+				const TRAINING_CONFIG = {
+					dateDisplay: '18 e 19/04',
+					startISO:           '2026-04-18T09:00:00-03:00',
+					endISO:             '2026-04-19T18:00:00-03:00',
+					occupancyStartISO:  '2026-04-07T00:00:00-03:00',
+					occupancyMinPercent: 40,
+					occupancyMaxPercent: 95,
+					whatsappNumber: '5513997832766',
+					whatsappMessage: 'Olá! Acabei de preencher o formulário do UP Day Plus e quero finalizar minha inscrição.'
+				};
+
 				const TOTAL_STEPS = 15;
-				const N8N_WEBHOOK_URL = "/api/n8n-form";
+				const INSCRICAO_URL = "/api/inscricao";
 				const statusBanner = document.getElementById("status-banner");
 				const stepCounter = document.getElementById("progressText");
 				const progressDots = document.querySelectorAll(".dot");
@@ -1201,9 +1215,12 @@
 				}
 
 				function getEndpoint() {
-					const endpointParam = searchParams.get("endpoint");
-					if (endpointParam) return endpointParam;
-					return N8N_WEBHOOK_URL;
+					return INSCRICAO_URL;
+				}
+
+				function buildWhatsAppUrl(nome) {
+					const msg = TRAINING_CONFIG.whatsappMessage + (nome ? ` Meu nome: ${nome}` : '');
+					return `https://wa.me/${TRAINING_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 				}
 
 				async function sendStepPayload(stepPayload, isFinal = false) {
@@ -1212,6 +1229,7 @@
 						clientId,
 						timestamp: new Date().toISOString(),
 						data_preenchimento: new Date().toLocaleString("pt-BR"),
+						data_treinamento: TRAINING_CONFIG.dateDisplay,
 						_step: currentStep + 1,
 						_final: isFinal,
 						...tracking,
@@ -1270,8 +1288,8 @@
 						}
 
 						clearProgress();
-						// Redireciona para a tela inicial após sucesso
-						window.location.href = "/";
+						// Redireciona para o WhatsApp para finalizar a inscrição
+						window.location.href = buildWhatsAppUrl(allData.nome || '');
 					} else {
 						currentStep += 1;
 						showStep(currentStep);
