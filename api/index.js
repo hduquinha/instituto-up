@@ -19,8 +19,10 @@ app.use(cors({
 app.use(express.json());
 
 // ─── Pool PostgreSQL (Aiven) ───────────────────────────────────────────────────
+// Remove sslmode da connection string para evitar conflito com pg driver
+const dbUrl = (process.env.DATABASE_URL || '').replace(/[?&]sslmode=[^&]*/gi, '');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: dbUrl,
   ssl: { rejectUnauthorized: false }
 });
 
