@@ -205,14 +205,15 @@ app.post('/api/inscricao', async (req, res) => {
           cidade: body.cidade || '',
           estado: body.estado || '',
           profissao: body.profissao_area || '',
-          origem: 'Landing Page UP Day Plus'
+          origem: 'Landing Page UP Day'
         });
 
         // Garantir treinamento
         const treinamentoCodigo = dataTreinamento || '15 e 16/08';
+        const treinamentoNome = body.treinamento_nome || `UP Day ${treinamentoCodigo}`;
         const treinamento = await ensureTreinamento(
           treinamentoCodigo,
-          `UP Day Plus ${treinamentoCodigo}`,
+          treinamentoNome,
           null,
           null
         );
@@ -222,6 +223,23 @@ app.post('/api/inscricao', async (req, res) => {
 
         // Dados extras (tudo que não é pessoa/treinamento)
         const dadosExtras = {
+          treinamento_nome: body.treinamento_nome,
+          data_treinamento_extenso: body.data_treinamento_extenso,
+          treinamento_inicio: body.treinamento_inicio,
+          treinamento_fim: body.treinamento_fim,
+          rg: body.rg,
+          cpf: body.cpf,
+          endereco: body.endereco,
+          data_nascimento: body.data_nascimento,
+          estado_civil: body.estado_civil,
+          estado_civil_outro: body.estado_civil_outro,
+          contato_emergencia: body.contato_emergencia,
+          medicamentos_tratamento: body.medicamentos_tratamento,
+          indicacao: body.indicacao,
+          tamanho_camiseta: body.tamanho_camiseta,
+          pagamento_info_visualizada: body.pagamento_info_visualizada,
+          multa_ciente: body.multa_ciente,
+          cancelamento_ciente: body.cancelamento_ciente,
           idade: body.idade,
           ansiedade: body.ansiedade,
           sono: body.sono,
@@ -239,7 +257,7 @@ app.post('/api/inscricao', async (req, res) => {
           utm_source: body.utm_source,
           utm_medium: body.utm_medium,
           utm_campaign: body.utm_campaign,
-          origem: 'landing-emocional',
+          origem: 'landing-inscricao-agosto-2026',
           clientId: clientId,
           timestamp: body.timestamp
         };

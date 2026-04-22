@@ -128,7 +128,7 @@ const UrgencySection = () => {
                   onClick={handleStandardPurchase}
                   className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-6 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 ease-in-out transform hover:scale-105 text-xl"
                 >
-                  GARANTIR STANDARD
+                  FAÇA SUA INSCRIÇÃO
                 </button>
               </div>
 
@@ -180,7 +180,7 @@ const UrgencySection = () => {
                   onClick={handleVIPPurchase}
                   className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-6 rounded-2xl hover:from-orange-600 hover:to-red-600 transition-all duration-500 ease-in-out transform hover:scale-105 text-xl"
                 >
-                  GARANTIR VIP AGORA
+                  FAÇA SUA INSCRIÇÃO
                 </button>
               </div>
             </div>

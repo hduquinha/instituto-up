@@ -74,7 +74,7 @@ const FinalCtaSection = () => {
             onClick={scrollToPricing}
             className="bg-gradient-to-r from-turquoise to-blue-500 text-black font-bold text-xl md:text-2xl lg:text-3xl px-16 py-8 rounded-2xl transform hover:scale-105 transition-all duration-500 ease-in-out shadow-lg hover:shadow-2xl mb-8"
           >
-            � GARANTIR VAGA PRESENCIAL AGORA
+            FAÇA SUA INSCRIÇÃO
           </button>
           
           <div className="flex justify-center items-center gap-4 text-gray-400 text-lg">

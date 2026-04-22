@@ -23,7 +23,7 @@ const PricingSection = () => {
         "Certificado de participação presencial",
         "Suporte durante o evento"
       ],
-      cta: "Garantir Vaga Presencial",
+      cta: "Faça sua inscrição",
       isRecommended: true,
       discount: "1º LOTE",
       urgency: "83% DAS VAGAS JÁ PREENCHIDAS!"

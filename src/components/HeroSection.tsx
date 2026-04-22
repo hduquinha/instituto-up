@@ -46,7 +46,7 @@ const HeroSection = () => {
                 className="w-full text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-5 h-auto whitespace-normal break-words leading-tight text-center"
                 onClick={scrollToPricing}
               >
-                QUERO GARANTIR MINHA VAGA AGORA
+                FAÇA SUA INSCRIÇÃO
               </Button>
             </div>
           </div>

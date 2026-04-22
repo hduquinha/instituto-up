@@ -1,1403 +1,1138 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>UP Day Plus - Instituto UP</title>
-		<link rel="icon" type="image/png" href="/up.png" />
-		<style>
-			:root {
-				color-scheme: light;
-				--primary: #27abb6;
-				--primary-dark: #1f8a92;
-				--primary-light: #5fc7cf;
-				--bg: #ffffff;
-				--text: #101010;
-				--muted: #4f5b61;
-				--border: rgba(0, 0, 0, 0.08);
-				--radius: 16px;
-				font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-			}
-
-			* {
-				box-sizing: border-box;
-			}
-
-			body {
-				margin: 0;
-				background: linear-gradient(135deg, #f7fbfc 0%, rgba(39, 171, 182, 0.15) 100%);
-				color: var(--text);
-				line-height: 1.5;
-			}
-
-			a {
-				color: inherit;
-				text-decoration: none;
-			}
-
-			.page {
-				min-height: 100vh;
-				display: flex;
-				align-items: stretch;
-				padding: 40px 24px;
-			}
-
-			.shell {
-				max-width: 1180px;
-				margin: 0 auto;
-				width: 100%;
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-				gap: 32px;
-				align-items: start;
-			}
-
-			.hero-card {
-				background: var(--bg);
-				border-radius: 28px;
-				padding: 48px 40px;
-				box-shadow: 0 24px 60px rgba(16, 48, 56, 0.12);
-				border: 1px solid rgba(39, 171, 182, 0.15);
-				position: relative;
-				overflow: hidden;
-			}
-
-			.hero-card::after {
-				content: "";
-				position: absolute;
-				inset: 0;
-				pointer-events: none;
-				background: linear-gradient(180deg, rgba(39, 171, 182, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
-			}
-
-			.hero-card h1 {
-				font-size: clamp(2.4rem, 4vw, 3.4rem);
-				line-height: 1.05;
-				margin: 0 0 24px;
-				font-weight: 800;
-				letter-spacing: -0.02em;
-			}
-
-			.hero-card h1 span {
-				color: var(--primary);
-			}
-
-			.hero-card p.lead {
-				font-size: clamp(1.05rem, 2.2vw, 1.2rem);
-				color: var(--muted);
-				margin-bottom: 24px;
-			}
-
-			.hero-badges {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 12px;
-				margin-bottom: 28px;
-			}
-
-			.badge {
-				background: rgba(39, 171, 182, 0.15);
-				border-radius: 999px;
-				padding: 8px 16px;
-				font-size: 0.88rem;
-				font-weight: 600;
-				color: var(--primary-dark);
-			}
-
-			.hero-list {
-				list-style: none;
-				padding: 0;
-				margin: 0 0 32px;
-				display: grid;
-				gap: 16px;
-			}
-
-			.hero-list li {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				align-items: start;
-				gap: 16px;
-				padding: 16px 18px;
-				border-radius: 16px;
-				border: 1px solid rgba(39, 171, 182, 0.18);
-				background: rgba(255, 255, 255, 0.85);
-				box-shadow: 0 10px 28px rgba(15, 76, 82, 0.08);
-			}
-
-			.hero-list .icon {
-				width: 28px;
-				height: 28px;
-				border-radius: 999px;
-				background: var(--primary);
-				display: grid;
-				place-items: center;
-				color: #fff;
-				font-weight: 700;
-			}
-
-			.hero-footer {
-				display: grid;
-				gap: 16px;
-			}
-
-			.hero-footer .cta {
-				background: var(--primary);
-				color: #fff;
-				padding: 16px 24px;
-				border-radius: 16px;
-				font-size: 1.05rem;
-				font-weight: 700;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				gap: 12px;
-				border: none;
-				cursor: pointer;
-				transition: transform 0.2s ease, box-shadow 0.2s ease;
-			}
-
-			.hero-footer .cta:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 14px 38px rgba(39, 171, 182, 0.35);
-				background: var(--primary-dark);
-			}
-
-			.hero-footer small {
-				color: var(--muted);
-				font-size: 0.85rem;
-			}
-
-			.form-card {
-				background: var(--bg);
-				border-radius: 32px;
-				padding: clamp(24px, 3vw, 34px);
-				box-shadow: 0 24px 60px rgba(14, 48, 56, 0.14);
-				border: 1px solid rgba(39, 171, 182, 0.18);
-				position: relative;
-			}
-
-			.status-banner {
-				background: rgba(39, 171, 182, 0.12);
-				color: var(--primary-dark);
-				border-radius: 999px;
-				padding: 10px 18px;
-				font-size: 0.85rem;
-				display: inline-flex;
-				gap: 10px;
-				align-items: center;
-				margin-bottom: 20px;
-			}
-
-			.form-header {
-				display: flex;
-				justify-content: center;
-				gap: 6px;
-				margin-bottom: 18px;
-				flex-wrap: wrap;
-			}
-
-			.dot {
-				width: 26px;
-				height: 26px;
-				border-radius: 50%;
-				background: rgba(39, 171, 182, 0.15);
-				color: var(--primary-dark);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 0.75rem;
-				font-weight: 700;
-				transition: all 0.3s ease;
-				cursor: default;
-			}
-
-			.dot.active {
-				background: var(--primary);
-				color: #fff;
-				transform: scale(1.1);
-				box-shadow: 0 4px 10px rgba(39, 171, 182, 0.3);
-			}
-
-			.dot.completed {
-				background: var(--primary-light);
-				color: #fff;
-			}
-
-			.form-step {
-				display: none;
-				animation: fadeIn 0.4s ease;
-			}
-
-			.form-step.active {
-				display: block;
-			}
-
-			.success-state {
-				text-align: center;
-				padding: 40px 20px;
-				animation: fadeIn 0.5s ease;
-			}
-
-			.success-icon {
-				font-size: 3.5rem;
-				margin-bottom: 16px;
-			}
-
-			.success-tip {
-				font-size: 0.9rem;
-				color: var(--muted);
-				margin-top: 24px;
-				margin-bottom: 16px;
-			}
-
-			.note {
-				font-size: 0.85rem;
-				color: var(--muted);
-				margin-top: 8px;
-				font-style: italic;
-			}
-
-			.option-shortcuts {
-				display: flex;
-				gap: 8px;
-				margin-top: 8px;
-				flex-wrap: wrap;
-			}
-
-			.fill-option {
-				background: rgba(39, 171, 182, 0.1);
-				border: 1px solid rgba(39, 171, 182, 0.2);
-				color: var(--primary-dark);
-				padding: 6px 12px;
-				border-radius: 8px;
-				font-size: 0.8rem;
-				cursor: pointer;
-				transition: background 0.2s;
-			}
-
-			.fill-option:hover {
-				background: rgba(39, 171, 182, 0.2);
-			}
-
-			form {
-				display: flex;
-				flex-direction: column;
-				gap: 18px;
-			}
-
-			@keyframes fadeIn {
-				from {
-					opacity: 0;
-					transform: translateY(8px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			.field {
-				display: grid;
-				gap: 6px;
-				margin-bottom: 18px;
-			}
-
-			label {
-				font-weight: 600;
-				font-size: 0.95rem;
-				color: var(--text);
-			}
-
-			input[type="text"],
-			input[type="tel"],
-			input[type="number"],
-			textarea {
-				width: 100%;
-				padding: 14px 16px;
-				border-radius: 14px;
-				border: 1.5px solid var(--border);
-				background: rgba(255, 255, 255, 0.92);
-				font-size: 1rem;
-				transition: border 0.2s ease, box-shadow 0.2s ease;
-			}
-
-			input:focus,
-			textarea:focus {
-				border-color: var(--primary);
-				outline: none;
-				box-shadow: 0 0 0 3px rgba(39, 171, 182, 0.18);
-			}
-
-			.option-group {
-				display: grid;
-				gap: 12px;
-				margin-top: 12px;
-			}
-
-			.option {
-				border: 2px solid rgba(39, 171, 182, 0.25);
-				border-radius: 16px;
-				padding: 18px 20px;
-				display: flex;
-				align-items: center;
-				gap: 14px;
-				background: rgba(255, 255, 255, 0.95);
-				cursor: pointer;
-				transition: all 0.2s ease;
-				font-size: 1.05rem;
-				font-weight: 500;
-			}
-
-			.option:hover {
-				border-color: var(--primary);
-				background: rgba(39, 171, 182, 0.08);
-				transform: translateX(4px);
-			}
-
-			.option input {
-				margin: 0;
-				accent-color: var(--primary);
-				transform: scale(1.4);
-				cursor: pointer;
-			}
-
-			.option:has(input:checked) {
-				border-color: var(--primary);
-				background: rgba(39, 171, 182, 0.15);
-				font-weight: 600;
-			}
-
-			.grid-two {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-				gap: 12px;
-			}
-
-			.inline-actions {
-				display: flex;
-				gap: 10px;
-				margin-top: 8px;
-			}
-
-			.inline-actions button {
-				border: 1px solid rgba(39, 171, 182, 0.3);
-				background: rgba(39, 171, 182, 0.12);
-				color: var(--primary-dark);
-				padding: 8px 12px;
-				border-radius: 10px;
-				font-size: 0.85rem;
-				cursor: pointer;
-			}
-
-			.inline-actions button:hover {
-				background: rgba(39, 171, 182, 0.2);
-			}
-
-			.error {
-				color: #c0392b;
-				font-size: 0.85rem;
-				margin-top: 4px;
-			}
-
-			.actions {
-				display: flex;
-				justify-content: space-between;
-				gap: 12px;
-				margin-top: 4px;
-			}
-
-			.actions button {
-				flex: 1;
-				padding: 14px 16px;
-				border-radius: 14px;
-				border: none;
-				font-weight: 700;
-				cursor: pointer;
-				font-size: 1rem;
-				transition: background 0.2s ease, transform 0.2s ease;
-			}
-
-			.btn-secondary {
-				background: rgba(39, 171, 182, 0.12);
-				color: var(--primary-dark);
-			}
-
-			.btn-secondary:hover {
-				background: rgba(39, 171, 182, 0.2);
-			}
-
-			.btn-primary {
-				background: var(--primary);
-				color: #fff;
-			}
-
-			.btn-primary:hover {
-				background: var(--primary-dark);
-				transform: translateY(-1px);
-			}
-
-			textarea {
-				min-height: 140px;
-				resize: vertical;
-			}
-
-			.modal-backdrop {
-				position: fixed;
-				inset: 0;
-				background: rgba(0, 0, 0, 0.45);
-				backdrop-filter: blur(4px);
-				display: none;
-				align-items: center;
-				justify-content: center;
-				padding: 24px;
-				z-index: 999;
-			}
-
-			.modal-backdrop.active {
-				display: flex;
-			}
-
-			.modal {
-				background: #fff;
-				border-radius: 24px;
-				padding: 32px;
-				max-width: 420px;
-				width: 100%;
-				text-align: center;
-				box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-			}
-
-			.modal h3 {
-				margin-top: 0;
-				margin-bottom: 12px;
-				font-size: 1.6rem;
-			}
-
-			.modal p {
-				color: var(--muted);
-				margin-bottom: 24px;
-			}
-
-			.modal button {
-				padding: 12px 16px;
-				border: none;
-				border-radius: 12px;
-				background: var(--primary);
-				color: #fff;
-				font-weight: 600;
-				cursor: pointer;
-			}
-
-			@media (max-width: 960px) {
-				.page {
-					padding: 28px 18px;
-				}
-
-				.hero-card {
-					padding: 36px 28px;
-					text-align: center;
-				}
-
-				.hero-list li {
-					text-align: left;
-				}
-
-				.form-card {
-					padding: 24px;
-				}
-
-				.actions {
-					flex-direction: column-reverse;
-				}
-
-				.actions button {
-					width: 100%;
-				}
-			}
-
-			@media (max-width: 640px) {
-				.page {
-					padding: 18px 12px 60px;
-				}
-
-				.hero-card {
-					padding: 28px 24px;
-				}
-
-				.hero-list {
-					gap: 12px;
-				}
-
-				.badge {
-					font-size: 0.78rem;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<div class="page">
-			<div class="shell">
-				<section class="hero-card" aria-labelledby="hero-title">
-					<h1 id="hero-title">UP <span>Day Plus</span> 2026</h1>
-					<p class="lead">Uma imersão presencial intensiva de 2 dias em São Paulo para elevar sua produtividade, fortalecer seus relacionamentos, dominar a gestão das emoções e viver o Firewalking como coroação dessa jornada UP.</p>
-					<div class="hero-badges" role="list">
-						<span class="badge" role="listitem">15 e 16 de Agosto</span>
-						<span class="badge" role="listitem">Sábado: 6:59h às 20:59h</span>
-						<span class="badge" role="listitem">Domingo: 8:59h às 18:59h</span>
-						<span class="badge" role="listitem">São Paulo-SP</span>
-						<span class="badge" role="listitem">Rua Abílio Soares, 245 – Bairro Paraíso</span>
-						<span class="badge" role="listitem">Vagas limitadas</span>
-					</div>
-					<ul class="hero-list">
-						<li>
-							<span class="icon">1</span>
-							<div>
-								<strong>Produtividade que gera resultados.</strong>
-								<div>Gestão de tempo, foco e disciplina aplicados ao seu dia a dia.</div>
-							</div>
-						</li>
-						<li>
-							<span class="icon">2</span>
-							<div>
-								<strong>Relacionamentos de excelência.</strong>
-								<div>Comunicação clara para fortalecer conexões profissionais e pessoais.</div>
-							</div>
-						</li>
-						<li>
-							<span class="icon">3</span>
-							<div>
-								<strong>Vida UP na prática.</strong>
-								<div>Autoconhecimento, autocontrole e gestão das emoções para uma jornada leve.</div>
-							</div>
-						</li>
-					</ul>
-					<div class="hero-footer">
-						<button class="cta" type="button" id="cta-open" aria-controls="form-card">Quero garantir minha vaga</button>
-						<small>Preencha o formulário ao lado. Em menos de 4 minutos você reserva sua vaga.</small>
-					</div>
-				</section>
-
-				<section class="form-card" id="form-card" aria-labelledby="form-title">
-					<div class="status-banner" id="status-banner" aria-live="polite">Pronto para começar. Avançamos juntos etapa a etapa.</div>
-					
-					<!-- Barra de vagas -->
-					<div style="margin-bottom: 24px; padding: 18px 20px; background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(192, 57, 43, 0.08) 100%); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 14px;">
-						<div style="font-weight: 700; font-size: 0.9rem; color: #e74c3c; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-							<span style="font-size: 1.1rem;">⚠️</span> Atenção: Vagas limitadas
-						</div>
-						<div style="background: rgba(0,0,0,0.06); height: 28px; border-radius: 14px; overflow: hidden; position: relative; border: 1px solid rgba(0,0,0,0.08);">
-							<div style="background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); height: 100%; width: 83%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.8rem; transition: width 0.8s ease; box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);">83% preenchido</div>
-						</div>
-						<div style="font-size: 0.85rem; color: #7f8c8d; margin-top: 8px; font-weight: 500;">Restam poucas vagas disponíveis</div>
-					</div>
-
-					<h2 class="form-title" id="formTitle">GARANTA SUA VAGA AGORA</h2>
-              <div class="form-header" id="progressDots" aria-label="Progresso do formulário">
-                <div class="dot" data-step="0">1</div>
-                <div class="dot" data-step="1">2</div>
-                <div class="dot" data-step="2">3</div>
-                <div class="dot" data-step="3">4</div>
-                <div class="dot" data-step="4">5</div>
-                <div class="dot" data-step="5">6</div>
-                <div class="dot" data-step="6">7</div>
-                <div class="dot" data-step="7">8</div>
-                <div class="dot" data-step="8">9</div>
-                <div class="dot" data-step="9">10</div>
-                <div class="dot" data-step="10">11</div>
-                <div class="dot" data-step="11">12</div>
-                <div class="dot" data-step="12">13</div>
-                <div class="dot" data-step="13">14</div>
-                <div class="dot" data-step="14">15</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inscrição UP Day - Agosto 2026</title>
+    <link rel="icon" type="image/png" href="/up.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --primary: #27abb6;
+        --primary-dark: #1f8a92;
+        --primary-light: #5fc7cf;
+        --bg: #ffffff;
+        --text: #101010;
+        --muted: #4f5b61;
+        --border: rgba(0, 0, 0, 0.09);
+        --danger: #c0392b;
+        --radius: 16px;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: linear-gradient(135deg, #f7fbfc 0%, rgba(39, 171, 182, 0.14) 100%);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        min-height: 100vh;
+        padding: 40px 24px;
+      }
+
+      .shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(300px, 0.88fr) minmax(320px, 1.12fr);
+        gap: 32px;
+        align-items: start;
+      }
+
+      .hero-card,
+      .form-card {
+        background: var(--bg);
+        border: 1px solid rgba(39, 171, 182, 0.16);
+        box-shadow: 0 24px 60px rgba(14, 48, 56, 0.14);
+      }
+
+      .hero-card {
+        border-radius: 28px;
+        padding: 44px 38px;
+        position: sticky;
+        top: 24px;
+        overflow: hidden;
+      }
+
+      .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(39, 171, 182, 0.08) 0%, rgba(255, 255, 255, 0) 72%);
+      }
+
+      .hero-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(39, 171, 182, 0.12);
+        color: var(--primary-dark);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        font-size: clamp(2.25rem, 4vw, 3.35rem);
+        line-height: 1.05;
+        margin: 0 0 18px;
+        font-weight: 850;
+      }
+
+      h1 span,
+      .accent {
+        color: var(--primary);
+      }
+
+      .lead {
+        font-size: clamp(1.02rem, 2vw, 1.16rem);
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      .badge {
+        background: rgba(39, 171, 182, 0.14);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+      }
+
+      .hero-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .hero-list li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 15px 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(39, 171, 182, 0.18);
+        background: rgba(255, 255, 255, 0.86);
+      }
+
+      .hero-list .icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: var(--primary);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+      }
+
+      .cta {
+        width: 100%;
+        border: 0;
+        border-radius: 16px;
+        padding: 16px 20px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 850;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 38px rgba(39, 171, 182, 0.35);
+        background: var(--primary-dark);
+      }
+
+      .hero-footer small {
+        display: block;
+        color: var(--muted);
+        font-size: 0.86rem;
+        margin-top: 12px;
+      }
+
+      .form-card {
+        border-radius: 30px;
+        padding: clamp(22px, 3vw, 34px);
+      }
+
+      .status-banner {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(39, 171, 182, 0.12);
+        color: var(--primary-dark);
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 0.86rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .limited-box {
+        margin-bottom: 24px;
+        padding: 18px 20px;
+        background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(192, 57, 43, 0.08) 100%);
+        border: 1px solid rgba(231, 76, 60, 0.26);
+        border-radius: 14px;
+      }
+
+      .limited-title {
+        font-weight: 800;
+        color: #c0392b;
+        margin-bottom: 10px;
+      }
+
+      .bar {
+        height: 28px;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .bar > div {
+        height: 100%;
+        width: 83%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 850;
+      }
+
+      .limited-note {
+        color: #7f8c8d;
+        font-size: 0.84rem;
+        margin-top: 8px;
+        font-weight: 650;
+      }
+
+      .form-title {
+        margin: 0 0 6px;
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+        line-height: 1.1;
+      }
+
+      .form-subtitle {
+        margin: 0 0 20px;
+        color: var(--muted);
+      }
+
+      .form-header {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+
+      .dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(39, 171, 182, 0.14);
+        color: var(--primary-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 850;
+        transition: all 0.25s ease;
+      }
+
+      .dot.active,
+      .dot.completed {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      #progressText {
+        text-align: center;
+        font-size: 0.82rem;
+        color: var(--muted);
+        margin-bottom: 18px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .form-step {
+        display: none;
+        animation: fadeIn 0.35s ease;
+      }
+
+      .form-step.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+        margin-bottom: 18px;
+      }
+
+      label,
+      .question-label {
+        font-weight: 750;
+        font-size: 0.95rem;
+      }
+
+      .required::after {
+        content: " *";
+        color: var(--danger);
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      input[type="date"],
+      textarea {
+        width: 100%;
+        border: 1.5px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.94);
+        padding: 14px 16px;
+        font-size: 1rem;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      textarea {
+        min-height: 118px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(39, 171, 182, 0.17);
+      }
+
+      .choice-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .choice-list label,
+      .term-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1.5px solid rgba(39, 171, 182, 0.2);
+        border-radius: 14px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.93);
+        font-weight: 700;
+      }
+
+      .choice-list input,
+      .term-check input {
+        accent-color: var(--primary);
+      }
+
+      .grid-two {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .info-box,
+      .term-box {
+        border: 1.5px solid rgba(39, 171, 182, 0.22);
+        border-radius: 16px;
+        padding: 18px;
+        background: rgba(39, 171, 182, 0.08);
+        margin-bottom: 18px;
+      }
+
+      .term-box {
+        background: rgba(16, 16, 16, 0.03);
+      }
+
+      .info-box h3,
+      .term-box h3 {
+        margin: 0 0 10px;
+        font-size: 1.04rem;
+      }
+
+      .info-box p,
+      .term-box p {
+        margin: 8px 0;
+        color: var(--muted);
+      }
+
+      .pix-line {
+        font-weight: 850;
+        color: var(--text);
+      }
+
+      .note {
+        color: var(--muted);
+        font-size: 0.86rem;
+        margin-top: 6px;
+      }
+
+      .error {
+        display: none;
+        color: var(--danger);
+        font-size: 0.84rem;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .btn {
+        flex: 1;
+        border: 0;
+        border-radius: 14px;
+        padding: 14px 16px;
+        font-size: 1rem;
+        font-weight: 850;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .btn-secondary {
+        background: rgba(39, 171, 182, 0.12);
+        color: var(--primary-dark);
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .btn-primary:hover,
+      .btn-secondary:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          padding: 22px 14px;
+        }
+
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-card {
+          position: static;
+          padding: 32px 24px;
+        }
+
+        .grid-two {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="shell">
+        <section class="hero-card" aria-labelledby="hero-title">
+          <div class="eyebrow">Inscrição oficial</div>
+          <h1 id="hero-title">UP Day <span>Agosto 2026</span></h1>
+          <p class="lead">
+            Preencha seus dados para garantir sua inscrição no treinamento presencial do Instituto UP.
+          </p>
+          <div class="hero-badges" role="list">
+            <span class="badge" role="listitem">15 e 16 de Agosto de 2026</span>
+            <span class="badge" role="listitem">São Paulo-SP</span>
+            <span class="badge" role="listitem">Rua Abílio Soares, 245</span>
+            <span class="badge" role="listitem">Vagas limitadas</span>
+          </div>
+          <ul class="hero-list">
+            <li>
+              <span class="icon">1</span>
+              <div>
+                <strong>Dados de identificação.</strong>
+                <div>Nome, documentos e contatos para confirmação da vaga.</div>
               </div>
-              <div id="progressText" style="text-align:center;font-size:12px;color:#8aa0ff;margin:-4px 0 12px;">Etapa 1 de 15</div>
+            </li>
+            <li>
+              <span class="icon">2</span>
+              <div>
+                <strong>Informações do participante.</strong>
+                <div>Camiseta, indicação e observações importantes de saúde.</div>
+              </div>
+            </li>
+            <li>
+              <span class="icon">3</span>
+              <div>
+                <strong>Termos de participação.</strong>
+                <div>Pagamento, multa de adiamento e regras de cancelamento.</div>
+              </div>
+            </li>
+          </ul>
+          <div class="hero-footer">
+            <button class="cta" type="button" id="cta-open" aria-controls="form-card">Faça sua inscrição</button>
+            <small>O preenchimento leva poucos minutos e seus dados serão enviados para nossa equipe.</small>
+          </div>
+        </section>
 
-              <div id="formSuccess" class="success-state" hidden role="status" aria-live="polite">
-                <div class="success-icon" aria-hidden="true">✅</div>
-                <h3>Cadastro confirmado!</h3>
-                <p>Recebemos suas informações. Você receberá as orientações oficiais no WhatsApp e no e-mail informado.</p>
-                <p class="success-tip">Não é necessário enviar novamente. Caso precise ajustar os dados, clique no botão abaixo.</p>
-                <button type="button" class="btn btn-primary" id="successReset" style="justify-content:center;">Preciso editar os dados</button>
+        <section class="form-card" id="form-card" aria-labelledby="formTitle">
+          <div class="status-banner" id="status-banner" aria-live="polite">Inscrição UP Day - Agosto 2026</div>
+
+          <div class="limited-box">
+            <div class="limited-title">Atenção: vagas limitadas</div>
+            <div class="bar"><div>83% preenchido</div></div>
+            <div class="limited-note">Restam poucas vagas disponíveis para 15 e 16 de agosto.</div>
+          </div>
+
+          <h2 class="form-title" id="formTitle">Faça sua inscrição</h2>
+          <p class="form-subtitle">UP Day - 15 e 16 de Agosto de 2026</p>
+
+          <div class="form-header" id="progressDots" aria-label="Progresso do formulário">
+            <div class="dot" data-step="0">1</div>
+            <div class="dot" data-step="1">2</div>
+            <div class="dot" data-step="2">3</div>
+            <div class="dot" data-step="3">4</div>
+            <div class="dot" data-step="4">5</div>
+            <div class="dot" data-step="5">6</div>
+          </div>
+          <div id="progressText">Etapa 1 de 6</div>
+
+          <form id="msForm" novalidate>
+            <div class="form-step active" data-step="0">
+              <div class="field">
+                <label class="required" for="nome">Nome completo</label>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome completo" autocomplete="name" required />
+                <div class="error" data-for="nome"></div>
+              </div>
+              <div class="grid-two">
+                <div class="field">
+                  <label class="required" for="rg">RG</label>
+                  <input id="rg" name="rg" type="text" placeholder="Seu RG" required />
+                  <div class="error" data-for="rg"></div>
+                </div>
+                <div class="field">
+                  <label class="required" for="cpf">CPF</label>
+                  <input id="cpf" name="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" required />
+                  <div class="error" data-for="cpf"></div>
+                </div>
+              </div>
+              <div class="actions">
+                <span></span>
+                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="1">
+              <div class="field">
+                <label class="required" for="endereco">Endereço</label>
+                <input id="endereco" name="endereco" type="text" placeholder="Rua, número, bairro e complemento" autocomplete="street-address" required />
+                <div class="error" data-for="endereco"></div>
+              </div>
+              <div class="grid-two">
+                <div class="field">
+                  <label class="required" for="cidade">Cidade que reside</label>
+                  <input id="cidade" name="cidade" type="text" placeholder="Sua cidade" autocomplete="address-level2" required />
+                  <div class="error" data-for="cidade"></div>
+                </div>
+                <div class="field">
+                  <label class="required" for="email">E-mail</label>
+                  <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
+                  <div class="error" data-for="email"></div>
+                </div>
+              </div>
+              <div class="grid-two">
+                <div class="field">
+                  <label class="required" for="telefone">Número de telefone pessoal</label>
+                  <input id="telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" autocomplete="tel" required />
+                  <div class="error" data-for="telefone"></div>
+                </div>
+                <div class="field">
+                  <label class="required" for="contato_emergencia">Número de contato familiar/amigo</label>
+                  <input id="contato_emergencia" name="contato_emergencia" type="tel" inputmode="tel" placeholder="(00) 00000-0000" required />
+                  <div class="error" data-for="contato_emergencia"></div>
+                </div>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="2">
+              <div class="grid-two">
+                <div class="field">
+                  <label class="required" for="data_nascimento">Data de nascimento</label>
+                  <input id="data_nascimento" name="data_nascimento" type="date" required />
+                  <div class="error" data-for="data_nascimento"></div>
+                </div>
+                <div class="field">
+                  <label class="required" for="profissao_area">Profissão</label>
+                  <input id="profissao_area" name="profissao_area" type="text" placeholder="Sua profissão" required />
+                  <div class="error" data-for="profissao_area"></div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="question-label required">Estado civil</div>
+                <div class="choice-list">
+                  <label><input type="radio" name="estado_civil" value="Solteiro(a)" required /> Solteiro(a)</label>
+                  <label><input type="radio" name="estado_civil" value="Casado(a)" /> Casado(a)</label>
+                  <label><input type="radio" name="estado_civil" value="Viúvo(a)" /> Viúvo(a)</label>
+                  <label><input type="radio" name="estado_civil" value="Separado(a)" /> Separado(a)</label>
+                  <label><input type="radio" name="estado_civil" value="União Estável" /> União Estável</label>
+                  <label><input type="radio" name="estado_civil" value="Outro" /> Outro</label>
+                </div>
+                <input id="estado_civil_outro" name="estado_civil_outro" type="text" placeholder="Se marcou outro, informe aqui" />
+                <div class="error" data-for="estado_civil"></div>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="3">
+              <div class="field">
+                <label for="medicamentos_tratamento">Você está fazendo algum uso de medicamento ou tratamento? Se sim, qual?</label>
+                <textarea id="medicamentos_tratamento" name="medicamentos_tratamento" placeholder="Informe medicamentos, tratamentos ou escreva 'Não' se não houver."></textarea>
+                <div class="error" data-for="medicamentos_tratamento"></div>
+              </div>
+              <div class="field">
+                <label class="required" for="indicacao">Quem te indicou o nosso treinamento?</label>
+                <input id="indicacao" name="indicacao" type="text" placeholder="Nome da pessoa, Instagram ou canal" required />
+                <div class="error" data-for="indicacao"></div>
+              </div>
+              <div class="field">
+                <div class="question-label required">Qual tamanho da sua camiseta?</div>
+                <div class="choice-list">
+                  <label><input type="radio" name="tamanho_camiseta" value="P" required /> P</label>
+                  <label><input type="radio" name="tamanho_camiseta" value="M" /> M</label>
+                  <label><input type="radio" name="tamanho_camiseta" value="G" /> G</label>
+                  <label><input type="radio" name="tamanho_camiseta" value="GG" /> GG</label>
+                  <label><input type="radio" name="tamanho_camiseta" value="XG" /> XG</label>
+                  <label><input type="radio" name="tamanho_camiseta" value="XGG" /> XGG</label>
+                </div>
+                <div class="error" data-for="tamanho_camiseta"></div>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="4">
+              <div class="info-box">
+                <h3>Pagamento</h3>
+                <p>Sua vaga será garantida com o pagamento da primeira parcela através do PIX:</p>
+                <p class="pix-line">CNPJ 24.964.964/0001-18</p>
+                <p class="pix-line">RODRIGO DAMACENO PEREIRA</p>
+                <p>Ou pelo preenchimento do link de pagamento enviado pela equipe.</p>
+                <p><strong>OBS:</strong> Não é permitida a participação de gestantes. Outras condições especiais, consulte-nos.</p>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+              </div>
+            </div>
+
+            <div class="form-step" data-step="5">
+              <div class="term-box">
+                <h3>Multa</h3>
+                <p>
+                  Caso o contratante deseje adiar o treinamento, será cobrada uma taxa de R$ 400,00 por qualquer imprevisto,
+                  ou haverá a possibilidade de substituir por alguém indicado por ele para ocupar essa vaga com 15 dias de
+                  antecedência da data do treinamento.
+                </p>
+                <label class="term-check">
+                  <input type="checkbox" name="multa_ciente" value="Declaro estar ciente da taxa." required />
+                  Declaro estar ciente da taxa.
+                </label>
+                <div class="error" data-for="multa_ciente"></div>
               </div>
 
-              <form id="msForm" novalidate>
-                <!-- Etapa 1: Dados Pessoais -->
-                <div class="form-step active" data-step="0">
-                  <div class="field">
-                    <label for="nome">Nome Completo</label>
-                    <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
-                    <div class="error" data-for="nome"></div>
-                  </div>
-                  <div class="field">
-                    <label for="cidade">Cidade</label>
-                    <input id="cidade" name="cidade" type="text" placeholder="Sua cidade" required />
-                    <div class="error" data-for="cidade"></div>
-                  </div>
-                  <div class="field">
-                    <label for="telefone">Telefone</label>
-                    <input id="telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" required />
-                    <div class="error" data-for="telefone"></div>
-                  </div>
-                  <div class="actions">
-                    <span></span>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 2: Informações Adicionais -->
-                <div class="form-step" data-step="1">
-                  <div class="field">
-                    <label for="idade">Idade</label>
-                    <input id="idade" name="idade" type="number" min="0" max="120" placeholder="Sua idade" required />
-                    <div class="error" data-for="idade"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 3: Nível de Ansiedade -->
-                <div class="form-step" data-step="2">
-                  <div class="field">
-                    <label>Como está seu nível de ansiedade?</label>
-                    <label><input type="radio" name="ansiedade" value="Muito ansioso" required /> Muito ansioso</label>
-                    <label><input type="radio" name="ansiedade" value="Ansioso" /> Ansioso</label>
-                    <label><input type="radio" name="ansiedade" value="Controlado" /> Controlado</label>
-                    <label><input type="radio" name="ansiedade" value="Pouco ansioso" /> Pouco ansioso</label>
-                    <label><input type="radio" name="ansiedade" value="Não tenho ansiedade" /> Não tenho ansiedade</label>
-                    <label><input type="radio" name="ansiedade" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="ansiedade" value="Não quero responder" /> Não quero responder</label>
-                    <div class="error" data-for="ansiedade"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 4: Qualidade do Sono -->
-                <div class="form-step" data-step="3">
-                  <div class="field">
-                    <label>Como está sua qualidade do sono?</label>
-                    <label><input type="radio" name="sono" value="Muito Boa" required /> Muito Boa</label>
-                    <label><input type="radio" name="sono" value="Boa" /> Boa</label>
-                    <label><input type="radio" name="sono" value="Regular" /> Regular</label>
-                    <label><input type="radio" name="sono" value="Ruim" /> Ruim</label>
-                    <label><input type="radio" name="sono" value="Muito ruim" /> Muito ruim</label>
-                    <label><input type="radio" name="sono" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="sono" value="Não quero responder" /> Não quero responder</label>
-                    <div class="error" data-for="sono"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 5: Vida Financeira -->
-                <div class="form-step" data-step="4">
-                  <div class="field">
-                    <label>Como está sua vida financeira?</label>
-                    <label><input type="radio" name="vida_financeira" value="Muito Boa" required /> Muito Boa</label>
-                    <label><input type="radio" name="vida_financeira" value="Boa" /> Boa</label>
-                    <label><input type="radio" name="vida_financeira" value="Regular" /> Regular</label>
-                    <label><input type="radio" name="vida_financeira" value="Ruim" /> Ruim</label>
-                    <label><input type="radio" name="vida_financeira" value="Muito ruim" /> Muito ruim</label>
-                    <label><input type="radio" name="vida_financeira" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="vida_financeira" value="Não quero responder" /> Não quero responder</label>
-                    <div class="error" data-for="vida_financeira"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 6: Saúde Física -->
-                <div class="form-step" data-step="5">
-                  <div class="field">
-                    <label>Como está sua saúde física?</label>
-                    <label><input type="radio" name="saude_fisica" value="Muito Boa" required /> Muito Boa</label>
-                    <label><input type="radio" name="saude_fisica" value="Boa" /> Boa</label>
-                    <label><input type="radio" name="saude_fisica" value="Regular" /> Regular</label>
-                    <label><input type="radio" name="saude_fisica" value="Ruim" /> Ruim</label>
-                    <label><input type="radio" name="saude_fisica" value="Muito ruim" /> Muito ruim</label>
-                    <label><input type="radio" name="saude_fisica" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="saude_fisica" value="Não quero responder" /> Não quero responder</label>
-                    <div class="error" data-for="saude_fisica"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 7: Relacionamentos Familiares -->
-                <div class="form-step" data-step="6">
-                  <div class="field">
-                    <label>Como está a qualidade dos seus relacionamentos familiares?</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Muito Boa" required /> Muito Boa</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Boa" /> Boa</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Regular" /> Regular</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Ruim" /> Ruim</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Muito ruim" /> Muito ruim</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Não tenho família próxima" /> Não tenho família próxima</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="relacionamentos_familiares" value="Não quero responder" /> Não quero responder</label>
-                    <div class="error" data-for="relacionamentos_familiares"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 8: Relacionamento Amoroso -->
-                <div class="form-step" data-step="7">
-                  <div class="field">
-                    <label>Como está seu relacionamento amoroso?</label>
-                    <label><input type="radio" name="relacionamento" value="Muito Bom" required /> Muito Bom</label>
-                    <label><input type="radio" name="relacionamento" value="Bom" /> Bom</label>
-                    <label><input type="radio" name="relacionamento" value="Regular" /> Regular</label>
-                    <label><input type="radio" name="relacionamento" value="Ruim" /> Ruim</label>
-                    <label><input type="radio" name="relacionamento" value="Muito ruim" /> Muito ruim</label>
-                    <label><input type="radio" name="relacionamento" value="Não tenho" /> Não tenho</label>
-                    <label><input type="radio" name="relacionamento" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="relacionamento" value="Não quero responder" /> Não quero responder</label>
-                    <div class="error" data-for="relacionamento"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 9: Áreas para Melhorar -->
-                <div class="form-step" data-step="8">
-                  <div class="field">
-                    <label>Quais áreas você quer melhorar? (marque quantas desejar)</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Saúde emocional" data-required-group="areas_melhoria" /> Saúde emocional</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Saúde física" data-required-group="areas_melhoria" /> Saúde física</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Relações familiares" data-required-group="areas_melhoria" /> Relações familiares</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Relação amorosa" data-required-group="areas_melhoria" /> Relação amorosa</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Área financeira" data-required-group="areas_melhoria" /> Área financeira</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Área profissional" data-required-group="areas_melhoria" /> Área profissional</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Nível de ansiedade/estresse" data-required-group="areas_melhoria" /> Nível de ansiedade/estresse</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Qualidade do sono" data-required-group="areas_melhoria" /> Qualidade do sono</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Comunicação" data-required-group="areas_melhoria" /> Comunicação</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Liderança" data-required-group="areas_melhoria" /> Liderança</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Não sei" data-required-group="areas_melhoria" /> Não sei</label>
-                    <label><input type="checkbox" name="areas_melhoria" value="Não quero responder" data-required-group="areas_melhoria" /> Não quero responder</label>
-                    <div class="error" data-for="areas_melhoria"></div>
-                  </div>
-                  <div class="note">Avance para informar brevemente seu trabalho ou profissão.</div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 10: Trabalho ou Profissão -->
-                <div class="form-step" data-step="9">
-                  <div class="field">
-                    <label for="profissao_area">Qual é o seu trabalho ou profissão?</label>
-                    <input id="profissao_area" name="profissao_area" type="text" placeholder="Ex.: Professor(a), Empreendedor(a), Analista, Estudante" required />
-                    <div class="note">Se preferir não informar, escolha uma das opções abaixo.</div>
-                    <div class="option-shortcuts" data-target="profissao_area">
-                      <button type="button" class="fill-option" data-target="profissao_area" data-value="Não sei">Não sei</button>
-                      <button type="button" class="fill-option" data-target="profissao_area" data-value="Não quero responder">Não quero responder</button>
-                    </div>
-                    <div class="error" data-for="profissao_area"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 11: Gatilhos Principais -->
-                <div class="form-step" data-step="10">
-                  <div class="field">
-                    <label>Quais situações mais disparam sua ansiedade ou estresse? (marque todas)</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Pressão no trabalho" data-required-group="gatilhos_ansiedade" /> Pressão no trabalho</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Demandas familiares" data-required-group="gatilhos_ansiedade" /> Demandas familiares</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Questões financeiras" data-required-group="gatilhos_ansiedade" /> Questões financeiras</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Saúde física" data-required-group="gatilhos_ansiedade" /> Saúde física</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Relacionamentos amorosos" data-required-group="gatilhos_ansiedade" /> Relacionamentos amorosos</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Autocobrança e perfeccionismo" data-required-group="gatilhos_ansiedade" /> Autocobrança e perfeccionismo</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Incertezas sobre o futuro" data-required-group="gatilhos_ansiedade" /> Incertezas sobre o futuro</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Não sei" data-required-group="gatilhos_ansiedade" /> Não sei</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Não quero responder" data-required-group="gatilhos_ansiedade" /> Não quero responder</label>
-                    <label><input type="checkbox" name="gatilhos_ansiedade" value="Outros" data-required-group="gatilhos_ansiedade" /> Outros</label>
-                    <div class="error" data-for="gatilhos_ansiedade"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 12: Sintomas Físicos -->
-                <div class="form-step" data-step="11">
-                  <div class="field">
-                    <label>Quais sintomas físicos sente com mais frequência? (marque todas)</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Tensão muscular" data-required-group="sintomas_fisicos" /> Tensão muscular</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Alterações no sono" data-required-group="sintomas_fisicos" /> Alterações no sono</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Taquicardia" data-required-group="sintomas_fisicos" /> Taquicardia</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Falta de ar" data-required-group="sintomas_fisicos" /> Falta de ar</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Queda de energia" data-required-group="sintomas_fisicos" /> Queda de energia</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Problemas digestivos" data-required-group="sintomas_fisicos" /> Problemas digestivos</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Não sei" data-required-group="sintomas_fisicos" /> Não sei</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Não quero responder" data-required-group="sintomas_fisicos" /> Não quero responder</label>
-                    <label><input type="checkbox" name="sintomas_fisicos" value="Outros" data-required-group="sintomas_fisicos" /> Outros</label>
-                    <div class="error" data-for="sintomas_fisicos"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 13: Sintomas Emocionais -->
-                <div class="form-step" data-step="12">
-                  <div class="field">
-                    <label>Quais sinais emocionais percebe em você? (marque todas)</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Ansiedade constante" data-required-group="sintomas_emocionais" /> Ansiedade constante</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Oscilação de humor" data-required-group="sintomas_emocionais" /> Oscilação de humor</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Irritabilidade" data-required-group="sintomas_emocionais" /> Irritabilidade</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Sensação de impotência" data-required-group="sintomas_emocionais" /> Sensação de impotência</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Desânimo / falta de motivação" data-required-group="sintomas_emocionais" /> Desânimo / falta de motivação</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Dificuldade de concentração" data-required-group="sintomas_emocionais" /> Dificuldade de concentração</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Não sei" data-required-group="sintomas_emocionais" /> Não sei</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Não quero responder" data-required-group="sintomas_emocionais" /> Não quero responder</label>
-                    <label><input type="checkbox" name="sintomas_emocionais" value="Outros" data-required-group="sintomas_emocionais" /> Outros</label>
-                    <div class="error" data-for="sintomas_emocionais"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 14: O que já tentou -->
-                <div class="form-step" data-step="13">
-                  <div class="field">
-                    <label>O que já tentou para lidar com isso? (marque todas)</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Psicoterapia" data-required-group="tentativas_anteriores" /> Psicoterapia</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Atividade física" data-required-group="tentativas_anteriores" /> Atividade física</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Meditação ou respiração" data-required-group="tentativas_anteriores" /> Meditação ou respiração</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Medicamentos" data-required-group="tentativas_anteriores" /> Medicamentos</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Cursos ou workshops" data-required-group="tentativas_anteriores" /> Cursos ou workshops</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Não tentei nada ainda" data-required-group="tentativas_anteriores" /> Não tentei nada ainda</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Não sei" data-required-group="tentativas_anteriores" /> Não sei</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Não quero responder" data-required-group="tentativas_anteriores" /> Não quero responder</label>
-                    <label><input type="checkbox" name="tentativas_anteriores" value="Outros" data-required-group="tentativas_anteriores" /> Outros</label>
-                    <div class="error" data-for="tentativas_anteriores"></div>
-                  </div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>PRÓXIMO</button>
-                  </div>
-                </div>
-
-                <!-- Etapa 15: Observações Finais -->
-                <div class="form-step" data-step="14">
-                  <div class="field">
-                    <label>Como conheceu o Instituto UP?</label>
-                    <label><input type="radio" name="como_conheceu" value="Instagram" required /> Instagram</label>
-                    <label><input type="radio" name="como_conheceu" value="Indicação" /> Indicação</label>
-                    <label><input type="radio" name="como_conheceu" value="Pesquisa Google" /> Pesquisa Google</label>
-                    <label><input type="radio" name="como_conheceu" value="Não sei" /> Não sei</label>
-                    <label><input type="radio" name="como_conheceu" value="Não quero responder" /> Não quero responder</label>
-                    <label><input type="radio" name="como_conheceu" value="Outro" /> Outro</label>
-                    <div class="error" data-for="como_conheceu"></div>
-                  </div>
-                  <div class="field">
-                    <label for="comentarios_adicionais">Expectativas ou comentários adicionais</label>
-                    <textarea id="comentarios_adicionais" name="comentarios_adicionais" rows="3" placeholder="Compartilhe expectativas, dúvidas ou contexto." required></textarea>
-                    <div class="note">Se não quiser detalhar, clique em uma das opções rápidas abaixo.</div>
-                    <div class="option-shortcuts" data-target="comentarios_adicionais">
-                      <button type="button" class="fill-option" data-target="comentarios_adicionais" data-value="Nenhuma observação no momento">Nenhuma observação</button>
-                      <button type="button" class="fill-option" data-target="comentarios_adicionais" data-value="Não quero responder">Não quero responder</button>
-                    </div>
-                    <div class="error" data-for="comentarios_adicionais"></div>
-                  </div>
-                  <div class="note">Obrigado! Suas respostas nos ajudam a personalizar o acompanhamento após o encontro.</div>
-                  <div class="actions">
-                    <button type="button" class="btn" data-back>VOLTAR</button>
-                    <button type="button" class="btn btn-primary" data-next>FINALIZAR</button>
-                  </div>
-                </div>
-              </form>
-				</section>
-			</div>
-		</div>
-
-		<div class="modal-backdrop" id="modal-success" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
-			<div class="modal">
-				<h3 id="modal-title">Inscrição concluída!</h3>
-				<p id="modal-desc">Recebemos suas respostas. Um de nossos especialistas entrará em contato em breve.</p>
-				<button type="button" id="modal-close">Fechar e reiniciar</button>
-			</div>
-		</div>
-
-		<script>
-			(function () {
-				/* ═══════════════════════════════════════════════════════════════════
-				   TRAINING_CONFIG — altere aqui para cada novo treinamento
-				   ═══════════════════════════════════════════════════════════════════ */
-				const TRAINING_CONFIG = {
-					dateDisplay: '15 e 16/08',
-					startISO:           '2026-08-15T09:00:00-03:00',
-					endISO:             '2026-08-16T18:00:00-03:00',
-					occupancyStartISO:  '2026-04-07T00:00:00-03:00',
-					occupancyMinPercent: 40,
-					occupancyMaxPercent: 95,
-					whatsappNumber: '5513997832766',
-					whatsappMessage: 'Olá! Acabei de preencher o formulário do UP Day Plus e quero finalizar minha inscrição.'
-				};
-
-				const TOTAL_STEPS = 15;
-				const INSCRICAO_URL = "/api/inscricao";
-				const statusBanner = document.getElementById("status-banner");
-				const stepCounter = document.getElementById("progressText");
-				const progressDots = document.querySelectorAll(".dot");
-				const form = document.getElementById("msForm");
-				const steps = Array.from(document.querySelectorAll(".form-step"));
-				const formSuccess = document.getElementById("formSuccess");
-				const successReset = document.getElementById("successReset");
-				const ctaOpen = document.getElementById("cta-open");
-				let currentStep = 0;
-				const allData = {};
-				const clientId = crypto.randomUUID();
-				const searchParams = new URLSearchParams(window.location.search);
-				const tracking = collectTracking(searchParams);
-				const formDataKey = "instituto-up-form-data";
-				const formStepKey = "instituto-up-form-step";
-
-				form.setAttribute("aria-live", "assertive");
-
-				function collectTracking(params) {
-					const data = {
-						utm_source: params.get("utm_source") || "",
-						utm_medium: params.get("utm_medium") || "",
-						utm_campaign: params.get("utm_campaign") || "",
-						utm_term: params.get("utm_term") || "",
-						utm_content: params.get("utm_content") || "",
-						traffic_source: params.get("traffic_source") || params.get("utm_source") || "",
-						from_bio: parseBoolean(params.get("from_bio")),
-						is_whatsapp_traffic:
-							parseBoolean(params.get("is_whatsapp_traffic")) || /whatsapp/i.test(params.get("utm_source") || ""),
-						is_bio_traffic:
-							parseBoolean(params.get("is_bio_traffic")) || /bio/i.test(params.get("utm_source") || ""),
-						audience_segment: params.get("audience_segment") || "",
-					};
-					return data;
-				}
-
-				function parseBoolean(value) {
-					if (!value) return false;
-					return ["1", "true", "yes", "sim"].includes(value.toLowerCase());
-				}
-
-				function updateProgress() {
-					progressDots.forEach((dot, i) => {
-						dot.classList.toggle("active", i === currentStep);
-						dot.classList.toggle("completed", i < currentStep);
-					});
-					if (stepCounter) {
-						stepCounter.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS}`;
-					}
-				}
-
-				function showStep(index) {
-					steps.forEach((step, idx) => {
-						step.classList.toggle("active", idx === index);
-					});
-					updateProgress();
-				}
-
-				function handleInlineActions() {
-					document.querySelectorAll(".fill-option").forEach((btn) => {
-						btn.addEventListener("click", () => {
-							const targetName = btn.getAttribute("data-target");
-							const value = btn.getAttribute("data-value") || "";
-							
-							const target = form.querySelector(`[name="${targetName}"]`);
-							if (target) {
-								target.value = value;
-								target.dispatchEvent(new Event("input"));
-								
-								const step = btn.closest(".form-step");
-								const nextBtn = step.querySelector("[data-next]");
-								if (nextBtn) nextBtn.click();
-							}
-						});
-					});
-				}
-
-				function maskPhone(value) {
-					const digits = value.replace(/\D/g, "").slice(0, 11);
-					if (digits.length <= 10) {
-						return digits
-							.replace(/(\d{2})(\d{4})(\d{0,4})/, function (_, ddd, part1, part2) {
-								return `(${ddd}) ${part1}${part2 ? '-' + part2 : ''}`;
-							})
-							.trim();
-					}
-					return digits
-						.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, function (_, ddd, n9, part1, part2) {
-							return `(${ddd}) ${n9}${part1 ? part1 : ''}${part2 ? '-' + part2 : ''}`;
-						})
-						.trim();
-				}
-
-				const phoneInput = document.getElementById("telefone");
-				if (phoneInput) {
-					phoneInput.addEventListener("input", (event) => {
-						const cursorPosition = event.target.selectionStart;
-						const prevLength = event.target.value.length;
-						event.target.value = maskPhone(event.target.value);
-						const newLength = event.target.value.length;
-						const diff = newLength - prevLength;
-						event.target.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
-					});
-				}
-
-				function validatePhone(value) {
-					const digits = value.replace(/\D/g, "");
-					if (!(digits.length === 10 || digits.length === 11)) {
-						return "Informe um telefone com DDD válido.";
-					}
-					if (digits.length === 11 && digits[2] !== "9") {
-						return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
-					}
-					return "";
-				}
-
-				function collectStepData(stepEl) {
-					const stepIndex = parseInt(stepEl.getAttribute("data-step"), 10);
-					const data = {};
-					let valid = true;
-					const errors = {};
-
-					const setError = (field, message) => {
-						const target = stepEl.querySelector(`[data-for="${field}"]`);
-						if (target) {
-							target.textContent = message;
-							target.style.display = message ? "block" : "none";
-						}
-						if (message) valid = false;
-						errors[field] = message;
-					};
-
-					stepEl.querySelectorAll(".error").forEach((node) => {
-						node.textContent = "";
-						node.style.display = "none";
-					});
-
-					const getChecked = (name) => {
-						return Array.from(stepEl.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
-					};
-					
-					const getValue = (name) => {
-						const el = stepEl.querySelector(`[name="${name}"]`);
-						return el ? el.value.trim() : "";
-					};
-
-					switch (stepIndex) {
-						case 0: // Nome, Cidade, Telefone
-							const nome = getValue("nome");
-							if (!nome || nome.length < 3) setError("nome", "Informe seu nome completo.");
-							data.nome = nome;
-
-							const cidade = getValue("cidade");
-							if (!cidade) setError("cidade", "Informe sua cidade.");
-							data.cidade = cidade;
-
-							const telefone = getValue("telefone");
-							const phoneError = validatePhone(telefone);
-							if (!telefone) setError("telefone", "Informe seu WhatsApp.");
-							else if (phoneError) setError("telefone", phoneError);
-							data.telefone = telefone;
-							break;
-
-						case 1: // Idade
-							const idade = getValue("idade");
-							if (!idade) setError("idade", "Informe sua idade.");
-							data.idade = idade;
-							break;
-
-						case 2: // Ansiedade
-							const ansiedade = stepEl.querySelector('input[name="ansiedade"]:checked');
-							if (!ansiedade) setError("ansiedade", "Selecione uma opção.");
-							data.ansiedade = ansiedade ? ansiedade.value : "";
-							break;
-
-						case 3: // Sono
-							const sono = stepEl.querySelector('input[name="sono"]:checked');
-							if (!sono) setError("sono", "Selecione uma opção.");
-							data.sono = sono ? sono.value : "";
-							break;
-
-						case 4: // Vida Financeira
-							const fin = stepEl.querySelector('input[name="vida_financeira"]:checked');
-							if (!fin) setError("vida_financeira", "Selecione uma opção.");
-							data.vida_financeira = fin ? fin.value : "";
-							break;
-
-						case 5: // Saúde Física
-							const fis = stepEl.querySelector('input[name="saude_fisica"]:checked');
-							if (!fis) setError("saude_fisica", "Selecione uma opção.");
-							data.saude_fisica = fis ? fis.value : "";
-							break;
-
-						case 6: // Relacionamentos Familiares
-							const fam = stepEl.querySelector('input[name="relacionamentos_familiares"]:checked');
-							if (!fam) setError("relacionamentos_familiares", "Selecione uma opção.");
-							data.relacionamentos_familiares = fam ? fam.value : "";
-							break;
-
-						case 7: // Relacionamento Amoroso
-							const amor = stepEl.querySelector('input[name="relacionamento"]:checked');
-							if (!amor) setError("relacionamento", "Selecione uma opção.");
-							data.relacionamento = amor ? amor.value : "";
-							break;
-
-						case 8: // Áreas para Melhorar
-							const areas = getChecked("areas_melhoria");
-							if (areas.length === 0) setError("areas_melhoria", "Selecione pelo menos uma opção.");
-							data.areas_melhoria = areas;
-							break;
-
-						case 9: // Profissão
-							const prof = getValue("profissao_area");
-							if (!prof) setError("profissao_area", "Informe sua profissão ou escolha uma opção.");
-							data.profissao_area = prof;
-							break;
-
-						case 10: // Gatilhos
-							const gatilhos = getChecked("gatilhos_ansiedade");
-							if (gatilhos.length === 0) setError("gatilhos_ansiedade", "Selecione pelo menos uma opção.");
-							data.gatilhos_ansiedade = gatilhos;
-							break;
-
-						case 11: // Sintomas Físicos
-							const sintFis = getChecked("sintomas_fisicos");
-							if (sintFis.length === 0) setError("sintomas_fisicos", "Selecione pelo menos uma opção.");
-							data.sintomas_fisicos = sintFis;
-							break;
-
-						case 12: // Sintomas Emocionais
-							const sintEmo = getChecked("sintomas_emocionais");
-							if (sintEmo.length === 0) setError("sintomas_emocionais", "Selecione pelo menos uma opção.");
-							data.sintomas_emocionais = sintEmo;
-							break;
-
-						case 13: // Tentativas Anteriores
-							const tent = getChecked("tentativas_anteriores");
-							if (tent.length === 0) setError("tentativas_anteriores", "Selecione pelo menos uma opção.");
-							data.tentativas_anteriores = tent;
-							break;
-
-						case 14: // Final
-							const conheceu = stepEl.querySelector('input[name="como_conheceu"]:checked');
-							if (!conheceu) setError("como_conheceu", "Selecione como nos conheceu.");
-							data.como_conheceu = conheceu ? conheceu.value : "";
-
-							const comentarios = getValue("comentarios_adicionais");
-							if (!comentarios) setError("comentarios_adicionais", "Preencha este campo ou selecione uma opção.");
-							data.comentarios_adicionais = comentarios;
-							break;
-					}
-
-					return { valid, data, errors };
-				}
-
-				function getEndpoint() {
-					return INSCRICAO_URL;
-				}
-
-				function buildWhatsAppUrl(nome) {
-					const msg = TRAINING_CONFIG.whatsappMessage + (nome ? ` Meu nome: ${nome}` : '');
-					return `https://wa.me/${TRAINING_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-				}
-
-				async function sendStepPayload(stepPayload, isFinal = false) {
-					const endpoint = getEndpoint();
-					const payload = {
-						clientId,
-						timestamp: new Date().toISOString(),
-						data_preenchimento: new Date().toLocaleString("pt-BR"),
-						data_treinamento: TRAINING_CONFIG.dateDisplay,
-						_step: currentStep + 1,
-						_final: isFinal,
-						...tracking,
-						...allData,
-						...stepPayload,
-					};
-
-					try {
-						const response = await fetch(endpoint, {
-							method: "POST",
-							headers: { 
-								"Content-Type": "application/json",
-								"Accept": "application/json"
-							},
-							body: JSON.stringify(payload),
-							keepalive: isFinal
-						});
-					
-						if (!response.ok && response.type !== "opaque") {
-							throw new Error(`HTTP ${response.status}`);
-						}
-						
-						if (statusBanner) {
-							statusBanner.textContent = isFinal
-								? "Formulário concluído!"
-								: `Etapa ${currentStep + 1} salva.`;
-						}
-						return true;
-					} catch (err) {
-						console.error("Erro ao enviar:", err);
-						if (statusBanner) {
-							statusBanner.textContent = "Erro de conexão. Tente novamente.";
-						}
-						return false;
-					}
-				}
-
-				async function goNext() {
-					const stepEl = steps[currentStep];
-					const { valid, data } = collectStepData(stepEl);
-					if (!valid) return;
-
-					Object.assign(allData, data);
-					saveProgress();
-
-					const isLast = currentStep === steps.length - 1;
-					
-					if (isLast) {
-						// Tenta enviar o payload final
-						const success = await sendStepPayload(data, true);
-						
-						// Se falhar, não avança para a tela de sucesso
-						if (!success) {
-							if (statusBanner) statusBanner.textContent = "Erro ao enviar. Tente novamente.";
-							return;
-						}
-
-						clearProgress();
-						// Redireciona para o WhatsApp para finalizar a inscrição
-						window.location.href = buildWhatsAppUrl(allData.nome || '');
-					} else {
-						currentStep += 1;
-						showStep(currentStep);
-					}
-				}
-
-				function goPrev() {
-					if (currentStep === 0) return;
-					currentStep -= 1;
-					showStep(currentStep);
-					saveProgress();
-				}
-				
-				function saveProgress() {
-					try {
-						localStorage.setItem(formDataKey, JSON.stringify(allData));
-						localStorage.setItem(formStepKey, currentStep.toString());
-					} catch (e) {
-						console.error("Erro ao salvar progresso:", e);
-					}
-				}
-				
-				function clearProgress() {
-					try {
-						localStorage.removeItem(formDataKey);
-						localStorage.removeItem(formStepKey);
-					} catch (e) {
-						console.error("Erro ao limpar progresso:", e);
-					}
-				}
-				
-				function restoreProgress() {
-					try {
-						const savedData = localStorage.getItem(formDataKey);
-						const savedStep = localStorage.getItem(formStepKey);
-						
-						if (savedData) {
-							const data = JSON.parse(savedData);
-							Object.assign(allData, data);
-							
-							Object.keys(data).forEach(key => {
-								if (Array.isArray(data[key])) {
-									data[key].forEach(val => {
-										const cb = form.querySelector(`input[name="${key}"][value="${val}"]`);
-										if (cb) cb.checked = true;
-									});
-								} else {
-									const radios = form.querySelectorAll(`input[name="${key}"]`);
-									if (radios.length > 0) {
-										radios.forEach(r => {
-											if (r.value === data[key]) r.checked = true;
-										});
-									} else {
-										const input = form.querySelector(`[name="${key}"]`);
-										if (input) input.value = data[key];
-									}
-								}
-							});
-						}
-						
-						if (savedStep) {
-							currentStep = parseInt(savedStep, 10);
-							if (currentStep >= steps.length) currentStep = steps.length - 1;
-							showStep(currentStep);
-						}
-					} catch (e) {
-						console.error("Erro ao restaurar progresso:", e);
-					}
-				}
-
-				form.addEventListener("keydown", (event) => {
-					if (event.key === "Enter") {
-						const isTextArea = event.target.tagName === "TEXTAREA";
-						if (!isTextArea) {
-							event.preventDefault();
-							const currentStepEl = steps[currentStep];
-							const nextBtn = currentStepEl.querySelector("[data-next]");
-							if (nextBtn) nextBtn.click();
-						}
-					}
-				});
-
-				document.querySelectorAll("[data-next]").forEach(btn => {
-					btn.addEventListener("click", goNext);
-				});
-
-				document.querySelectorAll("[data-back]").forEach(btn => {
-					btn.addEventListener("click", goPrev);
-				});
-
-				if (successReset) {
-					successReset.addEventListener("click", () => {
-						clearProgress();
-						window.location.reload();
-					});
-				}
-
-				if (ctaOpen) {
-					ctaOpen.addEventListener("click", () => {
-						document.getElementById("form-card").scrollIntoView({ behavior: "smooth", block: "start" });
-					});
-				}
-
-				handleInlineActions();
-				restoreProgress();
-				showStep(currentStep);
-				if (statusBanner) statusBanner.textContent = "Comece contando quem é você. Estamos aqui para ouvir.";
-			})();
-		</script>
-	</body>
+              <div class="term-box">
+                <h3>Regras de cancelamento ou desistência</h3>
+                <p>
+                  No caso de cancelamento ou não comparecimento, será reembolsado o valor integral no prazo de 7 dias a
+                  contar da contratação do treinamento. Após 7 dias poderá ceder sua vaga para outra pessoa indicada pelo
+                  contratante. Caso não haja o preenchimento da vaga não haverá devolução. Art. 49 CDC.
+                </p>
+                <label class="term-check">
+                  <input type="checkbox" name="cancelamento_ciente" value="Concordo com o termo acima." required />
+                  Concordo com o termo acima.
+                </label>
+                <div class="error" data-for="cancelamento_ciente"></div>
+              </div>
+
+              <div class="actions">
+                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                <button type="button" class="btn btn-primary" data-next>Finalizar inscrição</button>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        const TRAINING_CONFIG = {
+          name: "Inscrição UP Day - Agosto 2026",
+          dateDisplay: "15 e 16/08",
+          dateLong: "15 e 16 de Agosto de 2026",
+          startISO: "2026-08-15T09:00:00-03:00",
+          endISO: "2026-08-16T18:00:00-03:00",
+          whatsappNumber: "5513997832766",
+          whatsappMessage: "Olá! Acabei de preencher minha inscrição do UP Day Agosto 2026 e quero finalizar minha vaga."
+        };
+
+        const TOTAL_STEPS = 6;
+        const INSCRICAO_URL = "/api/inscricao";
+        const form = document.getElementById("msForm");
+        const steps = Array.from(document.querySelectorAll(".form-step"));
+        const progressDots = Array.from(document.querySelectorAll(".dot"));
+        const progressText = document.getElementById("progressText");
+        const statusBanner = document.getElementById("status-banner");
+        const ctaOpen = document.getElementById("cta-open");
+        const clientId = crypto.randomUUID();
+        const searchParams = new URLSearchParams(window.location.search);
+        const tracking = collectTracking(searchParams);
+        const allData = {};
+        const formDataKey = "instituto-up-inscricao-agosto-2026";
+        const formStepKey = "instituto-up-inscricao-agosto-2026-step";
+        let currentStep = 0;
+
+        form.setAttribute("aria-live", "assertive");
+
+        function collectTracking(params) {
+          return {
+            plan: params.get("plan") || "",
+            utm_source: params.get("utm_source") || "",
+            utm_medium: params.get("utm_medium") || "",
+            utm_campaign: params.get("utm_campaign") || "",
+            utm_term: params.get("utm_term") || "",
+            utm_content: params.get("utm_content") || "",
+            traffic_source: params.get("traffic_source") || params.get("utm_source") || "",
+            from_bio: parseBoolean(params.get("from_bio")),
+            is_whatsapp_traffic: parseBoolean(params.get("is_whatsapp_traffic")) || /whatsapp/i.test(params.get("utm_source") || ""),
+            is_bio_traffic: parseBoolean(params.get("is_bio_traffic")) || /bio/i.test(params.get("utm_source") || ""),
+            audience_segment: params.get("audience_segment") || ""
+          };
+        }
+
+        function parseBoolean(value) {
+          if (!value) return false;
+          return ["1", "true", "yes", "sim"].includes(value.toLowerCase());
+        }
+
+        function onlyDigits(value) {
+          return String(value || "").replace(/\D/g, "");
+        }
+
+        function maskPhone(value) {
+          const digits = onlyDigits(value).slice(0, 11);
+          if (digits.length <= 10) {
+            return digits.replace(/(\d{2})(\d{4})(\d{0,4})/, function (_, ddd, p1, p2) {
+              return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
+            }).trim();
+          }
+          return digits.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, function (_, ddd, n9, p1, p2) {
+            return `(${ddd}) ${n9}${p1}${p2 ? "-" + p2 : ""}`;
+          }).trim();
+        }
+
+        function maskCpf(value) {
+          return onlyDigits(value)
+            .slice(0, 11)
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        }
+
+        function validatePhone(value) {
+          const digits = onlyDigits(value);
+          if (!(digits.length === 10 || digits.length === 11)) return "Informe um telefone com DDD válido.";
+          if (digits.length === 11 && digits[2] !== "9") return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
+          return "";
+        }
+
+        function validateCpf(value) {
+          const digits = onlyDigits(value);
+          if (digits.length !== 11) return "Informe um CPF com 11 dígitos.";
+          if (/^(\d)\1+$/.test(digits)) return "Informe um CPF válido.";
+
+          let sum = 0;
+          for (let i = 0; i < 9; i += 1) sum += Number(digits[i]) * (10 - i);
+          let first = (sum * 10) % 11;
+          if (first === 10) first = 0;
+          if (first !== Number(digits[9])) return "Informe um CPF válido.";
+
+          sum = 0;
+          for (let i = 0; i < 10; i += 1) sum += Number(digits[i]) * (11 - i);
+          let second = (sum * 10) % 11;
+          if (second === 10) second = 0;
+          if (second !== Number(digits[10])) return "Informe um CPF válido.";
+
+          return "";
+        }
+
+        function validateEmail(value) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Informe um e-mail válido.";
+        }
+
+        function validateBirthDate(value) {
+          if (!value) return "Informe sua data de nascimento.";
+          const birthDate = new Date(`${value}T00:00:00`);
+          const eventDate = new Date(TRAINING_CONFIG.startISO);
+          if (Number.isNaN(birthDate.getTime()) || birthDate > eventDate) return "Informe uma data de nascimento válida.";
+          let age = eventDate.getFullYear() - birthDate.getFullYear();
+          const monthDiff = eventDate.getMonth() - birthDate.getMonth();
+          if (monthDiff < 0 || (monthDiff === 0 && eventDate.getDate() < birthDate.getDate())) age -= 1;
+          if (age < 18) return "A inscrição é permitida apenas para maiores de 18 anos.";
+          return "";
+        }
+
+        function updateProgress() {
+          progressDots.forEach((dot, index) => {
+            dot.classList.toggle("active", index === currentStep);
+            dot.classList.toggle("completed", index < currentStep);
+          });
+          progressText.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS}`;
+        }
+
+        function showStep(index) {
+          steps.forEach((step, idx) => {
+            step.classList.toggle("active", idx === index);
+          });
+          updateProgress();
+          statusBanner.textContent = index === TOTAL_STEPS - 1
+            ? "Última etapa: revise e aceite os termos."
+            : "Preencha os campos obrigatórios para avançar.";
+        }
+
+        function clearErrors(stepEl) {
+          stepEl.querySelectorAll(".error").forEach((node) => {
+            node.textContent = "";
+            node.style.display = "none";
+          });
+        }
+
+        function setError(stepEl, field, message) {
+          const target = stepEl.querySelector(`[data-for="${field}"]`);
+          if (target) {
+            target.textContent = message;
+            target.style.display = message ? "block" : "none";
+          }
+        }
+
+        function getValue(stepEl, name) {
+          const el = stepEl.querySelector(`[name="${name}"]`);
+          return el ? el.value.trim() : "";
+        }
+
+        function checkedValue(stepEl, name) {
+          const el = stepEl.querySelector(`input[name="${name}"]:checked`);
+          return el ? el.value : "";
+        }
+
+        function isChecked(stepEl, name) {
+          return Boolean(stepEl.querySelector(`input[name="${name}"]:checked`));
+        }
+
+        function collectStepData(stepEl) {
+          const stepIndex = Number(stepEl.getAttribute("data-step"));
+          const data = {};
+          let valid = true;
+
+          const requireField = (name, label, minLength = 1) => {
+            const value = getValue(stepEl, name);
+            if (!value || value.length < minLength) {
+              setError(stepEl, name, `Informe ${label}.`);
+              valid = false;
+            }
+            data[name] = value;
+            return value;
+          };
+
+          const fail = (name, message) => {
+            setError(stepEl, name, message);
+            valid = false;
+          };
+
+          clearErrors(stepEl);
+
+          switch (stepIndex) {
+            case 0: {
+              data.nome = requireField("nome", "seu nome completo", 3);
+              data.rg = requireField("rg", "seu RG", 5);
+              data.cpf = getValue(stepEl, "cpf");
+              const cpfError = validateCpf(data.cpf);
+              if (cpfError) fail("cpf", cpfError);
+              break;
+            }
+            case 1: {
+              data.endereco = requireField("endereco", "seu endereço", 5);
+              data.cidade = requireField("cidade", "a cidade onde reside", 2);
+              data.email = getValue(stepEl, "email");
+              const emailError = validateEmail(data.email);
+              if (emailError) fail("email", emailError);
+
+              data.telefone = getValue(stepEl, "telefone");
+              const phoneError = validatePhone(data.telefone);
+              if (phoneError) fail("telefone", phoneError);
+
+              data.contato_emergencia = getValue(stepEl, "contato_emergencia");
+              const emergencyError = validatePhone(data.contato_emergencia);
+              if (emergencyError) fail("contato_emergencia", emergencyError);
+              break;
+            }
+            case 2: {
+              data.data_nascimento = getValue(stepEl, "data_nascimento");
+              const birthError = validateBirthDate(data.data_nascimento);
+              if (birthError) fail("data_nascimento", birthError);
+
+              data.profissao_area = requireField("profissao_area", "sua profissão", 2);
+              data.estado_civil = checkedValue(stepEl, "estado_civil");
+              if (!data.estado_civil) fail("estado_civil", "Selecione seu estado civil.");
+
+              data.estado_civil_outro = getValue(stepEl, "estado_civil_outro");
+              if (data.estado_civil === "Outro" && !data.estado_civil_outro) {
+                fail("estado_civil", "Informe seu estado civil no campo outro.");
+              }
+              break;
+            }
+            case 3: {
+              data.medicamentos_tratamento = getValue(stepEl, "medicamentos_tratamento");
+              data.indicacao = requireField("indicacao", "quem te indicou", 2);
+              data.tamanho_camiseta = checkedValue(stepEl, "tamanho_camiseta");
+              if (!data.tamanho_camiseta) fail("tamanho_camiseta", "Selecione o tamanho da camiseta.");
+              break;
+            }
+            case 4: {
+              data.pagamento_info_visualizada = "PIX CNPJ 24.964.964/0001-18 - RODRIGO DAMACENO PEREIRA";
+              break;
+            }
+            case 5: {
+              data.multa_ciente = isChecked(stepEl, "multa_ciente") ? "Declaro estar ciente da taxa." : "";
+              if (!data.multa_ciente) fail("multa_ciente", "Confirme que está ciente da taxa.");
+
+              data.cancelamento_ciente = isChecked(stepEl, "cancelamento_ciente") ? "Concordo com o termo acima." : "";
+              if (!data.cancelamento_ciente) fail("cancelamento_ciente", "Confirme que concorda com o termo.");
+              break;
+            }
+          }
+
+          return { valid, data };
+        }
+
+        function buildWhatsAppUrl(nome) {
+          const msg = TRAINING_CONFIG.whatsappMessage + (nome ? ` Meu nome: ${nome}.` : "");
+          return `https://wa.me/${TRAINING_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+        }
+
+        async function sendStepPayload(stepPayload, isFinal) {
+          const payload = {
+            clientId,
+            timestamp: new Date().toISOString(),
+            data_preenchimento: new Date().toLocaleString("pt-BR"),
+            treinamento_nome: TRAINING_CONFIG.name,
+            data_treinamento: TRAINING_CONFIG.dateDisplay,
+            data_treinamento_extenso: TRAINING_CONFIG.dateLong,
+            treinamento_inicio: TRAINING_CONFIG.startISO,
+            treinamento_fim: TRAINING_CONFIG.endISO,
+            _step: currentStep + 1,
+            _final: isFinal,
+            ...tracking,
+            ...allData,
+            ...stepPayload
+          };
+
+          try {
+            const response = await fetch(INSCRICAO_URL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+              },
+              body: JSON.stringify(payload),
+              keepalive: isFinal
+            });
+
+            if (!response.ok && response.type !== "opaque") throw new Error(`HTTP ${response.status}`);
+            statusBanner.textContent = isFinal ? "Inscrição enviada com sucesso." : `Etapa ${currentStep + 1} salva.`;
+            return true;
+          } catch (error) {
+            console.error("Erro ao enviar inscrição:", error);
+            statusBanner.textContent = "Erro de conexão. Tente novamente.";
+            return false;
+          }
+        }
+
+        async function goNext() {
+          const stepEl = steps[currentStep];
+          const { valid, data } = collectStepData(stepEl);
+          if (!valid) return;
+
+          Object.assign(allData, data);
+          saveProgress();
+
+          const isLast = currentStep === steps.length - 1;
+          if (isLast) {
+            const success = await sendStepPayload(data, true);
+            if (!success) return;
+            clearProgress();
+            window.location.href = buildWhatsAppUrl(allData.nome || "");
+            return;
+          }
+
+          await sendStepPayload(data, false);
+          currentStep += 1;
+          showStep(currentStep);
+        }
+
+        function goPrev() {
+          if (currentStep === 0) return;
+          currentStep -= 1;
+          showStep(currentStep);
+          saveProgress();
+        }
+
+        function saveProgress() {
+          try {
+            localStorage.setItem(formDataKey, JSON.stringify(allData));
+            localStorage.setItem(formStepKey, String(currentStep));
+          } catch (error) {
+            console.error("Erro ao salvar progresso:", error);
+          }
+        }
+
+        function clearProgress() {
+          try {
+            localStorage.removeItem(formDataKey);
+            localStorage.removeItem(formStepKey);
+          } catch (error) {
+            console.error("Erro ao limpar progresso:", error);
+          }
+        }
+
+        function restoreProgress() {
+          try {
+            const savedData = localStorage.getItem(formDataKey);
+            const savedStep = localStorage.getItem(formStepKey);
+            if (savedData) {
+              const data = JSON.parse(savedData);
+              Object.assign(allData, data);
+              Object.keys(data).forEach((key) => {
+                const inputs = form.querySelectorAll(`[name="${key}"]`);
+                if (!inputs.length) return;
+                inputs.forEach((input) => {
+                  if (input.type === "radio" || input.type === "checkbox") {
+                    input.checked = input.value === data[key];
+                  } else {
+                    input.value = data[key];
+                  }
+                });
+              });
+            }
+            if (savedStep) {
+              currentStep = Math.min(Number(savedStep) || 0, steps.length - 1);
+            }
+          } catch (error) {
+            console.error("Erro ao restaurar progresso:", error);
+          }
+        }
+
+        ["telefone", "contato_emergencia"].forEach((id) => {
+          const input = document.getElementById(id);
+          if (!input) return;
+          input.addEventListener("input", (event) => {
+            event.target.value = maskPhone(event.target.value);
+          });
+        });
+
+        const cpfInput = document.getElementById("cpf");
+        if (cpfInput) {
+          cpfInput.addEventListener("input", (event) => {
+            event.target.value = maskCpf(event.target.value);
+          });
+        }
+
+        form.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter") return;
+          if (event.target.tagName === "TEXTAREA") return;
+          event.preventDefault();
+          const nextBtn = steps[currentStep].querySelector("[data-next]");
+          if (nextBtn) nextBtn.click();
+        });
+
+        document.querySelectorAll("[data-next]").forEach((button) => {
+          button.addEventListener("click", goNext);
+        });
+
+        document.querySelectorAll("[data-back]").forEach((button) => {
+          button.addEventListener("click", goPrev);
+        });
+
+        ctaOpen.addEventListener("click", () => {
+          document.getElementById("form-card").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        restoreProgress();
+        showStep(currentStep);
+      })();
+    </script>
+  </body>
 </html>

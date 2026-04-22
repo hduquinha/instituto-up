@@ -126,7 +126,7 @@ const GuaranteeSection = () => {
               onClick={scrollToPricing}
               className="bg-gradient-to-r from-turquoise to-blue-500 text-black font-bold text-xl lg:text-2xl px-12 py-8 rounded-2xl transform hover:scale-105 transition-all duration-500 ease-in-out shadow-lg hover:shadow-2xl"
             >
-              🚀 GARANTIR MINHA TRANSFORMAÇÃO AGORA
+              FAÇA SUA INSCRIÇÃO
             </button>
           </a>
           
