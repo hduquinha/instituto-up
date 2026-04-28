@@ -9,25 +9,38 @@
       :root {
         color-scheme: light;
         --primary: #27abb6;
-        --primary-dark: #1f8a92;
-        --primary-light: #5fc7cf;
-        --bg: #ffffff;
-        --text: #101010;
-        --muted: #4f5b61;
-        --border: rgba(0, 0, 0, 0.09);
-        --danger: #c0392b;
-        --radius: 16px;
-        font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        --primary-dark: #1a6f76;
+        --primary-soft: rgba(39, 171, 182, 0.12);
+        --ink: #0f1720;
+        --muted: #5b6972;
+        --surface: #ffffff;
+        --surface-soft: rgba(255, 255, 255, 0.8);
+        --line: rgba(15, 23, 32, 0.1);
+        --danger: #c03e30;
+        --warning: #f5b942;
+        --warning-dark: #9a6700;
+        --radius-lg: 30px;
+        --radius-md: 20px;
+        --radius-sm: 14px;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      [hidden] {
+        display: none !important;
+      }
+
       body {
         margin: 0;
-        background: linear-gradient(135deg, #f7fbfc 0%, rgba(39, 171, 182, 0.14) 100%);
-        color: var(--text);
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(39, 171, 182, 0.22), transparent 34%),
+          radial-gradient(circle at bottom right, rgba(245, 185, 66, 0.18), transparent 30%),
+          linear-gradient(145deg, #eef8fa 0%, #f8fcfd 38%, #f2f6f7 100%);
+        color: var(--ink);
         line-height: 1.5;
       }
 
@@ -37,40 +50,47 @@
 
       .page {
         min-height: 100vh;
-        padding: 40px 24px;
+        padding: 28px 20px;
       }
 
       .shell {
-        max-width: 1180px;
-        margin: 0 auto;
         width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
         display: grid;
-        grid-template-columns: minmax(300px, 0.88fr) minmax(320px, 1.12fr);
-        gap: 32px;
+        grid-template-columns: minmax(320px, 0.92fr) minmax(340px, 1.08fr);
+        gap: 28px;
         align-items: start;
       }
 
       .hero-card,
       .form-card {
-        background: var(--bg);
-        border: 1px solid rgba(39, 171, 182, 0.16);
-        box-shadow: 0 24px 60px rgba(14, 48, 56, 0.14);
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 30px 70px rgba(7, 26, 33, 0.14);
       }
 
       .hero-card {
-        border-radius: 28px;
-        padding: 44px 38px;
         position: sticky;
         top: 24px;
-        overflow: hidden;
+        padding: 40px 36px;
+        background:
+          radial-gradient(circle at top right, rgba(245, 185, 66, 0.16), transparent 30%),
+          linear-gradient(160deg, #08141b 0%, #0f2530 55%, #13333c 100%);
+        color: #f7fbfc;
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
 
-      .hero-card::after {
+      .hero-card::before {
         content: "";
         position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(180deg, rgba(39, 171, 182, 0.08) 0%, rgba(255, 255, 255, 0) 72%);
+        inset: auto -90px -120px auto;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: rgba(39, 171, 182, 0.18);
+        filter: blur(16px);
       }
 
       .hero-card > * {
@@ -82,145 +102,287 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 14px;
-        border-radius: 999px;
-        background: rgba(39, 171, 182, 0.12);
-        color: var(--primary-dark);
-        font-size: 0.82rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
         margin-bottom: 18px;
+        padding: 9px 16px;
+        border-radius: 999px;
+        background: rgba(245, 185, 66, 0.14);
+        border: 1px solid rgba(245, 185, 66, 0.24);
+        color: #ffde91;
+        font-size: 0.77rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
       }
 
       h1 {
-        font-size: clamp(2.25rem, 4vw, 3.35rem);
-        line-height: 1.05;
-        margin: 0 0 18px;
-        font-weight: 850;
+        margin: 0 0 16px;
+        font-size: clamp(2.4rem, 4vw, 3.45rem);
+        line-height: 0.98;
+        font-weight: 900;
+        letter-spacing: -0.04em;
       }
 
-      h1 span,
       .accent {
-        color: var(--primary);
+        color: #72dde4;
+      }
+
+      .hero-date {
+        margin: 0 0 18px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 1.02rem;
+        font-weight: 700;
       }
 
       .lead {
-        font-size: clamp(1.02rem, 2vw, 1.16rem);
-        color: var(--muted);
-        margin: 0 0 24px;
+        margin: 0 0 22px;
+        color: rgba(233, 241, 244, 0.84);
+        font-size: 1.03rem;
       }
 
       .hero-badges {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        margin-bottom: 28px;
+        margin-bottom: 26px;
       }
 
       .badge {
-        background: rgba(39, 171, 182, 0.14);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
         border-radius: 999px;
-        padding: 8px 14px;
-        font-size: 0.88rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #f6fbfc;
+        font-size: 0.84rem;
         font-weight: 700;
-        color: var(--primary-dark);
+      }
+
+      .offer-card {
+        margin-bottom: 24px;
+        padding: 22px;
+        border-radius: 24px;
+        border: 1px solid rgba(245, 185, 66, 0.28);
+        background:
+          linear-gradient(135deg, rgba(245, 185, 66, 0.16), rgba(245, 185, 66, 0.04)),
+          rgba(255, 255, 255, 0.04);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .offer-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.2);
+        color: #ffe0a2;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .offer-title {
+        margin: 0 0 10px;
+        font-size: 1.42rem;
+        line-height: 1.15;
+        font-weight: 850;
+      }
+
+      .offer-copy {
+        margin: 0;
+        color: rgba(245, 249, 250, 0.84);
+      }
+
+      .offer-points {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .offer-point {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #f5fbfc;
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      .offer-icon,
+      .hero-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        font-weight: 900;
+      }
+
+      .offer-icon {
+        background: #f5b942;
+        color: #2e2000;
       }
 
       .hero-list {
         list-style: none;
         padding: 0;
-        margin: 0 0 30px;
+        margin: 0 0 26px;
         display: grid;
-        gap: 14px;
+        gap: 12px;
       }
 
       .hero-list li {
         display: grid;
         grid-template-columns: auto 1fr;
         gap: 14px;
-        padding: 15px 16px;
-        border-radius: 16px;
-        border: 1px solid rgba(39, 171, 182, 0.18);
-        background: rgba(255, 255, 255, 0.86);
+        padding: 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(255, 255, 255, 0.06);
       }
 
-      .hero-list .icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 999px;
-        background: var(--primary);
-        color: #fff;
-        display: grid;
-        place-items: center;
-        font-weight: 800;
+      .hero-icon {
+        background: rgba(114, 221, 228, 0.18);
+        color: #72dde4;
+      }
+
+      .hero-list strong {
+        display: block;
+        margin-bottom: 3px;
+        color: #ffffff;
+      }
+
+      .hero-list span:last-child,
+      .hero-list div:last-child {
+        color: rgba(233, 241, 244, 0.82);
+      }
+
+      .hero-note {
+        margin-bottom: 18px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(114, 221, 228, 0.08);
+        border: 1px solid rgba(114, 221, 228, 0.14);
+        color: rgba(246, 251, 252, 0.92);
       }
 
       .cta {
         width: 100%;
         border: 0;
-        border-radius: 16px;
-        padding: 16px 20px;
-        background: var(--primary);
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 850;
+        border-radius: 18px;
+        padding: 17px 20px;
+        background: linear-gradient(135deg, #27abb6 0%, #41c2cc 100%);
+        color: #ffffff;
+        font-size: 0.98rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
       }
 
       .cta:hover {
         transform: translateY(-2px);
-        box-shadow: 0 14px 38px rgba(39, 171, 182, 0.35);
-        background: var(--primary-dark);
+        box-shadow: 0 18px 38px rgba(39, 171, 182, 0.35);
+        filter: saturate(1.08);
       }
 
       .hero-footer small {
         display: block;
-        color: var(--muted);
-        font-size: 0.86rem;
         margin-top: 12px;
+        color: rgba(233, 241, 244, 0.72);
+        font-size: 0.84rem;
       }
 
       .form-card {
-        border-radius: 30px;
         padding: clamp(22px, 3vw, 34px);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.98)),
+          var(--surface);
+        border: 1px solid rgba(39, 171, 182, 0.14);
       }
 
-      .status-banner {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: rgba(39, 171, 182, 0.12);
-        color: var(--primary-dark);
-        border-radius: 999px;
-        padding: 10px 16px;
-        font-size: 0.86rem;
-        font-weight: 700;
+      .form-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 180px;
+        background: linear-gradient(180deg, rgba(39, 171, 182, 0.08), transparent);
+        pointer-events: none;
+      }
+
+      .form-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .status-row {
+        display: grid;
+        gap: 14px;
         margin-bottom: 20px;
       }
 
+      .status-banner,
+      .offer-strip {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 18px;
+        padding: 14px 16px;
+      }
+
+      .status-banner {
+        background: rgba(39, 171, 182, 0.11);
+        color: var(--primary-dark);
+        border: 1px solid rgba(39, 171, 182, 0.16);
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .offer-strip {
+        background: linear-gradient(135deg, rgba(245, 185, 66, 0.16), rgba(245, 185, 66, 0.05));
+        border: 1px solid rgba(245, 185, 66, 0.24);
+        color: #6e4a00;
+      }
+
+      .offer-strip strong {
+        display: block;
+        color: #382500;
+        margin-bottom: 2px;
+      }
+
       .limited-box {
-        margin-bottom: 24px;
+        margin-bottom: 22px;
         padding: 18px 20px;
-        background: linear-gradient(135deg, rgba(231, 76, 60, 0.08) 0%, rgba(192, 57, 43, 0.08) 100%);
-        border: 1px solid rgba(231, 76, 60, 0.26);
-        border-radius: 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(192, 62, 48, 0.2);
+        background: linear-gradient(135deg, rgba(192, 62, 48, 0.08), rgba(192, 62, 48, 0.03));
       }
 
       .limited-title {
-        font-weight: 800;
-        color: #c0392b;
         margin-bottom: 10px;
+        color: #a92d1e;
+        font-size: 0.92rem;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .bar {
-        height: 28px;
-        border-radius: 14px;
-        background: rgba(0, 0, 0, 0.06);
+        height: 30px;
         overflow: hidden;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 999px;
+        background: rgba(15, 23, 32, 0.08);
+        border: 1px solid rgba(15, 23, 32, 0.08);
       }
 
       .bar > div {
@@ -229,63 +391,90 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
-        color: #fff;
-        font-size: 0.8rem;
-        font-weight: 850;
+        background: linear-gradient(90deg, #ef5a4b 0%, #c03e30 100%);
+        color: #ffffff;
+        font-size: 0.82rem;
+        font-weight: 900;
       }
 
       .limited-note {
-        color: #7f8c8d;
-        font-size: 0.84rem;
         margin-top: 8px;
-        font-weight: 650;
+        color: #7d5750;
+        font-size: 0.86rem;
+        font-weight: 700;
       }
 
       .form-title {
         margin: 0 0 6px;
-        font-size: clamp(1.7rem, 3vw, 2.35rem);
-        line-height: 1.1;
+        font-size: clamp(1.85rem, 3vw, 2.5rem);
+        line-height: 1.05;
       }
 
       .form-subtitle {
-        margin: 0 0 20px;
+        margin: 0 0 18px;
         color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .progress-card {
+        margin-bottom: 22px;
+        padding: 18px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.76);
+        border: 1px solid rgba(39, 171, 182, 0.12);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
       }
 
       .form-header {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 8px;
-        margin-bottom: 10px;
-        flex-wrap: wrap;
+        margin-bottom: 12px;
       }
 
       .dot {
-        width: 30px;
-        height: 30px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
-        background: rgba(39, 171, 182, 0.14);
-        color: var(--primary-dark);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.78rem;
-        font-weight: 850;
-        transition: all 0.25s ease;
+        background: rgba(39, 171, 182, 0.12);
+        color: var(--primary-dark);
+        font-size: 0.8rem;
+        font-weight: 900;
+        transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease;
       }
 
       .dot.active,
       .dot.completed {
-        background: var(--primary);
-        color: #fff;
+        background: linear-gradient(135deg, var(--primary), #52c4cc);
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .progress-rail {
+        height: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(39, 171, 182, 0.12);
+      }
+
+      #progressFill {
+        width: 16.666%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), #52c4cc);
+        transition: width 0.25s ease;
       }
 
       #progressText {
         text-align: center;
-        font-size: 0.82rem;
+        font-size: 0.88rem;
         color: var(--muted);
-        margin-bottom: 18px;
+        font-weight: 700;
       }
 
       form {
@@ -303,6 +492,43 @@
         display: block;
       }
 
+      .step-panel {
+        padding: 20px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(15, 23, 32, 0.06);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      }
+
+      .step-header {
+        margin-bottom: 18px;
+      }
+
+      .step-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(39, 171, 182, 0.1);
+        color: var(--primary-dark);
+        font-size: 0.74rem;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .step-title {
+        margin: 0 0 6px;
+        font-size: 1.25rem;
+      }
+
+      .step-text {
+        margin: 0;
+        color: var(--muted);
+      }
+
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -316,14 +542,15 @@
 
       .field {
         display: grid;
-        gap: 7px;
-        margin-bottom: 18px;
+        gap: 8px;
+        margin-bottom: 16px;
       }
 
       label,
       .question-label {
-        font-weight: 750;
-        font-size: 0.95rem;
+        font-size: 0.94rem;
+        font-weight: 800;
+        color: #1a2430;
       }
 
       .required::after {
@@ -337,12 +564,19 @@
       input[type="date"],
       textarea {
         width: 100%;
-        border: 1.5px solid var(--border);
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.94);
-        padding: 14px 16px;
+        border: 1.5px solid rgba(15, 23, 32, 0.1);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.96);
+        padding: 15px 16px;
+        color: var(--ink);
         font-size: 1rem;
-        transition: border 0.2s ease, box-shadow 0.2s ease;
+        transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #8a98a2;
       }
 
       textarea {
@@ -352,32 +586,10 @@
 
       input:focus,
       textarea:focus {
-        border-color: var(--primary);
         outline: none;
-        box-shadow: 0 0 0 3px rgba(39, 171, 182, 0.17);
-      }
-
-      .choice-list {
-        display: grid;
-        gap: 10px;
-        margin-top: 8px;
-      }
-
-      .choice-list label,
-      .term-check {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        border: 1.5px solid rgba(39, 171, 182, 0.2);
-        border-radius: 14px;
-        padding: 12px 14px;
-        background: rgba(255, 255, 255, 0.93);
-        font-weight: 700;
-      }
-
-      .choice-list input,
-      .term-check input {
-        accent-color: var(--primary);
+        border-color: rgba(39, 171, 182, 0.8);
+        box-shadow: 0 0 0 4px rgba(39, 171, 182, 0.14);
+        transform: translateY(-1px);
       }
 
       .grid-two {
@@ -386,25 +598,98 @@
         gap: 14px;
       }
 
+      .choice-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .choice-list.two-cols {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .choice-list label,
+      .term-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 14px;
+        border-radius: 16px;
+        border: 1.5px solid rgba(39, 171, 182, 0.18);
+        background: rgba(255, 255, 255, 0.9);
+        color: #26414b;
+        font-weight: 750;
+        cursor: pointer;
+        transition: border 0.2s ease, transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .choice-list label:hover,
+      .term-check:hover {
+        transform: translateY(-1px);
+        border-color: rgba(39, 171, 182, 0.34);
+      }
+
+      .choice-list label.is-selected,
+      .term-check.is-selected {
+        border-color: rgba(39, 171, 182, 0.7);
+        background: rgba(39, 171, 182, 0.12);
+        box-shadow: 0 12px 28px rgba(39, 171, 182, 0.1);
+        color: #17343b;
+      }
+
+      .choice-list input,
+      .term-check input {
+        accent-color: var(--primary);
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        flex-shrink: 0;
+      }
+
+      .helper-text {
+        margin: -2px 0 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .companion-box,
       .info-box,
       .term-box {
-        border: 1.5px solid rgba(39, 171, 182, 0.22);
-        border-radius: 16px;
-        padding: 18px;
-        background: rgba(39, 171, 182, 0.08);
         margin-bottom: 18px;
+        padding: 18px;
+        border-radius: 20px;
+        border: 1px solid rgba(39, 171, 182, 0.18);
+        background: rgba(39, 171, 182, 0.07);
       }
 
-      .term-box {
-        background: rgba(16, 16, 16, 0.03);
+      .companion-box {
+        background: linear-gradient(135deg, rgba(245, 185, 66, 0.12), rgba(255, 255, 255, 0.8));
+        border-color: rgba(245, 185, 66, 0.22);
       }
 
+      .companion-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(245, 185, 66, 0.14);
+        color: var(--warning-dark);
+        font-size: 0.75rem;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .companion-box h3,
       .info-box h3,
       .term-box h3 {
         margin: 0 0 10px;
         font-size: 1.04rem;
       }
 
+      .companion-box p,
       .info-box p,
       .term-box p {
         margin: 8px 0;
@@ -412,20 +697,21 @@
       }
 
       .pix-line {
+        color: var(--ink);
         font-weight: 850;
-        color: var(--text);
       }
 
       .note {
+        margin-top: 6px;
         color: var(--muted);
         font-size: 0.86rem;
-        margin-top: 6px;
       }
 
       .error {
         display: none;
         color: var(--danger);
         font-size: 0.84rem;
+        font-weight: 700;
       }
 
       .actions {
@@ -438,12 +724,16 @@
       .btn {
         flex: 1;
         border: 0;
-        border-radius: 14px;
-        padding: 14px 16px;
-        font-size: 1rem;
+        border-radius: 16px;
+        padding: 15px 16px;
+        font-size: 0.97rem;
         font-weight: 850;
         cursor: pointer;
-        transition: background 0.2s ease, transform 0.2s ease;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
       }
 
       .btn-secondary {
@@ -452,22 +742,18 @@
       }
 
       .btn-primary {
-        background: var(--primary);
-        color: #fff;
-      }
-
-      .btn-primary:hover,
-      .btn-secondary:hover {
-        transform: translateY(-1px);
+        background: linear-gradient(135deg, var(--primary), #52c4cc);
+        color: #ffffff;
+        box-shadow: 0 16px 30px rgba(39, 171, 182, 0.2);
       }
 
       .btn-primary:hover {
-        background: var(--primary-dark);
+        filter: saturate(1.05);
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 980px) {
         .page {
-          padding: 22px 14px;
+          padding: 20px 14px;
         }
 
         .shell {
@@ -476,11 +762,28 @@
 
         .hero-card {
           position: static;
-          padding: 32px 24px;
+          padding: 30px 24px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .grid-two,
+        .choice-list.two-cols {
+          grid-template-columns: 1fr;
         }
 
-        .grid-two {
-          grid-template-columns: 1fr;
+        .form-card,
+        .step-panel {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
         }
       }
     </style>
@@ -490,236 +793,541 @@
       <div class="shell">
         <section class="hero-card" aria-labelledby="hero-title">
           <div class="eyebrow">Inscrição oficial</div>
-          <h1 id="hero-title">UP Day <span>Agosto 2026</span></h1>
+          <h1 id="hero-title">UP Day <span class="accent">Agosto 2026</span></h1>
+          <p class="hero-date">15 e 16 de Agosto • São Paulo-SP</p>
           <p class="lead">
-            Preencha seus dados para garantir sua inscrição no treinamento presencial do Instituto UP.
+            Preencha seus dados para garantir sua vaga no treinamento presencial do
+            Instituto UP e aproveite a campanha especial do 1º lote.
           </p>
+
           <div class="hero-badges" role="list">
-            <span class="badge" role="listitem">15 e 16 de Agosto de 2026</span>
-            <span class="badge" role="listitem">São Paulo-SP</span>
             <span class="badge" role="listitem">Rua Abílio Soares, 245</span>
+            <span class="badge" role="listitem">Bairro Paraíso</span>
+            <span class="badge" role="listitem">2 dias intensivos</span>
             <span class="badge" role="listitem">Vagas limitadas</span>
           </div>
+
+          <div class="offer-card">
+            <div class="offer-label">1º lote em destaque</div>
+            <p class="offer-title">
+              Comprou 1 ingresso e ganha o direito de levar 1 acompanhante
+              gratuitamente.
+            </p>
+            <p class="offer-copy">
+              Uma campanha forte para divulgar em anúncios, stories, WhatsApp e
+              fechamento direto com quem ainda está na dúvida.
+            </p>
+
+            <div class="offer-points">
+              <div class="offer-point">
+                <span class="offer-icon">+</span>
+                Perfeito para vender em dupla: casal, amigo, parceiro ou familiar.
+              </div>
+              <div class="offer-point">
+                <span class="offer-icon">✓</span>
+                Se quiser, você já pode informar o acompanhante no formulário.
+              </div>
+            </div>
+          </div>
+
           <ul class="hero-list">
             <li>
-              <span class="icon">1</span>
+              <span class="hero-icon">1</span>
               <div>
-                <strong>Dados de identificação.</strong>
-                <div>Nome, documentos e contatos para confirmação da vaga.</div>
+                <strong>Dados do participante</strong>
+                <div>Nome, documentos e contatos para confirmar sua vaga.</div>
               </div>
             </li>
             <li>
-              <span class="icon">2</span>
+              <span class="hero-icon">2</span>
               <div>
-                <strong>Informações do participante.</strong>
-                <div>Camiseta, indicação e observações importantes de saúde.</div>
+                <strong>Benefício do acompanhante</strong>
+                <div>
+                  Ative no 1º lote e informe os dados da pessoa que vai com você.
+                </div>
               </div>
             </li>
             <li>
-              <span class="icon">3</span>
+              <span class="hero-icon">3</span>
               <div>
-                <strong>Termos de participação.</strong>
-                <div>Pagamento, multa de adiamento e regras de cancelamento.</div>
+                <strong>Pagamento e termos</strong>
+                <div>Finalize sua inscrição e receba o direcionamento da equipe.</div>
               </div>
             </li>
           </ul>
+
+          <div class="hero-note">
+            <strong>Ideia pronta para divulgar:</strong> "No 1º lote do UP Day, ao
+            comprar seu ingresso você pode levar 1 acompanhante grátis."
+          </div>
+
           <div class="hero-footer">
-            <button class="cta" type="button" id="cta-open" aria-controls="form-card">Faça sua inscrição</button>
-            <small>O preenchimento leva poucos minutos e seus dados serão enviados para nossa equipe.</small>
+            <button class="cta" type="button" id="cta-open" aria-controls="form-card">
+              Garantir meu 1º lote
+            </button>
+            <small>
+              O preenchimento leva poucos minutos e seus dados serão enviados
+              somente para nossa equipe.
+            </small>
           </div>
         </section>
 
         <section class="form-card" id="form-card" aria-labelledby="formTitle">
-          <div class="status-banner" id="status-banner" aria-live="polite">Inscrição UP Day - Agosto 2026</div>
+          <div class="status-row">
+            <div class="status-banner" id="status-banner" aria-live="polite">
+              Preencha os campos obrigatórios para avançar.
+            </div>
+
+            <div class="offer-strip">
+              <div aria-hidden="true">🎁</div>
+              <div>
+                <strong>Campanha ativa do 1º lote</strong>
+                Comprando 1 ingresso, você garante o direito de levar 1
+                acompanhante gratuitamente.
+              </div>
+            </div>
+          </div>
 
           <div class="limited-box">
             <div class="limited-title">Atenção: vagas limitadas</div>
             <div class="bar"><div>83% preenchido</div></div>
-            <div class="limited-note">Restam poucas vagas disponíveis para 15 e 16 de agosto.</div>
+            <div class="limited-note">
+              Restam poucas vagas disponíveis para 15 e 16 de agosto.
+            </div>
           </div>
 
           <h2 class="form-title" id="formTitle">Faça sua inscrição</h2>
-          <p class="form-subtitle">UP Day - 15 e 16 de Agosto de 2026</p>
+          <p class="form-subtitle">
+            UP Day • 15 e 16 de Agosto de 2026 • São Paulo-SP
+          </p>
 
-          <div class="form-header" id="progressDots" aria-label="Progresso do formulário">
-            <div class="dot" data-step="0">1</div>
-            <div class="dot" data-step="1">2</div>
-            <div class="dot" data-step="2">3</div>
-            <div class="dot" data-step="3">4</div>
-            <div class="dot" data-step="4">5</div>
-            <div class="dot" data-step="5">6</div>
+          <div class="progress-card">
+            <div class="form-header" id="progressDots" aria-label="Progresso do formulário">
+              <div class="dot" data-step="0">1</div>
+              <div class="dot" data-step="1">2</div>
+              <div class="dot" data-step="2">3</div>
+              <div class="dot" data-step="3">4</div>
+              <div class="dot" data-step="4">5</div>
+              <div class="dot" data-step="5">6</div>
+            </div>
+            <div class="progress-rail" aria-hidden="true">
+              <div id="progressFill"></div>
+            </div>
+            <div id="progressText">Etapa 1 de 6 • Identificação</div>
           </div>
-          <div id="progressText">Etapa 1 de 6</div>
 
           <form id="msForm" novalidate>
             <div class="form-step active" data-step="0">
-              <div class="field">
-                <label class="required" for="nome">Nome completo</label>
-                <input id="nome" name="nome" type="text" placeholder="Seu nome completo" autocomplete="name" required />
-                <div class="error" data-for="nome"></div>
-              </div>
-              <div class="grid-two">
-                <div class="field">
-                  <label class="required" for="rg">RG</label>
-                  <input id="rg" name="rg" type="text" placeholder="Seu RG" required />
-                  <div class="error" data-for="rg"></div>
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 1</div>
+                  <h3 class="step-title">Seus dados de identificação</h3>
+                  <p class="step-text">
+                    Vamos começar com as informações principais para confirmar sua
+                    vaga.
+                  </p>
                 </div>
+
                 <div class="field">
-                  <label class="required" for="cpf">CPF</label>
-                  <input id="cpf" name="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" required />
-                  <div class="error" data-for="cpf"></div>
+                  <label class="required" for="nome">Nome completo</label>
+                  <input
+                    id="nome"
+                    name="nome"
+                    type="text"
+                    placeholder="Seu nome completo"
+                    autocomplete="name"
+                    required
+                  />
+                  <div class="error" data-for="nome"></div>
                 </div>
-              </div>
-              <div class="actions">
-                <span></span>
-                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+
+                <div class="grid-two">
+                  <div class="field">
+                    <label class="required" for="rg">RG</label>
+                    <input id="rg" name="rg" type="text" placeholder="Seu RG" required />
+                    <div class="error" data-for="rg"></div>
+                  </div>
+
+                  <div class="field">
+                    <label class="required" for="cpf">CPF</label>
+                    <input
+                      id="cpf"
+                      name="cpf"
+                      type="text"
+                      inputmode="numeric"
+                      placeholder="000.000.000-00"
+                      required
+                    />
+                    <div class="error" data-for="cpf"></div>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <span></span>
+                  <button type="button" class="btn btn-primary" data-next>Próximo</button>
+                </div>
               </div>
             </div>
 
             <div class="form-step" data-step="1">
-              <div class="field">
-                <label class="required" for="endereco">Endereço</label>
-                <input id="endereco" name="endereco" type="text" placeholder="Rua, número, bairro e complemento" autocomplete="street-address" required />
-                <div class="error" data-for="endereco"></div>
-              </div>
-              <div class="grid-two">
-                <div class="field">
-                  <label class="required" for="cidade">Cidade que reside</label>
-                  <input id="cidade" name="cidade" type="text" placeholder="Sua cidade" autocomplete="address-level2" required />
-                  <div class="error" data-for="cidade"></div>
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 2</div>
+                  <h3 class="step-title">Contato e localização</h3>
+                  <p class="step-text">
+                    Essas informações ajudam nossa equipe a validar sua inscrição e
+                    falar com você rapidamente.
+                  </p>
                 </div>
+
                 <div class="field">
-                  <label class="required" for="email">E-mail</label>
-                  <input id="email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required />
-                  <div class="error" data-for="email"></div>
+                  <label class="required" for="endereco">Endereço</label>
+                  <input
+                    id="endereco"
+                    name="endereco"
+                    type="text"
+                    placeholder="Rua, número, bairro e complemento"
+                    autocomplete="street-address"
+                    required
+                  />
+                  <div class="error" data-for="endereco"></div>
                 </div>
-              </div>
-              <div class="grid-two">
-                <div class="field">
-                  <label class="required" for="telefone">Número de telefone pessoal</label>
-                  <input id="telefone" name="telefone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" autocomplete="tel" required />
-                  <div class="error" data-for="telefone"></div>
+
+                <div class="grid-two">
+                  <div class="field">
+                    <label class="required" for="cidade">Cidade que reside</label>
+                    <input
+                      id="cidade"
+                      name="cidade"
+                      type="text"
+                      placeholder="Sua cidade"
+                      autocomplete="address-level2"
+                      required
+                    />
+                    <div class="error" data-for="cidade"></div>
+                  </div>
+
+                  <div class="field">
+                    <label class="required" for="email">E-mail</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="voce@email.com"
+                      autocomplete="email"
+                      required
+                    />
+                    <div class="error" data-for="email"></div>
+                  </div>
                 </div>
-                <div class="field">
-                  <label class="required" for="contato_emergencia">Número de contato familiar/amigo</label>
-                  <input id="contato_emergencia" name="contato_emergencia" type="tel" inputmode="tel" placeholder="(00) 00000-0000" required />
-                  <div class="error" data-for="contato_emergencia"></div>
+
+                <div class="grid-two">
+                  <div class="field">
+                    <label class="required" for="telefone">Número de telefone pessoal</label>
+                    <input
+                      id="telefone"
+                      name="telefone"
+                      type="tel"
+                      inputmode="tel"
+                      placeholder="(00) 00000-0000"
+                      autocomplete="tel"
+                      required
+                    />
+                    <div class="error" data-for="telefone"></div>
+                  </div>
+
+                  <div class="field">
+                    <label class="required" for="contato_emergencia">
+                      Número de contato familiar/amigo
+                    </label>
+                    <input
+                      id="contato_emergencia"
+                      name="contato_emergencia"
+                      type="tel"
+                      inputmode="tel"
+                      placeholder="(00) 00000-0000"
+                      required
+                    />
+                    <div class="error" data-for="contato_emergencia"></div>
+                  </div>
                 </div>
-              </div>
-              <div class="actions">
-                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
-                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+
+                <div class="actions">
+                  <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                  <button type="button" class="btn btn-primary" data-next>Próximo</button>
+                </div>
               </div>
             </div>
 
             <div class="form-step" data-step="2">
-              <div class="grid-two">
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 3</div>
+                  <h3 class="step-title">Perfil do participante</h3>
+                  <p class="step-text">
+                    Agora precisamos de algumas informações pessoais para a
+                    organização do evento.
+                  </p>
+                </div>
+
+                <div class="grid-two">
+                  <div class="field">
+                    <label class="required" for="data_nascimento">Data de nascimento</label>
+                    <input id="data_nascimento" name="data_nascimento" type="date" required />
+                    <div class="error" data-for="data_nascimento"></div>
+                  </div>
+
+                  <div class="field">
+                    <label class="required" for="profissao_area">Profissão</label>
+                    <input
+                      id="profissao_area"
+                      name="profissao_area"
+                      type="text"
+                      placeholder="Sua profissão"
+                      required
+                    />
+                    <div class="error" data-for="profissao_area"></div>
+                  </div>
+                </div>
+
                 <div class="field">
-                  <label class="required" for="data_nascimento">Data de nascimento</label>
-                  <input id="data_nascimento" name="data_nascimento" type="date" required />
-                  <div class="error" data-for="data_nascimento"></div>
+                  <div class="question-label required">Estado civil</div>
+                  <div class="choice-list two-cols">
+                    <label><input type="radio" name="estado_civil" value="Solteiro(a)" required /> Solteiro(a)</label>
+                    <label><input type="radio" name="estado_civil" value="Casado(a)" /> Casado(a)</label>
+                    <label><input type="radio" name="estado_civil" value="Viúvo(a)" /> Viúvo(a)</label>
+                    <label><input type="radio" name="estado_civil" value="Separado(a)" /> Separado(a)</label>
+                    <label><input type="radio" name="estado_civil" value="União Estável" /> União Estável</label>
+                    <label><input type="radio" name="estado_civil" value="Outro" /> Outro</label>
+                  </div>
+                  <input
+                    id="estado_civil_outro"
+                    name="estado_civil_outro"
+                    type="text"
+                    placeholder="Se marcou outro, informe aqui"
+                  />
+                  <div class="error" data-for="estado_civil"></div>
                 </div>
-                <div class="field">
-                  <label class="required" for="profissao_area">Profissão</label>
-                  <input id="profissao_area" name="profissao_area" type="text" placeholder="Sua profissão" required />
-                  <div class="error" data-for="profissao_area"></div>
+
+                <div class="actions">
+                  <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                  <button type="button" class="btn btn-primary" data-next>Próximo</button>
                 </div>
-              </div>
-              <div class="field">
-                <div class="question-label required">Estado civil</div>
-                <div class="choice-list">
-                  <label><input type="radio" name="estado_civil" value="Solteiro(a)" required /> Solteiro(a)</label>
-                  <label><input type="radio" name="estado_civil" value="Casado(a)" /> Casado(a)</label>
-                  <label><input type="radio" name="estado_civil" value="Viúvo(a)" /> Viúvo(a)</label>
-                  <label><input type="radio" name="estado_civil" value="Separado(a)" /> Separado(a)</label>
-                  <label><input type="radio" name="estado_civil" value="União Estável" /> União Estável</label>
-                  <label><input type="radio" name="estado_civil" value="Outro" /> Outro</label>
-                </div>
-                <input id="estado_civil_outro" name="estado_civil_outro" type="text" placeholder="Se marcou outro, informe aqui" />
-                <div class="error" data-for="estado_civil"></div>
-              </div>
-              <div class="actions">
-                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
-                <button type="button" class="btn btn-primary" data-next>Próximo</button>
               </div>
             </div>
 
             <div class="form-step" data-step="3">
-              <div class="field">
-                <label for="medicamentos_tratamento">Você está fazendo algum uso de medicamento ou tratamento? Se sim, qual?</label>
-                <textarea id="medicamentos_tratamento" name="medicamentos_tratamento" placeholder="Informe medicamentos, tratamentos ou escreva 'Não' se não houver."></textarea>
-                <div class="error" data-for="medicamentos_tratamento"></div>
-              </div>
-              <div class="field">
-                <label class="required" for="indicacao">Quem te indicou o nosso treinamento?</label>
-                <input id="indicacao" name="indicacao" type="text" placeholder="Nome da pessoa, Instagram ou canal" required />
-                <div class="error" data-for="indicacao"></div>
-              </div>
-              <div class="field">
-                <div class="question-label required">Qual tamanho da sua camiseta?</div>
-                <div class="choice-list">
-                  <label><input type="radio" name="tamanho_camiseta" value="P" required /> P</label>
-                  <label><input type="radio" name="tamanho_camiseta" value="M" /> M</label>
-                  <label><input type="radio" name="tamanho_camiseta" value="G" /> G</label>
-                  <label><input type="radio" name="tamanho_camiseta" value="GG" /> GG</label>
-                  <label><input type="radio" name="tamanho_camiseta" value="XG" /> XG</label>
-                  <label><input type="radio" name="tamanho_camiseta" value="XGG" /> XGG</label>
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 4</div>
+                  <h3 class="step-title">Experiência e benefício do 1º lote</h3>
+                  <p class="step-text">
+                    Aqui você finaliza os detalhes da experiência e pode ativar o
+                    acompanhante gratuito.
+                  </p>
                 </div>
-                <div class="error" data-for="tamanho_camiseta"></div>
-              </div>
-              <div class="actions">
-                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
-                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+
+                <div class="field">
+                  <label for="medicamentos_tratamento">
+                    Você está fazendo algum uso de medicamento ou tratamento? Se
+                    sim, qual?
+                  </label>
+                  <textarea
+                    id="medicamentos_tratamento"
+                    name="medicamentos_tratamento"
+                    placeholder="Informe medicamentos, tratamentos ou escreva 'Não' se não houver."
+                  ></textarea>
+                  <div class="error" data-for="medicamentos_tratamento"></div>
+                </div>
+
+                <div class="field">
+                  <label class="required" for="indicacao">Quem te indicou o nosso treinamento?</label>
+                  <input
+                    id="indicacao"
+                    name="indicacao"
+                    type="text"
+                    placeholder="Nome da pessoa, Instagram ou canal"
+                    required
+                  />
+                  <div class="error" data-for="indicacao"></div>
+                </div>
+
+                <div class="field">
+                  <div class="question-label required">Qual tamanho da sua camiseta?</div>
+                  <div class="choice-list two-cols">
+                    <label><input type="radio" name="tamanho_camiseta" value="P" required /> P</label>
+                    <label><input type="radio" name="tamanho_camiseta" value="M" /> M</label>
+                    <label><input type="radio" name="tamanho_camiseta" value="G" /> G</label>
+                    <label><input type="radio" name="tamanho_camiseta" value="GG" /> GG</label>
+                    <label><input type="radio" name="tamanho_camiseta" value="XG" /> XG</label>
+                    <label><input type="radio" name="tamanho_camiseta" value="XGG" /> XGG</label>
+                  </div>
+                  <div class="error" data-for="tamanho_camiseta"></div>
+                </div>
+
+                <div class="companion-box">
+                  <div class="companion-badge">Benefício especial do 1º lote</div>
+                  <h3>Vai levar um acompanhante gratuitamente?</h3>
+                  <p>
+                    Ao comprar 1 ingresso no 1º lote, você pode indicar 1
+                    acompanhante sem custo extra.
+                  </p>
+
+                  <div class="choice-list">
+                    <label>
+                      <input type="radio" name="primeiro_lote_acompanhante" value="Sim" />
+                      Sim, quero ativar meu acompanhante grátis
+                    </label>
+                    <label>
+                      <input type="radio" name="primeiro_lote_acompanhante" value="Não" />
+                      Não vou usar agora
+                    </label>
+                  </div>
+                  <div class="error" data-for="primeiro_lote_acompanhante"></div>
+
+                  <div id="companionFields" hidden>
+                    <div class="grid-two" style="margin-top: 16px;">
+                      <div class="field">
+                        <label class="required" for="acompanhante_nome">Nome do acompanhante</label>
+                        <input
+                          id="acompanhante_nome"
+                          name="acompanhante_nome"
+                          type="text"
+                          placeholder="Nome completo do acompanhante"
+                        />
+                        <div class="error" data-for="acompanhante_nome"></div>
+                      </div>
+
+                      <div class="field">
+                        <label class="required" for="acompanhante_telefone">
+                          WhatsApp do acompanhante
+                        </label>
+                        <input
+                          id="acompanhante_telefone"
+                          name="acompanhante_telefone"
+                          type="tel"
+                          inputmode="tel"
+                          placeholder="(00) 00000-0000"
+                        />
+                        <div class="error" data-for="acompanhante_telefone"></div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="acompanhante_email">E-mail do acompanhante</label>
+                      <input
+                        id="acompanhante_email"
+                        name="acompanhante_email"
+                        type="email"
+                        placeholder="email@acompanhante.com"
+                      />
+                      <div class="error" data-for="acompanhante_email"></div>
+                    </div>
+
+                    <p class="note">
+                      Se preferir, você pode preencher apenas nome e telefone agora.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                  <button type="button" class="btn btn-primary" data-next>Próximo</button>
+                </div>
               </div>
             </div>
 
             <div class="form-step" data-step="4">
-              <div class="info-box">
-                <h3>Pagamento</h3>
-                <p>Sua vaga será garantida com o pagamento da primeira parcela através do PIX:</p>
-                <p class="pix-line">CNPJ 24.964.964/0001-18</p>
-                <p class="pix-line">RODRIGO DAMACENO PEREIRA</p>
-                <p>Ou pelo preenchimento do link de pagamento enviado pela equipe.</p>
-                <p><strong>OBS:</strong> Não é permitida a participação de gestantes. Outras condições especiais, consulte-nos.</p>
-              </div>
-              <div class="actions">
-                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
-                <button type="button" class="btn btn-primary" data-next>Próximo</button>
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 5</div>
+                  <h3 class="step-title">Pagamento e confirmação da vaga</h3>
+                  <p class="step-text">
+                    Sua vaga será confirmada após o pagamento da primeira parcela.
+                  </p>
+                </div>
+
+                <div class="info-box">
+                  <h3>Pagamento</h3>
+                  <p>Sua vaga será garantida com o pagamento da primeira parcela através do PIX:</p>
+                  <p class="pix-line">CNPJ 24.964.964/0001-18</p>
+                  <p class="pix-line">RODRIGO DAMACENO PEREIRA</p>
+                  <p>Ou pelo preenchimento do link de pagamento enviado pela equipe.</p>
+                  <p>
+                    <strong>Obs.:</strong> Não é permitida a participação de gestantes.
+                    Outras condições especiais, consulte nossa equipe.
+                  </p>
+                  <p>
+                    Caso tenha ativado o acompanhante grátis, os dados dele serão
+                    confirmados junto com sua inscrição.
+                  </p>
+                </div>
+
+                <div class="actions">
+                  <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                  <button type="button" class="btn btn-primary" data-next>Próximo</button>
+                </div>
               </div>
             </div>
 
             <div class="form-step" data-step="5">
-              <div class="term-box">
-                <h3>Multa</h3>
-                <p>
-                  Caso o contratante deseje adiar o treinamento, será cobrada uma taxa de R$ 400,00 por qualquer imprevisto,
-                  ou haverá a possibilidade de substituir por alguém indicado por ele para ocupar essa vaga com 15 dias de
-                  antecedência da data do treinamento.
-                </p>
-                <label class="term-check">
-                  <input type="checkbox" name="multa_ciente" value="Declaro estar ciente da taxa." required />
-                  Declaro estar ciente da taxa.
-                </label>
-                <div class="error" data-for="multa_ciente"></div>
-              </div>
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 6</div>
+                  <h3 class="step-title">Termos finais</h3>
+                  <p class="step-text">
+                    Revise os termos abaixo e finalize sua inscrição.
+                  </p>
+                </div>
 
-              <div class="term-box">
-                <h3>Regras de cancelamento ou desistência</h3>
-                <p>
-                  No caso de cancelamento ou não comparecimento, será reembolsado o valor integral no prazo de 7 dias a
-                  contar da contratação do treinamento. Após 7 dias poderá ceder sua vaga para outra pessoa indicada pelo
-                  contratante. Caso não haja o preenchimento da vaga não haverá devolução. Art. 49 CDC.
-                </p>
-                <label class="term-check">
-                  <input type="checkbox" name="cancelamento_ciente" value="Concordo com o termo acima." required />
-                  Concordo com o termo acima.
-                </label>
-                <div class="error" data-for="cancelamento_ciente"></div>
-              </div>
+                <div class="term-box">
+                  <h3>Multa</h3>
+                  <p>
+                    Caso o contratante deseje adiar o treinamento, será cobrada uma
+                    taxa de R$ 400,00 por qualquer imprevisto, ou haverá a
+                    possibilidade de substituir por alguém indicado por ele para
+                    ocupar essa vaga com 15 dias de antecedência da data do
+                    treinamento.
+                  </p>
+                  <label class="term-check">
+                    <input
+                      type="checkbox"
+                      name="multa_ciente"
+                      value="Declaro estar ciente da taxa."
+                      required
+                    />
+                    Declaro estar ciente da taxa.
+                  </label>
+                  <div class="error" data-for="multa_ciente"></div>
+                </div>
 
-              <div class="actions">
-                <button type="button" class="btn btn-secondary" data-back>Voltar</button>
-                <button type="button" class="btn btn-primary" data-next>Finalizar inscrição</button>
+                <div class="term-box">
+                  <h3>Regras de cancelamento ou desistência</h3>
+                  <p>
+                    No caso de cancelamento ou não comparecimento, será reembolsado o
+                    valor integral no prazo de 7 dias a contar da contratação do
+                    treinamento. Após 7 dias poderá ceder sua vaga para outra pessoa
+                    indicada pelo contratante. Caso não haja o preenchimento da vaga
+                    não haverá devolução. Art. 49 CDC.
+                  </p>
+                  <label class="term-check">
+                    <input
+                      type="checkbox"
+                      name="cancelamento_ciente"
+                      value="Concordo com o termo acima."
+                      required
+                    />
+                    Concordo com o termo acima.
+                  </label>
+                  <div class="error" data-for="cancelamento_ciente"></div>
+                </div>
+
+                <div class="actions">
+                  <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                  <button type="button" class="btn btn-primary" data-next>
+                    Finalizar inscrição
+                  </button>
+                </div>
               </div>
             </div>
           </form>
@@ -736,18 +1344,40 @@
           startISO: "2026-08-15T09:00:00-03:00",
           endISO: "2026-08-16T18:00:00-03:00",
           whatsappNumber: "5513997832766",
-          whatsappMessage: "Olá! Acabei de preencher minha inscrição do UP Day Agosto 2026 e quero finalizar minha vaga."
+          whatsappMessage:
+            "Olá! Acabei de preencher minha inscrição do UP Day Agosto 2026 e quero finalizar minha vaga.",
         };
+
+        const STEP_TITLES = [
+          "Identificação",
+          "Contato",
+          "Perfil",
+          "Experiência + acompanhante",
+          "Pagamento",
+          "Termos finais",
+        ];
+
+        const STEP_MESSAGES = [
+          "Preencha seus dados de identificação para começar.",
+          "Confirme seus contatos para a equipe falar com você.",
+          "Complete seu perfil para organização do evento.",
+          "Ative aqui o acompanhante gratuito do 1º lote, se desejar.",
+          "Revise como será a confirmação da sua vaga.",
+          "Última etapa: aceite os termos para finalizar.",
+        ];
 
         const TOTAL_STEPS = 6;
         const INSCRICAO_URL = "/api/inscricao";
         const form = document.getElementById("msForm");
         const steps = Array.from(document.querySelectorAll(".form-step"));
         const progressDots = Array.from(document.querySelectorAll(".dot"));
+        const progressFill = document.getElementById("progressFill");
         const progressText = document.getElementById("progressText");
         const statusBanner = document.getElementById("status-banner");
         const ctaOpen = document.getElementById("cta-open");
-        const clientId = crypto.randomUUID();
+        const companionFields = document.getElementById("companionFields");
+        const clientId =
+          window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
         const searchParams = new URLSearchParams(window.location.search);
         const tracking = collectTracking(searchParams);
         const allData = {};
@@ -767,9 +1397,13 @@
             utm_content: params.get("utm_content") || "",
             traffic_source: params.get("traffic_source") || params.get("utm_source") || "",
             from_bio: parseBoolean(params.get("from_bio")),
-            is_whatsapp_traffic: parseBoolean(params.get("is_whatsapp_traffic")) || /whatsapp/i.test(params.get("utm_source") || ""),
-            is_bio_traffic: parseBoolean(params.get("is_bio_traffic")) || /bio/i.test(params.get("utm_source") || ""),
-            audience_segment: params.get("audience_segment") || ""
+            is_whatsapp_traffic:
+              parseBoolean(params.get("is_whatsapp_traffic")) ||
+              /whatsapp/i.test(params.get("utm_source") || ""),
+            is_bio_traffic:
+              parseBoolean(params.get("is_bio_traffic")) ||
+              /bio/i.test(params.get("utm_source") || ""),
+            audience_segment: params.get("audience_segment") || "",
           };
         }
 
@@ -785,13 +1419,18 @@
         function maskPhone(value) {
           const digits = onlyDigits(value).slice(0, 11);
           if (digits.length <= 10) {
-            return digits.replace(/(\d{2})(\d{4})(\d{0,4})/, function (_, ddd, p1, p2) {
-              return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
-            }).trim();
+            return digits
+              .replace(/(\d{2})(\d{4})(\d{0,4})/, function (_, ddd, p1, p2) {
+                return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
+              })
+              .trim();
           }
-          return digits.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, function (_, ddd, n9, p1, p2) {
-            return `(${ddd}) ${n9}${p1}${p2 ? "-" + p2 : ""}`;
-          }).trim();
+
+          return digits
+            .replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, function (_, ddd, n9, p1, p2) {
+              return `(${ddd}) ${n9}${p1}${p2 ? "-" + p2 : ""}`;
+            })
+            .trim();
         }
 
         function maskCpf(value) {
@@ -804,8 +1443,12 @@
 
         function validatePhone(value) {
           const digits = onlyDigits(value);
-          if (!(digits.length === 10 || digits.length === 11)) return "Informe um telefone com DDD válido.";
-          if (digits.length === 11 && digits[2] !== "9") return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
+          if (!(digits.length === 10 || digits.length === 11)) {
+            return "Informe um telefone com DDD válido.";
+          }
+          if (digits.length === 11 && digits[2] !== "9") {
+            return "Telefones com 11 dígitos precisam iniciar com 9 após o DDD.";
+          }
           return "";
         }
 
@@ -830,19 +1473,67 @@
         }
 
         function validateEmail(value) {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Informe um e-mail válido.";
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+            ? ""
+            : "Informe um e-mail válido.";
         }
 
         function validateBirthDate(value) {
           if (!value) return "Informe sua data de nascimento.";
           const birthDate = new Date(`${value}T00:00:00`);
           const eventDate = new Date(TRAINING_CONFIG.startISO);
-          if (Number.isNaN(birthDate.getTime()) || birthDate > eventDate) return "Informe uma data de nascimento válida.";
+          if (Number.isNaN(birthDate.getTime()) || birthDate > eventDate) {
+            return "Informe uma data de nascimento válida.";
+          }
+
           let age = eventDate.getFullYear() - birthDate.getFullYear();
           const monthDiff = eventDate.getMonth() - birthDate.getMonth();
-          if (monthDiff < 0 || (monthDiff === 0 && eventDate.getDate() < birthDate.getDate())) age -= 1;
+          if (monthDiff < 0 || (monthDiff === 0 && eventDate.getDate() < birthDate.getDate())) {
+            age -= 1;
+          }
+
           if (age < 18) return "A inscrição é permitida apenas para maiores de 18 anos.";
           return "";
+        }
+
+        function checkedValue(stepEl, name) {
+          const el = stepEl.querySelector(`input[name="${name}"]:checked`);
+          return el ? el.value : "";
+        }
+
+        function isChecked(stepEl, name) {
+          return Boolean(stepEl.querySelector(`input[name="${name}"]:checked`));
+        }
+
+        function getValue(stepEl, name) {
+          const el = stepEl.querySelector(`[name="${name}"]`);
+          return el ? el.value.trim() : "";
+        }
+
+        function serializeFormValues() {
+          const snapshot = {};
+          const fields = Array.from(form.elements).filter((element) => element.name);
+          const visited = new Set();
+
+          fields.forEach((element) => {
+            if (visited.has(element.name)) return;
+            visited.add(element.name);
+
+            if (element.type === "radio") {
+              const selected = form.querySelector(`input[name="${element.name}"]:checked`);
+              snapshot[element.name] = selected ? selected.value : "";
+              return;
+            }
+
+            if (element.type === "checkbox") {
+              snapshot[element.name] = element.checked ? element.value : "";
+              return;
+            }
+
+            snapshot[element.name] = element.value || "";
+          });
+
+          return snapshot;
         }
 
         function updateProgress() {
@@ -850,17 +1541,34 @@
             dot.classList.toggle("active", index === currentStep);
             dot.classList.toggle("completed", index < currentStep);
           });
-          progressText.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS}`;
+
+          progressFill.style.width = `${((currentStep + 1) / TOTAL_STEPS) * 100}%`;
+          progressText.textContent = `Etapa ${currentStep + 1} de ${TOTAL_STEPS} • ${STEP_TITLES[currentStep]}`;
+          statusBanner.textContent = STEP_MESSAGES[currentStep];
         }
 
         function showStep(index) {
           steps.forEach((step, idx) => {
             step.classList.toggle("active", idx === index);
           });
+          currentStep = index;
           updateProgress();
-          statusBanner.textContent = index === TOTAL_STEPS - 1
-            ? "Última etapa: revise e aceite os termos."
-            : "Preencha os campos obrigatórios para avançar.";
+          syncSelectableStates();
+          toggleCompanionFields();
+        }
+
+        function syncSelectableStates() {
+          document.querySelectorAll(".choice-list label, .term-check").forEach((label) => {
+            const input = label.querySelector("input");
+            if (!input) return;
+            label.classList.toggle("is-selected", input.checked);
+          });
+        }
+
+        function toggleCompanionFields() {
+          const selected = form.querySelector('input[name="primeiro_lote_acompanhante"]:checked');
+          const shouldShow = selected && selected.value === "Sim";
+          companionFields.hidden = !shouldShow;
         }
 
         function clearErrors(stepEl) {
@@ -876,20 +1584,6 @@
             target.textContent = message;
             target.style.display = message ? "block" : "none";
           }
-        }
-
-        function getValue(stepEl, name) {
-          const el = stepEl.querySelector(`[name="${name}"]`);
-          return el ? el.value.trim() : "";
-        }
-
-        function checkedValue(stepEl, name) {
-          const el = stepEl.querySelector(`input[name="${name}"]:checked`);
-          return el ? el.value : "";
-        }
-
-        function isChecked(stepEl, name) {
-          return Boolean(stepEl.querySelector(`input[name="${name}"]:checked`));
         }
 
         function collectStepData(stepEl) {
@@ -923,9 +1617,11 @@
               if (cpfError) fail("cpf", cpfError);
               break;
             }
+
             case 1: {
               data.endereco = requireField("endereco", "seu endereço", 5);
               data.cidade = requireField("cidade", "a cidade onde reside", 2);
+
               data.email = getValue(stepEl, "email");
               const emailError = validateEmail(data.email);
               if (emailError) fail("email", emailError);
@@ -939,6 +1635,7 @@
               if (emergencyError) fail("contato_emergencia", emergencyError);
               break;
             }
+
             case 2: {
               data.data_nascimento = getValue(stepEl, "data_nascimento");
               const birthError = validateBirthDate(data.data_nascimento);
@@ -954,23 +1651,60 @@
               }
               break;
             }
+
             case 3: {
               data.medicamentos_tratamento = getValue(stepEl, "medicamentos_tratamento");
               data.indicacao = requireField("indicacao", "quem te indicou", 2);
               data.tamanho_camiseta = checkedValue(stepEl, "tamanho_camiseta");
-              if (!data.tamanho_camiseta) fail("tamanho_camiseta", "Selecione o tamanho da camiseta.");
-              break;
-            }
-            case 4: {
-              data.pagamento_info_visualizada = "PIX CNPJ 24.964.964/0001-18 - RODRIGO DAMACENO PEREIRA";
-              break;
-            }
-            case 5: {
-              data.multa_ciente = isChecked(stepEl, "multa_ciente") ? "Declaro estar ciente da taxa." : "";
-              if (!data.multa_ciente) fail("multa_ciente", "Confirme que está ciente da taxa.");
+              if (!data.tamanho_camiseta) {
+                fail("tamanho_camiseta", "Selecione o tamanho da camiseta.");
+              }
 
-              data.cancelamento_ciente = isChecked(stepEl, "cancelamento_ciente") ? "Concordo com o termo acima." : "";
-              if (!data.cancelamento_ciente) fail("cancelamento_ciente", "Confirme que concorda com o termo.");
+              data.primeiro_lote_acompanhante = checkedValue(stepEl, "primeiro_lote_acompanhante");
+              data.acompanhante_nome = getValue(stepEl, "acompanhante_nome");
+              data.acompanhante_telefone = getValue(stepEl, "acompanhante_telefone");
+              data.acompanhante_email = getValue(stepEl, "acompanhante_email");
+
+              if (data.primeiro_lote_acompanhante === "Sim") {
+                if (!data.acompanhante_nome || data.acompanhante_nome.length < 3) {
+                  fail("acompanhante_nome", "Informe o nome completo do acompanhante.");
+                }
+
+                const companionPhoneError = validatePhone(data.acompanhante_telefone);
+                if (companionPhoneError) {
+                  fail("acompanhante_telefone", companionPhoneError);
+                }
+
+                if (data.acompanhante_email) {
+                  const companionEmailError = validateEmail(data.acompanhante_email);
+                  if (companionEmailError) {
+                    fail("acompanhante_email", companionEmailError);
+                  }
+                }
+              }
+              break;
+            }
+
+            case 4: {
+              data.pagamento_info_visualizada =
+                "PIX CNPJ 24.964.964/0001-18 - RODRIGO DAMACENO PEREIRA";
+              break;
+            }
+
+            case 5: {
+              data.multa_ciente = isChecked(stepEl, "multa_ciente")
+                ? "Declaro estar ciente da taxa."
+                : "";
+              if (!data.multa_ciente) {
+                fail("multa_ciente", "Confirme que está ciente da taxa.");
+              }
+
+              data.cancelamento_ciente = isChecked(stepEl, "cancelamento_ciente")
+                ? "Concordo com o termo acima."
+                : "";
+              if (!data.cancelamento_ciente) {
+                fail("cancelamento_ciente", "Confirme que concorda com o termo.");
+              }
               break;
             }
           }
@@ -997,7 +1731,7 @@
             _final: isFinal,
             ...tracking,
             ...allData,
-            ...stepPayload
+            ...stepPayload,
           };
 
           try {
@@ -1005,14 +1739,19 @@
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                Accept: "application/json",
               },
               body: JSON.stringify(payload),
-              keepalive: isFinal
+              keepalive: isFinal,
             });
 
-            if (!response.ok && response.type !== "opaque") throw new Error(`HTTP ${response.status}`);
-            statusBanner.textContent = isFinal ? "Inscrição enviada com sucesso." : `Etapa ${currentStep + 1} salva.`;
+            if (!response.ok && response.type !== "opaque") {
+              throw new Error(`HTTP ${response.status}`);
+            }
+
+            statusBanner.textContent = isFinal
+              ? "Inscrição enviada com sucesso."
+              : `Etapa ${currentStep + 1} salva.`;
             return true;
           } catch (error) {
             console.error("Erro ao enviar inscrição:", error);
@@ -1026,7 +1765,7 @@
           const { valid, data } = collectStepData(stepEl);
           if (!valid) return;
 
-          Object.assign(allData, data);
+          Object.assign(allData, serializeFormValues(), data);
           saveProgress();
 
           const isLast = currentStep === steps.length - 1;
@@ -1039,20 +1778,20 @@
           }
 
           await sendStepPayload(data, false);
-          currentStep += 1;
-          showStep(currentStep);
+          showStep(currentStep + 1);
+          saveProgress();
         }
 
         function goPrev() {
           if (currentStep === 0) return;
-          currentStep -= 1;
-          showStep(currentStep);
+          showStep(currentStep - 1);
           saveProgress();
         }
 
         function saveProgress() {
           try {
-            localStorage.setItem(formDataKey, JSON.stringify(allData));
+            const snapshot = { ...allData, ...serializeFormValues() };
+            localStorage.setItem(formDataKey, JSON.stringify(snapshot));
             localStorage.setItem(formStepKey, String(currentStep));
           } catch (error) {
             console.error("Erro ao salvar progresso:", error);
@@ -1072,12 +1811,15 @@
           try {
             const savedData = localStorage.getItem(formDataKey);
             const savedStep = localStorage.getItem(formStepKey);
+
             if (savedData) {
               const data = JSON.parse(savedData);
               Object.assign(allData, data);
+
               Object.keys(data).forEach((key) => {
                 const inputs = form.querySelectorAll(`[name="${key}"]`);
                 if (!inputs.length) return;
+
                 inputs.forEach((input) => {
                   if (input.type === "radio" || input.type === "checkbox") {
                     input.checked = input.value === data[key];
@@ -1087,6 +1829,7 @@
                 });
               });
             }
+
             if (savedStep) {
               currentStep = Math.min(Number(savedStep) || 0, steps.length - 1);
             }
@@ -1095,9 +1838,10 @@
           }
         }
 
-        ["telefone", "contato_emergencia"].forEach((id) => {
+        ["telefone", "contato_emergencia", "acompanhante_telefone"].forEach((id) => {
           const input = document.getElementById(id);
           if (!input) return;
+
           input.addEventListener("input", (event) => {
             event.target.value = maskPhone(event.target.value);
           });
@@ -1118,6 +1862,13 @@
           if (nextBtn) nextBtn.click();
         });
 
+        form.addEventListener("input", saveProgress);
+        form.addEventListener("change", () => {
+          syncSelectableStates();
+          toggleCompanionFields();
+          saveProgress();
+        });
+
         document.querySelectorAll("[data-next]").forEach((button) => {
           button.addEventListener("click", goNext);
         });
@@ -1126,9 +1877,14 @@
           button.addEventListener("click", goPrev);
         });
 
-        ctaOpen.addEventListener("click", () => {
-          document.getElementById("form-card").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+        if (ctaOpen) {
+          ctaOpen.addEventListener("click", () => {
+            document.getElementById("form-card").scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          });
+        }
 
         restoreProgress();
         showStep(currentStep);

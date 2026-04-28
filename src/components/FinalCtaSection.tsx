@@ -1,64 +1,86 @@
-import { Button } from "@/components/ui/button";
-import { ShieldCheck, Heart } from "lucide-react";
+import { Gift, Heart, ShieldCheck, Users } from "lucide-react";
 
 const FinalCtaSection = () => {
   const scrollToPricing = () => {
-    const pricingSection = document.getElementById('pricing');
+    const pricingSection = document.getElementById("pricing");
     if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: 'smooth' });
+      pricingSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 py-20 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-turquoise/10 rounded-full blur-[120px]" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 px-4 py-20 sm:px-6">
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-30">
+        <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-turquoise/10 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 container max-w-6xl mx-auto text-center">
+      <div className="relative z-10 container mx-auto max-w-6xl text-center">
         <div className="mb-16">
-          <div className="flex justify-center mb-8">
-            <div className="bg-turquoise/20 p-8 rounded-full transition-all duration-500 ease-in-out hover:bg-turquoise/30">
-              <Heart className="w-16 h-16 text-turquoise" />
+          <div className="mb-8 flex justify-center">
+            <div className="rounded-full bg-turquoise/20 p-8 transition-all duration-500 ease-in-out hover:bg-turquoise/30">
+              <Heart className="h-16 w-16 text-turquoise" />
             </div>
           </div>
-          
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-            Sua <span className="text-turquoise">Transformação Presencial</span> Te Espera
+
+          <div className="mx-auto mb-8 max-w-4xl rounded-3xl border border-amber-300/20 bg-gradient-to-r from-amber-300/15 via-orange-400/10 to-transparent p-5 text-left shadow-2xl shadow-amber-500/10">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/20 px-3 py-1 text-xs font-black uppercase tracking-[0.28em] text-amber-200">
+                  <Gift className="h-4 w-4" />
+                  Oferta de divulgação
+                </div>
+                <p className="text-xl font-bold leading-tight text-white md:text-2xl">
+                  No 1º lote, 1 ingresso comprado garante o direito de levar 1
+                  acompanhante gratuitamente.
+                </p>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-amber-50">
+                <Users className="h-4 w-4 text-amber-200" />
+                Uma campanha forte para vender em dupla
+              </div>
+            </div>
+          </div>
+
+          <h2 className="mb-8 text-4xl font-bold leading-tight text-white md:text-5xl lg:text-7xl">
+            Sua <span className="text-turquoise">Transformação Presencial</span>{" "}
+            Te Espera
           </h2>
-          
-          <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto leading-relaxed">
-            Uma experiência única em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). 
-            15 e 16 de Agosto - 2 dias intensivos que vão transformar sua vida.
+
+          <p className="mx-auto max-w-5xl text-xl leading-relaxed text-gray-300 md:text-2xl lg:text-3xl">
+            Uma experiência única em São Paulo-SP (Rua Abílio Soares, 245 -
+            Bairro Paraíso). 15 e 16 de Agosto - 2 dias intensivos que vão
+            transformar sua vida.
           </p>
         </div>
 
-        <div className="bg-gradient-to-r from-black/60 to-gray-900/60 rounded-3xl border border-turquoise/20 p-8 md:p-16 mb-16 transition-all duration-500 ease-in-out hover:scale-[1.02]">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 leading-tight">
+        <div className="mb-16 rounded-3xl border border-turquoise/20 bg-gradient-to-r from-black/60 to-gray-900/60 p-8 transition-all duration-500 ease-in-out hover:scale-[1.02] md:p-16">
+          <h3 className="mb-12 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
             O que você vai ganhar não tem preço:
           </h3>
-          
-          <div className="bg-black/30 rounded-2xl p-8 md:p-12 max-w-4xl mx-auto transition-all duration-500 ease-in-out hover:scale-105">
-            <h4 className="text-turquoise font-bold text-2xl lg:text-3xl mb-8">🚀 Experiência Completa</h4>
-            <ul className="grid md:grid-cols-2 gap-x-8 gap-y-6 text-left text-gray-300 text-lg lg:text-xl">
+
+          <div className="mx-auto max-w-4xl rounded-2xl bg-black/30 p-8 transition-all duration-500 ease-in-out hover:scale-105 md:p-12">
+            <h4 className="mb-8 text-2xl font-bold text-turquoise lg:text-3xl">
+              Experiência Completa
+            </h4>
+            <ul className="grid gap-x-8 gap-y-6 text-left text-lg text-gray-300 md:grid-cols-2 lg:text-xl">
               <li className="flex items-center gap-3">
-                <span className="text-turquoise text-2xl">•</span>
-                Local: Rua Abílio Soares, 245 – Bairro Paraíso — São Paulo-SP
+                <span className="text-2xl text-turquoise">•</span>
+                Local: Rua Abílio Soares, 245 - Bairro Paraíso - São Paulo-SP
               </li>
               <li className="flex items-center gap-3">
-                <span className="text-turquoise text-2xl">•</span>
+                <span className="text-2xl text-turquoise">•</span>
                 Data: 15 e 16 de Agosto de 2026
               </li>
               <li className="flex items-center gap-3">
-                <span className="text-turquoise text-2xl">•</span>
+                <span className="text-2xl text-turquoise">•</span>
                 2 dias de imersão intensiva
               </li>
               <li className="flex items-center gap-3">
-                <span className="text-turquoise text-2xl">•</span>
+                <span className="text-2xl text-turquoise">•</span>
                 Material físico
               </li>
               <li className="flex items-center gap-3">
-                <span className="text-turquoise text-2xl">•</span>
+                <span className="text-2xl text-turquoise">•</span>
                 Certificado presencial
               </li>
             </ul>
@@ -66,26 +88,27 @@ const FinalCtaSection = () => {
         </div>
 
         <div className="mb-16">
-          <p className="text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-            15 e 16 de Agosto em São Paulo-SP (Rua Abílio Soares, 245 – Bairro Paraíso). Uma experiência transformadora intensiva de 2 dias.
+          <p className="mx-auto mb-12 max-w-4xl text-xl text-gray-300 lg:text-2xl">
+            15 e 16 de Agosto em São Paulo-SP (Rua Abílio Soares, 245 - Bairro
+            Paraíso). Uma experiência transformadora intensiva de 2 dias.
           </p>
-          
+
           <button
             onClick={scrollToPricing}
-            className="bg-gradient-to-r from-turquoise to-blue-500 text-black font-bold text-xl md:text-2xl lg:text-3xl px-16 py-8 rounded-2xl transform hover:scale-105 transition-all duration-500 ease-in-out shadow-lg hover:shadow-2xl mb-8"
+            className="mb-8 rounded-2xl bg-gradient-to-r from-turquoise to-blue-500 px-16 py-8 text-xl font-bold text-black shadow-lg transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-2xl md:text-2xl lg:text-3xl"
           >
-            FAÇA SUA INSCRIÇÃO
+            QUERO APROVEITAR O 1º LOTE
           </button>
-          
-          <div className="flex justify-center items-center gap-4 text-gray-400 text-lg">
-            <ShieldCheck className="w-6 h-6 text-green-400" />
+
+          <div className="flex items-center justify-center gap-4 text-lg text-gray-400">
+            <ShieldCheck className="h-6 w-6 text-green-400" />
             <span>Garantia no dia + Local</span>
           </div>
         </div>
 
         <div className="border-t border-gray-700 pt-8">
-          <p className="text-gray-500 text-base lg:text-lg">
-            © 2025 Instituto UP. Todos os direitos reservados. | 
+          <p className="text-base text-gray-500 lg:text-lg">
+            © 2025 Instituto UP. Todos os direitos reservados. |
             <span className="text-turquoise"> Transformando vidas desde 2014</span>
           </p>
         </div>

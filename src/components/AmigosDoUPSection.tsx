@@ -14,7 +14,7 @@ const AmigosDoUPSection: React.FC = () => {
       const i = idx++;
       const img = i % 2 === 0 ? rodrigoImg : vanessaImg;
       const motion = motions[i % motions.length];
-  const size = 52 + Math.round(Math.random() * 28); // 52px a 80px (bolas maiores)
+      const size = 52 + Math.round(Math.random() * 28); // 52px a 80px (bolas maiores)
       const duration = 35 + Math.random() * 40; // 35s a 75s (mais lento)
       const delay = -Math.random() * duration; // fase aleatória
       const jitter = (Math.random() - 0.5) * 6; // ±3% para evitar linhas perfeitas
@@ -54,7 +54,7 @@ const AmigosDoUPSection: React.FC = () => {
               <img
                 src={img}
                 alt={i % 2 === 0 ? 'Rodrigo Damaceno' : 'Vanessa Vaz'}
-                style={{ ['--size' as any]: `${size}px` }}
+                style={{ '--size': `${size}px` } as React.CSSProperties}
                 className="bubble-img"
               />
             </div>
