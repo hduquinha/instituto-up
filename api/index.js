@@ -89,16 +89,24 @@ function buildPoolConfig() {
 
 // ─── Pool PostgreSQL ───────────────────────────────────────────────────────────
 let pool;
-const poolConfig = buildPoolConfig();
-if (poolConfig) {
-  pool = new Pool(poolConfig);
-} else {
-  console.error('Banco nao configurado! Defina DATABASE_URL ou PGHOST/PGDATABASE/PGUSER/PGPASSWORD.');
+let poolConfigError = null;
+try {
+  const poolConfig = buildPoolConfig();
+  if (poolConfig) {
+    pool = new Pool(poolConfig);
+  } else {
+    poolConfigError = 'Banco nao configurado! Defina DATABASE_URL ou PGHOST/PGDATABASE/PGUSER/PGPASSWORD.';
+    console.error(poolConfigError);
+  }
+} catch (error) {
+  poolConfigError = error.message;
+  console.error('Erro na configuracao do banco:', poolConfigError);
 }
 
 // Garante que schema + tabela existam no primeiro request
 let dbReady = false;
 async function ensureTable() {
+  if (poolConfigError) throw new Error(poolConfigError);
   if (!pool) throw new Error('Banco nao configurado. Defina DATABASE_URL ou PGHOST/PGDATABASE/PGUSER/PGPASSWORD na Vercel.');
   if (dbReady) return;
 

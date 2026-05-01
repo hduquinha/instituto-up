@@ -1746,7 +1746,12 @@
             });
 
             if (!response.ok && response.type !== "opaque") {
-              throw new Error(`HTTP ${response.status}`);
+              let details = "";
+              try {
+                const errorBody = await response.json();
+                details = errorBody?.details || errorBody?.error || "";
+              } catch {}
+              throw new Error(`HTTP ${response.status}${details ? ` - ${details}` : ""}`);
             }
 
             statusBanner.textContent = isFinal
