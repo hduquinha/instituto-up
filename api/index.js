@@ -5,9 +5,6 @@ try {
   require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 } catch {}
 
-// Aceitar certificados auto-assinados do Aiven (deve vir ANTES de qualquer conexão)
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 const cors = require('cors');
 const { Pool } = require('pg');
 
@@ -22,21 +19,87 @@ app.use(cors({
 // Parser JSON
 app.use(express.json());
 
-// ─── Pool PostgreSQL (Aiven) ───────────────────────────────────────────────────
+function getEnv(name) {
+  return process.env[name]?.trim();
+}
+
+function buildSslConfig() {
+  const sslMode = (getEnv('PGSSLMODE') || getEnv('DB_SSLMODE') || '').toLowerCase();
+  const sslEnabled = (getEnv('PGSSL') || getEnv('DB_SSL') || '').toLowerCase();
+
+  if (sslMode === 'disable' || sslEnabled === 'false') return false;
+  if (sslMode === 'no-verify' || sslMode === 'require' || sslEnabled === 'true') {
+    return { rejectUnauthorized: false };
+  }
+
+  return false;
+}
+
+function validateDatabaseUrl(databaseUrl) {
+  try {
+    const parsed = new URL(databaseUrl);
+    if (!['postgres:', 'postgresql:'].includes(parsed.protocol)) {
+      throw new Error('DATABASE_URL deve comecar com postgres:// ou postgresql://');
+    }
+    if (!parsed.hostname || parsed.hostname.includes(' ')) {
+      throw new Error('DATABASE_URL esta sem host valido');
+    }
+    if (parsed.hostname.toLowerCase() === 'base') {
+      throw new Error('DATABASE_URL esta usando "base" como host; cole a URL PostgreSQL completa do servidor');
+    }
+    return parsed;
+  } catch (error) {
+    throw new Error(`DATABASE_URL invalida: ${error.message}`);
+  }
+}
+
+function buildPoolConfig() {
+  const databaseUrl = getEnv('DATABASE_URL');
+  if (databaseUrl) {
+    const parsed = validateDatabaseUrl(databaseUrl);
+    const sslMode = parsed.searchParams.get('sslmode')?.toLowerCase();
+
+    return {
+      connectionString: databaseUrl,
+      ssl: sslMode && sslMode !== 'disable'
+        ? { rejectUnauthorized: false }
+        : buildSslConfig()
+    };
+  }
+
+  const host = getEnv('PGHOST') || getEnv('DB_HOST');
+  const database = getEnv('PGDATABASE') || getEnv('DB_NAME') || getEnv('POSTGRES_DB');
+  const user = getEnv('PGUSER') || getEnv('DB_USER') || getEnv('POSTGRES_USER');
+  const password = getEnv('PGPASSWORD') || getEnv('DB_PASSWORD') || getEnv('POSTGRES_PASSWORD');
+  const port = Number(getEnv('PGPORT') || getEnv('DB_PORT') || 5432);
+
+  if (host && database && user) {
+    return {
+      host,
+      port,
+      database,
+      user,
+      password,
+      ssl: buildSslConfig()
+    };
+  }
+
+  return null;
+}
+
+// ─── Pool PostgreSQL ───────────────────────────────────────────────────────────
 let pool;
-if (process.env.DATABASE_URL) {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
-  });
+const poolConfig = buildPoolConfig();
+if (poolConfig) {
+  pool = new Pool(poolConfig);
 } else {
-  console.error('⚠️  DATABASE_URL não configurada!');
+  console.error('Banco nao configurado! Defina DATABASE_URL ou PGHOST/PGDATABASE/PGUSER/PGPASSWORD.');
 }
 
 // Garante que schema + tabela existam no primeiro request
 let dbReady = false;
 async function ensureTable() {
-  if (!pool) throw new Error('DATABASE_URL não configurada. Adicione a env var na Vercel.');
+  if (!pool) throw new Error('Banco nao configurado. Defina DATABASE_URL ou PGHOST/PGDATABASE/PGUSER/PGPASSWORD na Vercel.');
   if (dbReady) return;
 
   // ── Schema legado ──────────────────────────────────────────────────────────
