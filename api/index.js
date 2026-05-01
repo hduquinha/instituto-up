@@ -35,9 +35,26 @@ function buildSslConfig() {
   return false;
 }
 
+function normalizeDatabaseUrl(value) {
+  let normalized = String(value || '').trim();
+
+  normalized = normalized.replace(/^export\s+/i, '');
+  normalized = normalized.replace(/^DATABASE_URL\s*=\s*/i, '').trim();
+  normalized = normalized.replace(/^PGDATABASE_URL\s*=\s*/i, '').trim();
+
+  const quoted = normalized.match(/^["'](.+)["']$/);
+  if (quoted) normalized = quoted[1].trim();
+
+  const embeddedUrl = normalized.match(/postgres(?:ql)?:\/\/[^\s"']+/i);
+  if (embeddedUrl) normalized = embeddedUrl[0];
+
+  return normalized;
+}
+
 function validateDatabaseUrl(databaseUrl) {
+  const normalized = normalizeDatabaseUrl(databaseUrl);
   try {
-    const parsed = new URL(databaseUrl);
+    const parsed = new URL(normalized);
     if (!['postgres:', 'postgresql:'].includes(parsed.protocol)) {
       throw new Error('DATABASE_URL deve comecar com postgres:// ou postgresql://');
     }
@@ -47,7 +64,7 @@ function validateDatabaseUrl(databaseUrl) {
     if (parsed.hostname.toLowerCase() === 'base') {
       throw new Error('DATABASE_URL esta usando "base" como host; cole a URL PostgreSQL completa do servidor');
     }
-    return parsed;
+    return { parsed, connectionString: normalized };
   } catch (error) {
     throw new Error(`DATABASE_URL invalida: ${error.message}`);
   }
@@ -56,11 +73,11 @@ function validateDatabaseUrl(databaseUrl) {
 function buildPoolConfig() {
   const databaseUrl = getEnv('DATABASE_URL');
   if (databaseUrl) {
-    const parsed = validateDatabaseUrl(databaseUrl);
+    const { parsed, connectionString } = validateDatabaseUrl(databaseUrl);
     const sslMode = parsed.searchParams.get('sslmode')?.toLowerCase();
 
     return {
-      connectionString: databaseUrl,
+      connectionString,
       ssl: sslMode && sslMode !== 'disable'
         ? { rejectUnauthorized: false }
         : buildSslConfig()
