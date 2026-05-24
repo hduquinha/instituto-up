@@ -1734,8 +1734,52 @@
           return `https://wa.me/${TRAINING_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
         }
 
+        function normalizeText(value) {
+          return String(value ?? "").replace(/\s+/g, " ").trim();
+        }
+
+        function toTitleCase(value) {
+          const lowercaseWords = new Set(["da", "de", "do", "das", "dos", "e"]);
+          return normalizeText(value)
+            .toLowerCase()
+            .split(" ")
+            .filter(Boolean)
+            .map((word, index) => {
+              if (index > 0 && lowercaseWords.has(word)) return word;
+              return word.charAt(0).toUpperCase() + word.slice(1);
+            })
+            .join(" ");
+        }
+
+        function normalizeUf(value) {
+          return normalizeText(value).replace(/[^a-zA-Z]/g, "").slice(0, 2).toUpperCase();
+        }
+
+        function normalizePhone(value) {
+          return String(value ?? "").replace(/\D+/g, "");
+        }
+
+        function normalizePayloadValues(payload) {
+          const normalized = { ...payload };
+          ["nome", "indicacao", "acompanhante_nome"].forEach((key) => {
+            if (typeof normalized[key] === "string") normalized[key] = toTitleCase(normalized[key]);
+          });
+          if (typeof normalized.cidade === "string") normalized.cidade = toTitleCase(normalized.cidade);
+          if (typeof normalized.estado === "string") normalized.estado = normalizeUf(normalized.estado);
+          if (typeof normalized.profissao_area === "string") {
+            normalized.profissao_area = normalizeText(normalized.profissao_area);
+          }
+          ["telefone", "contato_emergencia", "acompanhante_telefone"].forEach((key) => {
+            if (typeof normalized[key] === "string") normalized[key] = normalizePhone(normalized[key]);
+          });
+          if (normalized.cidade && normalized.estado) {
+            normalized.cidade_estado = `${normalized.cidade} - ${normalized.estado}`;
+          }
+          return normalized;
+        }
+
         async function sendStepPayload(stepPayload, isFinal) {
-          const payload = {
+          const payload = normalizePayloadValues({
             clientId,
             timestamp: new Date().toISOString(),
             data_preenchimento: new Date().toLocaleString("pt-BR"),
@@ -1749,7 +1793,7 @@
             ...tracking,
             ...allData,
             ...stepPayload,
-          };
+          });
 
           try {
             const response = await fetch(INSCRICAO_URL, {
