@@ -1008,6 +1008,22 @@
                   </div>
 
                   <div class="field">
+                    <label class="required" for="estado">Estado (UF)</label>
+                    <input
+                      id="estado"
+                      name="estado"
+                      type="text"
+                      maxlength="2"
+                      placeholder="SP"
+                      autocomplete="address-level1"
+                      required
+                    />
+                    <div class="error" data-for="estado"></div>
+                  </div>
+                </div>
+
+                <div class="grid-two">
+                  <div class="field">
                     <label class="required" for="email">E-mail</label>
                     <input
                       id="email"
@@ -1621,6 +1637,7 @@
             case 1: {
               data.endereco = requireField("endereco", "seu endereço", 5);
               data.cidade = requireField("cidade", "a cidade onde reside", 2);
+              data.estado = requireField("estado", "o estado onde reside", 2).toUpperCase();
 
               data.email = getValue(stepEl, "email");
               const emailError = validateEmail(data.email);
