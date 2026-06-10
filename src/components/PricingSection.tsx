@@ -11,9 +11,9 @@ const PricingSection = () => {
   const plans = [
     {
       name: "Presencial",
-      price: "2997",
+      price: "3997",
       originalPrice: "4997",
-      installments: "10x R$ 299,70",
+      installments: "10x R$ 399,70",
       description:
         "Treinamento presencial intensivo em comunicação e liderança em São Paulo-SP (Rua Abílio Soares, 245 - Bairro Paraíso).",
       features: [
