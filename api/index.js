@@ -315,6 +315,8 @@ app.post('/api/inscricao', async (req, res) => {
           data_treinamento_extenso: body.data_treinamento_extenso,
           treinamento_inicio: body.treinamento_inicio,
           treinamento_fim: body.treinamento_fim,
+          usa_nome_social: body.usa_nome_social,
+          nome_social: body.nome_social,
           rg: body.rg,
           cpf: body.cpf,
           endereco: body.endereco,

@@ -157,16 +157,6 @@ const PricingSection = () => {
                     {plan.description}
                   </p>
 
-                  <div className="mb-8 rounded-2xl border border-turquoise/20 bg-turquoise/10 p-5 text-left">
-                    <p className="mb-2 text-xs font-black uppercase tracking-[0.24em] text-turquoise">
-                      Ideia de divulgação
-                    </p>
-                    <p className="text-base font-semibold leading-relaxed text-white">
-                      "Compre seu ingresso do UP Day no 1º lote e leve um
-                      acompanhante grátis para viver essa experiência com você."
-                    </p>
-                  </div>
-
                   <hr className="my-8 border-gray-700" />
                   <ul className="space-y-5 text-gray-300">
                     {plan.features.map((feature, fIndex) => (

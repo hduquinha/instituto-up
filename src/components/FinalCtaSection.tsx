@@ -27,7 +27,7 @@ const FinalCtaSection = () => {
               <div>
                 <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-black/20 px-3 py-1 text-xs font-black uppercase tracking-[0.28em] text-amber-200">
                   <Gift className="h-4 w-4" />
-                  Oferta de divulgação
+                  Oferta especial
                 </div>
                 <p className="text-xl font-bold leading-tight text-white md:text-2xl">
                   No 1º lote, 1 ingresso comprado garante o direito de levar 1
@@ -36,7 +36,7 @@ const FinalCtaSection = () => {
               </div>
               <div className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-semibold text-amber-50">
                 <Users className="h-4 w-4 text-amber-200" />
-                Uma campanha forte para vender em dupla
+                Benefício para viver em dupla
               </div>
             </div>
           </div>
