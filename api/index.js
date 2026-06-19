@@ -149,11 +149,20 @@ async function ensureTable() {
       estado                VARCHAR(50),
       profissao             VARCHAR(100),
       origem                VARCHAR(100),
+      unidade_negocio       VARCHAR(100),
+      lead_origem           VARCHAR(100),
+      lead_produto          VARCHAR(100),
       telefone_normalizado  VARCHAR(20) UNIQUE,
       email_normalizado     VARCHAR(255),
       criado_em             TIMESTAMPTZ DEFAULT NOW(),
       atualizado_em         TIMESTAMPTZ DEFAULT NOW()
     )
+  `);
+  await pool.query(`
+    ALTER TABLE dashboard.pessoas
+      ADD COLUMN IF NOT EXISTS unidade_negocio VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS lead_origem VARCHAR(100),
+      ADD COLUMN IF NOT EXISTS lead_produto VARCHAR(100)
   `);
 
   await pool.query(`
@@ -202,13 +211,37 @@ function normalizeEmail(email) {
 }
 
 // Upsert pessoa por telefone normalizado
-async function upsertPessoa({ nome, telefone, email, cidade, estado, profissao, origem }) {
+async function upsertPessoa({
+  nome,
+  telefone,
+  email,
+  cidade,
+  estado,
+  profissao,
+  origem,
+  unidadeNegocio,
+  leadOrigem,
+  leadProduto
+}) {
   const telNorm = normalizeTelefone(telefone);
   const emailNorm = normalizeEmail(email);
 
   const result = await pool.query(`
-    INSERT INTO dashboard.pessoas (nome, telefone, email, cidade, estado, profissao, origem, telefone_normalizado, email_normalizado)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    INSERT INTO dashboard.pessoas (
+      nome,
+      telefone,
+      email,
+      cidade,
+      estado,
+      profissao,
+      origem,
+      unidade_negocio,
+      lead_origem,
+      lead_produto,
+      telefone_normalizado,
+      email_normalizado
+    )
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
     ON CONFLICT (telefone_normalizado) DO UPDATE SET
       nome = COALESCE(NULLIF(EXCLUDED.nome, ''), dashboard.pessoas.nome),
       email = COALESCE(NULLIF(EXCLUDED.email, ''), dashboard.pessoas.email),
@@ -216,9 +249,26 @@ async function upsertPessoa({ nome, telefone, email, cidade, estado, profissao, 
       cidade = COALESCE(NULLIF(EXCLUDED.cidade, ''), dashboard.pessoas.cidade),
       estado = COALESCE(NULLIF(EXCLUDED.estado, ''), dashboard.pessoas.estado),
       profissao = COALESCE(NULLIF(EXCLUDED.profissao, ''), dashboard.pessoas.profissao),
+      origem = COALESCE(NULLIF(EXCLUDED.origem, ''), dashboard.pessoas.origem),
+      unidade_negocio = COALESCE(NULLIF(EXCLUDED.unidade_negocio, ''), dashboard.pessoas.unidade_negocio),
+      lead_origem = COALESCE(NULLIF(EXCLUDED.lead_origem, ''), dashboard.pessoas.lead_origem),
+      lead_produto = COALESCE(NULLIF(EXCLUDED.lead_produto, ''), dashboard.pessoas.lead_produto),
       atualizado_em = NOW()
     RETURNING *
-  `, [nome || '', telefone || '', email || '', cidade || '', estado || '', profissao || '', origem || '', telNorm, emailNorm]);
+  `, [
+    nome || '',
+    telefone || '',
+    email || '',
+    cidade || '',
+    estado || '',
+    profissao || '',
+    origem || '',
+    unidadeNegocio || '',
+    leadOrigem || '',
+    leadProduto || '',
+    telNorm,
+    emailNorm
+  ]);
 
   return result.rows[0];
 }
@@ -272,9 +322,17 @@ app.post('/api/inscricao', async (req, res) => {
 
     const body = req.body || {};
     const clientId = body.clientId || null;
+    const treinamentoId = body.treinamento_id || body.training_id || body.treinamento || null;
     const dataTreinamento = body.data_treinamento || null;
     const step = body._step || null;
     const isFinal = body._final || false;
+    const leadMeta = {
+      unidadeNegocio: body.unidade_negocio || 'InstitutoUP',
+      leadSetor: body.lead_setor || 'instituto_up',
+      leadOrigem: body.lead_origem || 'up_day_plus',
+      leadProduto: body.lead_produto || body.produto_interesse || 'UP Day Plus',
+      leadEntrada: body.lead_entrada || body.entrada_sinal || 'InstitutoUP / UP Day Plus'
+    };
 
     // 1) Sempre gravar no schema legado (só a coluna payload que já existe)
     await pool.query(
@@ -293,11 +351,14 @@ app.post('/api/inscricao', async (req, res) => {
           cidade: body.cidade || '',
           estado: body.estado || '',
           profissao: body.profissao_area || '',
-          origem: 'Landing Page UP Day'
+          origem: leadMeta.leadEntrada,
+          unidadeNegocio: leadMeta.unidadeNegocio,
+          leadOrigem: leadMeta.leadOrigem,
+          leadProduto: leadMeta.leadProduto
         });
 
         // Garantir treinamento
-        const treinamentoCodigo = dataTreinamento || '15 e 16/08';
+        const treinamentoCodigo = treinamentoId || dataTreinamento || '15 e 16/08';
         const treinamentoNome = body.treinamento_nome || `UP Day ${treinamentoCodigo}`;
         const treinamento = await ensureTreinamento(
           treinamentoCodigo,
@@ -311,7 +372,19 @@ app.post('/api/inscricao', async (req, res) => {
 
         // Dados extras (tudo que não é pessoa/treinamento)
         const dadosExtras = {
+          treinamento: body.treinamento,
+          treinamento_id: body.treinamento_id,
+          training_id: body.training_id,
           treinamento_nome: body.treinamento_nome,
+          unidade_negocio: leadMeta.unidadeNegocio,
+          lead_setor: leadMeta.leadSetor,
+          lead_origem: leadMeta.leadOrigem,
+          lead_produto: leadMeta.leadProduto,
+          lead_entrada: leadMeta.leadEntrada,
+          entrada_sinal: body.entrada_sinal,
+          produto_interesse: body.produto_interesse,
+          origem_formulario: body.origem_formulario || body.page,
+          data_treinamento: body.data_treinamento,
           data_treinamento_extenso: body.data_treinamento_extenso,
           treinamento_inicio: body.treinamento_inicio,
           treinamento_fim: body.treinamento_fim,
@@ -351,6 +424,13 @@ app.post('/api/inscricao', async (req, res) => {
           utm_source: body.utm_source,
           utm_medium: body.utm_medium,
           utm_campaign: body.utm_campaign,
+          utm_term: body.utm_term,
+          utm_content: body.utm_content,
+          source: body.source,
+          traffic_source: body.traffic_source,
+          page: body.page,
+          referrer: body.referrer,
+          dashboard_tags: body.dashboard_tags,
           origem: 'landing-inscricao-agosto-2026',
           clientId: clientId,
           timestamp: body.timestamp

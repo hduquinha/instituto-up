@@ -1379,7 +1379,13 @@
     <script>
       (function () {
         const TRAINING_CONFIG = {
+          id: "3997",
           name: "Inscrição UP Day - Agosto 2026",
+          businessUnit: "InstitutoUP",
+          leadSector: "instituto_up",
+          leadOrigin: "up_day_plus",
+          leadProduct: "UP Day Plus",
+          leadEntry: "InstitutoUP / UP Day Plus",
           dateDisplay: "15 e 16/08",
           dateLong: "15 e 16 de Agosto de 2026",
           startISO: "2026-08-15T08:59:00-03:00",
@@ -1432,12 +1438,16 @@
         function collectTracking(params) {
           return {
             plan: params.get("plan") || "",
+            source: params.get("source") || "",
             utm_source: params.get("utm_source") || "",
             utm_medium: params.get("utm_medium") || "",
             utm_campaign: params.get("utm_campaign") || "",
             utm_term: params.get("utm_term") || "",
             utm_content: params.get("utm_content") || "",
-            traffic_source: params.get("traffic_source") || params.get("utm_source") || "",
+            traffic_source:
+              params.get("traffic_source") || params.get("source") || params.get("utm_source") || "",
+            page: window.location.href,
+            referrer: document.referrer || "",
             from_bio: parseBoolean(params.get("from_bio")),
             is_whatsapp_traffic:
               parseBoolean(params.get("is_whatsapp_traffic")) ||
@@ -1778,7 +1788,17 @@
         }
 
         function buildWhatsAppUrl(nome) {
-          const msg = TRAINING_CONFIG.whatsappMessage + (nome ? ` Meu nome: ${nome}.` : "");
+          const entrySignal = [
+            TRAINING_CONFIG.leadEntry,
+            tracking.traffic_source ? `origem: ${tracking.traffic_source}` : "",
+            tracking.utm_campaign ? `campanha: ${tracking.utm_campaign}` : "",
+          ]
+            .filter(Boolean)
+            .join(" | ");
+          const msg =
+            TRAINING_CONFIG.whatsappMessage +
+            (nome ? ` Meu nome: ${nome}.` : "") +
+            `\n\nEntrada: ${entrySignal}`;
           return `https://wa.me/${TRAINING_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
         }
 
@@ -1831,7 +1851,23 @@
             clientId,
             timestamp: new Date().toISOString(),
             data_preenchimento: new Date().toLocaleString("pt-BR"),
+            treinamento: TRAINING_CONFIG.id,
+            treinamento_id: TRAINING_CONFIG.id,
+            training_id: TRAINING_CONFIG.id,
             treinamento_nome: TRAINING_CONFIG.name,
+            unidade_negocio: TRAINING_CONFIG.businessUnit,
+            lead_setor: TRAINING_CONFIG.leadSector,
+            lead_origem: TRAINING_CONFIG.leadOrigin,
+            lead_produto: TRAINING_CONFIG.leadProduct,
+            lead_entrada: TRAINING_CONFIG.leadEntry,
+            entrada_sinal: TRAINING_CONFIG.leadEntry,
+            produto_interesse: TRAINING_CONFIG.leadProduct,
+            origem_formulario: window.location.href,
+            dashboard_tags: [
+              `Setor: ${TRAINING_CONFIG.businessUnit}`,
+              `Entrada: ${TRAINING_CONFIG.leadProduct}`,
+              `Treinamento: ${TRAINING_CONFIG.name}`,
+            ],
             data_treinamento: TRAINING_CONFIG.dateDisplay,
             data_treinamento_extenso: TRAINING_CONFIG.dateLong,
             treinamento_inicio: TRAINING_CONFIG.startISO,
