@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CalendarDays, Gift, MapPin, Sparkles } from "lucide-react";
+import { CalendarDays, Gift, MapPin, Sparkles, ShieldCheck, Users } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 import InscriptionForm from "@/components/InscriptionForm";
 
@@ -19,6 +19,10 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto w-full max-w-6xl">
         <div className="grid items-start gap-8 lg:grid-cols-[1fr,minmax(0,480px)] lg:gap-12">
           <div className="w-full max-w-xl text-left lg:pt-6">
+            <div className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-gray-300 sm:text-sm">
+              <img src="/up.png" alt="Instituto UP" className="h-9 w-9 rounded-full border border-turquoise/60 bg-black/40 p-1" />
+              <span>Instituto UP · experiência presencial</span>
+            </div>
             <h1 className="mb-3 break-words text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
               Viva o <span className="text-turquoise">UP Day Plus</span>
             </h1>
@@ -34,19 +38,18 @@ const HeroSection = () => {
               </span>
             </h2>
 
-            <p className="mb-6 text-sm leading-relaxed text-gray-300 sm:text-base md:text-lg">
-              Imersão presencial de 2 dias para elevar sua comunicação, dominar suas emoções e
-              destravar sua liderança.
+            <p className="mb-6 max-w-lg text-sm leading-relaxed text-gray-300 sm:text-base md:text-lg">
+              Dois dias de experiências práticas para comunicar-se com segurança, controlar suas emoções e liderar com mais confiança.
             </p>
 
-            <ul className="mb-6 space-y-3">
+            <ul className="mb-5 space-y-2.5 sm:mb-6 sm:space-y-3">
               <li className="flex items-center gap-3 text-sm font-semibold text-white sm:text-base">
                 <span className="rounded-full bg-turquoise/20 p-1.5">
                   <Sparkles className="h-4 w-4 text-turquoise" />
                 </span>
                 2 dias intensivos com dinâmicas de alto impacto
               </li>
-              <li className="flex items-center gap-3 text-sm font-semibold text-white sm:text-base">
+              <li className="hidden items-center gap-3 text-sm font-semibold text-white sm:flex sm:text-base">
                 <span className="rounded-full bg-turquoise/20 p-1.5">
                   <Sparkles className="h-4 w-4 text-turquoise" />
                 </span>
@@ -72,6 +75,11 @@ const HeroSection = () => {
                   Comprou 1 ingresso, leva 1 acompanhante gratuitamente.
                 </p>
               </div>
+            </div>
+
+            <div className="mb-6 hidden flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-gray-300 sm:flex">
+              <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-turquoise" /> Garantia no dia do evento</span>
+              <span className="inline-flex items-center gap-1.5"><Users className="h-4 w-4 text-turquoise" /> Vagas presenciais limitadas</span>
             </div>
 
             <Button

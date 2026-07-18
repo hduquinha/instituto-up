@@ -1,10 +1,22 @@
 // src/components/WhatsAppButton.tsx
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 // Importando a SUA imagem da pasta assets
 import whatsappLogo from '@/assets/wwplogo.png'; 
 
 const WhatsAppButton = () => {
+  const [formIsVisible, setFormIsVisible] = useState(false);
+
+  useEffect(() => {
+    const form = document.getElementById('inscricao');
+    if (!form) return;
+    const observer = new IntersectionObserver(([entry]) => setFormIsVisible(entry.isIntersecting), { threshold: 0.12 });
+    observer.observe(form);
+    return () => observer.disconnect();
+  }, []);
+
+  if (formIsVisible) return null;
+
   const phoneNumber = "5513997832766";
   const message = "Olá! Tenho interesse no treinamento e gostaria de mais informações.";
   const encodedMessage = encodeURIComponent(message);
@@ -12,7 +24,7 @@ const WhatsAppButton = () => {
 
   return (
     // 'group' é uma classe Tailwind para que o tooltip apareça ao passar o mouse sobre este div
-    <div className="fixed bottom-24 lg:bottom-6 right-6 z-50 group">
+    <div className="fixed bottom-[5.5rem] right-4 z-50 group lg:bottom-6 lg:right-6">
       
       {/* Balão de texto (Tooltip) */}
       <div className="absolute right-0 bottom-full mb-2 w-max bg-black text-white text-sm px-4 py-2 rounded-md shadow-lg
@@ -28,7 +40,7 @@ const WhatsAppButton = () => {
         href={whatsappLink}
         target="_blank" // Abre em uma nova aba
         rel="noopener noreferrer" // Segurança para links externos
-        className="relative bg-[#25D366] w-16 h-16 rounded-full flex items-center justify-center shadow-2xl
+        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-2xl
                    transition-transform duration-300 ease-in-out hover:scale-110 hover:bg-[#128C7E]
                    animate-pulse-whatsapp" // <-- AQUI aplicamos a classe da animação de pulso
         aria-label="Fale conosco pelo WhatsApp" // Boa prática de acessibilidade

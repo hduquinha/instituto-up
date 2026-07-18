@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ChevronLeft, Gift, Loader2 } from "lucide-react";
+import { CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 
 const TRAINING_CONFIG = {
   id: "3997",
@@ -519,10 +519,9 @@ const InscriptionForm = () => {
         UP Day • 15 e 16 de Agosto de 2026 • São Paulo-SP
       </p>
 
-      <div className="mt-4 flex items-center gap-2 rounded-xl border border-amber-300/25 bg-gradient-to-r from-amber-300/15 to-transparent px-3.5 py-2.5 text-sm font-semibold text-amber-50">
-        <Gift className="h-4 w-4 flex-shrink-0 text-amber-300" />
-        1º lote: comprou 1 ingresso, leva 1 acompanhante grátis.
-      </div>
+      <p className="mt-2 text-xs font-semibold text-amber-200 sm:text-sm">
+        1º lote: acompanhante grátis ao ativar sua inscrição.
+      </p>
 
       <div className="mt-5">
         <div className="mb-2 flex items-center justify-between text-xs font-bold text-gray-400">

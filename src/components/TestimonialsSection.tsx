@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="relative bg-black py-20 px-4 sm:px-6 overflow-hidden">
+    <section className="relative overflow-hidden bg-gradient-to-b from-gray-950 to-black px-4 py-16 sm:px-6 sm:py-20">
       <div className="container max-w-7xl mx-auto">
         <div className="text-center mb-16" data-aos="fade-up">
           <h2 className="text-3xl md:text-5xl font-extrabold text-white uppercase tracking-wider">
@@ -77,8 +77,9 @@ const TestimonialsSection = () => {
                 <div className="flex flex-col h-full items-center">
 
                   <div className="w-full max-w-[300px] aspect-[9/16] rounded-lg overflow-hidden border border-gray-800">
+                    <div className="h-full w-full bg-gray-900 p-1">
                     <iframe
-                      className="w-full h-full"
+                      className="h-full w-full rounded-md"
                       src={`https://www.youtube.com/embed/${testimonial.youtubeVideoId}`}
                       title={`Depoimento de ${testimonial.name}`}
                       frameBorder="0"
@@ -86,6 +87,7 @@ const TestimonialsSection = () => {
                       allowFullScreen
                       loading="lazy"
                     ></iframe>
+                    </div>
                   </div>
 
                   <div className="text-center mt-4 w-full max-w-[300px]">

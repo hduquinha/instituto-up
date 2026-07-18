@@ -49,16 +49,16 @@ const PricingSection = () => {
               </div>
 
               <div className="mb-6 text-center">
-                <span className="text-lg text-gray-500 line-through">R$ 4997</span>
+                <span className="text-lg text-gray-500 line-through">R$ 4.997</span>
                 <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-5xl font-extrabold text-white lg:text-6xl">R$ 3997</span>
+                  <span className="text-5xl font-extrabold text-white lg:text-6xl">R$ 3.997</span>
                   <span className="text-lg text-gray-400">à vista</span>
                 </div>
                 <div className="mt-2 text-2xl font-bold text-turquoise sm:text-3xl">
-                  ou 10x R$ 399,70
+                  ou 10x de R$ 399,70
                 </div>
                 <p className="mt-3 animate-pulse text-sm font-bold text-red-400">
-                  83% das vagas já preenchidas
+                  Condição especial do 1º lote
                 </p>
               </div>
 
