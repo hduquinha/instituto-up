@@ -4,10 +4,10 @@ import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 const FAQSection = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
 
-  const scrollToPricing = () => {
-    const pricingSection = document.getElementById('pricing');
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollToInscricao = () => {
+    const section = document.getElementById('inscricao');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -102,9 +102,9 @@ const FAQSection = () => {
             Ainda tem dúvidas? Nossa garantia no dia remove todo o risco para você!
           </p>
           
-          <a href="#pricing" className="inline-block">
-            <button 
-              onClick={scrollToPricing}
+          <a href="#inscricao" className="inline-block">
+            <button
+              onClick={scrollToInscricao}
               className="bg-gradient-to-r from-turquoise to-blue-500 text-black font-bold text-xl lg:text-2xl px-12 py-8 rounded-2xl transform hover:scale-105 transition-all duration-500 ease-in-out shadow-lg hover:shadow-2xl"
             >
               FAÇA SUA INSCRIÇÃO

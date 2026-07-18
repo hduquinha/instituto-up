@@ -94,21 +94,14 @@ const TrainingContentSection = () => {
             </div>
           ))}
         </div>
-        <div className="bg-gradient-to-r from-turquoise/10 to-blue-500/10 rounded-2xl p-8 border border-turquoise/20 text-center" data-aos="fade-up">
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            🎯 Metodologia Comprovada + Experiência Única
+        <div className="bg-gradient-to-r from-turquoise/10 to-blue-500/10 rounded-2xl p-6 sm:p-8 border border-turquoise/20 text-center" data-aos="fade-up">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+            🔥 Inclui a experiência do Firewalking
           </h3>
-          <p className="text-lg text-gray-300 max-w-4xl mx-auto mb-6">
-            Uma jornada completa que vai <strong className="text-turquoise">reprogramar sua mente</strong> e 
-            <strong className="text-turquoise"> elevar sua confiança</strong> a níveis que você nunca imaginou.
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">
+            A travessia sobre brasas é o símbolo da sua capacidade de superar desafios — conduzida
+            passo a passo com total segurança. Teoria + prática com aplicação imediata.
           </p>
-          
-          <div className="flex justify-center mt-8">
-            <div className="bg-black/30 rounded-xl p-6 max-w-md w-full">
-              <h4 className="text-turquoise font-bold text-lg mb-2">Parte Teórica + Prática</h4>
-              <p className="text-gray-400 text-sm">Metodologia estruturada com exercícios práticos e aplicação imediata</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

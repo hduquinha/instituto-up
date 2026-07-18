@@ -12,7 +12,7 @@ const WhatsAppButton = () => {
 
   return (
     // 'group' é uma classe Tailwind para que o tooltip apareça ao passar o mouse sobre este div
-    <div className="fixed bottom-6 right-6 z-50 group">
+    <div className="fixed bottom-24 lg:bottom-6 right-6 z-50 group">
       
       {/* Balão de texto (Tooltip) */}
       <div className="absolute right-0 bottom-full mb-2 w-max bg-black text-white text-sm px-4 py-2 rounded-md shadow-lg

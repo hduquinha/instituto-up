@@ -1,34 +1,35 @@
-import React from 'react';
 import HeroSection from "@/components/HeroSection";
 import AboutTrainingSection from "@/components/AboutTrainingSection";
-import VideoSection from "@/components/VideoSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import TrainingContentSection from "@/components/TrainingContentSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import TrainersSection from "@/components/TrainersSection";
-import TrainingContentSection from "@/components/TrainingContentSection";
 import PricingSection from "@/components/PricingSection";
 import LocationSection from "@/components/LocationSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCtaSection from "@/components/FinalCtaSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import StickyMobileCta from "@/components/StickyMobileCta";
 
 const Index = () => {
   return (
-    // Usamos um Fragment (<>...</>) para agrupar os dois elementos
     <>
       <div className="min-h-screen">
+        {/* 1ª dobra: hero enxuto + formulário de inscrição */}
         <HeroSection />
+        {/* Conteúdo complementar, do mais decisivo ao de apoio */}
         <AboutTrainingSection />
-        <VideoSection />
+        <HowItWorksSection />
+        <TrainingContentSection />
         <TestimonialsSection />
-  <TrainersSection />
-  <TrainingContentSection />
+        <TrainersSection />
         <PricingSection />
         <LocationSection />
         <FAQSection />
         <FinalCtaSection />
       </div>
-      
-      {/* O Botão agora está FORA da div principal */}
+
+      <StickyMobileCta />
       <WhatsAppButton />
     </>
   );
