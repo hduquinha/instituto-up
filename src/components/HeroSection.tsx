@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CalendarDays, Gift, MapPin, Sparkles, ShieldCheck, Users } from "lucide-react";
+import { CalendarDays, MapPin, Sparkles, ShieldCheck, Users } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 import InscriptionForm from "@/components/InscriptionForm";
 
@@ -62,20 +62,6 @@ const HeroSection = () => {
                 Garantia de satisfação no dia do evento
               </li>
             </ul>
-
-            <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-300/30 bg-gradient-to-r from-amber-300/20 to-transparent p-4">
-              <div className="rounded-full bg-amber-300 p-2 text-black">
-                <Gift className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-amber-200">
-                  Campanha 1º lote
-                </p>
-                <p className="text-sm font-bold leading-snug text-white sm:text-base">
-                  Comprou 1 ingresso, leva 1 acompanhante gratuitamente.
-                </p>
-              </div>
-            </div>
 
             <div className="mb-6 hidden flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-gray-300 sm:flex">
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-turquoise" /> Garantia no dia do evento</span>

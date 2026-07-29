@@ -28,7 +28,7 @@ const STEP_TITLES = [
   "Identificação",
   "Contato",
   "Perfil",
-  "Experiência + acompanhante",
+  "Experiência",
   "Pagamento",
   "Termos finais",
 ];
@@ -164,7 +164,7 @@ function collectTracking(params: URLSearchParams) {
 
 function normalizePayloadValues(payload: Record<string, unknown>) {
   const normalized: Record<string, unknown> = { ...payload };
-  ["nome", "nome_social", "indicacao", "acompanhante_nome"].forEach((key) => {
+  ["nome", "nome_social", "indicacao"].forEach((key) => {
     if (typeof normalized[key] === "string") normalized[key] = toTitleCase(normalized[key] as string);
   });
   if (typeof normalized.cidade === "string") normalized.cidade = toTitleCase(normalized.cidade);
@@ -172,7 +172,7 @@ function normalizePayloadValues(payload: Record<string, unknown>) {
   if (typeof normalized.profissao_area === "string") {
     normalized.profissao_area = normalizeText(normalized.profissao_area);
   }
-  ["telefone", "contato_emergencia", "acompanhante_telefone"].forEach((key) => {
+  ["telefone", "contato_emergencia"].forEach((key) => {
     if (typeof normalized[key] === "string") normalized[key] = onlyDigits(normalized[key] as string);
   });
   if (normalized.cidade && normalized.estado) {
@@ -300,17 +300,6 @@ const InscriptionForm = () => {
         require("indicacao", "quem te indicou", 2);
         if (!get("tamanho_camiseta")) {
           nextErrors.tamanho_camiseta = "Selecione o tamanho da camiseta.";
-        }
-        if (get("primeiro_lote_acompanhante") === "Sim") {
-          if (get("acompanhante_nome").length < 3) {
-            nextErrors.acompanhante_nome = "Informe o nome completo do acompanhante.";
-          }
-          const companionPhoneError = validatePhone(get("acompanhante_telefone"));
-          if (companionPhoneError) nextErrors.acompanhante_telefone = companionPhoneError;
-          if (get("acompanhante_email")) {
-            const companionEmailError = validateEmail(get("acompanhante_email"));
-            if (companionEmailError) nextErrors.acompanhante_email = companionEmailError;
-          }
         }
         break;
       }
@@ -519,10 +508,6 @@ const InscriptionForm = () => {
         UP Day • 15 e 16 de Agosto de 2026 • São Paulo-SP
       </p>
 
-      <p className="mt-2 text-xs font-semibold text-amber-200 sm:text-sm">
-        1º lote: acompanhante grátis ao ativar sua inscrição.
-      </p>
-
       <div className="mt-5">
         <div className="mb-2 flex items-center justify-between text-xs font-bold text-gray-400">
           <span>
@@ -689,38 +674,6 @@ const InscriptionForm = () => {
               {radioGroup("tamanho_camiseta", ["P", "M", "G", "GG", "XG", "XGG"])}
               {fieldError("tamanho_camiseta")}
             </div>
-            <div className="rounded-2xl border border-amber-300/25 bg-gradient-to-r from-amber-300/10 to-transparent p-4">
-              <p className="mb-2 text-sm font-bold text-white">
-                Vai levar um acompanhante gratuitamente? (benefício do 1º lote)
-              </p>
-              {radioGroup(
-                "primeiro_lote_acompanhante",
-                [
-                  { value: "Sim", label: "Sim, quero ativar meu acompanhante grátis" },
-                  { value: "Não", label: "Não vou usar agora" },
-                ],
-                1
-              )}
-              {data.primeiro_lote_acompanhante === "Sim" && (
-                <div className="mt-3 space-y-3">
-                  {textField("acompanhante_nome", "Nome do acompanhante", {
-                    placeholder: "Nome completo do acompanhante",
-                    required: true,
-                  })}
-                  {textField("acompanhante_telefone", "WhatsApp do acompanhante", {
-                    placeholder: "(00) 00000-0000",
-                    type: "tel",
-                    required: true,
-                    inputMode: "tel",
-                    mask: maskPhone,
-                  })}
-                  {textField("acompanhante_email", "E-mail do acompanhante (opcional)", {
-                    placeholder: "email@acompanhante.com",
-                    type: "email",
-                  })}
-                </div>
-              )}
-            </div>
           </>
         )}
 
@@ -734,10 +687,6 @@ const InscriptionForm = () => {
             <p className="mt-3">
               <strong className="text-white">Obs.:</strong> Não é permitida a participação de
               gestantes. Outras condições especiais, consulte nossa equipe.
-            </p>
-            <p className="mt-2">
-              Caso tenha ativado o acompanhante grátis, os dados dele serão confirmados junto com
-              sua inscrição.
             </p>
           </div>
         )}

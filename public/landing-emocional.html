@@ -159,64 +159,6 @@
         font-weight: 700;
       }
 
-      .offer-card {
-        margin-bottom: 24px;
-        padding: 22px;
-        border-radius: 24px;
-        border: 1px solid rgba(245, 185, 66, 0.28);
-        background:
-          linear-gradient(135deg, rgba(245, 185, 66, 0.16), rgba(245, 185, 66, 0.04)),
-          rgba(255, 255, 255, 0.04);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      }
-
-      .offer-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        background: rgba(0, 0, 0, 0.2);
-        color: #ffe0a2;
-        font-size: 0.74rem;
-        font-weight: 800;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-
-      .offer-title {
-        margin: 0 0 10px;
-        font-size: 1.42rem;
-        line-height: 1.15;
-        font-weight: 850;
-      }
-
-      .offer-copy {
-        margin: 0;
-        color: rgba(245, 249, 250, 0.84);
-      }
-
-      .offer-points {
-        display: grid;
-        gap: 12px;
-        margin-top: 16px;
-      }
-
-      .offer-point {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 14px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: #f5fbfc;
-        font-size: 0.95rem;
-        font-weight: 700;
-      }
-
-      .offer-icon,
       .hero-icon {
         width: 34px;
         height: 34px;
@@ -225,11 +167,6 @@
         place-items: center;
         flex-shrink: 0;
         font-weight: 900;
-      }
-
-      .offer-icon {
-        background: #f5b942;
-        color: #2e2000;
       }
 
       .hero-list {
@@ -331,33 +268,17 @@
         margin-bottom: 20px;
       }
 
-      .status-banner,
-      .offer-strip {
+      .status-banner {
         display: flex;
         align-items: center;
         gap: 10px;
         border-radius: 18px;
         padding: 14px 16px;
-      }
-
-      .status-banner {
         background: rgba(39, 171, 182, 0.11);
         color: var(--primary-dark);
         border: 1px solid rgba(39, 171, 182, 0.16);
         font-size: 0.92rem;
         font-weight: 800;
-      }
-
-      .offer-strip {
-        background: linear-gradient(135deg, rgba(245, 185, 66, 0.16), rgba(245, 185, 66, 0.05));
-        border: 1px solid rgba(245, 185, 66, 0.24);
-        color: #6e4a00;
-      }
-
-      .offer-strip strong {
-        display: block;
-        color: #382500;
-        margin-bottom: 2px;
       }
 
       .limited-box {
@@ -652,7 +573,6 @@
         font-size: 0.84rem;
       }
 
-      .companion-box,
       .info-box,
       .term-box {
         margin-bottom: 18px;
@@ -662,34 +582,12 @@
         background: rgba(39, 171, 182, 0.07);
       }
 
-      .companion-box {
-        background: linear-gradient(135deg, rgba(245, 185, 66, 0.12), rgba(255, 255, 255, 0.8));
-        border-color: rgba(245, 185, 66, 0.22);
-      }
-
-      .companion-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        background: rgba(245, 185, 66, 0.14);
-        color: var(--warning-dark);
-        font-size: 0.75rem;
-        font-weight: 850;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-
-      .companion-box h3,
       .info-box h3,
       .term-box h3 {
         margin: 0 0 10px;
         font-size: 1.04rem;
       }
 
-      .companion-box p,
       .info-box p,
       .term-box p {
         margin: 8px 0;
@@ -797,7 +695,7 @@
           <p class="hero-date">15 e 16 de Agosto • São Paulo-SP</p>
           <p class="lead">
             Preencha seus dados para garantir sua vaga no treinamento presencial do
-            Instituto UP e aproveite a campanha especial do 1º lote.
+            Instituto UP e aproveite a condição especial do 1º lote.
           </p>
 
           <div class="hero-badges" role="list">
@@ -805,29 +703,6 @@
             <span class="badge" role="listitem">Bairro Paraíso</span>
             <span class="badge" role="listitem">2 dias intensivos</span>
             <span class="badge" role="listitem">Vagas limitadas</span>
-          </div>
-
-          <div class="offer-card">
-            <div class="offer-label">1º lote em destaque</div>
-            <p class="offer-title">
-              Comprou 1 ingresso e ganha o direito de levar 1 acompanhante
-              gratuitamente.
-            </p>
-            <p class="offer-copy">
-              Aproveite o 1º lote para viver a experiência com alguém especial,
-              sem custo extra para o acompanhante.
-            </p>
-
-            <div class="offer-points">
-              <div class="offer-point">
-                <span class="offer-icon">+</span>
-                Perfeito para vender em dupla: casal, amigo, parceiro ou familiar.
-              </div>
-              <div class="offer-point">
-                <span class="offer-icon">✓</span>
-                Se quiser, você já pode informar o acompanhante no formulário.
-              </div>
-            </div>
           </div>
 
           <ul class="hero-list">
@@ -840,15 +715,6 @@
             </li>
             <li>
               <span class="hero-icon">2</span>
-              <div>
-                <strong>Benefício do acompanhante</strong>
-                <div>
-                  Ative no 1º lote e informe os dados da pessoa que vai com você.
-                </div>
-              </div>
-            </li>
-            <li>
-              <span class="hero-icon">3</span>
               <div>
                 <strong>Pagamento e termos</strong>
                 <div>Finalize sua inscrição e receba o direcionamento da equipe.</div>
@@ -873,14 +739,6 @@
               Preencha os campos obrigatórios para avançar.
             </div>
 
-            <div class="offer-strip">
-              <div aria-hidden="true">🎁</div>
-              <div>
-                <strong>Campanha ativa do 1º lote</strong>
-                Comprando 1 ingresso, você garante o direito de levar 1
-                acompanhante gratuitamente.
-              </div>
-            </div>
           </div>
 
           <div class="limited-box">
@@ -1161,10 +1019,9 @@
               <div class="step-panel">
                 <div class="step-header">
                   <div class="step-kicker">Etapa 4</div>
-                  <h3 class="step-title">Experiência e benefício do 1º lote</h3>
+                  <h3 class="step-title">Experiência</h3>
                   <p class="step-text">
-                    Aqui você finaliza os detalhes da experiência e pode ativar o
-                    acompanhante gratuito.
+                    Aqui você finaliza os detalhes da sua experiência no treinamento.
                   </p>
                 </div>
 
@@ -1206,71 +1063,6 @@
                   <div class="error" data-for="tamanho_camiseta"></div>
                 </div>
 
-                <div class="companion-box">
-                  <div class="companion-badge">Benefício especial do 1º lote</div>
-                  <h3>Vai levar um acompanhante gratuitamente?</h3>
-                  <p>
-                    Ao comprar 1 ingresso no 1º lote, você pode indicar 1
-                    acompanhante sem custo extra.
-                  </p>
-
-                  <div class="choice-list">
-                    <label>
-                      <input type="radio" name="primeiro_lote_acompanhante" value="Sim" />
-                      Sim, quero ativar meu acompanhante grátis
-                    </label>
-                    <label>
-                      <input type="radio" name="primeiro_lote_acompanhante" value="Não" />
-                      Não vou usar agora
-                    </label>
-                  </div>
-                  <div class="error" data-for="primeiro_lote_acompanhante"></div>
-
-                  <div id="companionFields" hidden>
-                    <div class="grid-two" style="margin-top: 16px;">
-                      <div class="field">
-                        <label class="required" for="acompanhante_nome">Nome do acompanhante</label>
-                        <input
-                          id="acompanhante_nome"
-                          name="acompanhante_nome"
-                          type="text"
-                          placeholder="Nome completo do acompanhante"
-                        />
-                        <div class="error" data-for="acompanhante_nome"></div>
-                      </div>
-
-                      <div class="field">
-                        <label class="required" for="acompanhante_telefone">
-                          WhatsApp do acompanhante
-                        </label>
-                        <input
-                          id="acompanhante_telefone"
-                          name="acompanhante_telefone"
-                          type="tel"
-                          inputmode="tel"
-                          placeholder="(00) 00000-0000"
-                        />
-                        <div class="error" data-for="acompanhante_telefone"></div>
-                      </div>
-                    </div>
-
-                    <div class="field">
-                      <label for="acompanhante_email">E-mail do acompanhante</label>
-                      <input
-                        id="acompanhante_email"
-                        name="acompanhante_email"
-                        type="email"
-                        placeholder="email@acompanhante.com"
-                      />
-                      <div class="error" data-for="acompanhante_email"></div>
-                    </div>
-
-                    <p class="note">
-                      Se preferir, você pode preencher apenas nome e telefone agora.
-                    </p>
-                  </div>
-                </div>
-
                 <div class="actions">
                   <button type="button" class="btn btn-secondary" data-back>Voltar</button>
                   <button type="button" class="btn btn-primary" data-next>Próximo</button>
@@ -1297,10 +1089,6 @@
                   <p>
                     <strong>Obs.:</strong> Não é permitida a participação de gestantes.
                     Outras condições especiais, consulte nossa equipe.
-                  </p>
-                  <p>
-                    Caso tenha ativado o acompanhante grátis, os dados dele serão
-                    confirmados junto com sua inscrição.
                   </p>
                 </div>
 
@@ -1399,7 +1187,7 @@
           "Identificação",
           "Contato",
           "Perfil",
-          "Experiência + acompanhante",
+          "Experiência",
           "Pagamento",
           "Termos finais",
         ];
@@ -1408,7 +1196,7 @@
           "Preencha seus dados de identificação para começar.",
           "Confirme seus contatos para a equipe falar com você.",
           "Complete seu perfil para organização do evento.",
-          "Ative aqui o acompanhante gratuito do 1º lote, se desejar.",
+          "Complete os detalhes da sua experiência no treinamento.",
           "Revise como será a confirmação da sua vaga.",
           "Última etapa: aceite os termos para finalizar.",
         ];
@@ -1423,7 +1211,6 @@
         const statusBanner = document.getElementById("status-banner");
         const ctaOpen = document.getElementById("cta-open");
         const socialNameField = document.getElementById("socialNameField");
-        const companionFields = document.getElementById("companionFields");
         const clientId =
           window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
         const searchParams = new URLSearchParams(window.location.search);
@@ -1607,7 +1394,6 @@
           updateProgress();
           syncSelectableStates();
           toggleSocialNameField();
-          toggleCompanionFields();
         }
 
         function syncSelectableStates() {
@@ -1616,12 +1402,6 @@
             if (!input) return;
             label.classList.toggle("is-selected", input.checked);
           });
-        }
-
-        function toggleCompanionFields() {
-          const selected = form.querySelector('input[name="primeiro_lote_acompanhante"]:checked');
-          const shouldShow = selected && selected.value === "Sim";
-          companionFields.hidden = !shouldShow;
         }
 
         function toggleSocialNameField() {
@@ -1735,28 +1515,6 @@
                 fail("tamanho_camiseta", "Selecione o tamanho da camiseta.");
               }
 
-              data.primeiro_lote_acompanhante = checkedValue(stepEl, "primeiro_lote_acompanhante");
-              data.acompanhante_nome = getValue(stepEl, "acompanhante_nome");
-              data.acompanhante_telefone = getValue(stepEl, "acompanhante_telefone");
-              data.acompanhante_email = getValue(stepEl, "acompanhante_email");
-
-              if (data.primeiro_lote_acompanhante === "Sim") {
-                if (!data.acompanhante_nome || data.acompanhante_nome.length < 3) {
-                  fail("acompanhante_nome", "Informe o nome completo do acompanhante.");
-                }
-
-                const companionPhoneError = validatePhone(data.acompanhante_telefone);
-                if (companionPhoneError) {
-                  fail("acompanhante_telefone", companionPhoneError);
-                }
-
-                if (data.acompanhante_email) {
-                  const companionEmailError = validateEmail(data.acompanhante_email);
-                  if (companionEmailError) {
-                    fail("acompanhante_email", companionEmailError);
-                  }
-                }
-              }
               break;
             }
 
@@ -1829,7 +1587,7 @@
 
         function normalizePayloadValues(payload) {
           const normalized = { ...payload };
-          ["nome", "nome_social", "indicacao", "acompanhante_nome"].forEach((key) => {
+          ["nome", "nome_social", "indicacao"].forEach((key) => {
             if (typeof normalized[key] === "string") normalized[key] = toTitleCase(normalized[key]);
           });
           if (typeof normalized.cidade === "string") normalized.cidade = toTitleCase(normalized.cidade);
@@ -1837,7 +1595,7 @@
           if (typeof normalized.profissao_area === "string") {
             normalized.profissao_area = normalizeText(normalized.profissao_area);
           }
-          ["telefone", "contato_emergencia", "acompanhante_telefone"].forEach((key) => {
+          ["telefone", "contato_emergencia"].forEach((key) => {
             if (typeof normalized[key] === "string") normalized[key] = normalizePhone(normalized[key]);
           });
           if (normalized.cidade && normalized.estado) {
@@ -1988,7 +1746,7 @@
           }
         }
 
-        ["telefone", "contato_emergencia", "acompanhante_telefone"].forEach((id) => {
+        ["telefone", "contato_emergencia"].forEach((id) => {
           const input = document.getElementById(id);
           if (!input) return;
 
@@ -2016,7 +1774,6 @@
         form.addEventListener("change", () => {
           syncSelectableStates();
           toggleSocialNameField();
-          toggleCompanionFields();
           saveProgress();
         });
 

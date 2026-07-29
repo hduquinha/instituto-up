@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Check, Gift, Star } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import { scrollToInscricao } from "@/components/HeroSection";
 
 const PricingSection = () => {
   const features = [
     "2 dias de treinamento presencial intensivo",
     "15 e 16 de Agosto de 2026 • Rua Abílio Soares, 245 - Paraíso - São Paulo-SP",
-    "No 1º lote, 1 ingresso garante o direito de levar 1 acompanhante gratuitamente",
     "Material físico + crachá personalizado",
     "Certificado de participação presencial",
     "Suporte durante todo o evento",
@@ -38,16 +37,6 @@ const PricingSection = () => {
             </div>
 
             <div className="flex-grow p-8 pt-12">
-              <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-300/25 bg-gradient-to-r from-amber-300/15 to-transparent p-4 text-left">
-                <div className="rounded-full bg-amber-300/90 p-2 text-black">
-                  <Gift className="h-4 w-4" />
-                </div>
-                <p className="text-sm font-semibold leading-snug text-amber-50 sm:text-base">
-                  Comprou 1 ingresso, leva{" "}
-                  <span className="text-white">1 acompanhante gratuitamente</span>.
-                </p>
-              </div>
-
               <div className="mb-6 text-center">
                 <span className="text-lg text-gray-500 line-through">R$ 4.997</span>
                 <div className="flex items-baseline justify-center gap-2">
@@ -79,7 +68,7 @@ const PricingSection = () => {
                 className="h-auto w-full whitespace-normal py-5 text-center text-lg leading-tight text-black"
               >
                 <Star className="mr-2 h-5 w-5" />
-                Garantir ingresso + acompanhante
+                Garantir meu ingresso
               </Button>
               <p className="mt-4 text-center text-sm text-gray-500">
                 Preenchimento rápido • Seus dados ficam somente com nossa equipe
