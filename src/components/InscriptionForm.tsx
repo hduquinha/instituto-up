@@ -4,25 +4,25 @@ import { CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 
 const TRAINING_CONFIG = {
   id: "3997",
-  name: "Inscrição UP Day - Agosto 2026",
+  name: "Inscrição UP Day - Outubro 2026",
   businessUnit: "InstitutoUP",
   leadSector: "instituto_up",
   leadOrigin: "up_day_plus",
   leadProduct: "UP Day Plus",
   leadEntry: "InstitutoUP / UP Day Plus",
-  dateDisplay: "15 e 16/08",
-  dateLong: "15 e 16 de Agosto de 2026",
-  startISO: "2026-08-15T08:59:00-03:00",
-  endISO: "2026-08-16T18:00:00-03:00",
-  whatsappNumber: "5513997832766",
+  dateDisplay: "24/10 e 07/11",
+  dateLong: "24 de Outubro e 07 de Novembro de 2026",
+  startISO: "2026-10-24T08:59:00-03:00",
+  endISO: "2026-11-07T18:00:00-03:00",
+  whatsappNumber: "551120901412",
   whatsappMessage:
-    "Olá! Acabei de preencher minha inscrição do UP Day Agosto 2026 e quero finalizar minha vaga.",
+    "Olá! Acabei de concluir minha inscrição do UP Day Outubro 2026 e gostaria de falar com a equipe.",
 };
 
 const INSCRICAO_URL = "/api/inscricao";
-const FORM_DATA_KEY = "instituto-up-inscricao-agosto-2026";
-const FORM_STEP_KEY = "instituto-up-inscricao-agosto-2026-step";
-const TOTAL_STEPS = 6;
+const FORM_DATA_KEY = "instituto-up-inscricao-outubro-2026";
+const FORM_STEP_KEY = "instituto-up-inscricao-outubro-2026-step";
+const TOTAL_STEPS = 7;
 
 const STEP_TITLES = [
   "Identificação",
@@ -31,11 +31,18 @@ const STEP_TITLES = [
   "Experiência",
   "Pagamento",
   "Termos finais",
+  "Cupom e pagamento",
 ];
 
 type FormData = Record<string, string>;
 type FormErrors = Record<string, string>;
-
+type CouponResult = {
+  informado: boolean;
+  aplicado: boolean;
+  codigo: string;
+  motivo: "" | "invalido" | "expirado" | "esgotado";
+};
+type SubmissionResult = { ok?: boolean; cupom?: CouponResult };
 function onlyDigits(value: string) {
   return String(value || "").replace(/\D/g, "");
 }
@@ -181,21 +188,6 @@ function normalizePayloadValues(payload: Record<string, unknown>) {
   return normalized;
 }
 
-function buildWhatsAppUrl(nome: string, trafficSource: string, utmCampaign: string) {
-  const entrySignal = [
-    TRAINING_CONFIG.leadEntry,
-    trafficSource ? `origem: ${trafficSource}` : "",
-    utmCampaign ? `campanha: ${utmCampaign}` : "",
-  ]
-    .filter(Boolean)
-    .join(" | ");
-  const msg =
-    TRAINING_CONFIG.whatsappMessage +
-    (nome ? ` Meu nome: ${nome}.` : "") +
-    `\n\nEntrada: ${entrySignal}`;
-  return `https://wa.me/${TRAINING_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-}
-
 const inputClass =
   "w-full rounded-xl border border-gray-700 bg-black/40 px-4 py-3.5 text-base text-white placeholder:text-gray-500 focus:border-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise/40 transition-colors";
 
@@ -205,6 +197,8 @@ const InscriptionForm = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [sending, setSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+  const [couponFeedback, setCouponFeedback] = useState<CouponResult | null>(null);
+  const [checkingCoupon, setCheckingCoupon] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const clientId = useMemo(
@@ -244,8 +238,11 @@ const InscriptionForm = () => {
   };
 
   const setField = (name: string, value: string) => {
+    if (name === "cupom") setCouponFeedback(null);
+    if (name === "tem_cupom" && value === "Não") setCouponFeedback(null);
     setData((prev) => {
       const next = { ...prev, [name]: value };
+      if (name === "tem_cupom" && value === "Não") next.cupom = "";
       saveProgress(next, currentStep);
       return next;
     });
@@ -312,13 +309,22 @@ const InscriptionForm = () => {
         }
         break;
       }
+      case 6: {
+        if (!get("tem_cupom")) {
+          nextErrors.tem_cupom = "Escolha se você tem um cupom.";
+        }
+        if (get("tem_cupom") === "Sim" && get("cupom").length < 3) {
+          nextErrors.cupom = "Digite o código do cupom.";
+        }
+        break;
+      }
     }
 
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
 
-  const sendStepPayload = async (isFinal: boolean) => {
+  const sendStepPayload = async (isFinal: boolean): Promise<SubmissionResult | null> => {
     const stepData = isFinal
       ? {
           ...data,
@@ -375,12 +381,80 @@ const InscriptionForm = () => {
         }
         throw new Error(`HTTP ${response.status}${details ? ` - ${details}` : ""}`);
       }
-      return true;
+      return (await response.json().catch(() => ({}))) as SubmissionResult;
     } catch (error) {
       console.error("Erro ao enviar inscrição:", error);
       setStatusMessage("Erro de conexão. Tente novamente.");
-      return false;
+      return null;
     }
+  };
+
+  const couponMessage = (coupon: CouponResult | null) => {
+    if (!coupon) return "";
+    if (coupon.aplicado) return `Cupom ${coupon.codigo} válido! Sua inscrição fica sem custo — é só finalizar.`;
+    if (coupon.motivo === "expirado") return "Este cupom expirou.";
+    if (coupon.motivo === "esgotado") return "Este cupom já atingiu o limite de usos.";
+    return "Cupom não encontrado. Confira o código.";
+  };
+
+  const checkCoupon = async () => {
+    const rawCoupon = get("cupom");
+    if (rawCoupon.length < 3) {
+      setErrors((prev) => ({ ...prev, cupom: "Digite o código do cupom." }));
+      return;
+    }
+
+    setCheckingCoupon(true);
+    setCouponFeedback(null);
+    try {
+      const response = await fetch(INSCRICAO_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ _action: "validarCupom", cupom: rawCoupon }),
+      });
+      const result = (await response.json().catch(() => ({}))) as SubmissionResult;
+      const coupon = result.cupom || {
+        informado: true,
+        aplicado: false,
+        codigo: rawCoupon,
+        motivo: "invalido" as const,
+      };
+      if (coupon.aplicado) setField("cupom", coupon.codigo);
+      setCouponFeedback(coupon);
+    } catch (error) {
+      console.error("Erro ao verificar cupom:", error);
+      setCouponFeedback({ informado: true, aplicado: false, codigo: rawCoupon, motivo: "invalido" });
+    } finally {
+      setCheckingCoupon(false);
+    }
+  };
+
+  const showCheckoutHandoff = (coupon?: CouponResult) => {
+    const completedName = get("nome_social") || get("nome");
+    try {
+      sessionStorage.setItem(
+        "up-day:inscricaoConcluida",
+        JSON.stringify({ nome: completedName, em: new Date().toISOString() }),
+      );
+    } catch (error) {
+      console.error("Erro ao guardar o nome da inscrição:", error);
+    }
+
+    if (coupon?.aplicado && coupon.codigo) {
+      try {
+        sessionStorage.setItem(
+          "up-day:cupomAplicado",
+          JSON.stringify({ codigo: coupon.codigo, nome: completedName, em: new Date().toISOString() })
+        );
+      } catch (error) {
+        console.error("Erro ao guardar cupom aplicado:", error);
+      }
+      window.location.href = `/checkout-cupom.html?cupom=${encodeURIComponent(coupon.codigo)}`;
+      return;
+    }
+
+    const reason = coupon?.informado && coupon.motivo ? `?motivo=${encodeURIComponent(coupon.motivo)}` : "";
+    window.location.href = `/checkout-pagamento.html${reason}`;
   };
 
   const scrollToTop = () => {
@@ -393,17 +467,13 @@ const InscriptionForm = () => {
 
     const isLast = currentStep === TOTAL_STEPS - 1;
     setSending(true);
-    const success = await sendStepPayload(isLast);
+    const result = await sendStepPayload(isLast);
     setSending(false);
 
     if (isLast) {
-      if (!success) return;
+      if (!result) return;
       clearProgress();
-      window.location.href = buildWhatsAppUrl(
-        get("nome_social") || get("nome"),
-        tracking.traffic_source,
-        tracking.utm_campaign
-      );
+      showCheckoutHandoff(result.cupom);
       return;
     }
 
@@ -505,7 +575,7 @@ const InscriptionForm = () => {
         Faça sua inscrição
       </h2>
       <p className="mt-1 text-sm text-gray-400">
-        UP Day • 15 e 16 de Agosto de 2026 • São Paulo-SP
+        UP Day • 24 de Outubro e 07 de Novembro de 2026 • São Paulo-SP
       </p>
 
       <div className="mt-5">
@@ -679,11 +749,9 @@ const InscriptionForm = () => {
 
         {currentStep === 4 && (
           <div className="rounded-2xl border border-gray-700 bg-black/40 p-5 text-sm leading-relaxed text-gray-300">
-            <h3 className="mb-2 text-lg font-bold text-white">Pagamento</h3>
-            <p>Sua vaga será garantida com o pagamento da primeira parcela através do PIX:</p>
-            <p className="mt-2 font-bold text-turquoise">CNPJ 24.964.964/0001-18</p>
-            <p className="font-bold text-turquoise">RODRIGO DAMACENO PEREIRA</p>
-            <p className="mt-2">Ou pelo link de pagamento enviado pela equipe.</p>
+            <h3 className="mb-2 text-lg font-bold text-white">Pagamento e confirmação</h3>
+            <p>Na última etapa, você poderá informar um cupom de cortesia ou seguir para o pagamento normal.</p>
+            <p className="mt-2">Com um cupom válido, sua inscrição é confirmada sem custo. Sem cupom, o link seguro de pagamento será exibido na sequência.</p>
             <p className="mt-3">
               <strong className="text-white">Obs.:</strong> Não é permitida a participação de
               gestantes. Outras condições especiais, consulte nossa equipe.
@@ -749,6 +817,61 @@ const InscriptionForm = () => {
               </label>
               {fieldError("cancelamento_ciente")}
             </div>
+          </>
+        )}
+
+        {currentStep === 6 && (
+          <>
+            <div>
+              <span className="mb-1.5 block text-sm font-semibold text-gray-200">
+                Você tem um cupom de desconto?<span className="text-turquoise"> *</span>
+              </span>
+              {radioGroup("tem_cupom", [
+                { value: "Sim", label: "Sim, tenho um cupom" },
+                { value: "Não", label: "Não tenho cupom" },
+              ], 1)}
+              {fieldError("tem_cupom")}
+            </div>
+
+            {data.tem_cupom === "Sim" && (
+              <div className="rounded-2xl border border-gray-700 bg-black/40 p-4">
+                <label htmlFor="insc-cupom" className="mb-1.5 block text-sm font-semibold text-gray-200">
+                  Código do cupom
+                </label>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <input
+                    id="insc-cupom"
+                    name="cupom"
+                    type="text"
+                    placeholder="DIGITE O CÓDIGO"
+                    value={data.cupom || ""}
+                    onChange={(event) => setField("cupom", event.target.value)}
+                    className={inputClass}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={checkCoupon}
+                    disabled={checkingCoupon}
+                    className="h-auto border-turquoise px-5 py-3 text-turquoise hover:bg-turquoise hover:text-black"
+                  >
+                    {checkingCoupon ? "VERIFICANDO..." : "APLICAR"}
+                  </Button>
+                </div>
+                {fieldError("cupom")}
+                {couponFeedback && (
+                  <p className={`mt-3 text-sm font-semibold ${couponFeedback.aplicado ? "text-emerald-400" : "text-red-400"}`}>
+                    {couponMessage(couponFeedback)}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <p className="rounded-xl border border-gray-700 bg-black/30 p-3 text-sm text-gray-300">
+              {data.tem_cupom === "Sim"
+                ? "Ao finalizar, conferiremos o cupom novamente no servidor."
+                : "Ao finalizar, você seguirá para a etapa de pagamento."}
+            </p>
           </>
         )}
 

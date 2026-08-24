@@ -13,7 +13,7 @@ const FinalCtaSection = () => {
           Sua <span className="text-turquoise">transformação</span> te espera
         </h2>
         <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300 md:text-xl">
-          15 e 16 de Agosto de 2026 em São Paulo-SP. Garanta sua vaga no 1º lote.
+          24 de Outubro e 07 de Novembro de 2026 em São Paulo-SP. Garanta sua vaga no 1º lote.
         </p>
 
         <button

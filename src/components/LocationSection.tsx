@@ -36,9 +36,9 @@ const LocationSection = () => {
                   <Clock className="h-5 w-5 text-turquoise mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Data e Horário do Evento</p>
-                    <p className="text-gray-400">15 e 16 de Agosto de 2026</p>
-                    <p className="text-gray-400">Sábado: 8:59h às 20:59h</p>
-                    <p className="text-gray-400">Domingo: 8:59h às 18:59h</p>
+                    <p className="text-gray-400">24 de Outubro e 07 de Novembro de 2026</p>
+                    <p className="text-gray-400">24/10: 8:59h às 20:59h</p>
+                    <p className="text-gray-400">07/11: 8:59h às 18:59h</p>
                   </div>
                 </div>
               </div>

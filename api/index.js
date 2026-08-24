@@ -10,6 +10,130 @@ const { Pool } = require('pg');
 
 const app = express();
 
+// ─── Cupons de cortesia do UP Day ────────────────────────────────────────────
+// Os códigos nunca ficam no front-end. Cadastre-os na Vercel em
+// CUPONS_UP_DAY, usando um item por código (separados por vírgula, ; ou quebra
+// de linha):
+//   CORTESIA                 -> uso ilimitado, sem validade
+//   PARCEIRO:10              -> até 10 usos
+//   CORTESIA::2026-08-15     -> uso ilimitado até a data (inclusive)
+//   PARCEIRO:10:2026-08-15   -> limite e validade
+const COUPON_ENV_VAR = 'CUPONS_UP_DAY';
+const COUPON_TRAINING_ID = '3997';
+const MAX_COUPON_LENGTH = 40;
+const MIN_COUPON_LENGTH = 3;
+const COMBINING_MARKS = /[\u0300-\u036f]/g;
+
+function normalizeCouponCode(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(COMBINING_MARKS, '')
+    .replace(/[^a-zA-Z0-9._-]/g, '')
+    .toUpperCase()
+    .slice(0, MAX_COUPON_LENGTH);
+}
+
+function parseCouponCatalog() {
+  const catalog = new Map();
+
+  String(process.env[COUPON_ENV_VAR] || '')
+    .split(/[,;\n]+/)
+    .forEach((entry) => {
+      const parts = String(entry || '').split(':');
+      const code = normalizeCouponCode(parts[0]);
+      if (code.length < MIN_COUPON_LENGTH) return;
+
+      const maxUses = Number.parseInt(String(parts[1] || '').trim(), 10);
+      const validUntil = String(parts[2] || '').trim();
+
+      catalog.set(code, {
+        code,
+        maxUses: Number.isFinite(maxUses) && maxUses > 0 ? maxUses : null,
+        validUntil: /^\d{4}-\d{2}-\d{2}$/.test(validUntil) ? validUntil : null,
+      });
+    });
+
+  return catalog;
+}
+
+function isCouponExpired(validUntil) {
+  if (!validUntil) return false;
+  // A data do cupom vale até 23:59 de Brasília (UTC-3).
+  const brasilia = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return brasilia > validUntil;
+}
+
+async function countCouponUses(code) {
+  if (!pool) return 0;
+
+  const result = await pool.query(
+    `SELECT COUNT(*)::int AS total
+       FROM inscricoes.inscricoes
+      WHERE payload->>'cupom_codigo' = $1
+        AND payload->>'cupom_aplicado' = 'true'
+        AND payload->>'treinamento_id' = $2`,
+    [code, COUPON_TRAINING_ID]
+  );
+  return Number(result.rows[0]?.total || 0);
+}
+
+async function evaluateCoupon(rawCode, options = {}) {
+  const codigo = normalizeCouponCode(rawCode);
+  const checkUsageLimit = options.checkUsageLimit !== false;
+
+  if (!codigo) {
+    return { informado: false, aplicado: false, codigo: '', motivo: '' };
+  }
+
+  const coupon = parseCouponCatalog().get(codigo);
+  if (!coupon) {
+    return { informado: true, aplicado: false, codigo, motivo: 'invalido' };
+  }
+
+  if (isCouponExpired(coupon.validUntil)) {
+    return { informado: true, aplicado: false, codigo, motivo: 'expirado' };
+  }
+
+  if (coupon.maxUses !== null && checkUsageLimit && pool) {
+    try {
+      if ((await countCouponUses(codigo)) >= coupon.maxUses) {
+        return { informado: true, aplicado: false, codigo, motivo: 'esgotado' };
+      }
+    } catch (error) {
+      // Uma falha na contagem não deve negar uma cortesia que é válida.
+      console.error('Erro ao contar usos do cupom:', error.message);
+    }
+  }
+
+  return { informado: true, aplicado: true, codigo, motivo: '' };
+}
+
+function applyCouponToPayload(payload, coupon) {
+  const nextPayload = { ...(payload || {}) };
+
+  // Esses valores são definidos exclusivamente no servidor. Assim ninguém
+  // consegue marcar uma inscrição como cortesia alterando o navegador.
+  delete nextPayload.cupom;
+  delete nextPayload.tem_cupom;
+  delete nextPayload.cupom_informado;
+  delete nextPayload.cupom_aplicado;
+  delete nextPayload.cupom_codigo;
+  delete nextPayload.cupom_status;
+  delete nextPayload.checkout_destino;
+
+  nextPayload.cupom_informado = Boolean(coupon.informado);
+  nextPayload.cupom_aplicado = Boolean(coupon.aplicado);
+  nextPayload.cupom_codigo = coupon.informado ? coupon.codigo : null;
+  nextPayload.cupom_status = coupon.informado
+    ? (coupon.aplicado ? 'aplicado' : coupon.motivo)
+    : 'sem-cupom';
+  nextPayload.checkout_destino = coupon.aplicado
+    ? 'cortesia-cupom'
+    : 'aguardando-link-asaas';
+
+  return nextPayload;
+}
+
 // Configuração do CORS para Vercel
 app.use(cors({
   origin: true,
@@ -318,9 +442,32 @@ async function resolveRecrutador(codigo) {
 // ─── Endpoint principal: gravar inscrição no banco ─────────────────────────────
 app.post('/api/inscricao', async (req, res) => {
   try {
+    const incoming = req.body || {};
+    const action = String(incoming._action || '').trim();
+
+    if (action === 'validarCupom') {
+      const cupom = await evaluateCoupon(incoming.cupom);
+      res.status(200).json({ ok: true, cupom });
+      return;
+    }
+
+    if (action === 'consultarCupom') {
+      // A tela de cortesia só confirma um cupom que já foi aplicado na
+      // inscrição. Por isso não recontamos o limite de uso nessa etapa.
+      const cupom = await evaluateCoupon(incoming.cupom, { checkUsageLimit: false });
+      res.status(200).json({ ok: true, cupom });
+      return;
+    }
+
+    if (action) {
+      res.status(400).json({ ok: false, error: 'Ação inválida.' });
+      return;
+    }
+
     await ensureTable();
 
-    const body = req.body || {};
+    const cupom = await evaluateCoupon(incoming.cupom);
+    const body = applyCouponToPayload(incoming, cupom);
     const clientId = body.clientId || null;
     const treinamentoId = body.treinamento_id || body.training_id || body.treinamento || null;
     const dataTreinamento = body.data_treinamento || null;
@@ -358,7 +505,7 @@ app.post('/api/inscricao', async (req, res) => {
         });
 
         // Garantir treinamento
-        const treinamentoCodigo = treinamentoId || dataTreinamento || '15 e 16/08';
+        const treinamentoCodigo = treinamentoId || dataTreinamento || '24/10 e 07/11';
         const treinamentoNome = body.treinamento_nome || `UP Day ${treinamentoCodigo}`;
         const treinamento = await ensureTreinamento(
           treinamentoCodigo,
@@ -401,6 +548,11 @@ app.post('/api/inscricao', async (req, res) => {
           indicacao: body.indicacao,
           tamanho_camiseta: body.tamanho_camiseta,
           pagamento_info_visualizada: body.pagamento_info_visualizada,
+          cupom_informado: body.cupom_informado,
+          cupom_aplicado: body.cupom_aplicado,
+          cupom_codigo: body.cupom_codigo,
+          cupom_status: body.cupom_status,
+          checkout_destino: body.checkout_destino,
           multa_ciente: body.multa_ciente,
           cancelamento_ciente: body.cancelamento_ciente,
           idade: body.idade,
@@ -427,7 +579,7 @@ app.post('/api/inscricao', async (req, res) => {
           page: body.page,
           referrer: body.referrer,
           dashboard_tags: body.dashboard_tags,
-          origem: 'landing-inscricao-agosto-2026',
+          origem: 'landing-inscricao-outubro-2026',
           clientId: clientId,
           timestamp: body.timestamp
         };
@@ -449,7 +601,7 @@ app.post('/api/inscricao', async (req, res) => {
       console.log(`✅ Inscrição salva (legado) — step ${step}, final=${isFinal}, client=${clientId}`);
     }
 
-    res.status(200).json({ ok: true });
+    res.status(200).json({ ok: true, cupom });
   } catch (error) {
     const details = error?.message || 'Erro desconhecido';
     console.error('Erro ao salvar inscrição:', details);

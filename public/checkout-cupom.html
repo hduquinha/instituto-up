@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="332x343" href="/up.png" />
+    <link rel="apple-touch-icon" href="/up.png" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Cupom aplicado — UP Day Plus | Instituto UP</title>
+    <script defer src="/clarity.js"></script>
+    <script src="/checkout-config.js"></script>
+    <style>
+      :root{--primary:#27abb6;--primary-rgb:39,171,182;--text:#fff;--muted:#d1d5d8}
+      *{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+      body{min-height:100vh;margin:0;padding:24px 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#000,#061112 55%,#082024);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+      .card{width:100%;max-width:560px;padding:38px 34px 34px;background:#0f1718;border:1px solid #204044;border-radius:26px;box-shadow:0 12px 56px -10px rgba(0,0,0,.7)}
+      .brand{margin:0 0 20px;color:#7ea5a9;font-size:.7rem;font-weight:800;letter-spacing:2.4px;text-transform:uppercase}
+      .badge{display:inline-flex;margin-bottom:18px;padding:8px 16px;border:1px solid #226b73;border-radius:40px;background:rgba(var(--primary-rgb),.14);color:#7fe4ec;font-size:.72rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+      h1{margin:0 0 12px;color:var(--primary);font-size:1.7rem;line-height:1.15}.lead{margin:0 0 24px;color:#d0e5e8}.event,.summary{margin:0 0 20px;padding:16px 18px;border:1px solid #21484d;border-radius:18px;background:#122325}.event strong{display:block;color:#fff}.event span{display:block;margin-top:3px;color:#9dc3c7;font-size:.86rem}.summary-title{margin:0 0 10px;color:#7ea5a9;font-size:.7rem;font-weight:800;letter-spacing:1.6px;text-transform:uppercase}.line{display:flex;justify-content:space-between;gap:14px;padding:9px 0;color:#c0dee1}.line[hidden]{display:none}.line+.line{border-top:1px solid #1b3a3e}.line .value{font-weight:800;color:#e7f6f7;text-align:right}.line.discount .value{color:#7fe4ec}.line.total{margin-top:5px;padding-top:14px;border-top:1px solid #2a5a60}.line.total .label{font-size:1rem;font-weight:800;color:#fff}.line.total .value{color:var(--primary);font-size:1.5rem}.strike{color:#7b9a9e;text-decoration:line-through}.btn{display:flex;align-items:center;justify-content:center;width:100%;padding:16px 20px;border:2px solid var(--primary);border-radius:14px;background:var(--primary);color:#002b30;font:inherit;font-weight:850;letter-spacing:.5px;text-align:center;text-decoration:none}.btn:hover{background:#1e919b;border-color:#1e919b;color:#e6feff}.btn-sec{margin-top:12px;border-color:#1f4d52;background:#173337;color:#b8dadd}.note{margin:20px 0 0;color:#8fb8bc;font-size:.8rem;text-align:center}.state{display:none}.spinner{width:34px;height:34px;margin:10px auto 18px;border:3px solid #1f3b3f;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+      @media(max-width:600px){.card{padding:30px 22px 28px;border-radius:22px}}
+    </style>
+  </head>
+  <body data-state="loading">
+    <main class="card">
+      <p class="brand">Instituto UP · UP Day Plus</p>
+
+      <section class="state" data-view="loading" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <h1>Conferindo seu cupom...</h1>
+        <p class="lead">Só um instante.</p>
+      </section>
+
+      <section class="state" data-view="ok" aria-live="polite">
+        <span class="badge">Cupom aplicado</span>
+        <h1 id="ok-title">Sua inscrição está confirmada</h1>
+        <p class="lead">O cupom <strong id="ok-code" style="color:#7fe4ec"></strong> cobre 100% do valor do UP Day Plus. Não há nada a pagar — sua vaga já está garantida.</p>
+        <div class="event"><strong>UP Day Plus — Instituto UP</strong><span>24 de Outubro e 07 de Novembro de 2026 • São Paulo-SP</span></div>
+        <div class="summary">
+          <p class="summary-title">Resumo</p>
+          <div class="line" id="price-line" hidden><span>UP Day Plus</span><span class="value strike" id="price-value"></span></div>
+          <div class="line discount" id="discount-line" hidden><span>Desconto do cupom</span><span class="value" id="discount-value"></span></div>
+          <div class="line total"><span class="label">Total a pagar</span><span class="value">R$ 0,00</span></div>
+        </div>
+        <a class="btn" id="whatsapp-link" href="#" target="_blank" rel="noopener">CONFIRMAR PRESENÇA NO WHATSAPP</a>
+        <p class="note">Guarde esta tela. As orientações do treinamento também chegam pelo WhatsApp cadastrado.</p>
+      </section>
+
+      <section class="state" data-view="invalid" aria-live="polite">
+        <h1>Cupom não encontrado</h1>
+        <p class="lead" id="invalid-message">Não localizamos um cupom válido para este link. Sua inscrição foi registrada; falta concluir o pagamento para garantir a vaga.</p>
+        <a class="btn" id="payment-link" href="/checkout-pagamento.html">VER PAGAMENTO</a>
+        <a class="btn btn-sec" href="/">VOLTAR PARA O FORMULÁRIO</a>
+      </section>
+    </main>
+    <script>
+      (function () {
+        const config = window.UP_DAY_CHECKOUT_CONFIG || {};
+        const body = document.body;
+        const setState = (state) => {
+          body.setAttribute('data-state', state);
+          document.querySelectorAll('[data-view]').forEach((el) => { el.style.display = el.dataset.view === state ? 'block' : 'none'; });
+        };
+        const money = (value) => Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const stored = (() => { try { return JSON.parse(sessionStorage.getItem('up-day:cupomAplicado') || 'null'); } catch { return null; } })();
+        const registration = (() => { try { return JSON.parse(sessionStorage.getItem('up-day:inscricaoConcluida') || 'null'); } catch { return null; } })();
+        const registrationName = registration?.nome || stored?.nome || '';
+        const code = (new URLSearchParams(location.search).get('cupom') || (stored && stored.codigo) || '').trim();
+
+        document.getElementById('payment-link').href = config.paginaPagamento || '/checkout-pagamento.html';
+        const whatsapp = document.getElementById('whatsapp-link');
+        const whatsappMessage = registrationName
+          ? `Olá! Meu nome é ${String(registrationName).replace(/\s+/g, ' ').trim()}. Acabei de concluir minha inscrição e gostaria de falar com a equipe.`
+          : 'Olá! Acabei de concluir minha inscrição e gostaria de falar com a equipe.';
+        whatsapp.href = `https://wa.me/${config.whatsappNumber || '551120901412'}?text=${encodeURIComponent(whatsappMessage)}`;
+
+        if (!code) { setState('invalid'); return; }
+
+        fetch('/api/inscricao', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ _action: 'consultarCupom', cupom: code })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const coupon = data && data.cupom;
+            if (!coupon || !coupon.aplicado) {
+              const message = document.getElementById('invalid-message');
+              if (coupon && coupon.motivo === 'expirado') message.textContent = 'Este cupom expirou. Sua inscrição foi registrada; conclua o pagamento para garantir a vaga.';
+              if (coupon && coupon.motivo === 'esgotado') message.textContent = 'Este cupom já atingiu o limite de usos. Sua inscrição foi registrada; conclua o pagamento para garantir a vaga.';
+              setState('invalid'); return;
+            }
+            document.getElementById('ok-code').textContent = coupon.codigo;
+            const firstName = registrationName ? String(registrationName).trim().split(/\s+/)[0] : '';
+            if (firstName) document.getElementById('ok-title').textContent = firstName + ', sua inscrição está confirmada';
+            const price = Number(config.precoOriginal);
+            if (Number.isFinite(price) && price > 0) {
+              document.getElementById('price-value').textContent = money(price);
+              document.getElementById('discount-value').textContent = '− ' + money(price);
+              document.getElementById('price-line').hidden = false;
+              document.getElementById('discount-line').hidden = false;
+            }
+            setState('ok');
+          })
+          .catch(() => setState('invalid'));
+      })();
+    </script>
+  </body>
+</html>

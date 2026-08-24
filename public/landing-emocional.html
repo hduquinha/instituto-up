@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Inscrição UP Day - Agosto 2026</title>
+    <title>Inscrição UP Day - Outubro 2026</title>
     <link rel="icon" type="image/png" href="/up.png" />
+    <script src="/checkout-config.js"></script>
     <style>
       :root {
         color-scheme: light;
@@ -612,6 +613,29 @@
         font-weight: 700;
       }
 
+      .coupon-feedback {
+        display: none;
+        margin: 12px 0 0;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-size: 0.88rem;
+        font-weight: 750;
+      }
+
+      .coupon-feedback.is-ok {
+        display: block;
+        border: 1px solid rgba(32, 132, 104, 0.32);
+        background: rgba(37, 165, 124, 0.1);
+        color: #146349;
+      }
+
+      .coupon-feedback.is-err {
+        display: block;
+        border: 1px solid rgba(192, 62, 48, 0.28);
+        background: rgba(192, 62, 48, 0.08);
+        color: #9b3329;
+      }
+
       .actions {
         display: flex;
         justify-content: space-between;
@@ -691,8 +715,8 @@
       <div class="shell">
         <section class="hero-card" aria-labelledby="hero-title">
           <div class="eyebrow">Inscrição oficial</div>
-          <h1 id="hero-title">UP Day <span class="accent">Agosto 2026</span></h1>
-          <p class="hero-date">15 e 16 de Agosto • São Paulo-SP</p>
+          <h1 id="hero-title">UP Day <span class="accent">Outubro 2026</span></h1>
+          <p class="hero-date">24 de Outubro e 07 de Novembro • São Paulo-SP</p>
           <p class="lead">
             Preencha seus dados para garantir sua vaga no treinamento presencial do
             Instituto UP e aproveite a condição especial do 1º lote.
@@ -745,13 +769,13 @@
             <div class="limited-title">Atenção: vagas limitadas</div>
             <div class="bar"><div>83% preenchido</div></div>
             <div class="limited-note">
-              Restam poucas vagas disponíveis para 15 e 16 de agosto.
+              Restam poucas vagas disponíveis para 24 de outubro e 07 de novembro.
             </div>
           </div>
 
           <h2 class="form-title" id="formTitle">Faça sua inscrição</h2>
           <p class="form-subtitle">
-            UP Day • 15 e 16 de Agosto de 2026 • São Paulo-SP
+            UP Day • 24 de Outubro e 07 de Novembro de 2026 • São Paulo-SP
           </p>
 
           <div class="progress-card">
@@ -762,11 +786,12 @@
               <div class="dot" data-step="3">4</div>
               <div class="dot" data-step="4">5</div>
               <div class="dot" data-step="5">6</div>
+              <div class="dot" data-step="6">7</div>
             </div>
             <div class="progress-rail" aria-hidden="true">
               <div id="progressFill"></div>
             </div>
-            <div id="progressText">Etapa 1 de 6 • Identificação</div>
+            <div id="progressText">Etapa 1 de 7 • Identificação</div>
           </div>
 
           <form id="msForm" novalidate>
@@ -1076,16 +1101,14 @@
                   <div class="step-kicker">Etapa 5</div>
                   <h3 class="step-title">Pagamento e confirmação da vaga</h3>
                   <p class="step-text">
-                    Sua vaga será confirmada após o pagamento da primeira parcela.
+                    Na última etapa, você escolherá entre usar um cupom de cortesia ou seguir para o pagamento normal.
                   </p>
                 </div>
 
                 <div class="info-box">
                   <h3>Pagamento</h3>
-                  <p>Sua vaga será garantida com o pagamento da primeira parcela através do PIX:</p>
-                  <p class="pix-line">CNPJ 24.964.964/0001-18</p>
-                  <p class="pix-line">RODRIGO DAMACENO PEREIRA</p>
-                  <p>Ou pelo preenchimento do link de pagamento enviado pela equipe.</p>
+                  <p>Com um cupom válido, sua inscrição fica confirmada sem custo.</p>
+                  <p>Sem cupom, você seguirá para o link seguro de pagamento após concluir o formulário.</p>
                   <p>
                     <strong>Obs.:</strong> Não é permitida a participação de gestantes.
                     Outras condições especiais, consulte nossa equipe.
@@ -1159,6 +1182,54 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-step" data-step="6">
+              <div class="step-panel">
+                <div class="step-header">
+                  <div class="step-kicker">Etapa 7</div>
+                  <h3 class="step-title">Cupom e pagamento</h3>
+                  <p class="step-text">
+                    Escolha como deseja concluir sua inscrição.
+                  </p>
+                </div>
+
+                <div class="field">
+                  <div class="question-label required">Você tem um cupom de desconto?</div>
+                  <div class="choice-list">
+                    <label>
+                      <input type="radio" name="tem_cupom" value="Sim" />
+                      Sim, tenho um cupom
+                    </label>
+                    <label>
+                      <input type="radio" name="tem_cupom" value="Não" />
+                      Não tenho cupom
+                    </label>
+                  </div>
+                  <div class="error" data-for="tem_cupom"></div>
+                </div>
+
+                <div class="field" id="couponField" hidden>
+                  <label class="required" for="cupom">Código do cupom</label>
+                  <div class="actions">
+                    <input id="cupom" name="cupom" type="text" placeholder="DIGITE O CÓDIGO" autocomplete="off" />
+                    <button type="button" class="btn btn-secondary" id="couponApply">APLICAR</button>
+                  </div>
+                  <div class="coupon-feedback" id="couponFeedback" aria-live="polite"></div>
+                  <div class="error" data-for="cupom"></div>
+                </div>
+
+                <p class="note" id="checkoutNote">
+                  Ao finalizar, você será encaminhado para a etapa de pagamento.
+                </p>
+
+                <div class="actions">
+                  <button type="button" class="btn btn-secondary" data-back>Voltar</button>
+                  <button type="button" class="btn btn-primary" data-next>
+                    Finalizar inscrição
+                  </button>
+                </div>
+              </div>
+            </div>
           </form>
         </section>
       </div>
@@ -1168,19 +1239,19 @@
       (function () {
         const TRAINING_CONFIG = {
           id: "3997",
-          name: "Inscrição UP Day - Agosto 2026",
+          name: "Inscrição UP Day - Outubro 2026",
           businessUnit: "InstitutoUP",
           leadSector: "instituto_up",
           leadOrigin: "up_day_plus",
           leadProduct: "UP Day Plus",
           leadEntry: "InstitutoUP / UP Day Plus",
-          dateDisplay: "15 e 16/08",
-          dateLong: "15 e 16 de Agosto de 2026",
-          startISO: "2026-08-15T08:59:00-03:00",
-          endISO: "2026-08-16T18:00:00-03:00",
-          whatsappNumber: "5513997832766",
+          dateDisplay: "24/10 e 07/11",
+          dateLong: "24 de Outubro e 07 de Novembro de 2026",
+          startISO: "2026-10-24T08:59:00-03:00",
+          endISO: "2026-11-07T18:00:00-03:00",
+          whatsappNumber: "551120901412",
           whatsappMessage:
-            "Olá! Acabei de preencher minha inscrição do UP Day Agosto 2026 e quero finalizar minha vaga.",
+            "Olá! Acabei de concluir minha inscrição do UP Day Outubro 2026 e gostaria de falar com a equipe.",
         };
 
         const STEP_TITLES = [
@@ -1190,6 +1261,7 @@
           "Experiência",
           "Pagamento",
           "Termos finais",
+          "Cupom e pagamento",
         ];
 
         const STEP_MESSAGES = [
@@ -1198,10 +1270,11 @@
           "Complete seu perfil para organização do evento.",
           "Complete os detalhes da sua experiência no treinamento.",
           "Revise como será a confirmação da sua vaga.",
-          "Última etapa: aceite os termos para finalizar.",
+          "Revise e aceite os termos do treinamento.",
+          "Escolha se você tem cupom antes de finalizar.",
         ];
 
-        const TOTAL_STEPS = 6;
+        const TOTAL_STEPS = 7;
         const INSCRICAO_URL = "/api/inscricao";
         const form = document.getElementById("msForm");
         const steps = Array.from(document.querySelectorAll(".form-step"));
@@ -1211,13 +1284,18 @@
         const statusBanner = document.getElementById("status-banner");
         const ctaOpen = document.getElementById("cta-open");
         const socialNameField = document.getElementById("socialNameField");
+        const couponField = document.getElementById("couponField");
+        const couponInput = document.getElementById("cupom");
+        const couponApply = document.getElementById("couponApply");
+        const couponFeedback = document.getElementById("couponFeedback");
+        const checkoutNote = document.getElementById("checkoutNote");
         const clientId =
           window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
         const searchParams = new URLSearchParams(window.location.search);
         const tracking = collectTracking(searchParams);
         const allData = {};
-        const formDataKey = "instituto-up-inscricao-agosto-2026";
-        const formStepKey = "instituto-up-inscricao-agosto-2026-step";
+        const formDataKey = "instituto-up-inscricao-outubro-2026";
+        const formStepKey = "instituto-up-inscricao-outubro-2026-step";
         let currentStep = 0;
 
         form.setAttribute("aria-live", "assertive");
@@ -1394,6 +1472,7 @@
           updateProgress();
           syncSelectableStates();
           toggleSocialNameField();
+          toggleCouponField();
         }
 
         function syncSelectableStates() {
@@ -1417,6 +1496,70 @@
               error.textContent = "";
               error.style.display = "none";
             }
+          }
+        }
+
+        function couponMessage(coupon) {
+          if (coupon && coupon.aplicado) {
+            return `Cupom ${coupon.codigo} válido! Sua inscrição fica sem custo — é só finalizar.`;
+          }
+          if (coupon && coupon.motivo === "expirado") return "Este cupom expirou.";
+          if (coupon && coupon.motivo === "esgotado") return "Este cupom já atingiu o limite de usos.";
+          return "Cupom não encontrado. Confira o código.";
+        }
+
+        function setCouponFeedback(message, kind) {
+          if (!couponFeedback) return;
+          couponFeedback.textContent = message || "";
+          couponFeedback.className = `coupon-feedback${kind ? ` is-${kind}` : ""}`;
+        }
+
+        function toggleCouponField() {
+          const selected = form.querySelector('input[name="tem_cupom"]:checked');
+          const hasCoupon = selected && selected.value === "Sim";
+          if (couponField) couponField.hidden = !hasCoupon;
+
+          if (checkoutNote) {
+            checkoutNote.textContent = hasCoupon
+              ? "Com um cupom válido, sua inscrição fica confirmada ao finalizar — sem pagamento."
+              : "Ao finalizar, você será encaminhado para a etapa de pagamento.";
+          }
+
+          if (!hasCoupon && couponInput) {
+            couponInput.value = "";
+            setCouponFeedback("", "");
+            const error = form.querySelector('[data-for="cupom"]');
+            if (error) {
+              error.textContent = "";
+              error.style.display = "none";
+            }
+          }
+        }
+
+        async function checkCoupon() {
+          const rawCoupon = couponInput ? couponInput.value.trim() : "";
+          if (rawCoupon.length < 3) {
+            setError(steps[currentStep], "cupom", "Digite o código do cupom.");
+            return;
+          }
+
+          if (couponApply) couponApply.disabled = true;
+          setCouponFeedback("Verificando cupom...", "");
+          try {
+            const response = await fetch(INSCRICAO_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ _action: "validarCupom", cupom: rawCoupon }),
+            });
+            const result = await response.json().catch(() => ({}));
+            const coupon = result && result.cupom;
+            if (coupon && coupon.aplicado && couponInput) couponInput.value = coupon.codigo;
+            setCouponFeedback(couponMessage(coupon), coupon && coupon.aplicado ? "ok" : "err");
+          } catch (error) {
+            console.error("Erro ao verificar cupom:", error);
+            setCouponFeedback("Não foi possível verificar agora. Você pode finalizar e o código será conferido no envio.", "err");
+          } finally {
+            if (couponApply) couponApply.disabled = false;
           }
         }
 
@@ -1540,6 +1683,19 @@
               }
               break;
             }
+
+            case 6: {
+              data.tem_cupom = checkedValue(stepEl, "tem_cupom");
+              if (!data.tem_cupom) {
+                fail("tem_cupom", "Escolha se você tem um cupom.");
+              }
+
+              data.cupom = getValue(stepEl, "cupom");
+              if (data.tem_cupom === "Sim" && data.cupom.length < 3) {
+                fail("cupom", "Digite o código do cupom.");
+              }
+              break;
+            }
           }
 
           return { valid, data };
@@ -1657,15 +1813,52 @@
               throw new Error(`HTTP ${response.status}${details ? ` - ${details}` : ""}`);
             }
 
+            const result = await response.json().catch(() => ({}));
+
             statusBanner.textContent = isFinal
               ? "Inscrição enviada com sucesso."
               : `Etapa ${currentStep + 1} salva.`;
-            return true;
+            return result;
           } catch (error) {
             console.error("Erro ao enviar inscrição:", error);
             statusBanner.textContent = "Erro de conexão. Tente novamente.";
-            return false;
+            return null;
           }
+        }
+
+        function showCheckoutHandoff(coupon) {
+          const config = window.UP_DAY_CHECKOUT_CONFIG || {};
+          const completedName = allData.nome_social || allData.nome || "";
+          try {
+            sessionStorage.setItem(
+              "up-day:inscricaoConcluida",
+              JSON.stringify({ nome: completedName, em: new Date().toISOString() })
+            );
+          } catch (error) {
+            console.error("Erro ao guardar o nome da inscrição:", error);
+          }
+
+          if (coupon && coupon.aplicado && coupon.codigo) {
+            try {
+              sessionStorage.setItem(
+                "up-day:cupomAplicado",
+                JSON.stringify({
+                  codigo: coupon.codigo,
+                  nome: completedName,
+                  em: new Date().toISOString(),
+                })
+              );
+            } catch (error) {
+              console.error("Erro ao guardar cupom aplicado:", error);
+            }
+            window.location.href = `${config.paginaCupom || "/checkout-cupom.html"}?cupom=${encodeURIComponent(coupon.codigo)}`;
+            return;
+          }
+
+          const reason = coupon && coupon.informado && coupon.motivo
+            ? `?motivo=${encodeURIComponent(coupon.motivo)}`
+            : "";
+          window.location.href = `${config.paginaPagamento || "/checkout-pagamento.html"}${reason}`;
         }
 
         async function goNext() {
@@ -1678,10 +1871,10 @@
 
           const isLast = currentStep === steps.length - 1;
           if (isLast) {
-            const success = await sendStepPayload(data, true);
-            if (!success) return;
+            const result = await sendStepPayload(data, true);
+            if (!result) return;
             clearProgress();
-            window.location.href = buildWhatsAppUrl(allData.nome_social || allData.nome || "");
+            showCheckoutHandoff(result.cupom);
             return;
           }
 
@@ -1774,8 +1967,17 @@
         form.addEventListener("change", () => {
           syncSelectableStates();
           toggleSocialNameField();
+          toggleCouponField();
           saveProgress();
         });
+
+        if (couponInput) {
+          couponInput.addEventListener("input", () => setCouponFeedback("", ""));
+        }
+
+        if (couponApply) {
+          couponApply.addEventListener("click", checkCoupon);
+        }
 
         document.querySelectorAll("[data-next]").forEach((button) => {
           button.addEventListener("click", goNext);
