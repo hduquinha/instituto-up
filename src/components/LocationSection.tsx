@@ -27,8 +27,8 @@ const LocationSection = () => {
                   <MapPin className="h-5 w-5 text-turquoise mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Endereço</p>
-                    <p className="text-gray-400">Rua Abílio Soares, 245 – Bairro Paraíso</p>
-                    <p className="text-gray-400">São Paulo - SP</p>
+                    <p className="text-gray-400">Largo Nossa Senhora do Bom Parto, 163 – Vila Gomes Cardim</p>
+                    <p className="text-gray-400">Tatuapé – São Paulo - SP</p>
                   </div>
                 </div>
                 
@@ -36,9 +36,9 @@ const LocationSection = () => {
                   <Clock className="h-5 w-5 text-turquoise mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-white font-semibold">Data e Horário do Evento</p>
-                    <p className="text-gray-400">24 de Outubro e 07 de Novembro de 2026</p>
-                    <p className="text-gray-400">24/10: 8:59h às 20:59h</p>
-                    <p className="text-gray-400">07/11: 8:59h às 18:59h</p>
+                    <p className="text-gray-400">07 e 08 de Novembro de 2026</p>
+                    <p className="text-gray-400">Sábado: 8:59h às 20:59h</p>
+                    <p className="text-gray-400">Domingo: 8:59h às 18:59h</p>
                   </div>
                 </div>
               </div>
@@ -51,7 +51,7 @@ const LocationSection = () => {
               <h4 className="text-xl font-bold text-white mb-4">Localização no Mapa</h4>
               <div className="relative rounded-lg overflow-hidden aspect-video">
                 <iframe
-                  src="https://www.google.com/maps?q=Rua%20Ab%C3%ADlio%20Soares%2C%20245%20-%20Para%C3%ADso%2C%20S%C3%A3o%20Paulo%20-%20SP&output=embed"
+                  src="https://www.google.com/maps?q=Largo%20Nossa%20Senhora%20do%20Bom%20Parto%2C%20163%20-%20Vila%20Gomes%20Cardim%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003322-080&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -63,7 +63,7 @@ const LocationSection = () => {
               </div>
               <div className="mt-4 text-center">
                 <a
-                  href="https://maps.google.com/?q=Rua+Ab%C3%ADlio+Soares,+245+-+Para%C3%ADso,+S%C3%A3o+Paulo+-+SP"
+                  href="https://maps.google.com/?q=Largo+Nossa+Senhora+do+Bom+Parto,+163+-+Vila+Gomes+Cardim,+S%C3%A3o+Paulo+-+SP,+03322-080"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-turquoise hover:bg-turquoise/90 text-black font-semibold px-6 py-3 rounded-lg transition-colors"

@@ -15,7 +15,7 @@ const HowItWorksSection = () => {
     {
       icon: CalendarCheck,
       title: "3. Viva a experiência",
-      text: "24 de Outubro e 07 de Novembro em São Paulo-SP: 2 dias de imersão que transformam.",
+      text: "07 e 08 de Novembro em São Paulo-SP: 2 dias de imersão que transformam.",
     },
   ];
 

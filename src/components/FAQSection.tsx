@@ -30,7 +30,7 @@ const FAQSection = () => {
     },
     {
       question: "Quando acontece o treinamento?",
-      answer: "O evento acontece em dois sábados, 24 de outubro e 07 de novembro de 2026, em São Paulo-SP, na Rua Abílio Soares, 245 – Bairro Paraíso. Horário: 24/10: 8:59h às 20:59h; 07/11: 8:59h às 18:59h. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
+      answer: "O evento acontece nos dias 07 e 08 de novembro de 2026 em São Paulo-SP, no Largo Nossa Senhora do Bom Parto, 163 – Vila Gomes Cardim, Tatuapé. Horário: Sábado: 8:59h às 20:59h; Domingo: 8:59h às 18:59h. O programa é intensivo, desenvolvido para maximizar o aprendizado com intervalos estratégicos."
     },
     {
       question: "Preciso ter conhecimento prévio?",
