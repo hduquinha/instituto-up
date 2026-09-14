@@ -10,7 +10,7 @@
     <script defer src="/clarity.js"></script>
     <script src="/checkout-config.js"></script>
     <style>
-      :root{--primary:#27abb6;--primary-rgb:39,171,182}*{box-sizing:border-box}body{min-height:100vh;margin:0;padding:24px 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#000,#061112 55%,#082024);color:#fff;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}.card{width:100%;max-width:560px;padding:38px 34px 34px;background:#0f1718;border:1px solid #204044;border-radius:26px;box-shadow:0 12px 56px -10px rgba(0,0,0,.7)}.brand{margin:0 0 20px;color:#7ea5a9;font-size:.7rem;font-weight:800;letter-spacing:2.4px;text-transform:uppercase}.badge{display:inline-flex;margin-bottom:18px;padding:8px 16px;border:1px solid #226b73;border-radius:40px;background:rgba(var(--primary-rgb),.14);color:#7fe4ec;font-size:.72rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}h1{margin:0 0 12px;color:var(--primary);font-size:1.7rem;line-height:1.15}.lead{margin:0 0 24px;color:#d0e5e8}.box{margin:0 0 22px;padding:18px;border:1px solid #21484d;border-radius:18px;background:#122325;color:#c0dee1}.btn{display:flex;align-items:center;justify-content:center;width:100%;padding:16px 20px;border:2px solid var(--primary);border-radius:14px;background:var(--primary);color:#002b30;font:inherit;font-weight:850;letter-spacing:.5px;text-decoration:none}.btn:hover{background:#1e919b;border-color:#1e919b;color:#e6feff}.btn-sec{margin-top:12px;border-color:#1f4d52;background:#173337;color:#b8dadd}.note{margin:20px 0 0;color:#8fb8bc;font-size:.8rem;text-align:center}@media(max-width:600px){.card{padding:30px 22px 28px;border-radius:22px}}
+      :root{--primary:#27abb6;--primary-rgb:39,171,182}*{box-sizing:border-box}[hidden]{display:none!important}body{min-height:100vh;margin:0;padding:24px 18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#000,#061112 55%,#082024);color:#fff;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}.card{width:100%;max-width:560px;padding:38px 34px 34px;background:#0f1718;border:1px solid #204044;border-radius:26px;box-shadow:0 12px 56px -10px rgba(0,0,0,.7)}.brand{margin:0 0 20px;color:#7ea5a9;font-size:.7rem;font-weight:800;letter-spacing:2.4px;text-transform:uppercase}.badge{display:inline-flex;margin-bottom:18px;padding:8px 16px;border:1px solid #226b73;border-radius:40px;background:rgba(var(--primary-rgb),.14);color:#7fe4ec;font-size:.72rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}h1{margin:0 0 12px;color:var(--primary);font-size:1.7rem;line-height:1.15}.lead{margin:0 0 24px;color:#d0e5e8}.box{margin:0 0 22px;padding:18px;border:1px solid #21484d;border-radius:18px;background:#122325;color:#c0dee1}.btn{display:flex;align-items:center;justify-content:center;width:100%;padding:16px 20px;border:2px solid var(--primary);border-radius:14px;background:var(--primary);color:#002b30;font:inherit;font-weight:850;letter-spacing:.5px;text-decoration:none}.btn:hover{background:#1e919b;border-color:#1e919b;color:#e6feff}.btn-sec{margin-top:12px;border-color:#1f4d52;background:#173337;color:#b8dadd}.note{margin:20px 0 0;color:#8fb8bc;font-size:.8rem;text-align:center}@media(max-width:600px){.card{padding:30px 22px 28px;border-radius:22px}}
     </style>
   </head>
   <body>
@@ -19,7 +19,7 @@
       <span class="badge">Inscrição registrada</span>
       <h1 id="title">Falta concluir o pagamento</h1>
       <p class="lead" id="lead">Sua inscrição foi registrada. Para garantir a vaga, conclua o pagamento.</p>
-      <div class="box" id="payment-message">Estamos preparando seu link de pagamento. Assim que ele estiver disponível, esta página mostrará o botão para concluir a compra.</div>
+      <div class="box" id="payment-message">Seu link de pagamento está sendo processado. Em breve alguém da nossa equipe vai enviá-lo para você pelo WhatsApp.</div>
       <a class="btn" id="payment-button" href="#" hidden>IR PARA O PAGAMENTO</a>
       <a class="btn btn-sec" id="whatsapp-link" href="#" target="_blank" rel="noopener noreferrer">FALAR COM A EQUIPE NO WHATSAPP</a>
       <a class="btn btn-sec" href="/">VOLTAR PARA O FORMULÁRIO</a>
@@ -37,7 +37,7 @@
         const whatsappMessage = registrationName
           ? `Olá! Meu nome é ${registrationName}. Acabei de concluir minha inscrição e gostaria de falar com a equipe.`
           : 'Olá! Acabei de concluir minha inscrição e gostaria de falar com a equipe.';
-        document.getElementById('whatsapp-link').href = `https://wa.me/${config.whatsappNumber || '551120901412'}?text=${encodeURIComponent(whatsappMessage)}`;
+        document.getElementById('whatsapp-link').href = `https://wa.me/${config.whatsappNumber || '551120901413'}?text=${encodeURIComponent(whatsappMessage)}`;
         const reason = new URLSearchParams(location.search).get('motivo');
         if (reason === 'invalido') document.getElementById('lead').textContent = 'O cupom informado não foi aceito. Sua inscrição foi registrada; conclua o pagamento para garantir a vaga.';
         if (reason === 'expirado') document.getElementById('lead').textContent = 'O cupom informado expirou. Sua inscrição foi registrada; conclua o pagamento para garantir a vaga.';

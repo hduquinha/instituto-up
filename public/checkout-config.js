@@ -19,10 +19,10 @@ window.UP_DAY_CHECKOUT_CONFIG = {
   // Se houver URL configurada, a tela de pagamento redireciona após esse tempo.
   redirectDelaySeconds: 4,
 
-  whatsappNumber: '551120901412',
+  whatsappNumber: '551120901413',
 
   // Contato exibido como alternativa após concluir a inscrição.
   whatsappUrl:
-    'https://wa.me/551120901412?text=' +
+    'https://wa.me/551120901413?text=' +
     encodeURIComponent('Olá! Acabei de concluir minha inscrição do UP Day Plus e gostaria de falar com a equipe.'),
 };

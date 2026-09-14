@@ -71,7 +71,7 @@
         const whatsappMessage = registrationName
           ? `Olá! Meu nome é ${String(registrationName).replace(/\s+/g, ' ').trim()}. Acabei de concluir minha inscrição e gostaria de falar com a equipe.`
           : 'Olá! Acabei de concluir minha inscrição e gostaria de falar com a equipe.';
-        whatsapp.href = `https://wa.me/${config.whatsappNumber || '551120901412'}?text=${encodeURIComponent(whatsappMessage)}`;
+        whatsapp.href = `https://wa.me/${config.whatsappNumber || '551120901413'}?text=${encodeURIComponent(whatsappMessage)}`;
 
         if (!code) { setState('invalid'); return; }
 
