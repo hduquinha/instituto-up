@@ -10,10 +10,10 @@ const TRAINING_CONFIG = {
   leadOrigin: "up_day_plus",
   leadProduct: "UP Day Plus",
   leadEntry: "InstitutoUP / UP Day Plus",
-  dateDisplay: "07 e 08/11",
-  dateLong: "07 e 08 de Novembro de 2026",
-  startISO: "2026-11-07T08:59:00-03:00",
-  endISO: "2026-11-08T18:00:00-03:00",
+  dateDisplay: "28 e 29/11",
+  dateLong: "28 e 29 de Novembro de 2026",
+  startISO: "2026-11-28T08:59:00-03:00",
+  endISO: "2026-11-29T18:00:00-03:00",
   whatsappNumber: "551120901412",
   whatsappMessage:
     "Olá! Acabei de concluir minha inscrição do UP Day Novembro 2026 e gostaria de falar com a equipe.",
@@ -575,7 +575,7 @@ const InscriptionForm = () => {
         Faça sua inscrição
       </h2>
       <p className="mt-1 text-sm text-gray-400">
-        UP Day • 07 e 08 de Novembro de 2026 • São Paulo-SP
+        UP Day • 28 e 29 de Novembro de 2026 • São Paulo-SP
       </p>
 
       <div className="mt-5">

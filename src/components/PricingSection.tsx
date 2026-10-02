@@ -5,7 +5,7 @@ import { scrollToInscricao } from "@/components/HeroSection";
 const PricingSection = () => {
   const features = [
     "2 dias de treinamento presencial intensivo",
-    "07 e 08 de Novembro de 2026 • Largo Nossa Senhora do Bom Parto, 163 - Tatuapé - São Paulo-SP",
+    "28 e 29 de Novembro de 2026 • Largo Nossa Senhora do Bom Parto, 163 - Tatuapé - São Paulo-SP",
     "Material físico + crachá personalizado",
     "Certificado de participação presencial",
     "Suporte durante todo o evento",
