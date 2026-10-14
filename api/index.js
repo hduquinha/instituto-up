@@ -505,7 +505,7 @@ app.post('/api/inscricao', async (req, res) => {
         });
 
         // Garantir treinamento
-        const treinamentoCodigo = treinamentoId || dataTreinamento || '28 e 29/11';
+        const treinamentoCodigo = treinamentoId || dataTreinamento || '05 e 06/12';
         const treinamentoNome = body.treinamento_nome || `UP Day ${treinamentoCodigo}`;
         const treinamento = await ensureTreinamento(
           treinamentoCodigo,

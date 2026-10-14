@@ -30,7 +30,7 @@ const HeroSection = () => {
             <h2 className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-semibold text-gray-200 sm:text-base md:text-lg">
               <span className="inline-flex items-center gap-1.5">
                 <CalendarDays className="h-4 w-4 text-turquoise" />
-                28 e 29 de Novembro
+                05 e 06 de Dezembro
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <MapPin className="h-4 w-4 text-turquoise" />

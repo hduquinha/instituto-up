@@ -4,19 +4,19 @@ import { CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 
 const TRAINING_CONFIG = {
   id: "3997",
-  name: "Inscrição UP Day - Novembro 2026",
+  name: "Inscrição UP Day - Dezembro 2026",
   businessUnit: "InstitutoUP",
   leadSector: "instituto_up",
   leadOrigin: "up_day_plus",
   leadProduct: "UP Day Plus",
   leadEntry: "InstitutoUP / UP Day Plus",
-  dateDisplay: "28 e 29/11",
-  dateLong: "28 e 29 de Novembro de 2026",
-  startISO: "2026-11-28T08:59:00-03:00",
-  endISO: "2026-11-29T18:00:00-03:00",
+  dateDisplay: "05 e 06/12",
+  dateLong: "05 e 06 de Dezembro de 2026",
+  startISO: "2026-12-05T08:59:00-03:00",
+  endISO: "2026-12-06T18:00:00-03:00",
   whatsappNumber: "551120901412",
   whatsappMessage:
-    "Olá! Acabei de concluir minha inscrição do UP Day Novembro 2026 e gostaria de falar com a equipe.",
+    "Olá! Acabei de concluir minha inscrição do UP Day Dezembro 2026 e gostaria de falar com a equipe.",
 };
 
 const INSCRICAO_URL = "/api/inscricao";
@@ -575,7 +575,7 @@ const InscriptionForm = () => {
         Faça sua inscrição
       </h2>
       <p className="mt-1 text-sm text-gray-400">
-        UP Day • 28 e 29 de Novembro de 2026 • São Paulo-SP
+        UP Day • 05 e 06 de Dezembro de 2026 • São Paulo-SP
       </p>
 
       <div className="mt-5">
